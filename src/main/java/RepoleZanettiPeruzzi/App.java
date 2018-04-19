@@ -1,4 +1,4 @@
-package Repole-Zanetti-Peruzzi;
+package RepoleZanettiPeruzzi;
 
 /**
  * Hello world!
