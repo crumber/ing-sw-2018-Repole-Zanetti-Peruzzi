@@ -35,7 +35,19 @@ public class Box {
 
     public void setDie(Die dice){
 
-        this.die=dice;
+        if((this.getBoundColour()==null)&&(this.getBoundValue()==null)) {
+
+            this.die = dice;
+
+        }else if((null != this.getBoundValue())&&(this.getBoundValue().equals(dice.getValueDie()))){
+
+            this.die = dice;
+
+        }else if((null != this.getBoundColour())&&(this.getBoundColour().equals(dice.getCOLOURDIE()))){
+
+             this.die = dice;
+
+        }
     }
 
     public Die removeDie() {
