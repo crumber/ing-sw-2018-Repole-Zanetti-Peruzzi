@@ -11,7 +11,7 @@ public enum Value {
     SIX(6);
 
     private int value;
-    public static final int valueMax=6;
+    public static final int VALUEMAX=6;
 
     private Value(int value){
         this.value=value;
@@ -25,7 +25,7 @@ public enum Value {
 
         Random random= new Random();
         Value realValue;
-        int numRandom= random.nextInt(valueMax);
+        int numRandom= random.nextInt(VALUEMAX);
 
         switch (numRandom) {
             case 1:

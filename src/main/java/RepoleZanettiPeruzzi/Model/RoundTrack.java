@@ -1,12 +1,11 @@
 package RepoleZanettiPeruzzi.Model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class RoundTrack {
 
-    private int maxRoundTrack = 10;
-    private ArrayList<ArrayList<Die>> dieRoundTrack = new ArrayList<ArrayList<Die>>();
+    private static final int MAXROUNDTRACK = 10;
+    private ArrayList<ArrayList<Die>> dieRoundTrack = new ArrayList<>();
 
     /*
     costruttore che inizializza gli arraylist esterni sennò l'addDie
@@ -14,7 +13,7 @@ public class RoundTrack {
      */
     public RoundTrack() {
 
-        for (int i = 0; i < maxRoundTrack; i++) {
+        for (int i = 0; i < MAXROUNDTRACK; i++) {
             dieRoundTrack.add(new ArrayList<Die>());
         }
     }

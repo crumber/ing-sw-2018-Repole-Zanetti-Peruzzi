@@ -11,15 +11,14 @@ public class Window {
         NAME = name;
         FLAVORTOKENS = ft;
 
-        for(int i = 0; i< 4; i++)
-
+        for(int i = 0; i< 4; i++) {
 
             for (int j = 0; j < 5; j++) {
 
                 boardBox[i][j] = board[i][j];
 
             }
-
+        }
     }
 
     public void insertDie(Die d, int x, int y){
