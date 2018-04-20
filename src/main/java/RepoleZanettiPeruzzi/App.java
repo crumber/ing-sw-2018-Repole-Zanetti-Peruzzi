@@ -1,5 +1,8 @@
 package RepoleZanettiPeruzzi;
 
+import RepoleZanettiPeruzzi.Model.*;
+
+
 /**
  * Hello world!
  * IL POTENTISSIMO PATTERN VISITOR!!!!
@@ -7,3 +10,12 @@ package RepoleZanettiPeruzzi;
  * POMP IT!!!!!!!!!!
  * COME SU MAGIC... SI OKAY.. NEMMENO IO SO COME FUNZIONA
 */
+
+public class App{
+
+    public static void main (String[] args){
+
+        System.out.println("Hello World!");
+
+    }
+}

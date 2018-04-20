@@ -13,7 +13,7 @@ public enum Value {
     private int value;
     public static final int valueMax=6;
 
-     private Value(int value){
+    private Value(int value){
         this.value=value;
     }
 
