@@ -22,6 +22,7 @@ public enum Value {
     }
 
     public Value randomValue() {
+
         Random random= new Random();
         Value realValue;
         int numRandom= random.nextInt(valueMax);
@@ -46,7 +47,7 @@ public enum Value {
                 realValue = SIX;
                 break;
         }
+
         return realValue;
     }
 }
-

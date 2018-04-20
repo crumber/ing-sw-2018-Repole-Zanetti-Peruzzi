@@ -6,7 +6,6 @@ public class Window {
     private Box[][] boardBox;
     private final int FLAVORTOKENS;
 
-
     public Window(String name, int ft, Box[][] board) {
 
         NAME = name;
@@ -52,6 +51,5 @@ public class Window {
         return this.FLAVORTOKENS;
 
     }
-
 
 }

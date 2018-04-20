@@ -6,6 +6,7 @@ public class Die {
     private Value valueDie;
 
     public Die (Colour c){
+
         this.COLOURDIE=c;
         this.valueDie=Value.ONE;
     }

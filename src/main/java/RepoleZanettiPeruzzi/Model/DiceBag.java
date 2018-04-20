@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class DiceBag {
 
-    private ArrayList<Die> diceBag=new ArrayList<Die>();
+    private ArrayList<Die> diceBag=new ArrayList<Die>(90);
 
     public DiceBag(){
 
@@ -19,6 +19,7 @@ public class DiceBag {
     }
 
     public Die takeDie(){
+
         int max=diceBag.size();
         Random random= new Random();
         int choose= random.nextInt(max); //return int between 0 and size
@@ -31,6 +32,5 @@ public class DiceBag {
     public ArrayList<Die> getDiceBag() {
         return diceBag;
     }
+
 }
-
-
