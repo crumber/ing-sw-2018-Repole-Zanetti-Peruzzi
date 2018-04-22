@@ -43,7 +43,7 @@ public class Box {
 
             this.die = dice;
 
-        }else if((null != this.getBoundColour())&&(this.getBoundColour().equals(dice.getCOLOURDIE()))){
+        }else if((null != this.getBoundColour())&&(this.getBoundColour().equals(dice.getColourDie()))){
 
              this.die = dice;
 

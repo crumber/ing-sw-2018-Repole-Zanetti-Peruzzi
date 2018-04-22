@@ -15,7 +15,7 @@ public class Die {
         this.valueDie=valueDie.randomValue();
     }
 
-    public Colour getCOLOURDIE() {
+    public Colour getColourDie() {
         return COLOURDIE;
     }
 
