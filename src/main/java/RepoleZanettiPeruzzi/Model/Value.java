@@ -3,6 +3,7 @@ package RepoleZanettiPeruzzi.Model;
 import java.util.Random;
 
 public enum Value {
+
     ONE(1),
     TWO(2),
     THREE(3),
@@ -14,11 +15,15 @@ public enum Value {
     public static final int VALUEMAX=6;
 
     private Value(int value){
+
         this.value=value;
+
     }
 
     public int getNumber() {
+
         return value;
+
     }
 
     public Value randomValue() {
@@ -28,6 +33,7 @@ public enum Value {
         int numRandom= random.nextInt(VALUEMAX);
 
         switch (numRandom) {
+
             case 1:
                 realValue = ONE;
                 break;
@@ -46,8 +52,10 @@ public enum Value {
             default:
                 realValue = SIX;
                 break;
+
         }
 
         return realValue;
+
     }
 }

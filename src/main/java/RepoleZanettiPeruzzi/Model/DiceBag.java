@@ -10,11 +10,13 @@ public class DiceBag {
     public DiceBag(){
 
         for(int i=0;i<=17;i++){
+
             diceBag.add(new Die(Colour.RED));
             diceBag.add(new Die(Colour.YELLOW));
             diceBag.add(new Die(Colour.PURPLE));
             diceBag.add(new Die(Colour.GREEN));
             diceBag.add(new Die(Colour.BLUE));
+
         }
     }
 
@@ -23,14 +25,16 @@ public class DiceBag {
         int max=diceBag.size();
         Random random= new Random();
         int choose= random.nextInt(max); //return int between 0 and size
-        Die chooseDie= diceBag.get(choose);
 
+        Die chooseDie= diceBag.get(choose);
         diceBag.remove(choose);
         return chooseDie;
+
     }
 
     public ArrayList<Die> getDiceBag() {
-        return diceBag;
-    }
 
+        return diceBag;
+
+    }
 }
