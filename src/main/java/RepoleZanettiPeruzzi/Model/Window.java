@@ -11,6 +11,8 @@ public class Window {
         NAME = name;
         FLAVORTOKENS = ft;
 
+        boardBox=new Box[4][5];
+
         for(int i = 0; i< 4; i++) {
 
             for (int j = 0; j < 5; j++) {
@@ -33,11 +35,6 @@ public class Window {
 
     }
 
-    public boolean checkWindow(){
-        /*azione controller sulla window*/
-        return true;
-
-    }
 
     public String getName(){
 
