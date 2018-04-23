@@ -50,12 +50,12 @@ public class BoxTest {
     public void testSetDieColourBound(){
         testBox = new Box(Colour.RED);
         die = mock(Die.class);
-        when(die.getCOLOURDIE()).thenReturn(Colour.RED);
+        when(die.getColourDie()).thenReturn(Colour.RED);
         when(die.getValueDie()).thenReturn(Value.ONE);
         testBox.setDie(die);
         assertSame(testBox.removeDie(),die);
 
-        when(die.getCOLOURDIE()).thenReturn(Colour.YELLOW);
+        when(die.getColourDie()).thenReturn(Colour.YELLOW);
         when(die.getValueDie()).thenReturn(Value.TWO);
         testBox.setDie(die);
         assertNotSame(testBox.removeDie(),die);
@@ -67,12 +67,12 @@ public class BoxTest {
 
         testBox = new Box(Value.ONE);
         die = mock(Die.class);
-        when(die.getCOLOURDIE()).thenReturn(Colour.YELLOW);
+        when(die.getColourDie()).thenReturn(Colour.YELLOW);
         when(die.getValueDie()).thenReturn(Value.ONE);
         testBox.setDie(die);
         assertSame(testBox.removeDie(),die);
 
-        when(die.getCOLOURDIE()).thenReturn(Colour.BLUE);
+        when(die.getColourDie()).thenReturn(Colour.BLUE);
         when(die.getValueDie()).thenReturn(Value.FIVE);
         testBox.setDie(die);
         assertNotSame(testBox.removeDie(),die);
@@ -84,7 +84,7 @@ public class BoxTest {
 
         testBox = new Box();
         die = mock(Die.class);
-        when(die.getCOLOURDIE()).thenReturn(Colour.RED);
+        when(die.getColourDie()).thenReturn(Colour.RED);
         when(die.getValueDie()).thenReturn(Value.SIX);
         testBox.setDie(die);
         assertSame(testBox.removeDie(),die);
