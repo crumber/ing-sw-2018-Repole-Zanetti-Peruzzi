@@ -20,15 +20,23 @@ public class DiceBag {
         }
     }
 
-    public Die takeDie(){
+    public ArrayList<Die> takeDice(int numDice){
 
+        ArrayList<Die> diceTaken= new ArrayList<>();
         int max=diceBag.size();
-        Random random= new Random();
-        int choose= random.nextInt(max); //return int between 0 and size
 
-        Die chooseDie= diceBag.get(choose);
-        diceBag.remove(choose);
-        return chooseDie;
+        for(int i=0;i<numDice;i++) {
+
+            Random random= new Random();
+            int choose= random.nextInt(max); //return int between 0 and size
+            Die chooseDie= diceBag.get(choose);
+            diceTaken.add(chooseDie);
+            diceBag.remove(choose);
+            max--;
+
+        }
+
+        return diceTaken;
 
     }
 

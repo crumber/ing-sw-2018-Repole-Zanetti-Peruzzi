@@ -18,9 +18,10 @@ public class RoundTrack {
         }
     }
 
-    public void addDie(Die d, int numberTurn) {
+    public void addDice(ArrayList<Die> remainingDice) {
 
-        dieRoundTrack.get(numberTurn-1).add(d);
+        dieRoundTrack.add(remainingDice);
+
     }
 
     public ArrayList<ArrayList<Die>> getDieRoundTrack() {

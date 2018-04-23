@@ -2,6 +2,8 @@ package RepoleZanettiPeruzzi.Model;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 public class DiceBagTest {
@@ -10,13 +12,19 @@ public class DiceBagTest {
 
 
     @Test
-    public void takeDie() {
+    public void takeDice() {
 
         testDiceBag= new DiceBag();
+        int nDice= 2;
         int size = testDiceBag.getDiceBag().size();
-        Die extractDie = testDiceBag.takeDie();
-        assertEquals(size-1,testDiceBag.getDiceBag().size());  //test that the size is decreazed by one
-        assertFalse(testDiceBag.getDiceBag().contains(extractDie)); //test that the die is not in Dicebag yet
+        ArrayList<Die> extractDie = testDiceBag.takeDice(nDice);
+
+        //test that the size is decreazed by number of Dice(nDice)
+        assertEquals(size-nDice,testDiceBag.getDiceBag().size());
+
+        //test that the dice is not in Dicebag yet
+        assertFalse(testDiceBag.getDiceBag().contains(extractDie.get(0)));
+        assertFalse(testDiceBag.getDiceBag().contains(extractDie.get(1)));
 
     }
 }
