@@ -1,6 +1,6 @@
 package repolezanettiperuzzi.model.publiccards;
 
-public class DeepShades implements PublicCard {
+public class ColumnShadeVariety implements PublicCard {
     @Override
     public int effect(){
         return 0;
