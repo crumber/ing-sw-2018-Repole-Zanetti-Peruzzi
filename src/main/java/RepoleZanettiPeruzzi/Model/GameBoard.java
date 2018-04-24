@@ -10,6 +10,7 @@ public class GameBoard {
     RoundTrack roundTrack;
     int round;
     int turn;
+    int nPlayers;
 
     public GameBoard(int nPlayers){
         players = new ArrayList<RealPlayer>(nPlayers);
@@ -18,10 +19,15 @@ public class GameBoard {
         //toolCards = new ToolCard[3];
         diceBag = new DiceBag();
         roundTrack = new RoundTrack();
+        this.nPlayers = nPlayers;
     }
 
     public void addPlayer(String playerName){
         players.add(new RealPlayer(playerName));
+    }
+
+    public int getNPlayers(){
+        return this.nPlayers;
     }
 
     public void shuffleCards(){
