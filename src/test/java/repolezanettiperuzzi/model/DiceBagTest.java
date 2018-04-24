@@ -19,7 +19,7 @@ public class DiceBagTest {
         int size = testDiceBag.getDiceBag().size();
         ArrayList<Die> extractDie = testDiceBag.takeDice(nDice);
 
-        //test that the size is decreazed by number of Dice(nDice)
+        //test that the size is decreased by number of Dice(nDice)
         assertEquals(size-nDice,testDiceBag.getDiceBag().size());
 
         //test that the dice is not in Dicebag yet

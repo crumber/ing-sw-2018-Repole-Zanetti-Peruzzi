@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 
 public class GameBoardTest {
 
-    GameBoard gB;
+    private GameBoard gB;
 
     @Test
     public void addPlayer(){
@@ -14,6 +14,6 @@ public class GameBoardTest {
         gB.addPlayer("Lorenzo");
         gB.addPlayer("Bubu");
         gB.addPlayer("Attila");
-        assertEquals(gB.getNPlayers(), 3);
+        assertEquals(3,  gB.getNPlayers());
     }
 }

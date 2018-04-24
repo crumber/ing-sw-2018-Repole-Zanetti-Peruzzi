@@ -13,9 +13,6 @@ public class WindowTest {
     private Die testDie;
 
     @Test
-
-
-
     public void testWindowClass() {
 
         testBoxes = new Box[4][5];
@@ -37,7 +34,7 @@ public class WindowTest {
         testWindow.insertDie(testDie,2,4);
 
         assertEquals(testWindow.getName(),name);
-        assertEquals(testWindow.getFTokens(),5);
+        assertEquals(5, testWindow.getFTokens());
 
         assertSame(testDie,testBoxes[2][4].removeDie());
         testWindow.insertDie(testDie, 2, 4);
