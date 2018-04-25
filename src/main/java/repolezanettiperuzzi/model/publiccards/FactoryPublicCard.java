@@ -3,26 +3,26 @@ package repolezanettiperuzzi.model.publiccards;
 public class FactoryPublicCard {
     public static PublicCard getPublicCard(String criteria)
     {
-        if ( criteria.equals("pc01") )
-            return (PublicCard) new ColorVariety();
-        else if ( criteria.equals("pc02") )
-            return (PublicCard) new ColorDiagonals();
-        else if ( criteria.equals("pc03") )
-            return (PublicCard) new ColumnColorVariety();
-        else if ( criteria.equals("pc04") )
-            return (PublicCard) new ColumnShadeVariety();
-        else if ( criteria.equals("pc05") )
-            return (PublicCard) new RowColorVariety();
-        else if ( criteria.equals("pc06") )
-            return (PublicCard) new RowShadeVariety();
-        else if ( criteria.equals("pc07") )
-            return (PublicCard) new ShadeVariety();
-        else if ( criteria.equals("pc08") )
-            return (PublicCard) new MediumShades();
-        else if ( criteria.equals("pc09") )
-            return (PublicCard) new LightShades();
+        if ( criteria.equals("pc1") )
+            return new ColorVariety();
+        else if ( criteria.equals("pc2") )
+            return new ColorDiagonals();
+        else if ( criteria.equals("pc3") )
+            return new ColumnColorVariety();
+        else if ( criteria.equals("pc4") )
+            return new ColumnShadeVariety();
+        else if ( criteria.equals("pc5") )
+            return new RowColorVariety();
+        else if ( criteria.equals("pc6") )
+            return new RowShadeVariety();
+        else if ( criteria.equals("pc7") )
+            return new ShadeVariety();
+        else if ( criteria.equals("pc8") )
+            return new MediumShades();
+        else if ( criteria.equals("pc9") )
+            return new LightShades();
         else if ( criteria.equals("pc10") )
-            return (PublicCard) new DeepShades();
+            return new DeepShades();
 
         return null;
     }

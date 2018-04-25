@@ -1,11 +1,12 @@
 package repolezanettiperuzzi.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class DiceBag {
 
-    private ArrayList<Die> bag=new ArrayList<Die>(90);
+    private ArrayList<Die> bag = new ArrayList<Die>(90);
 
     public DiceBag(){
 
