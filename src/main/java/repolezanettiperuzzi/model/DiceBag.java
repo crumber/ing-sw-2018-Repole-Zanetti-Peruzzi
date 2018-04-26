@@ -33,7 +33,7 @@ public class DiceBag {
             Die chooseDie= bag.get(choose);
             diceTaken.add(chooseDie);
             bag.remove(choose);
-            max=-1;
+            max--;
 
         }
 
