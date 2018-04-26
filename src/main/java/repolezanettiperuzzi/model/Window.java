@@ -48,4 +48,15 @@ public class Window {
 
     }
 
+    public Value getDieValue(int x, int y){
+
+        return this.boardBox[x][y].die.getValueDie();
+    }
+
+    public Colour getDieColour(int x, int y){
+
+        return this.boardBox[x][y].die.getColourDie();
+
+    }
+
 }

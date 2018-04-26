@@ -2,7 +2,7 @@ package repolezanettiperuzzi.model;
 
 public class Box {
 
-    private Die die;
+    protected Die die;
     private final Colour BOUNDCOLOUR ;
     private final Value BOUNDVALUE ;
 
@@ -50,4 +50,6 @@ public class Box {
         return removed;
 
     }
+
+
 }
