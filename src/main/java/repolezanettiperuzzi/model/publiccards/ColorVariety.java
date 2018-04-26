@@ -4,6 +4,6 @@ public class ColorVariety implements PublicCard {
 
     @Override
     public int effect(){
-        return 0;
+        return 10;
     }
 }
