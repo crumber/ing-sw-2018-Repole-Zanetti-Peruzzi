@@ -35,7 +35,7 @@ public class RowColorVariety implements PublicCard {
                     counterColour[1] += 1;
                     numOfColour++;
 
-                    if(counterColour[0]==2){
+                    if(counterColour[1]==2){
 
                         j=10;
                     }
@@ -46,7 +46,7 @@ public class RowColorVariety implements PublicCard {
                     counterColour[2] += 1;
                     numOfColour++;
 
-                    if(counterColour[0]==2){
+                    if(counterColour[2]==2){
 
                         j=10;
                     }
@@ -57,7 +57,7 @@ public class RowColorVariety implements PublicCard {
                     counterColour[3] += 1;
                     numOfColour++;
 
-                    if(counterColour[0]==2){
+                    if(counterColour[3]==2){
 
                         j=10;
                     }
@@ -68,7 +68,7 @@ public class RowColorVariety implements PublicCard {
                     counterColour[4] += 1;
                     numOfColour++;
 
-                    if(counterColour[0]==2){
+                    if(counterColour[4]==2){
 
                         j=10;
                     }

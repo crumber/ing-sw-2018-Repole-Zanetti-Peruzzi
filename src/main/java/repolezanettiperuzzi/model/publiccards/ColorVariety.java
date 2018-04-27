@@ -1,7 +1,5 @@
 package repolezanettiperuzzi.model.publiccards;
-
 import repolezanettiperuzzi.model.Colour;
-import repolezanettiperuzzi.model.Value;
 import repolezanettiperuzzi.model.Window;
 
 public class ColorVariety implements PublicCard {
@@ -65,7 +63,7 @@ public class ColorVariety implements PublicCard {
         }
         else{
 
-            score=4*min;
+            score= 4*min;
 
         }
 

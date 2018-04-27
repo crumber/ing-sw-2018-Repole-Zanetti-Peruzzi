@@ -35,7 +35,7 @@ public class ColumnShadeVariety implements PublicCard {
                     counterValue[1] += 1;
                     numOfValue++;
 
-                    if(counterValue[0]==2){
+                    if(counterValue[1]==2){
 
                         j=20;
                     }
@@ -46,7 +46,7 @@ public class ColumnShadeVariety implements PublicCard {
                     counterValue[2] += 1;
                     numOfValue++;
 
-                    if(counterValue[0]==2){
+                    if(counterValue[2]==2){
 
                         j=20;
                     }
@@ -57,7 +57,7 @@ public class ColumnShadeVariety implements PublicCard {
                     counterValue[3] += 1;
                     numOfValue++;
 
-                    if(counterValue[0]==2){
+                    if(counterValue[3]==2){
 
                         j=20;
                     }
@@ -68,7 +68,7 @@ public class ColumnShadeVariety implements PublicCard {
                     counterValue[4] += 1;
                     numOfValue++;
 
-                    if(counterValue[0]==2){
+                    if(counterValue[4]==2){
 
                         j=20;
                     }
@@ -79,7 +79,7 @@ public class ColumnShadeVariety implements PublicCard {
                     counterValue[5] += 1;
                     numOfValue++;
 
-                    if(counterValue[0]==2){
+                    if(counterValue[5]==2){
 
                         j=20;
                     }
