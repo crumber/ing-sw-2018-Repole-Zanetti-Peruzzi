@@ -15,9 +15,9 @@ public class ColumnColorVariety implements PublicCard {
 
             int [] counterColour= {0,0,0,0,0};
             int numOfColour=0;
-            int j;
+            boolean noRepeatValue=true;
 
-            for (j=0; j < 4; j++) {
+            for (int j=0; j < 4; j++) {
 
                 if (finalWindow.getDieColour(j, i).equals(Colour.RED)) {
 
@@ -26,7 +26,8 @@ public class ColumnColorVariety implements PublicCard {
 
                     if(counterColour[0]==2){
 
-                        j=20;
+                        noRepeatValue=false;
+                        break;
                     }
                 }
 
@@ -37,7 +38,8 @@ public class ColumnColorVariety implements PublicCard {
 
                     if(counterColour[1]==2){
 
-                        j=20;
+                        noRepeatValue=false;
+                        break;
                     }
                 }
 
@@ -48,7 +50,8 @@ public class ColumnColorVariety implements PublicCard {
 
                     if(counterColour[2]==2){
 
-                        j=20;
+                        noRepeatValue=false;
+                        break;
                     }
                 }
 
@@ -59,7 +62,8 @@ public class ColumnColorVariety implements PublicCard {
 
                     if(counterColour[3]==2){
 
-                        j=20;
+                        noRepeatValue=false;
+                        break;
                     }
                 }
 
@@ -70,12 +74,13 @@ public class ColumnColorVariety implements PublicCard {
 
                     if(counterColour[4]==2){
 
-                        j=20;
+                        noRepeatValue=false;
+                        break;
                     }
                 }
             }
 
-            if( j!=20 && numOfColour==4 ){   // if there are 4 dice and five different colour in column, incrise by one
+            if( noRepeatValue && numOfColour==4 ){   // if there are 4 dice and five different colour in column, incrise by one
 
                 numColumn++;
 

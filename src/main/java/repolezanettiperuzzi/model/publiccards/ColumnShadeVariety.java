@@ -15,9 +15,9 @@ public class ColumnShadeVariety implements PublicCard {
 
             int [] counterValue= {0,0,0,0,0,0};
             int numOfValue=0;
-            int j;
+            boolean noRepeatValue=true;
 
-            for (j=0; j < 4; j++) {
+            for (int j=0; j < 4; j++) {
 
                 if (finalWindow.getDieValue(j, i).equals(Value.ONE)) {
 
@@ -26,7 +26,8 @@ public class ColumnShadeVariety implements PublicCard {
 
                     if(counterValue[0]==2){
 
-                        j=20;
+                        noRepeatValue=false;
+                        break;
                     }
                 }
 
@@ -37,7 +38,8 @@ public class ColumnShadeVariety implements PublicCard {
 
                     if(counterValue[1]==2){
 
-                        j=20;
+                        noRepeatValue=false;
+                        break;
                     }
                 }
 
@@ -48,7 +50,8 @@ public class ColumnShadeVariety implements PublicCard {
 
                     if(counterValue[2]==2){
 
-                        j=20;
+                        noRepeatValue=false;
+                        break;
                     }
                 }
 
@@ -59,7 +62,8 @@ public class ColumnShadeVariety implements PublicCard {
 
                     if(counterValue[3]==2){
 
-                        j=20;
+                        noRepeatValue=false;
+                        break;
                     }
                 }
 
@@ -70,7 +74,8 @@ public class ColumnShadeVariety implements PublicCard {
 
                     if(counterValue[4]==2){
 
-                        j=20;
+                        noRepeatValue=false;
+                        break;
                     }
                 }
 
@@ -81,12 +86,13 @@ public class ColumnShadeVariety implements PublicCard {
 
                     if(counterValue[5]==2){
 
-                        j=20;
+                        noRepeatValue=false;
+                        break;
                     }
                 }
             }
 
-            if( j!=20 && numOfValue==4 ){   // if there are four dice and four different value in column, incrise by one
+            if( noRepeatValue && numOfValue==4 ){   // if there are four dice and four different value in column, incrise by one
 
                 numColumn++;
 

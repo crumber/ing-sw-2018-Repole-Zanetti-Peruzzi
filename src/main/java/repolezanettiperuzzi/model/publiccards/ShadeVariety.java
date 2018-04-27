@@ -3,8 +3,6 @@ package repolezanettiperuzzi.model.publiccards;
 import repolezanettiperuzzi.model.Value;
 import repolezanettiperuzzi.model.Window;
 
-import java.util.ArrayList;
-
 public class ShadeVariety implements PublicCard {
 
     @Override

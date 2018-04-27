@@ -15,9 +15,9 @@ public class RowColorVariety implements PublicCard {
 
             int [] counterColour= {0,0,0,0,0};
             int numOfColour=0;
-            int j;
+            boolean repeatValue=false;
 
-            for (j=0; j < 5; j++) {
+            for (int j=0; j < 5; j++) {
 
                 if (finalWindow.getDieColour(i, j).equals(Colour.RED)) {
 
@@ -26,7 +26,8 @@ public class RowColorVariety implements PublicCard {
 
                     if(counterColour[0]==2){
 
-                        j=10;
+                        repeatValue=true;
+                        break;
                     }
                 }
 
@@ -37,7 +38,8 @@ public class RowColorVariety implements PublicCard {
 
                     if(counterColour[1]==2){
 
-                        j=10;
+                        repeatValue=true;
+                        break;
                     }
                 }
 
@@ -48,7 +50,8 @@ public class RowColorVariety implements PublicCard {
 
                     if(counterColour[2]==2){
 
-                        j=10;
+                        repeatValue=true;
+                        break;
                     }
                 }
 
@@ -59,7 +62,8 @@ public class RowColorVariety implements PublicCard {
 
                     if(counterColour[3]==2){
 
-                        j=10;
+                        repeatValue=true;
+                        break;
                     }
                 }
 
@@ -70,12 +74,13 @@ public class RowColorVariety implements PublicCard {
 
                     if(counterColour[4]==2){
 
-                        j=10;
+                        repeatValue=true;
+                        break;
                     }
                 }
             }
 
-            if( j!=10 && numOfColour==5 ){   // if there are five dice and five different colour in row, incrise by one
+            if( !repeatValue && numOfColour==5 ){   // if there are five dice and five different colour in row, incrise by one
 
                 numRow++;
 

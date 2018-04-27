@@ -15,9 +15,9 @@ public class RowShadeVariety implements PublicCard {
 
             int [] counterValue= {0,0,0,0,0,0};
             int numOfValue=0;
-            int j;
+            boolean repeatValue=false;
 
-            for (j=0; j < 5; j++) {
+            for (int j=0; j < 5; j++) {
 
                 if (finalWindow.getDieValue(i, j).equals(Value.ONE)) {
 
@@ -26,7 +26,8 @@ public class RowShadeVariety implements PublicCard {
 
                     if(counterValue[0]==2){
 
-                        j=10;
+                        repeatValue=true;
+                        break;
                     }
                 }
 
@@ -37,7 +38,8 @@ public class RowShadeVariety implements PublicCard {
 
                     if(counterValue[1]==2){
 
-                        j=10;
+                        repeatValue=true;
+                        break;
                     }
                 }
 
@@ -48,7 +50,8 @@ public class RowShadeVariety implements PublicCard {
 
                     if(counterValue[2]==2){
 
-                        j=10;
+                        repeatValue=true;
+                        break;
                     }
                 }
 
@@ -59,7 +62,8 @@ public class RowShadeVariety implements PublicCard {
 
                     if(counterValue[3]==2){
 
-                        j=10;
+                        repeatValue=true;
+                        break;
                     }
                 }
 
@@ -70,7 +74,8 @@ public class RowShadeVariety implements PublicCard {
 
                     if(counterValue[4]==2){
 
-                        j=10;
+                        repeatValue=true;
+                        break;
                     }
                 }
 
@@ -81,12 +86,13 @@ public class RowShadeVariety implements PublicCard {
 
                     if(counterValue[5]==2){
 
-                        j=10;
+                        repeatValue=true;
+                        break;
                     }
                 }
             }
 
-            if( j!=10 && numOfValue==5 ){   // if there are five dice and five different value in row, incrise by one
+            if(  !repeatValue && numOfValue==5 ){   // if there are five dice and five different value in row, incrise by one
 
                 numRow++;
 
