@@ -56,17 +56,7 @@ public class ColorVariety implements PublicCard {
             }
         }
 
-        if( min==10000){
-
-            score=0;        // control in case no nut is inserted
-
-        }
-        else{
-
-            score= 4*min;
-
-        }
-
+        score= 4*min;
         return score; // return 4 * min( red, green, purple, blue, yellow)
     }
 }

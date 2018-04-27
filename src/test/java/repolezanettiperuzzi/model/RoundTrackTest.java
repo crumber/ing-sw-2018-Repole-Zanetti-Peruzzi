@@ -21,6 +21,7 @@ public class RoundTrackTest {
         ArrayList<Die> diceDraft1= new ArrayList<>();
         ArrayList<Die> diceDraft2= new ArrayList<>();
 
+        d1.rollDie();
         d2.rollDie();
         d3.rollDie();
         d4.rollDie();
@@ -31,11 +32,6 @@ public class RoundTrackTest {
         testRoundTrack.addDice(diceDraft1);
         testRoundTrack.addDice(diceDraft2);
 
-        //test to coverage class Die
-        assertTrue(d1.getColourDie()==Colour.PURPLE);
-        assertTrue(d1.getValueDie()==Value.ONE);
-
-        //test to coverage class RaundTrack
         assertTrue(testRoundTrack.getDieRoundTrack().contains(diceDraft1));
         assertTrue(testRoundTrack.getDieRoundTrack().contains(diceDraft2));
 

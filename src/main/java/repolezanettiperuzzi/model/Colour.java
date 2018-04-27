@@ -6,6 +6,6 @@ public enum Colour {
     RED,
     PURPLE,
     GREEN,
-    BLUE;
+    BLUE
 
 }

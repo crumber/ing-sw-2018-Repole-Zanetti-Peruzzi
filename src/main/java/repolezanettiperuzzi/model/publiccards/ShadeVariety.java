@@ -63,17 +63,7 @@ public class ShadeVariety implements PublicCard {
             }
         }
 
-        if( min==10000){
-
-            score=0;        // control in case no nut is inserted
-
-        }
-        else{
-
-            score=5*min;
-
-        }
-
+        score=5*min;
         return score; // return 5 * min(numOne, numTwo, numThree, numFour, numFive, numSix)
     }
 }

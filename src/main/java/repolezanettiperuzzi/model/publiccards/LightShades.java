@@ -43,4 +43,3 @@ public class LightShades implements PublicCard {
         return score; // return 2 * min(numOne, numTwo)
     }
 }
-
