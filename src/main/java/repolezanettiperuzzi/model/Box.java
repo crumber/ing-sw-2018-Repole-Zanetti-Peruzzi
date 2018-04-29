@@ -33,14 +33,39 @@ public class Box {
 
     }
 
-    public void setDie(Die dice){
+    public boolean setDie(Die dice,String restriction){
 
-        if(((this.getBoundColour()==null)&&(this.getBoundValue()==null))||
-                ((null != this.getBoundValue())&&(this.getBoundValue().equals(dice.getValueDie())))||
-                ((null != this.getBoundColour())&&(this.getBoundColour().equals(dice.getColourDie())))) {
+        if(restriction.compareTo("both")==0){
 
-            this.die = dice;
+            if(controlBounds(dice)){
+
+                this.die=dice;
+                return true;
             }
+
+        }else if(restriction.compareTo("value")==0){
+
+            if(controlValue(dice)){
+
+                this.die=dice;
+                return true;
+
+            }
+
+
+
+        }else if(restriction.compareTo("colour")==0){
+
+           if(controlColour(dice)){
+
+               this.die=dice;
+               return true;
+
+           }
+        }
+
+        return false;
+
     }
 
     public Die removeDie() {
@@ -51,5 +76,54 @@ public class Box {
 
     }
 
+    private boolean controlBounds(Die dice){
+
+        if(((this.getBoundColour()==null)&&(this.getBoundValue()==null))||
+                ((null != this.getBoundValue())&&(this.getBoundValue().equals(dice.getValueDie())))||
+                ((null != this.getBoundColour())&&(this.getBoundColour().equals(dice.getColourDie())))){
+
+            return true;
+
+        }else{
+
+            return false;
+
+        }
+
+    }
+
+    private boolean controlValue(Die dice){
+
+        if(((this.getBoundValue()==null))||(this.getBoundValue().equals(dice.getValueDie()))){
+
+            return true;
+
+        }else{
+
+            return false;
+        }
+
+    }
+
+    private boolean controlColour(Die dice){
+
+        if((this.getBoundColour()==null)||(this.getBoundColour().equals(dice.getColourDie()))){
+
+            return true;
+
+        }else{
+
+            return false;
+
+        }
+
+    }
+
+
+    public void modifyDiceValue(Value value){
+
+        this.die.setValue(value);
+
+    }
 
 }

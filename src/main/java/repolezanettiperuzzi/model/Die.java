@@ -29,4 +29,10 @@ public class Die {
         return valueDie;
 
     }
+
+    public void setValue(Value value) {
+
+        this.valueDie=value;
+
+    }
 }

@@ -20,6 +20,33 @@ public enum Value {
 
     }
 
+    public static Value intToValue(int val){
+        Value value;
+        switch (val) {
+
+            case 1:
+                value = ONE;
+                break;
+            case 2:
+                value = TWO;
+                break;
+            case 3:
+                value = THREE;
+                break;
+            case 4:
+                value = FOUR;
+                break;
+            case 5:
+                value = FIVE;
+                break;
+            default:
+                value = SIX;
+                break;
+
+        }
+        return value;
+    }
+
     public int getNumber() {
 
         return value;

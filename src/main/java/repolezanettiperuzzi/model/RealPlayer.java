@@ -35,4 +35,9 @@ public class RealPlayer implements Player {
     public void passTurn(){
         //chiamo una Action PassTurn
     }
+
+    public Window getWindow(){
+
+        return this.window;
+    }
 }

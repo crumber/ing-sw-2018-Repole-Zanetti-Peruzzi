@@ -1,5 +1,10 @@
 package repolezanettiperuzzi.model.toolcards;
 
-public interface ToolCard {
-    public int effect();
+import repolezanettiperuzzi.model.*;
+
+public abstract class ToolCard {
+
+    public  int effect(){ return 0; }
+
+
 }
