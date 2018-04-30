@@ -11,7 +11,7 @@ public class GlazingHammer extends ToolCard {
 
     public boolean effect(GameBoard board){
 
-        int numDiceDraft= board.getDiceDraft().size();
+        int numDiceDraft= board.sizeDraft();
         for(int i=0;i<numDiceDraft;i++){
 
             board.getDieDraft(i).rollDie();

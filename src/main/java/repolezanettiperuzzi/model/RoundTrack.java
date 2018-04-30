@@ -25,19 +25,15 @@ public class RoundTrack {
 
     }
 
-    public Die getDieRoundTrack(int whichRound, int whichDieRound)
-    {
+    public Die getDieRoundTrack(int whichRound, int whichDieRound) {
         return dieRoundTrack.get(whichRound).get(whichDieRound);
 
     }
 
     public void setDieOnRoundTrack(int whichRound, int posDie, Die d) {
 
-        dieRoundTrack.get(whichRound).set(posDie,d);
+        dieRoundTrack.get(whichRound).set(posDie, d);
 
     }
 
-    public ArrayList<ArrayList<Die>> getDieRoundTrack() {
-        return dieRoundTrack;
-    }
 }

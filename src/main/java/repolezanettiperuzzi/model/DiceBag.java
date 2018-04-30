@@ -54,14 +54,6 @@ public class DiceBag {
 
     }
 
-
-
-    public ArrayList<Die> getDiceBag() {
-
-        return bag;
-
-    }
-
     public void setDieInBag(Die d) {
 
         bag.add(d);

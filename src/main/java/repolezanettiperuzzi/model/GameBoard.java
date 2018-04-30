@@ -47,27 +47,9 @@ public class GameBoard {
         }
     }
 
-    public DiceBag getDiceBag() {
-
-        return diceBag;
-
-    }
-
-    public RoundTrack getRoundTrack() {
-
-        return roundTrack;
-
-    }
-
     public Die getDieDraft(int posDie) {
 
         return diceDraft.get(posDie);
-
-    }
-
-    public ArrayList<Die> getDiceDraft() {
-
-        return diceDraft;
 
     }
 
@@ -80,6 +62,48 @@ public class GameBoard {
     public void setDieDraft(int posDie, Die d){
 
         diceDraft.set(posDie,d);
+
+    }
+
+    public void putDieInBag(int posDieDraft) {
+
+        diceBag.setDieInBag(getDieDraft(posDieDraft));
+
+    }
+
+    public void removeDieFromDraft(int posDieDraft){
+
+        diceDraft.remove(posDieDraft);
+
+    }
+
+    public Die takeDieFromBag(){
+
+        return diceBag.takeDie();
+
+    }
+
+    public void addDieToDraft(Die d){
+
+        diceDraft.add(d);
+
+    }
+
+    public int sizeDraft(){
+
+        return diceDraft.size();
+
+    }
+
+    public Die getDieFromRoundTrack(int whichRound, int whichDieRound){
+
+        return roundTrack.getDieRoundTrack(whichRound,whichDieRound);
+
+    }
+
+    public void setDieToRoundTrack(int whichRound, int whichDieRound, Die d){
+
+        roundTrack.setDieOnRoundTrack(whichRound,whichDieRound,d);
 
     }
 }

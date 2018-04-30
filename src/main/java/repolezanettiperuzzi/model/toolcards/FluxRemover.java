@@ -12,9 +12,9 @@ public class FluxRemover extends ToolCard {
 
     public boolean effect(GameBoard board, int posDieDraft){
 
-        board.getDiceBag().setDieInBag(board.getDieDraft(posDieDraft)); //put die in the bag
-        board.getDiceDraft().remove(posDieDraft); //removed die from draft
-        Die newDie= board.getDiceBag().takeDie(); // take another die from bag
+        board.putDieInBag(posDieDraft); //put die in the bag
+        board.removeDieFromDraft(posDieDraft); //removed die from draft
+        Die newDie= board.takeDieFromBag(); // take another die from bag
 
         /*
         BISOGNA CHIEDERE AL PLAYER CHE VALORE VUOLE PER QUEL DADO QUINDI CANCELLARE LA PARTE SOTTO CHE MI TIRA A CASO IL DADO!!!!
@@ -22,7 +22,7 @@ public class FluxRemover extends ToolCard {
 
         newDie.rollDie();
 
-        board.getDiceDraft().add(newDie); // add new die to draft
+        board.addDieToDraft(newDie); // add new die to draft
         return true;
 
     }

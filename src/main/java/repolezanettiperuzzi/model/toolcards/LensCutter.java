@@ -13,10 +13,10 @@ public class LensCutter extends ToolCard {
     public boolean effect(GameBoard boar, int posDieOnDraft, int whichRound, int whichDieRound){
 
         Die dieOnDraft= boar.getDieDraft(posDieOnDraft);
-        Die dieOnRoundTrack= boar.getRoundTrack().getDieRoundTrack(whichRound,whichDieRound);
+        Die dieOnRoundTrack= boar.getDieFromRoundTrack(whichRound,whichDieRound);
 
         boar.setDieDraft(posDieOnDraft,dieOnRoundTrack); //put die on round track in the draft
-        boar.getRoundTrack().setDieOnRoundTrack(whichRound,whichDieRound,dieOnDraft); //put die on draft in the round track (pos: which round, which die)
+        boar.setDieToRoundTrack(whichRound,whichDieRound,dieOnDraft); //put die on draft in the round track (pos: which round, which die)
         return true;
 
     }
