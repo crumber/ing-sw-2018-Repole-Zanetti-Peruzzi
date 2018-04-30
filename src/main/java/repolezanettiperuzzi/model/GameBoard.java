@@ -47,6 +47,12 @@ public class GameBoard {
         }
     }
 
+    public DiceBag getDiceBag() {
+
+        return diceBag;
+
+    }
+
     public RoundTrack getRoundTrack() {
 
         return roundTrack;
@@ -56,6 +62,12 @@ public class GameBoard {
     public Die getDieDraft(int posDie) {
 
         return diceDraft.get(posDie);
+
+    }
+
+    public ArrayList<Die> getDiceDraft() {
+
+        return diceDraft;
 
     }
 

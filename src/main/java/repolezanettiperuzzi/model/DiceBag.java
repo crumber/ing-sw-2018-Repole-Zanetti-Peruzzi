@@ -41,9 +41,30 @@ public class DiceBag {
 
     }
 
+    public Die takeDie(){
+
+        int max=bag.size();
+        Random random= new Random();
+
+        int choose= random.nextInt(max); //return int between 0 and size
+        Die chooseDie= bag.get(choose);
+        bag.remove(choose);
+
+        return chooseDie;
+
+    }
+
+
+
     public ArrayList<Die> getDiceBag() {
 
         return bag;
+
+    }
+
+    public void setDieInBag(Die d) {
+
+        bag.add(d);
 
     }
 }
