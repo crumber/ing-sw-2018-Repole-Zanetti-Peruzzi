@@ -47,4 +47,27 @@ public class GameBoard {
         }
     }
 
+    public RoundTrack getRoundTrack() {
+
+        return roundTrack;
+
+    }
+
+    public Die getDieDraft(int posDie) {
+
+        return diceDraft.get(posDie);
+
+    }
+
+    public void setDiceDraft(ArrayList<Die> diceDraft) {
+
+        this.diceDraft = diceDraft;
+
+    }
+
+    public void setDieDraft(int posDie, Die d){
+
+        diceDraft.set(posDie,d);
+
+    }
 }
