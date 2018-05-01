@@ -15,15 +15,11 @@ public class Window {
 
         for(int i = 0; i< 4; i++) {
 
-            for (int j = 0; j < 5; j++) {
-
-                boardBox[i][j] = board[i][j];
-
-            }
+            System.arraycopy(board[i], 0, boardBox[i], 0, 5);
         }
     }
 
-    public boolean insertDie(Die d, int x, int y, String restriction){
+    boolean insertDie(Die d, int x, int y, String restriction){
 
         if(isEmpty()){
 
@@ -49,14 +45,14 @@ public class Window {
         return false;
     }
 
-    public boolean changeDieValue(int x, int y, Value v){
+    public Die removeDie(int x, int y){
 
-        this.boardBox[x][y].die.setValue(v);
+        if((boardBox[x][y].die!=null)){
+            return boardBox[x][y].removeDie();
+        }
 
-        return true;
-
+        else return null;
     }
-
 
     public String getName(){
 
@@ -117,11 +113,11 @@ public class Window {
 
     public boolean isEmpty(){
 
-        for (int i=0; i<boardBox.length; i++){
-            for(int j=0; j<boardBox[0].length; j++){
-              if(boardBox[i][j].die!=null){
-                  return false;
-              }
+        for (Box[] aBoardBox : boardBox) {
+            for (int j = 0; j < boardBox[0].length; j++) {
+                if (aBoardBox[j].die != null) {
+                    return false;
+                }
             }
         }
 

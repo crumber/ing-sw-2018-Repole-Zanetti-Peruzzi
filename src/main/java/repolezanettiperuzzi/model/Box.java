@@ -119,11 +119,4 @@ public class Box {
 
     }
 
-
-    public void modifyDiceValue(Value value){
-
-        this.die.setValue(value);
-
-    }
-
 }

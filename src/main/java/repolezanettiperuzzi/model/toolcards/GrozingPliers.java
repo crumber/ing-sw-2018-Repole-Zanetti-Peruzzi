@@ -11,7 +11,7 @@ public class GrozingPliers extends ToolCard {
 
     public boolean effect(RealPlayer player, int x, int y, int change){
 
-        if(change==0){
+        /*if(change==0){
             if(player.getWindow().getDieValue(x,y).getNumber()!=1){
                 return player.getWindow().changeDieValue(x,y, Value.intToValue(player.getWindow().getDieValue(x, y).getNumber() - 1));
 
@@ -21,7 +21,7 @@ public class GrozingPliers extends ToolCard {
                 return player.getWindow().changeDieValue(x,y, Value.intToValue(player.getWindow().getDieValue(x, y).getNumber() + 1));
 
             }
-        }
+        }*/
 
         return false;
     }
