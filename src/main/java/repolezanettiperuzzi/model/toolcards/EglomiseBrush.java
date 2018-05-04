@@ -3,6 +3,13 @@ package repolezanettiperuzzi.model.toolcards;
 import repolezanettiperuzzi.model.RealPlayer;
 
 public class EglomiseBrush extends ToolCard {
+
+    int id=2;
+
+    public int getId() {
+        return id;
+    }
+
     @Override
     public int effect() {
         return 0;

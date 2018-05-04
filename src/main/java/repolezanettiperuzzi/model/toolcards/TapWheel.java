@@ -5,7 +5,11 @@ import repolezanettiperuzzi.model.RealPlayer;
 
 public class TapWheel extends ToolCard {
 
+    int id=12;
 
+    public int getId() {
+        return id;
+    }
 
     public boolean effect(RealPlayer player, int xStart1, int yStart1, int xEnd1, int yEnd1, int xStart2, int yStart2, int xEnd2, int yEnd2, Colour colour){
 

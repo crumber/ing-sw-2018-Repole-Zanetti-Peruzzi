@@ -4,6 +4,12 @@ import repolezanettiperuzzi.model.GameBoard;
 
 public class GlazingHammer extends ToolCard {
 
+    int id=7;
+
+    public int getId() {
+        return id;
+    }
+
     @Override
     public int effect() {
         return 0;

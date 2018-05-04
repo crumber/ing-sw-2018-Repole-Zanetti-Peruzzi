@@ -5,6 +5,12 @@ import repolezanettiperuzzi.model.GameBoard;
 
 public class FluxRemover extends ToolCard {
 
+    int id=11;
+
+    public int getId() {
+        return id;
+    }
+
     @Override
     public int effect() {
         return 0;

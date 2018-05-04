@@ -40,4 +40,16 @@ public class RealPlayer implements Player {
 
         return this.window;
     }
+
+    public int getFlavorTokens() {
+
+        return flavorTokens;
+
+    }
+
+    public String getName() {
+
+        return name;
+
+    }
 }

@@ -5,6 +5,8 @@ import repolezanettiperuzzi.model.GameBoard;
 
 public class LensCutter extends ToolCard {
 
+    int id=5;
+
     @Override
     public int effect() {
         return 0;
@@ -19,5 +21,9 @@ public class LensCutter extends ToolCard {
         boar.setDieToRoundTrack(whichRound,whichDieRound,dieOnDraft); //put die on draft in the round track (pos: which round, which die)
         return true;
 
+    }
+
+    public int getId() {
+        return id;
     }
 }

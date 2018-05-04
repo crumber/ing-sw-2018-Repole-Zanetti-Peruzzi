@@ -5,6 +5,12 @@ import repolezanettiperuzzi.model.Value;
 
 public class GrindingStone extends ToolCard {
 
+    int id=10;
+
+    public int getId() {
+        return id;
+    }
+
     @Override
     public int effect() {
         return 0;

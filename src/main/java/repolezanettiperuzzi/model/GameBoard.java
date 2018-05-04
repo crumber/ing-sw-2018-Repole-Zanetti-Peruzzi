@@ -15,6 +15,7 @@ public class GameBoard {
     int round;
     int turn;
     int nPlayers;
+    int [] costToolCard= new int[3];
 
     public GameBoard(int nPlayers){
         players = new ArrayList<RealPlayer>(nPlayers);
@@ -24,6 +25,12 @@ public class GameBoard {
         diceBag = new DiceBag();
         roundTrack = new RoundTrack();
         this.nPlayers = nPlayers;
+
+        for(int i=0;i<3;i++){
+
+            costToolCard[i]=1;
+
+        }
     }
 
     public void addPlayer(String playerName){
@@ -106,4 +113,23 @@ public class GameBoard {
         roundTrack.setDieOnRoundTrack(whichRound,whichDieRound,d);
 
     }
+
+    public int getCostToolCard(int whichToolCard) {
+
+        return costToolCard[whichToolCard];
+
+    }
+
+    public ToolCard getToolCards(int whichToolCard) {
+
+        return toolCards[whichToolCard];
+
+    }
+
+    public int getId(int whichToolCard){
+
+        return toolCards[whichToolCard].getId();
+
+    }
+
 }

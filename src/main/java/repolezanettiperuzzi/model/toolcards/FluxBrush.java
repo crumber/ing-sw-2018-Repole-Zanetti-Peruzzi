@@ -4,6 +4,12 @@ import repolezanettiperuzzi.model.GameBoard;
 
 public class FluxBrush extends ToolCard {
 
+    int id=6;
+
+    public int getId() {
+        return id;
+    }
+
     @Override
     public int effect() {
         return 0;

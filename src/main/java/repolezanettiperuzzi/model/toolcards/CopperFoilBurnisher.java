@@ -5,6 +5,12 @@ import repolezanettiperuzzi.model.*;
 
 public class CopperFoilBurnisher extends ToolCard{
 
+    int id=3;
+
+    public int getId() {
+        return id;
+    }
+
     @Override
     public int effect(){
 

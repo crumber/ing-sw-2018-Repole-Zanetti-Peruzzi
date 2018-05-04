@@ -3,6 +3,13 @@ package repolezanettiperuzzi.model.toolcards;
 import repolezanettiperuzzi.model.RealPlayer;
 
 public class Lathekin extends ToolCard {
+
+    int id=4;
+
+    public int getId() {
+        return id;
+    }
+
     @Override
     public int effect() {
         return 0;
