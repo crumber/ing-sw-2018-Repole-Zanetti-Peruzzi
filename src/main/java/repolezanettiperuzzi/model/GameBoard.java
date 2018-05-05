@@ -13,7 +13,6 @@ public class GameBoard {
     DiceBag diceBag;
     RoundTrack roundTrack;
     int round;
-    int turn;
     int nPlayers;
     int [] costToolCard= new int[3];
 
@@ -25,7 +24,7 @@ public class GameBoard {
         diceBag = new DiceBag();
         roundTrack = new RoundTrack();
         this.nPlayers = nPlayers;
-
+        round=1;
         for(int i=0;i<3;i++){
 
             costToolCard[i]=1;
@@ -132,4 +131,9 @@ public class GameBoard {
 
     }
 
+    public int getRound() {
+
+        return round;
+
+    }
 }

@@ -1,22 +1,39 @@
 package repolezanettiperuzzi.model.toolcards;
 
 import repolezanettiperuzzi.model.GameBoard;
+import repolezanettiperuzzi.model.RealPlayer;
 import repolezanettiperuzzi.model.Value;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GrindingStone extends ToolCard {
 
     int id=10;
+    List<Object> resultOfAction= new ArrayList<>();
 
     public int getId() {
         return id;
     }
 
-    @Override
-    public int effect() {
-        return 0;
+    public List<Object> check(GameBoard boar, int posDieDraft) {
+
+        if(boar.getDieDraft(posDieDraft)==null){
+
+            resultOfAction.add(-1);
+            resultOfAction.add("there isn't die in this position on draft");
+
+        }else {
+
+            resultOfAction.add(1);
+
+        }
+
+        return  resultOfAction;
     }
 
-    public boolean effect(GameBoard board, int posDieDraft){
+
+    public void effect(GameBoard board, int posDieDraft){
 
         if(board.getDieDraft(posDieDraft).getValueDie()==Value.ONE){
 
@@ -53,7 +70,5 @@ public class GrindingStone extends ToolCard {
             board.getDieDraft(posDieDraft).setValue(Value.FOUR);
 
         }
-
-        return true;
     }
 }

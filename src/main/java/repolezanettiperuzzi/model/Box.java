@@ -76,7 +76,7 @@ public class Box {
 
     }
 
-    private boolean controlBounds(Die dice){
+    public boolean controlBounds(Die dice){
 
         if(((this.getBoundColour()==null)&&(this.getBoundValue()==null))||
                 ((null != this.getBoundValue())&&(this.getBoundValue().equals(dice.getValueDie())))||
@@ -92,7 +92,8 @@ public class Box {
 
     }
 
-    private boolean controlValue(Die dice){
+    // if there aren't bound value or value dice is equals bound value return true else return false
+    public boolean controlValue(Die dice){
 
         if(((this.getBoundValue()==null))||(this.getBoundValue().equals(dice.getValueDie()))){
 
@@ -105,7 +106,8 @@ public class Box {
 
     }
 
-    private boolean controlColour(Die dice){
+    // if there aren't bound colour or colour dice is equals bound colour return true else return false
+    public boolean controlColour(Die dice){
 
         if((this.getBoundColour()==null)||(this.getBoundColour().equals(dice.getColourDie()))){
 

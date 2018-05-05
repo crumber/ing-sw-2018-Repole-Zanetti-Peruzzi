@@ -37,11 +37,21 @@ public class Window {
         return false;
     }
 
-    public boolean moveDie(int xIn,int yIn, int xEnd, int yEnd, String restriction) {
+    public void moveDie(int xIn,int yIn, int xEnd, int yEnd, String restriction) {
 
-        if((boardBox[xIn][yIn].die!=null)&&(controlAdjacences(xEnd,yEnd))) {
-            return this.boardBox[xEnd][yEnd].setDie(this.boardBox[xIn][yIn].removeDie(), restriction);
+        if((controlAdjacences(xEnd,yEnd))) {
+            this.boardBox[xEnd][yEnd].setDie(this.boardBox[xIn][yIn].removeDie(), restriction);
         }
+    }
+
+    public boolean thereIsDie(int x, int y){
+
+        if(boardBox[x][y].die!=null){
+
+             return true;
+
+        }
+
         return false;
     }
 
@@ -64,6 +74,11 @@ public class Window {
 
         return this.FLAVORTOKENS;
 
+    }
+
+    public Die getDieFromBoardBox(int x, int y)
+    {
+        return this.boardBox[x][y].die;
     }
 
     public Value getDieValue(int x, int y){
@@ -122,6 +137,24 @@ public class Window {
         }
 
         return true;
+    }
+
+    public boolean controlAllBoundBox(int x, int y, Die d){
+
+        return boardBox[x][y].controlBounds(d);
+
+    }
+
+    public boolean controlColourBoundBox(int x, int y, Die d){
+
+        return boardBox[x][y].controlColour(d);
+
+    }
+
+    public boolean controlValueBoundBox(int x, int y, Die d){
+
+        return boardBox[x][y].controlValue(d);
+
     }
 
 

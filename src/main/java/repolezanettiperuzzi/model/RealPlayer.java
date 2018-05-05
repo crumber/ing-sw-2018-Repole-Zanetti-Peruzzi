@@ -4,8 +4,10 @@ public class RealPlayer implements Player {
 
     private String name;
     private Colour secretColour;
+    private boolean insertDieInThisTurn;
     private int flavorTokens;
     private Window window;
+    private int turn;
 
     public RealPlayer(String name){
         this.name = name;
@@ -50,6 +52,23 @@ public class RealPlayer implements Player {
     public String getName() {
 
         return name;
+
+    }
+
+    public boolean getInserDieInThisTurn(){
+
+        return insertDieInThisTurn;
+    }
+
+    public Colour getSecretColour() {
+
+        return secretColour;
+
+    }
+
+    public int getTurn() {
+
+        return turn;
 
     }
 }

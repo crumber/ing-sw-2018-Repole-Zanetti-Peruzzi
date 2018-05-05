@@ -6,10 +6,11 @@ import repolezanettiperuzzi.model.RealPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class UseCardAction {
 
-    public List<Object> doAction(RealPlayer gamer, GameBoard board, int whichToolCard){
+    public List<Object> doAction(RealPlayer gamer, GameBoard board, int whichToolCard, List<Object> parameterForCard){
 
         List<Object> resultOfAction = new ArrayList<>();
 
@@ -18,6 +19,8 @@ public class UseCardAction {
             switch (board.getId(whichToolCard)){
 
                 case 1: {
+
+                   // fare check se va a buon fine faccio attiva
 
                     break;
                 }
