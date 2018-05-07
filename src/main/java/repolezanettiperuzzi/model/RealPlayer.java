@@ -71,4 +71,19 @@ public class RealPlayer implements Player {
         return turn;
 
     }
+
+    //vedi incrRound dentro GameBoard per il metovo per cui non ho creato una setTurn
+    public void incrTurn(){
+        this.turn++;
+    }
+
+    //Il primo turno di un giocatore si ha quando turn = 1 . Qui nella reset lo imposto a 0 perchè questo
+    //metodo viene chiamato solo dalla Azione BeginRound. Quindi all'inizio del Round tutti i turni vengono
+    //impostati a 0 tramite questo metodo e quando sta per iniziare il primo turno vengono tutti incrementati di 1
+    //tramite la incrTurn(). Così chi dovra saltare il turno successivo per via di una carta tool basterà incrementare
+    //il suo turno di 1 portandolo quindi ad un eventuale turno 3 che non potra' mai giocare quel Round (per via di controlli
+    // sui turni che verranno fatti).
+    public void resetTurn(){
+        this.turn = 0;
+    }
 }

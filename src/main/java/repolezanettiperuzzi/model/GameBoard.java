@@ -136,4 +136,15 @@ public class GameBoard {
         return round;
 
     }
+
+    //Incrementa il round di 1.
+    //Non ho creato una setRound perche' non sarebbe mai utile a noi cambiare il numero del round
+    //da 1 a 4 e sarebbe anche un metodo pericoloso che potrebbe creare risultati inaspettati.
+    public void incrRound(){
+        this.round++;
+    }
+
+    public RealPlayer getPlayer(int nPlayer){
+        return players.get(nPlayer);
+    }
 }
