@@ -1,4 +1,4 @@
 package repolezanettiperuzzi.model.actions;
 
-public class CreatedListForCard {
+public class InsertParameterRequestAction {
 }
