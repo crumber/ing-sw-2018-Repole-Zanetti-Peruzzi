@@ -10,15 +10,25 @@ import java.util.List;
 public class GrindingStone extends ToolCard {
 
     int id=10;
+
+    //list of parameter: 0- gameboar 1- position die on draft
+    private GameBoard board;
+    private int posDieDraft;
+
     List<Object> resultOfAction= new ArrayList<>();
 
     public int getId() {
         return id;
     }
 
-    public List<Object> check(GameBoard boar, int posDieDraft) {
+    //control that there is die in this position on draft
+    @Override
+    public List<Object> check(List<Object> parameterForCard) {
 
-        if(boar.getDieDraft(posDieDraft)==null){
+        board=(GameBoard)parameterForCard.get(0);
+        posDieDraft=(Integer)parameterForCard.get(1);
+
+        if(board.getDieDraft(posDieDraft)==null){
 
             resultOfAction.add(-1);
             resultOfAction.add("there isn't die in this position on draft");
@@ -32,8 +42,12 @@ public class GrindingStone extends ToolCard {
         return  resultOfAction;
     }
 
+    //change die's value (in this position on draft)
+    @Override
+    public void effect(List<Object> parameterForCard){
 
-    public void effect(GameBoard board, int posDieDraft){
+        board=(GameBoard)parameterForCard.get(0);
+        posDieDraft=(Integer)parameterForCard.get(1);
 
         if(board.getDieDraft(posDieDraft).getValueDie()==Value.ONE){
 

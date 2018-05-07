@@ -72,6 +72,12 @@ public class RealPlayer implements Player {
 
     }
 
+    public void reduceFlavorTokens(int reduction) {
+
+        flavorTokens -= reduction;
+
+    }
+
     //vedi incrRound dentro GameBoard per il metovo per cui non ho creato una setTurn
     public void incrTurn(){
         this.turn++;

@@ -119,6 +119,12 @@ public class GameBoard {
 
     }
 
+    public void setCostToolCard(int whichToolCard) {
+
+        costToolCard[whichToolCard]=2;
+
+    }
+
     public ToolCard getToolCards(int whichToolCard) {
 
         return toolCards[whichToolCard];

@@ -14,4 +14,14 @@ public abstract class ToolCard {
         return id;
     }
 
+    public List<Object> check(List<Object> parameterForCard) {
+
+        return  resultOfAction;
+
+    }
+
+    public void effect(List<Object> parameterForCard){
+
+    }
+
 }

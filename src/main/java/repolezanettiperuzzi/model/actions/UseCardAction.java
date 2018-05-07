@@ -10,76 +10,28 @@ import java.util.Objects;
 
 public class UseCardAction {
 
-    public List<Object> doAction(RealPlayer gamer, GameBoard board, int whichToolCard, List<Object> parameterForCard){
+    public List<Object> doAction(RealPlayer player, GameBoard board, int whichToolCard, List<Object> parameterForCard){
 
         List<Object> resultOfAction = new ArrayList<>();
 
-        if(gamer.getFlavorTokens()>=board.getCostToolCard(whichToolCard)){
+        if(player.getFlavorTokens()>=board.getCostToolCard(whichToolCard)){
 
-            switch (board.getId(whichToolCard)){
+            resultOfAction=board.getToolCards(whichToolCard).check(parameterForCard);
 
-                case 1: {
+            //if check is correct, do active action, reduce player's tokens
+            if((Integer)resultOfAction.get(0)==1){
 
-                   // fare check se va a buon fine faccio attiva
+                board.getToolCards(whichToolCard).effect(parameterForCard);
 
-                    break;
-                }
+                player.reduceFlavorTokens(board.getCostToolCard(whichToolCard));
 
-                case 2: {
+                //increment tool card cost if it's cost is 1
+                if(board.getCostToolCard(whichToolCard)==1) {
 
-                    break;
-                }
+                    board.setCostToolCard(whichToolCard);
 
-                case 3: {
-
-                    break;
-                }
-
-                case 4: {
-
-                    break;
-                }
-
-                case 5: {
-
-                    break;
-                }
-
-                case 6: {
-
-                    break;
-                }
-
-                case 7: {
-
-                    break;
-                }
-
-                case 8: {
-
-                    break;
-                }
-
-                case 9: {
-
-                    break;
-                }
-
-                case 10: {
-
-                    break;
-                }
-
-                case 11: {
-
-                    break;
-                }
-                default: {
-
-                    break;
                 }
             }
-
 
         }
         else{

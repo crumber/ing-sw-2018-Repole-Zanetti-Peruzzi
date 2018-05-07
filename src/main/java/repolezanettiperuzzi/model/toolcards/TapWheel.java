@@ -10,13 +10,39 @@ import java.util.List;
 public class TapWheel extends ToolCard {
 
     int id=12;
+
+    //list of parameter: 0-player; 1-xStart die 1; 2-yStart die 1; 3-xEnd die 1; 4-yEnd die 1; 5-xStart die 2; 6-yStart die 2; 7-xEnd die 2; 8-yEnd die 2; 9-colour
+    private RealPlayer player;
+    private int xStart1;
+    private int yStart1;
+    private int xEnd1;
+    private int yEnd1;
+    private int xStart2;
+    private int yStart2;
+    private int xEnd2;
+    private int yEnd2;
+    private Colour colour;
+
     List<Object> resultOfAction= new ArrayList<>();
 
     public int getId() {
         return id;
     }
 
-    public List<Object> check(RealPlayer player, int xStart1, int yStart1, int xEnd1, int yEnd1, int xStart2, int yStart2, int xEnd2, int yEnd2, Colour colour) {
+    //control for all dice (two) that exist start/end position,that each dice have same colour , that there is die in start position, that there isn't die in end position, control that die respects all bound(colour value and there is die near end position)
+    @Override
+    public List<Object> check(List<Object> parameterForCard) {
+
+        player=(RealPlayer)parameterForCard.get(0);
+        xStart1=(Integer)parameterForCard.get(1);
+        yStart1=(Integer)parameterForCard.get(2);
+        xEnd1=(Integer)parameterForCard.get(3);
+        yEnd1=(Integer)parameterForCard.get(4);
+        xStart2=(Integer)parameterForCard.get(5);
+        yStart2=(Integer)parameterForCard.get(6);
+        xEnd2=(Integer)parameterForCard.get(7);
+        yEnd2=(Integer)parameterForCard.get(8);
+        colour=(Colour)parameterForCard.get(9);
 
         if (xStart1 < 0 || xStart1 > 3 || yStart1 < 0 || yStart1 > 4 || xEnd1 < 0 || xEnd1 > 3 || yEnd1 < 0 || yEnd1 > 4) {
 
@@ -81,11 +107,23 @@ public class TapWheel extends ToolCard {
         return resultOfAction;
     }
 
-    public void effect(RealPlayer player, int xStart1, int yStart1, int xEnd1, int yEnd1, int xStart2, int yStart2, int xEnd2, int yEnd2){
+    //move both dice (with all bound)
+    @Override
+    public void effect(List<Object> parameterForCard){
 
-            player.getWindow().moveDie(xStart1,yStart1,xEnd1,yEnd1,"both");
-            player.getWindow().moveDie(xStart2,yStart2,xEnd2,yEnd2,"both");
+        player=(RealPlayer)parameterForCard.get(0);
+        xStart1=(Integer)parameterForCard.get(1);
+        yStart1=(Integer)parameterForCard.get(2);
+        xEnd1=(Integer)parameterForCard.get(3);
+        yEnd1=(Integer)parameterForCard.get(4);
+        xStart2=(Integer)parameterForCard.get(5);
+        yStart2=(Integer)parameterForCard.get(6);
+        xEnd2=(Integer)parameterForCard.get(7);
+        yEnd2=(Integer)parameterForCard.get(8);
+        colour=(Colour)parameterForCard.get(9);
 
-        }
+        player.getWindow().moveDie(xStart1,yStart1,xEnd1,yEnd1,"both");
+        player.getWindow().moveDie(xStart2,yStart2,xEnd2,yEnd2,"both");
+
     }
 }

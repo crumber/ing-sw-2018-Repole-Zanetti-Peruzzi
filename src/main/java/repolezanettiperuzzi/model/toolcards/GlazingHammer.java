@@ -9,13 +9,23 @@ import java.util.List;
 public class GlazingHammer extends ToolCard {
 
     int id=7;
+
+    //list of parameter: 0- gameboar 1- player
+    private GameBoard board;
+    private RealPlayer player;
+
     List<Object> resultOfAction= new ArrayList<>();
 
     public int getId() {
         return id;
     }
 
-    public List<Object> check(GameBoard boar, RealPlayer player) {
+    //control that is second turn of round and that player don't insert die in this turn
+    @Override
+    public List<Object> check(List<Object> parameterForCard) {
+
+        board=(GameBoard)parameterForCard.get(0);
+        player=(RealPlayer) parameterForCard.get(1);
 
         if (player.getTurn()!=2) {
 
@@ -36,7 +46,12 @@ public class GlazingHammer extends ToolCard {
         return resultOfAction;
     }
 
-    public void effect(GameBoard board){
+    //roll all dice on draft
+    @Override
+    public void effect(List<Object> parameterForCard){
+
+        board=(GameBoard)parameterForCard.get(0);
+        player=(RealPlayer) parameterForCard.get(1);
 
         int numDiceDraft= board.sizeDraft();
         for(int i=0;i<numDiceDraft;i++){

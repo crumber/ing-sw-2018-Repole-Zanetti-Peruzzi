@@ -5,13 +5,29 @@ import repolezanettiperuzzi.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class CopperFoilBurnisher extends ToolCard{
 
     int id=3;
+
+    //list of parameter: 0-player 1-xstart 2-ystart 3-xend 4yend
+    private RealPlayer player;
+    private int xStart;
+    private int yStart;
+    private int xEnd;
+    private int yEnd;
+
     List<Object> resultOfAction = new ArrayList<>();
 
-    public List<Object> check(RealPlayer player, int xStart, int yStart, int xEnd, int yEnd){
+
+    //check that the position exists, that there is a die in the initial position, that there isn't a die in the final position, that respects bound (colour and die near final position)
+    @Override
+    public List<Object> check(List<Object> parameterForCard){
+
+        player=(RealPlayer)parameterForCard.get(0);
+        xStart=(Integer)parameterForCard.get(1);
+        yStart=(Integer)parameterForCard.get(2);
+        xEnd=(Integer)parameterForCard.get(3);
+        yEnd=(Integer)parameterForCard.get(4);
 
         if(xStart<0 || xStart>3 || yStart<0 || yStart>4 || xEnd<0 || xEnd>3 || yEnd<0 || yEnd>4){
 
@@ -51,9 +67,17 @@ public class CopperFoilBurnisher extends ToolCard{
     }
 
 
-    public void effect(RealPlayer player, int xStart, int yStart, int xEnd, int yEnd){
+    //move die from (xstart,ystart) into (xend,endy). respects bound of colour
+    @Override
+    public void effect(List<Object> parameterForCard){
 
-         player.getWindow().moveDie(xStart,yStart,xEnd,yEnd,"colour");
+        player=(RealPlayer)parameterForCard.get(0);
+        xStart=(Integer)parameterForCard.get(1);
+        yStart=(Integer)parameterForCard.get(2);
+        xEnd=(Integer)parameterForCard.get(3);
+        yEnd=(Integer)parameterForCard.get(4);
+
+        player.getWindow().moveDie(xStart,yStart,xEnd,yEnd,"colour");
 
     }
 

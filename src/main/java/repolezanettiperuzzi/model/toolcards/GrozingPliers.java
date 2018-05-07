@@ -10,13 +10,25 @@ import java.util.List;
 public class GrozingPliers extends ToolCard {
 
     int id=1;
+
+    //list of parameter: 0- gameboar 1- position die on draft 2-change(0 decrement 1 increment)
+    private GameBoard board;
+    private int numDieFromDraft;
+    private int change;
+
     List<Object> resultOfAction = new ArrayList<>();
 
     public int getId() {
         return id;
     }
 
-    public List<Object> check(GameBoard board, int numDieFromDraft, int change){
+    //control thant change is 1 or 0, that there is a die in this position on draft, that die can increment (if is six no) /decrement (if is one no)
+    @Override
+    public List<Object> check(List<Object> parameterForCard){
+
+        board=(GameBoard)parameterForCard.get(0);
+        numDieFromDraft=(Integer)parameterForCard.get(1);
+        change=(Integer)parameterForCard.get(2);
 
         if(change>1 || change<0){
 
@@ -51,7 +63,15 @@ public class GrozingPliers extends ToolCard {
         return  resultOfAction;
     }
 
-    public void effect(GameBoard board, int numDieFromDraft, int change) {
+
+    //increment die (if is six no) or decrement die (if is one no)
+    @Override
+    public void effect(List<Object> parameterForCard) {
+
+        board=(GameBoard)parameterForCard.get(0);
+        numDieFromDraft=(Integer)parameterForCard.get(1);
+        change=(Integer)parameterForCard.get(2);
+
 
         if (change == 0) {
 
