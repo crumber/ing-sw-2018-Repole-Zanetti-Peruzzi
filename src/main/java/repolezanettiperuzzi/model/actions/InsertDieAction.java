@@ -5,7 +5,7 @@ import repolezanettiperuzzi.model.RealPlayer;
 
 public class InsertDieAction {
 
-    public void doAction(RealPlayer gamer, GameBoard board, int numDieOnDraft, int x, int y){
+    public void doAction(RealPlayer gamer, GameBoard board ){
 
 
 

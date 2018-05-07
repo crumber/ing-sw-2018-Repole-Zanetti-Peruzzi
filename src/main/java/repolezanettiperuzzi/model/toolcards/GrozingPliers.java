@@ -11,12 +11,14 @@ public class GrozingPliers extends ToolCard {
 
     int id=1;
 
-    //list of parameter: 0- gameboar 1- position die on draft 2-change(0 decrement 1 increment)
+    //list of parameter: 0- gameboar 1-player 2- position die on draft 3-change(0 decrement 1 increment)
     private GameBoard board;
+    private RealPlayer player;
     private int numDieFromDraft;
     private int change;
 
     List<Object> resultOfAction = new ArrayList<>();
+    List<Object> requestForToolCard = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -27,8 +29,9 @@ public class GrozingPliers extends ToolCard {
     public List<Object> check(List<Object> parameterForCard){
 
         board=(GameBoard)parameterForCard.get(0);
-        numDieFromDraft=(Integer)parameterForCard.get(1);
-        change=(Integer)parameterForCard.get(2);
+        player=(RealPlayer)parameterForCard.get(1);
+        numDieFromDraft=(Integer)parameterForCard.get(2);
+        change=(Integer)parameterForCard.get(3);
 
         if(change>1 || change<0){
 
@@ -69,9 +72,9 @@ public class GrozingPliers extends ToolCard {
     public void effect(List<Object> parameterForCard) {
 
         board=(GameBoard)parameterForCard.get(0);
-        numDieFromDraft=(Integer)parameterForCard.get(1);
-        change=(Integer)parameterForCard.get(2);
-
+        player=(RealPlayer)parameterForCard.get(1);
+        numDieFromDraft=(Integer)parameterForCard.get(2);
+        change=(Integer)parameterForCard.get(3);
 
         if (change == 0) {
 
@@ -84,5 +87,16 @@ public class GrozingPliers extends ToolCard {
             board.getDieDraft(numDieFromDraft).setValue(Value.intToValue((board.getDieDraft(numDieFromDraft).getValueDie().getNumber()) + 1));
 
         }
+    }
+
+    @Override
+    public List<Object> requestCard(){
+
+        int maxChooseDraftDie = board.getSizeDraft();
+        requestForToolCard.add("Which die on draft (from 0 to " + maxChooseDraftDie + ") ?\n");
+        requestForToolCard.add("Do you want to increase (insert: 1) or reduce (insert: 0) ?\n");
+
+        return  requestForToolCard;
+
     }
 }

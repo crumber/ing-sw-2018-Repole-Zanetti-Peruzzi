@@ -101,6 +101,12 @@ public class GameBoard {
 
     }
 
+    public int getSizeDraft(){
+
+        return diceDraft.size();
+
+    }
+
     public Die getDieFromRoundTrack(int whichRound, int whichDieRound){
 
         return roundTrack.getDieRoundTrack(whichRound,whichDieRound);

@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.model.toolcards;
 
 import repolezanettiperuzzi.model.GameBoard;
+import repolezanettiperuzzi.model.RealPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +10,13 @@ public class FluxBrush extends ToolCard {
 
     int id=6;
 
-    //list of parameter: 0- gameboar 1- position die on draft
+    //list of parameter: 0- gameboar 1-player 2- position die on draft
     private GameBoard board;
+    private RealPlayer player;
     private int posDieDraft;
 
     List<Object> resultOfAction= new ArrayList<>();
+    List<Object> requestForToolCard = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -24,7 +27,8 @@ public class FluxBrush extends ToolCard {
     public List<Object> check(List<Object> parameterForCard) {
 
         board=(GameBoard)parameterForCard.get(0);
-        posDieDraft=(Integer)parameterForCard.get(1);
+        player=(RealPlayer)parameterForCard.get(1);
+        posDieDraft=(Integer)parameterForCard.get(2);
 
         if (board.getDieDraft(posDieDraft) == null) {
 
@@ -45,9 +49,20 @@ public class FluxBrush extends ToolCard {
     public void effect(List<Object> parameterForCard){
 
         board=(GameBoard)parameterForCard.get(0);
-        posDieDraft=(Integer)parameterForCard.get(1);
+        player=(RealPlayer)parameterForCard.get(1);
+        posDieDraft=(Integer)parameterForCard.get(2);
 
         board.getDieDraft(posDieDraft).rollDie();
+
+    }
+
+    @Override
+    public List<Object> requestCard(){
+
+        int maxChooseDraftDie = board.getSizeDraft();
+        requestForToolCard.add("Which die on draft (from 0 to " + maxChooseDraftDie + ") ?\n");
+
+        return  requestForToolCard;
 
     }
 }

@@ -1,6 +1,5 @@
 package repolezanettiperuzzi.model.toolcards;
 
-import repolezanettiperuzzi.model.Colour;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.RealPlayer;
 
@@ -11,7 +10,8 @@ public class TapWheel extends ToolCard {
 
     int id=12;
 
-    //list of parameter: 0-player; 1-xStart die 1; 2-yStart die 1; 3-xEnd die 1; 4-yEnd die 1; 5-xStart die 2; 6-yStart die 2; 7-xEnd die 2; 8-yEnd die 2; 9-colour
+    //list of parameter: 0-board 1-player; 2-xStart die 1; 3-yStart die 1; 4-xEnd die 1; 5-yEnd die 1; 6-xStart die 2; 7-yStart die 2; 8-xEnd die 2; 9-yEnd die 2; 10-which round 11-which die on round track
+    private GameBoard board;
     private RealPlayer player;
     private int xStart1;
     private int yStart1;
@@ -21,9 +21,11 @@ public class TapWheel extends ToolCard {
     private int yStart2;
     private int xEnd2;
     private int yEnd2;
-    private Colour colour;
+    private int whichRound;
+    private int whichDieOnRoundTrack;
 
     List<Object> resultOfAction= new ArrayList<>();
+    List<Object> requestForToolCard = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -33,16 +35,18 @@ public class TapWheel extends ToolCard {
     @Override
     public List<Object> check(List<Object> parameterForCard) {
 
-        player=(RealPlayer)parameterForCard.get(0);
-        xStart1=(Integer)parameterForCard.get(1);
-        yStart1=(Integer)parameterForCard.get(2);
-        xEnd1=(Integer)parameterForCard.get(3);
-        yEnd1=(Integer)parameterForCard.get(4);
-        xStart2=(Integer)parameterForCard.get(5);
-        yStart2=(Integer)parameterForCard.get(6);
-        xEnd2=(Integer)parameterForCard.get(7);
-        yEnd2=(Integer)parameterForCard.get(8);
-        colour=(Colour)parameterForCard.get(9);
+        board=(GameBoard)parameterForCard.get(0);
+        player=(RealPlayer)parameterForCard.get(1);
+        xStart1=(Integer)parameterForCard.get(2);
+        yStart1=(Integer)parameterForCard.get(3);
+        xEnd1=(Integer)parameterForCard.get(4);
+        yEnd1=(Integer)parameterForCard.get(5);
+        xStart2=(Integer)parameterForCard.get(6);
+        yStart2=(Integer)parameterForCard.get(7);
+        xEnd2=(Integer)parameterForCard.get(8);
+        yEnd2=(Integer)parameterForCard.get(9);
+        whichRound=(Integer)parameterForCard.get(10);
+        whichDieOnRoundTrack=(Integer)parameterForCard.get(11);
 
         if (xStart1 < 0 || xStart1 > 3 || yStart1 < 0 || yStart1 > 4 || xEnd1 < 0 || xEnd1 > 3 || yEnd1 < 0 || yEnd1 > 4) {
 
@@ -68,7 +72,7 @@ public class TapWheel extends ToolCard {
             resultOfAction.add(-1);
             resultOfAction.add("you don't move die 1 into box because your die don't respect bound");
 
-        } else if (player.getWindow().getDieColour(xStart1, yStart1).equals(player.getWindow().getDieColour(xStart2, yStart2))&& (colour.equals(player.getWindow().getDieColour(xStart1, yStart1)))){
+        } else if (!player.getWindow().getDieColour(xStart1, yStart1).equals(player.getWindow().getDieColour(xStart2, yStart2))&& (board.getDieFromRoundTrack(whichRound,whichDieOnRoundTrack).getColourDie().equals(player.getWindow().getDieColour(xStart1, yStart1)))){
 
             resultOfAction.add(-1);
             resultOfAction.add("you don't move dice because  they do not have the same color");
@@ -111,19 +115,33 @@ public class TapWheel extends ToolCard {
     @Override
     public void effect(List<Object> parameterForCard){
 
-        player=(RealPlayer)parameterForCard.get(0);
-        xStart1=(Integer)parameterForCard.get(1);
-        yStart1=(Integer)parameterForCard.get(2);
-        xEnd1=(Integer)parameterForCard.get(3);
-        yEnd1=(Integer)parameterForCard.get(4);
-        xStart2=(Integer)parameterForCard.get(5);
-        yStart2=(Integer)parameterForCard.get(6);
-        xEnd2=(Integer)parameterForCard.get(7);
-        yEnd2=(Integer)parameterForCard.get(8);
-        colour=(Colour)parameterForCard.get(9);
+        board=(GameBoard)parameterForCard.get(0);
+        player=(RealPlayer)parameterForCard.get(1);
+        xStart1=(Integer)parameterForCard.get(2);
+        yStart1=(Integer)parameterForCard.get(3);
+        xEnd1=(Integer)parameterForCard.get(4);
+        yEnd1=(Integer)parameterForCard.get(5);
+        xStart2=(Integer)parameterForCard.get(6);
+        yStart2=(Integer)parameterForCard.get(7);
+        xEnd2=(Integer)parameterForCard.get(8);
+        yEnd2=(Integer)parameterForCard.get(9);
+        whichRound=(Integer)parameterForCard.get(10);
+        whichDieOnRoundTrack=(Integer)parameterForCard.get(11);
 
         player.getWindow().moveDie(xStart1,yStart1,xEnd1,yEnd1,"both");
         player.getWindow().moveDie(xStart2,yStart2,xEnd2,yEnd2,"both");
+
+    }
+
+    @Override
+    public List<Object> requestCard(){
+
+        requestForToolCard.add("From which box do you want to move the die 1 (insert number of row and number of column, like this: 1 3) ?\n");
+        requestForToolCard.add("In which box do you want to move the die 1 (insert number of row and number of column, like this: 1 3) ?\n");
+        requestForToolCard.add("From which box do you want to move the die 2 (insert number of row and number of column, like this: 1 3) ?\n");
+        requestForToolCard.add("In which box do you want to move the die 2 (insert number of row and number of column, like this: 1 3) ?\n");
+        requestForToolCard.add("Which die on round track (insert number of round and number of die position on round, like this: 3 2 -> round 3 die 2) ?\n");
+        return  requestForToolCard;
 
     }
 }

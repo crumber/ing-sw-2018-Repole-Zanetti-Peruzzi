@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.model.toolcards;
 
+import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.RealPlayer;
 
 import java.util.ArrayList;
@@ -9,7 +10,8 @@ public class Lathekin extends ToolCard {
 
     int id=4;
 
-    //list of parameter: 0-player; 1-xStart die 1; 2-yStart die 1; 3-xEnd die 1; 4-yEnd die 1; 5-xStart die 2; 6-yStart die 2; 7-xEnd die 2; 8-yEnd die 2
+    //list of parameter: 0-board 1-player; 2-xStart die 1; 3-yStart die 1; 4-xEnd die 1; 5-yEnd die 1; 6-xStart die 2; 7-yStart die 2; 8-xEnd die 2; 9-yEnd die 2
+    private GameBoard board;
     private RealPlayer player;
     private int x1Start;
     private int y1Start;
@@ -21,6 +23,7 @@ public class Lathekin extends ToolCard {
     private int y2End;
 
     List<Object> resultOfAction= new ArrayList<>();
+    List<Object> requestForToolCard = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -30,15 +33,16 @@ public class Lathekin extends ToolCard {
     @Override
     public List<Object> check(List<Object> parameterForCard) {
 
-        player=(RealPlayer)parameterForCard.get(0);
-        x1Start=(Integer)parameterForCard.get(1);
-        y1Start=(Integer)parameterForCard.get(2);
-        x1End=(Integer)parameterForCard.get(3);
-        y1End=(Integer)parameterForCard.get(4);
-        x2Start=(Integer)parameterForCard.get(5);
-        y2Start=(Integer)parameterForCard.get(6);
-        x2End=(Integer)parameterForCard.get(7);
-        y2End=(Integer)parameterForCard.get(8);
+        board=(GameBoard)parameterForCard.get(0);
+        player=(RealPlayer)parameterForCard.get(1);
+        x1Start=(Integer)parameterForCard.get(2);
+        y1Start=(Integer)parameterForCard.get(3);
+        x1End=(Integer)parameterForCard.get(4);
+        y1End=(Integer)parameterForCard.get(5);
+        x2Start=(Integer)parameterForCard.get(6);
+        y2Start=(Integer)parameterForCard.get(7);
+        x2End=(Integer)parameterForCard.get(8);
+        y2End=(Integer)parameterForCard.get(9);
 
         if(x1Start<0 || x1Start>3 || y1Start<0 || y1Start>4 || x1End<0 || x1End>3 || y1End<0 || y1End>4){
 
@@ -103,18 +107,31 @@ public class Lathekin extends ToolCard {
     @Override
     public void effect(List<Object> parameterForCard){
 
-        player=(RealPlayer)parameterForCard.get(0);
-        x1Start=(Integer)parameterForCard.get(1);
-        y1Start=(Integer)parameterForCard.get(2);
-        x1End=(Integer)parameterForCard.get(3);
-        y1End=(Integer)parameterForCard.get(4);
-        x2Start=(Integer)parameterForCard.get(5);
-        y2Start=(Integer)parameterForCard.get(6);
-        x2End=(Integer)parameterForCard.get(7);
-        y2End=(Integer)parameterForCard.get(8);
+        board=(GameBoard)parameterForCard.get(0);
+        player=(RealPlayer)parameterForCard.get(1);
+        x1Start=(Integer)parameterForCard.get(2);
+        y1Start=(Integer)parameterForCard.get(3);
+        x1End=(Integer)parameterForCard.get(4);
+        y1End=(Integer)parameterForCard.get(5);
+        x2Start=(Integer)parameterForCard.get(6);
+        y2Start=(Integer)parameterForCard.get(7);
+        x2End=(Integer)parameterForCard.get(8);
+        y2End=(Integer)parameterForCard.get(9);
 
         player.getWindow().moveDie(x1Start,y1Start,x1End,y1End,"both");
         player.getWindow().moveDie(x2Start,y2Start,x2End,y2End,"both");
+
+    }
+
+    @Override
+    public List<Object> requestCard(){
+
+        requestForToolCard.add("From which box do you want to move the die 1 (insert number of row and number of column, like this: 1 3) ?\n");
+        requestForToolCard.add("In which box do you want to move the die 1 (insert number of row and number of column, like this: 1 3) ?\n");
+        requestForToolCard.add("From which box do you want to move the die 2 (insert number of row and number of column, like this: 1 3) ?\n");
+        requestForToolCard.add("In which box do you want to move the die 2 (insert number of row and number of column, like this: 1 3) ?\n");
+
+        return  requestForToolCard;
 
     }
 }

@@ -2,6 +2,7 @@ package repolezanettiperuzzi.model.toolcards;
 
 import repolezanettiperuzzi.model.Die;
 import repolezanettiperuzzi.model.GameBoard;
+import repolezanettiperuzzi.model.RealPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +11,15 @@ public class LensCutter extends ToolCard {
 
     int id=5;
 
-    //list of parameter: 0-game board 1-position Die On Draft 2-which Round 3-which Die Round
+    //list of parameter: 0-game board 1-player 2-position Die On Draft 3-which Round 4-which Die Round
     private GameBoard board;
+    private RealPlayer player;
     private int posDieOnDraft;
     private int whichRound;
     private int whichDieRound;
 
     List<Object> resultOfAction= new ArrayList<>();
+    List<Object> requestForToolCard = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -27,9 +30,10 @@ public class LensCutter extends ToolCard {
     public List<Object> check(List<Object> parameterForCard){
 
         board=(GameBoard)parameterForCard.get(0);
-        posDieOnDraft=(Integer)parameterForCard.get(1);
-        whichRound=(Integer)parameterForCard.get(2);
-        whichDieRound=(Integer)parameterForCard.get(3);
+        player=(RealPlayer)parameterForCard.get(1);
+        posDieOnDraft=(Integer)parameterForCard.get(2);
+        whichRound=(Integer)parameterForCard.get(3);
+        whichDieRound=(Integer)parameterForCard.get(4);
 
         if(board.getDieDraft(posDieOnDraft)==null){
 
@@ -55,15 +59,27 @@ public class LensCutter extends ToolCard {
     public void effect(List<Object> parameterForCard){
 
         board=(GameBoard)parameterForCard.get(0);
-        posDieOnDraft=(Integer)parameterForCard.get(1);
-        whichRound=(Integer)parameterForCard.get(2);
-        whichDieRound=(Integer)parameterForCard.get(3);
+        player=(RealPlayer)parameterForCard.get(1);
+        posDieOnDraft=(Integer)parameterForCard.get(2);
+        whichRound=(Integer)parameterForCard.get(3);
+        whichDieRound=(Integer)parameterForCard.get(4);
 
         Die dieOnDraft= board.getDieDraft(posDieOnDraft);
         Die dieOnRoundTrack= board.getDieFromRoundTrack(whichRound,whichDieRound);
 
         board.setDieDraft(posDieOnDraft,dieOnRoundTrack); //put die on round track in the draft
         board.setDieToRoundTrack(whichRound,whichDieRound,dieOnDraft); //put die on draft in the round track (pos: which round, which die)
+
+    }
+
+    @Override
+    public List<Object> requestCard(){
+
+        int maxChooseDraftDie = board.getSizeDraft();
+        requestForToolCard.add("Which die on draft (from 0 to " + maxChooseDraftDie + ") ?\n");
+        requestForToolCard.add("Which die on round track (insert number of round and number of die position on round, like this: 3 2 -> round 3 die 2) ?\n");
+
+        return  requestForToolCard;
 
     }
 }

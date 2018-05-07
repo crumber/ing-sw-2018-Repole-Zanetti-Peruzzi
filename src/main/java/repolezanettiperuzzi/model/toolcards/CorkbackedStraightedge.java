@@ -19,6 +19,7 @@ public class CorkbackedStraightedge extends ToolCard {
 
 
     List<Object> resultOfAction= new ArrayList<>();
+    List<Object> requestForToolCard = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -80,6 +81,17 @@ public class CorkbackedStraightedge extends ToolCard {
 
         player.getWindow().insertDie(board.getDieDraft(posDieOnDraft),whichRow,whichColumn,"both");
         board.removeDieFromDraft(posDieOnDraft);
+
+    }
+
+    @Override
+    public List<Object> requestCard(){
+
+        int maxChooseDraftDie = board.getSizeDraft();
+        requestForToolCard.add("Which die on draft (from 0 to " + maxChooseDraftDie + ") ?\n");
+        requestForToolCard.add("Which die on round track (insert number of round and number of die position on round, like this: 3 2 -> round 3 die 2) ?\n");
+
+        return  requestForToolCard;
 
     }
 

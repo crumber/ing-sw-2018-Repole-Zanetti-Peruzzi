@@ -9,6 +9,7 @@ public abstract class ToolCard {
 
     int id;
     List<Object> resultOfAction = new ArrayList<>();
+    List<Object> requestForToolCard = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -21,6 +22,12 @@ public abstract class ToolCard {
     }
 
     public void effect(List<Object> parameterForCard){
+
+    }
+
+    public List<Object> requestCard(){
+
+        return  requestForToolCard;
 
     }
 

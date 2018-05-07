@@ -15,6 +15,7 @@ public class GlazingHammer extends ToolCard {
     private RealPlayer player;
 
     List<Object> resultOfAction= new ArrayList<>();
+    List<Object> requestForToolCard = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -59,6 +60,13 @@ public class GlazingHammer extends ToolCard {
             board.getDieDraft(i).rollDie();
 
         }
+    }
+
+    @Override
+    public List<Object> requestCard(){
+
+        return  requestForToolCard;
+
     }
 
 }

@@ -11,6 +11,7 @@ public class FluxRemover extends ToolCard {
 
     int id=11;
     List<Object> resultOfAction= new ArrayList<>();
+    List<Object> requestForToolCard = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -45,6 +46,13 @@ public class FluxRemover extends ToolCard {
 
         board.addDieToDraft(newDie); // add new die to draft
         return true;
+
+    }
+
+    @Override
+    public List<Object> requestCard(){
+
+        return  requestForToolCard;
 
     }
 }
