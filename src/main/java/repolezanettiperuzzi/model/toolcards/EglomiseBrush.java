@@ -11,11 +11,11 @@ public class EglomiseBrush extends ToolCard {
     int id=2;
 
     //list of parameter: 0-player 1-xstart 2-ystart 3-xend 4yend
+    private RealPlayer player;
     private int xStart;
     private int yStart;
     private int xEnd;
     private int yEnd;
-    private RealPlayer player;
 
     List<Object> resultOfAction= new ArrayList<>();
 

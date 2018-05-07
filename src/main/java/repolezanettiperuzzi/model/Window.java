@@ -19,23 +19,13 @@ public class Window {
         }
     }
 
-    boolean insertDie(Die d, int x, int y, String restriction){
+    public void insertDie(Die d, int x, int y, String restriction){
 
-        if(isEmpty()){
+        this.boardBox[x][y].setDie(d,restriction);
 
-            if((x==0)||(x==boardBox.length-1)||(y==0)||(y==boardBox[0].length-1)){
-
-                return this.boardBox[x][y].setDie(d,restriction);
-
-            }
-            return false;
-        }else if(controlAdjacences(x,y)){
-
-            return this.boardBox[x][y].setDie(d, restriction);
-        }
-
-        return false;
     }
+
+
 
     public void moveDie(int xIn,int yIn, int xEnd, int yEnd, String restriction) {
 
