@@ -1,9 +1,9 @@
 package repolezanettiperuzzi.model.actions;
 
-import repolezanettiperuzzi.model.Controller;
-import repolezanettiperuzzi.model.ControllerStub;
+import repolezanettiperuzzi.controller.Controller;
+import repolezanettiperuzzi.controller.ControllerStub;
 import repolezanettiperuzzi.model.GameBoard;
-import repolezanettiperuzzi.model.GameViewSkeleton;
+import repolezanettiperuzzi.view.GameViewSkeleton;
 
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;

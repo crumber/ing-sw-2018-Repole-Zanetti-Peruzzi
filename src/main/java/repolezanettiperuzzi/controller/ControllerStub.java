@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.model;
+package repolezanettiperuzzi.controller;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

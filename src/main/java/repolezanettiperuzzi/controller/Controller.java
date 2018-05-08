@@ -1,11 +1,11 @@
-package repolezanettiperuzzi.model;
+package repolezanettiperuzzi.controller;
+
+import repolezanettiperuzzi.model.GameBoard;
+import repolezanettiperuzzi.view.GameViewSkeleton;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 //versione ancora super grezza del controller con il pattern State ancora da implementare
 //questo sara' il lato server del controller

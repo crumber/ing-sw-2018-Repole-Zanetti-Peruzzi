@@ -1,4 +1,6 @@
-package repolezanettiperuzzi.model;
+package repolezanettiperuzzi.view;
+
+import repolezanettiperuzzi.controller.ControllerStub;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
