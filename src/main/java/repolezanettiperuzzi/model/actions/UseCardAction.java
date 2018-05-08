@@ -25,12 +25,37 @@ public class UseCardAction extends Action{
 
                 player.reduceFlavorTokens(board.getCostToolCard(whichToolCard));
 
-                //increment tool card cost if it's cost is 1
+                //increment tool card cost if its cost is 1
                 if(board.getCostToolCard(whichToolCard)==1) {
 
                     board.setCostToolCard(whichToolCard);
 
                 }
+            }
+
+        } else {
+
+            resultOfAction.add(-1);
+            resultOfAction.add("You don't have enough flavor tokens!");
+
+        }
+
+        return resultOfAction;
+    }
+
+    public List<Object> doActionPreEffect(RealPlayer player, GameBoard board, int whichToolCard, List<Object> parameterForCard){
+
+        List<Object> resultOfAction = new ArrayList<>();
+
+        if(player.getFlavorTokens()>=board.getCostToolCard(whichToolCard)){
+
+            resultOfAction=board.getToolCards(whichToolCard).check(parameterForCard);
+
+            //if check is correct, do active action, reduce player's tokens
+            if((Integer)resultOfAction.get(0)==1){
+
+                resultOfAction.add(board.getToolCards(whichToolCard).preEffect(parameterForCard));
+
             }
 
         } else {

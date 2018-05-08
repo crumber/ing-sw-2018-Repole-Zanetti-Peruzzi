@@ -8,15 +8,19 @@ import java.util.List;
 
 public class CreatedListForCardAction extends Action{
 
-    public List<Object> doAction (String clientAnswers, GameBoard board, RealPlayer player, int whichToolCard){
+    public List<Object> doAction (String clientAnswers, GameBoard board, RealPlayer player, int whichToolCard, int firstCall){
 
         List<Object> parameterForCard=new ArrayList<>();
         String[] clientAnswersArray= clientAnswers.split(" ");
         int idToolCard= board.getToolCards(whichToolCard).getId();
 
-        // for all card
-        parameterForCard.add(board);
-        parameterForCard.add(player);
+        // for all card but not for second call for tool card 11, first call is 1 unless when i call tool card 11 for second part
+        if(firstCall==1){
+
+            parameterForCard.add(board);
+            parameterForCard.add(player);
+
+        }
 
         //which die on draft and increment or decrement (1 or 0)
         if(idToolCard==1){
@@ -58,8 +62,8 @@ public class CreatedListForCardAction extends Action{
             }
         }
 
-        //add which die on draft
-        if(idToolCard==6 || idToolCard==10){
+        //add which die on draft (second call 11 tool card add value of die)
+        if(idToolCard==6 || idToolCard==10 || idToolCard==11 ){
 
             for(int i=0; i<1;i++){
 

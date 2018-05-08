@@ -31,4 +31,18 @@ public abstract class ToolCard {
 
     }
 
+    //only for card 11
+    public List<Object> preEffect(List<Object> parameterForCard){
+
+        return requestForToolCard;
+
+    }
+
+    //only for card 11
+    public List<Object> checkPreEffect(List<Object> parameterForCard){
+
+        return resultOfAction;
+
+    }
+
 }

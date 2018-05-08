@@ -92,7 +92,5 @@ public class CorkbackedStraightedge extends ToolCard {
         requestForToolCard.add("Which die on round track (insert number of round and number of die position on round, like this: 3 2 -> round 3 die 2) ?\n");
 
         return  requestForToolCard;
-
     }
-
 }
