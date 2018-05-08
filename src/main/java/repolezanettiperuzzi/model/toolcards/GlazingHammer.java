@@ -10,7 +10,7 @@ public class GlazingHammer extends ToolCard {
 
     int id=7;
 
-    //list of parameter: 0- gameboar 1- player
+    //list of parameter: 0- gameboard 1- player
     private GameBoard board;
     private RealPlayer player;
 

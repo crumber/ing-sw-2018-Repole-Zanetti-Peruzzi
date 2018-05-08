@@ -3,7 +3,7 @@
   <component name="SonarLintProjectSettings">
     <option name="analysisLogsEnabled" value="true" />
     <option name="bindingEnabled" value="true" />
-    <option name="projectKey" value="Sagrada" />
+    <option name="projectKey" value="Repole-Zanetti-Peruzzi:Sagrada" />
     <option name="serverId" value="sagrada" />
   </component>
 </project>

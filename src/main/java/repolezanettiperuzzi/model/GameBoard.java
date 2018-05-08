@@ -6,25 +6,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameBoard {
-    ArrayList<RealPlayer> players;
-    ArrayList<Die> diceDraft;
-    PublicCard publicCards[];
-    ToolCard toolCards[];
-    DiceBag diceBag;
-    RoundTrack roundTrack;
-    int round;
-    int nPlayers;
-    int [] costToolCard= new int[3];
+    private ArrayList<RealPlayer> players;
+    private ArrayList<Die> diceDraft;
+    private PublicCard publicCards[];
+    private ToolCard toolCards[];
+    private DiceBag diceBag;
+    private RoundTrack roundTrack;
+    private int round;
+    private int nPlayers;
+    private int [] costToolCard= new int[3];
 
-    public GameBoard(int nPlayers){
-        players = new ArrayList<RealPlayer>(nPlayers);
+    public GameBoard(){
+        players = new ArrayList<RealPlayer>();
         diceDraft = new ArrayList<Die>();
         publicCards = new PublicCard[3];
         toolCards = new ToolCard[3];
         diceBag = new DiceBag();
         roundTrack = new RoundTrack();
-        this.nPlayers = nPlayers;
         round=1;
+        nPlayers=0;
         for(int i=0;i<3;i++){
 
             costToolCard[i]=1;
@@ -33,7 +33,10 @@ public class GameBoard {
     }
 
     public void addPlayer(String playerName){
+
         players.add(new RealPlayer(playerName));
+        this.nPlayers++;
+
     }
 
     public int getNPlayers(){
