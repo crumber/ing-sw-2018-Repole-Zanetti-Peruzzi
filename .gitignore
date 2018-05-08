@@ -19,6 +19,17 @@
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 
+#SonarLint and SKD version
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/sonarlint
+.idea/sonarlint.xml
+.idea/uiDesigner.xml
+.idea/vcs.xml
+.idea/workspace.xml
+
 # Gradle:
 .idea/**/gradle.xml
 .idea/**/libraries
