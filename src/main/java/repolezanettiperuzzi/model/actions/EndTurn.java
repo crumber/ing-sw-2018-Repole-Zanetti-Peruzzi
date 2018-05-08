@@ -1,10 +1,9 @@
 package repolezanettiperuzzi.model.actions;
 
-public class EndTurn implements Action{
+public class EndTurn extends Action{
 
-    @Override
     public void doAction(){
-
+        //STOPPO IL TIMER DEL GIOCATORE E LO RESETTO
     }
 
 }

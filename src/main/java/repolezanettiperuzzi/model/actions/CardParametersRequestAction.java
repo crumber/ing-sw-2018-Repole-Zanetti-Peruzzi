@@ -6,7 +6,7 @@ import repolezanettiperuzzi.model.RealPlayer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardParametersRequestAction {
+public class CardParametersRequestAction extends Action{
 
     public List<Object> doAction(GameBoard board, RealPlayer player, int whichToolCard){
 

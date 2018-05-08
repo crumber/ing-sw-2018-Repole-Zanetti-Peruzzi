@@ -1,5 +1,7 @@
 package repolezanettiperuzzi.model.actions;
 
-public interface Action {
-    public void doAction();
+public abstract class Action {
+    public void doAction(){
+
+    }
 }

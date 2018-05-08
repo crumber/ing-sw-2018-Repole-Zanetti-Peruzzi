@@ -1,6 +1,6 @@
 package repolezanettiperuzzi.model.actions;
 
-public class CreateGame implements Action{
+public class CreateGame extends Action{
 
     @Override
     public void doAction(){

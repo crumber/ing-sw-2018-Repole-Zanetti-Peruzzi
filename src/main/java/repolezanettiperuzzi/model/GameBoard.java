@@ -59,6 +59,7 @@ public class GameBoard {
 
     }
 
+    //metodo pericolo che può cambiare il rep dall'esterno in un attimo, meglio toglierlo se non serve
     public void setDiceDraft(ArrayList<Die> diceDraft) {
 
         this.diceDraft = diceDraft;
@@ -158,5 +159,15 @@ public class GameBoard {
 
     public RealPlayer getPlayer(int nPlayer){
         return players.get(nPlayer);
+    }
+
+    public void resetDraft(){
+        for(int i = 0; i<this.diceDraft.size(); i++){
+            this.diceDraft.remove(i);
+        }
+    }
+
+    public int getDraftSize(){
+        return this.diceDraft.size();
     }
 }

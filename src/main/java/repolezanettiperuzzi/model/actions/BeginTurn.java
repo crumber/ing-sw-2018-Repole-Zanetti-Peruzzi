@@ -1,8 +1,7 @@
 package repolezanettiperuzzi.model.actions;
 
-public class BeginTurn implements Action{
+public class BeginTurn extends Action{
 
-    @Override
     public void doAction(){
 
     }

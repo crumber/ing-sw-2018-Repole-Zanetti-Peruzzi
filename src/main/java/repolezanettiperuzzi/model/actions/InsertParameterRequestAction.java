@@ -1,4 +1,4 @@
 package repolezanettiperuzzi.model.actions;
 
-public class InsertParameterRequestAction {
+public class InsertParameterRequestAction extends Action{
 }

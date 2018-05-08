@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class UseCardAction {
+public class UseCardAction extends Action{
 
     public List<Object> doAction(RealPlayer player, GameBoard board, int whichToolCard, List<Object> parameterForCard){
 
@@ -33,8 +33,7 @@ public class UseCardAction {
                 }
             }
 
-        }
-        else{
+        } else {
 
             resultOfAction.add(-1);
             resultOfAction.add("You don't have enough flavor tokens!");

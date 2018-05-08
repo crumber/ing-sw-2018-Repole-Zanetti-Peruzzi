@@ -6,7 +6,7 @@ import repolezanettiperuzzi.model.RealPlayer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreatedListForCardAction {
+public class CreatedListForCardAction extends Action{
 
     public List<Object> doAction (String clientAnswers, GameBoard board, RealPlayer player, int whichToolCard){
 

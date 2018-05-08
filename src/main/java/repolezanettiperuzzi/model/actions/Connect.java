@@ -1,8 +1,7 @@
 package repolezanettiperuzzi.model.actions;
 
-public class Connect implements Action{
+public class Connect extends Action{
 
-    @Override
     public void doAction(){
 
     }
