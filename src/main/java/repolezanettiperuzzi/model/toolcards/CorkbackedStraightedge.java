@@ -3,23 +3,17 @@ package repolezanettiperuzzi.model.toolcards;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.RealPlayer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CorkbackedStraightedge extends ToolCard {
 
     int id=9;
 
-    //list of parameter: 0-game board 1-player 2-position die on draft 3-which row 4-which column
-    private GameBoard board;
-    private RealPlayer player;
+    int resultOfAction;
+
     private int posDieOnDraft;
     private int whichRow;
     private int whichColumn;
-
-
-    List<Object> resultOfAction= new ArrayList<>();
-    List<Object> requestForToolCard = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -27,42 +21,39 @@ public class CorkbackedStraightedge extends ToolCard {
 
     //control that there is a die in draft position, that exist window's position, that there isn't die in this position, there aren't dice near this position and die respect bound of box
     @Override
-    public List<Object> check(List<Object> parameterForCard) {
+    public int check(GameBoard board, RealPlayer player, List<Integer> parameterForCard) {
 
-        board=(GameBoard)parameterForCard.get(0);
-        player=(RealPlayer)parameterForCard.get(1);
-        posDieOnDraft=(Integer)parameterForCard.get(2);
-        whichRow=(Integer)parameterForCard.get(3);
-        whichColumn=(Integer)parameterForCard.get(4);
+        posDieOnDraft=parameterForCard.get(0);
+        whichRow=parameterForCard.get(1);
+        whichColumn=parameterForCard.get(2);
 
-        if (board.getDieDraft(posDieOnDraft) == null) {
+        if (checkDieOnDraft(board,player,posDieOnDraft) != 1) {
 
-            resultOfAction.add(-1);
-            resultOfAction.add("there isn't die on draft in the position you have chosen ");
+            resultOfAction=checkDieOnDraft(board,player,posDieOnDraft);
 
         } else if(whichRow<0 || whichRow>3 || whichColumn<0 || whichColumn>4){
 
-            resultOfAction.add(-1);
-            resultOfAction.add("you don't put die because your position don't exist!!!!");
+            resultOfAction=-1;
 
         } else if (player.getWindow().thereIsDie(whichRow, whichColumn)) {
 
-            resultOfAction.add(-1);
-            resultOfAction.add("you don't move die into box because there is a die in this box");
+            resultOfAction=-3;
 
         } else if (player.getWindow().controlAdjacences(whichRow, whichColumn)) {
 
-            resultOfAction.add(-1);
-            resultOfAction.add("you don't move die into box because there are die near this box");
+            resultOfAction=-10;
 
         } else if(!player.getWindow().controlAllBoundBox(whichRow,whichColumn,board.getDieDraft(posDieOnDraft))) {
 
-            resultOfAction.add(-1);
-            resultOfAction.add("you don't move die into box because your die don't respect bound");
-        }
-        else{
+            resultOfAction=-7;
 
-            resultOfAction.add(1);
+        }else if(player.getWindow().controlAllBoundAdjacences(board.getDieDraft(posDieOnDraft),whichRow,whichColumn)){
+
+            resultOfAction=-25;
+
+        } else{
+
+            resultOfAction=1;
 
         }
 
@@ -71,26 +62,14 @@ public class CorkbackedStraightedge extends ToolCard {
 
     //insert die in box where there aren't dice near , remove die from draft
     @Override
-    public void effect(List<Object> parameterForCard){
+    public void effect(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
 
-        board=(GameBoard)parameterForCard.get(0);
-        player=(RealPlayer)parameterForCard.get(1);
-        posDieOnDraft=(Integer)parameterForCard.get(2);
-        whichRow=(Integer)parameterForCard.get(3);
-        whichColumn=(Integer)parameterForCard.get(4);
+        posDieOnDraft=parameterForCard.get(0);
+        whichRow=parameterForCard.get(1);
+        whichColumn=parameterForCard.get(2);
 
         player.getWindow().insertDie(board.getDieDraft(posDieOnDraft),whichRow,whichColumn,"both");
         board.removeDieFromDraft(posDieOnDraft);
 
-    }
-
-    @Override
-    public List<Object> requestCard(){
-
-        int maxChooseDraftDie = board.getSizeDraft();
-        requestForToolCard.add("Which die on draft (from 0 to " + maxChooseDraftDie + ") ?\n");
-        requestForToolCard.add("Which die on round track (insert number of round and number of die position on round, like this: 3 2 -> round 3 die 2) ?\n");
-
-        return  requestForToolCard;
     }
 }

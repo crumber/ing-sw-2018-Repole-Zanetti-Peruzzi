@@ -3,19 +3,13 @@ package repolezanettiperuzzi.model.toolcards;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.RealPlayer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GlazingHammer extends ToolCard {
 
     int id=7;
 
-    //list of parameter: 0- gameboard 1- player
-    private GameBoard board;
-    private RealPlayer player;
-
-    List<Object> resultOfAction= new ArrayList<>();
-    List<Object> requestForToolCard = new ArrayList<>();
+    int resultOfAction;
 
     public int getId() {
         return id;
@@ -23,24 +17,19 @@ public class GlazingHammer extends ToolCard {
 
     //control that is second turn of round and that player don't insert die in this turn
     @Override
-    public List<Object> check(List<Object> parameterForCard) {
-
-        board=(GameBoard)parameterForCard.get(0);
-        player=(RealPlayer) parameterForCard.get(1);
+    public int check(GameBoard board, RealPlayer player, List<Integer> parameterForCard) {
 
         if (player.getTurn()!=2) {
 
-            resultOfAction.add(-1);
-            resultOfAction.add("you don't use this card because isn't second turn of this round");
+            resultOfAction=-12;
 
         }else if (player.getInserDieInThisTurn()) {
 
-            resultOfAction.add(-1);
-            resultOfAction.add("you don't use this card because you have already inserted a die");
+            resultOfAction=-13;
 
         }else {
 
-            resultOfAction.add(1);
+            resultOfAction=1;
 
         }
 
@@ -49,10 +38,7 @@ public class GlazingHammer extends ToolCard {
 
     //roll all dice on draft
     @Override
-    public void effect(List<Object> parameterForCard){
-
-        board=(GameBoard)parameterForCard.get(0);
-        player=(RealPlayer) parameterForCard.get(1);
+    public void effect(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
 
         int numDiceDraft= board.sizeDraft();
         for(int i=0;i<numDiceDraft;i++){
@@ -61,12 +47,4 @@ public class GlazingHammer extends ToolCard {
 
         }
     }
-
-    @Override
-    public List<Object> requestCard(){
-
-        return  requestForToolCard;
-
-    }
-
 }

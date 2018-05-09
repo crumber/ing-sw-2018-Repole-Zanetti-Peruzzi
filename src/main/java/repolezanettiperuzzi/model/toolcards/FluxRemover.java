@@ -5,109 +5,86 @@ import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.RealPlayer;
 import repolezanettiperuzzi.model.Value;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FluxRemover extends ToolCard {
 
     int id=11;
-    private GameBoard board;
-    private RealPlayer player;
-    private int posDieDraft;
-    private  int dieValue;
 
-    List<Object> resultOfAction= new ArrayList<>();
-    List<Object> requestForToolCard = new ArrayList<>();
+    int resultOfAction;
+
+    private int posDieOnDraft;
+    private  int dieValue;
 
     public int getId() {
         return id;
     }
 
     @Override
-    public List<Object> check(List<Object> parameterForCard){
+    public int check(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
 
-        board=(GameBoard)parameterForCard.get(0);
-        player=(RealPlayer)parameterForCard.get(1);
-        posDieDraft=(Integer)parameterForCard.get(2);
-        dieValue=(Integer)parameterForCard.get(3);
+        posDieOnDraft=parameterForCard.get(0);
+        dieValue=parameterForCard.get(1);
 
         if(dieValue<1 || dieValue>6){
 
-            resultOfAction.add(-1);
-            resultOfAction.add("does'n exist this value for die's value!");
+            resultOfAction=-11;
 
         }else{
 
-            resultOfAction.add(1);
+            resultOfAction=1;
         }
 
         return resultOfAction;
     }
 
     @Override
-    public List<Object> checkPreEffect(List<Object> parameterForCard){
+    public int checkPreEffect(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
 
-        board=(GameBoard)parameterForCard.get(0);
-        player=(RealPlayer)parameterForCard.get(1);
-        posDieDraft=(Integer)parameterForCard.get(2);
+        posDieOnDraft=parameterForCard.get(0);
 
-        if(board.getDieDraft(posDieDraft)==null){
+        if(checkDieOnDraft(board,player,posDieOnDraft)!=1){
 
-            resultOfAction.add(-1);
-            resultOfAction.add("there isn't die in this draft position");
+            resultOfAction=checkDieOnDraft(board,player,posDieOnDraft);
 
         }else{
 
-            resultOfAction.add(1);
+            resultOfAction=1;
         }
 
         return resultOfAction;
     }
 
-    //metodo solo di questa tool card perchè la sua azione è divisa in due perchè a metà ho un'altra interrogazione del client per sapere il valore del dado
 
     //put die in bag , remove die from draft, take another die from bag and add this die in draft's final position (change die's position in parameter for card)
-    // return new quest for client (choose value from 1 to 6)
+    // return 11 -> new quest for client (choose value from 1 to 6)
     @Override
-    public List<Object> preEffect(List<Object> parameterForCard){
+    public int preEffect(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
 
-        board=(GameBoard)parameterForCard.get(0);
-        player=(RealPlayer)parameterForCard.get(1);
-        posDieDraft=(Integer)parameterForCard.get(2);
+        posDieOnDraft=parameterForCard.get(0);
 
-        board.putDieInBag(posDieDraft); //put die in the bag
-        board.removeDieFromDraft(posDieDraft); //removed die from draft
+        board.putDieInBag(posDieOnDraft); //put die in the bag
+        board.removeDieFromDraft(posDieOnDraft); //removed die from draft
         Die newDie= board.takeDieFromBag(); // take another die from bag
         board.addDieToDraft(newDie); // add die in draft in final position
 
         int posNewDie = board.getSizeDraft() - 1 ;
-        parameterForCard.add(2, posNewDie);// change the die's position in parameterForCard
+        parameterForCard.add(0, posNewDie);// change the die's position in parameterForCard
 
         //new player quest
-        requestForToolCard.add("Choose value of die in position "+posNewDie +" ( the value have to be between 1 and 6 )\n");
+        resultOfAction=11;
 
-        return requestForToolCard;
+        return resultOfAction;
     }
 
-    // chiamata finale dove setta al valore scelto dal giocatore il dado precedentemente pescato
+    // set die's value
     @Override
-    public void effect(List<Object> parameterForCard){
+    public void effect(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
 
-        board=(GameBoard)parameterForCard.get(0);
-        player=(RealPlayer)parameterForCard.get(1);
-        posDieDraft=(Integer)parameterForCard.get(2);
-        dieValue=(Integer)parameterForCard.get(3);
+        posDieOnDraft=parameterForCard.get(0);
+        dieValue=parameterForCard.get(1);
 
-        board.getDieDraft(posDieDraft).setValue(Value.intToValue(dieValue));
+        board.getDieDraft(posDieOnDraft).setValue(Value.intToValue(dieValue));
 
-    }
-
-    @Override
-    public List<Object> requestCard(){
-
-        int maxChooseDraftDie = board.getSizeDraft();
-        requestForToolCard.add("Which die on draft (from 0 to " + maxChooseDraftDie + ") ?\n");
-
-        return  requestForToolCard;
     }
 }

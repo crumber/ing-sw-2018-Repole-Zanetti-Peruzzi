@@ -4,21 +4,16 @@ import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.RealPlayer;
 import repolezanettiperuzzi.model.Value;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GrozingPliers extends ToolCard {
 
     int id=1;
 
-    //list of parameter: 0- gameboar 1-player 2- position die on draft 3-change(0 decrement 1 increment)
-    private GameBoard board;
-    private RealPlayer player;
     private int numDieFromDraft;
     private int change;
 
-    List<Object> resultOfAction = new ArrayList<>();
-    List<Object> requestForToolCard = new ArrayList<>();
+    int resultOfAction;
 
     public int getId() {
         return id;
@@ -26,41 +21,35 @@ public class GrozingPliers extends ToolCard {
 
     //control thant change is 1 or 0, that there is a die in this position on draft, that die can increment (if is six no) /decrement (if is one no)
     @Override
-    public List<Object> check(List<Object> parameterForCard){
+    public int check(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
 
-        board=(GameBoard)parameterForCard.get(0);
-        player=(RealPlayer)parameterForCard.get(1);
-        numDieFromDraft=(Integer)parameterForCard.get(2);
-        change=(Integer)parameterForCard.get(3);
+        numDieFromDraft=parameterForCard.get(0);
+        change=parameterForCard.get(1);
 
         if(change>1 || change<0){
 
-            resultOfAction.add(-1);
-            resultOfAction.add("your change does not exist!");
+            resultOfAction=-14;
 
-        }else if(board.getDieDraft(numDieFromDraft)==null){
+        }else if(checkDieOnDraft(board,player,numDieFromDraft)!=1){
 
-            resultOfAction.add(-1);
-            resultOfAction.add("there isn't die on draft in the position you have chosen ");
+            resultOfAction=checkDieOnDraft(board,player,numDieFromDraft);
 
         }else if(change==0 && board.getDieDraft(numDieFromDraft).getValueDie().getNumber()!=1){
 
-            resultOfAction.add(1);
+            resultOfAction=1;
 
         }else if(change==0){
 
-            resultOfAction.add(-1);
-            resultOfAction.add("you don't decrease this die because you don't decrease one");
+            resultOfAction=-15;
         }
 
         if(change==1 && board.getDieDraft(numDieFromDraft).getValueDie().getNumber()!=6){
 
-            resultOfAction.add(1);
+            resultOfAction=1;
 
         }else if(change==1){
 
-            resultOfAction.add(-1);
-            resultOfAction.add("you don't increase this die because you don't increase six");
+            resultOfAction=-16;
         }
 
         return  resultOfAction;
@@ -69,12 +58,10 @@ public class GrozingPliers extends ToolCard {
 
     //increment die (if is six no) or decrement die (if is one no)
     @Override
-    public void effect(List<Object> parameterForCard) {
+    public void effect(GameBoard board, RealPlayer player, List<Integer> parameterForCard) {
 
-        board=(GameBoard)parameterForCard.get(0);
-        player=(RealPlayer)parameterForCard.get(1);
-        numDieFromDraft=(Integer)parameterForCard.get(2);
-        change=(Integer)parameterForCard.get(3);
+        numDieFromDraft=parameterForCard.get(0);
+        change=parameterForCard.get(1);
 
         if (change == 0) {
 
@@ -87,16 +74,5 @@ public class GrozingPliers extends ToolCard {
             board.getDieDraft(numDieFromDraft).setValue(Value.intToValue((board.getDieDraft(numDieFromDraft).getValueDie().getNumber()) + 1));
 
         }
-    }
-
-    @Override
-    public List<Object> requestCard(){
-
-        int maxChooseDraftDie = board.getSizeDraft();
-        requestForToolCard.add("Which die on draft (from 0 to " + maxChooseDraftDie + ") ?\n");
-        requestForToolCard.add("Do you want to increase (insert: 1) or reduce (insert: 0) ?\n");
-
-        return  requestForToolCard;
-
     }
 }

@@ -4,20 +4,15 @@ import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.RealPlayer;
 import repolezanettiperuzzi.model.Value;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GrindingStone extends ToolCard {
 
     int id=10;
 
-    //list of parameter: 0- gameboar 1-player 2- position die on draft
-    private GameBoard board;
-    private RealPlayer player;
-    private int posDieDraft;
+    private int posDieOnDraft;
 
-    List<Object> resultOfAction= new ArrayList<>();
-    List<Object> requestForToolCard = new ArrayList<>();
+    int resultOfAction;
 
     public int getId() {
         return id;
@@ -25,78 +20,55 @@ public class GrindingStone extends ToolCard {
 
     //control that there is die in this position on draft
     @Override
-    public List<Object> check(List<Object> parameterForCard) {
+    public int check(GameBoard board, RealPlayer player, List<Integer> parameterForCard) {
 
-        board=(GameBoard)parameterForCard.get(0);
-        player=(RealPlayer)parameterForCard.get(1);
-        posDieDraft=(Integer)parameterForCard.get(2);
+        posDieOnDraft=parameterForCard.get(0);
 
-        if(board.getDieDraft(posDieDraft)==null){
-
-            resultOfAction.add(-1);
-            resultOfAction.add("there isn't die in this position on draft");
-
-        }else {
-
-            resultOfAction.add(1);
-
-        }
+        resultOfAction=checkDieOnDraft(board,player,posDieOnDraft);
 
         return  resultOfAction;
     }
 
     //change die's value (in this position on draft)
     @Override
-    public void effect(List<Object> parameterForCard){
+    public void effect(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
 
-        board=(GameBoard)parameterForCard.get(0);
-        player=(RealPlayer)parameterForCard.get(1);
-        posDieDraft=(Integer)parameterForCard.get(2);
+        posDieOnDraft=parameterForCard.get(0);
 
-        if(board.getDieDraft(posDieDraft).getValueDie()==Value.ONE){
+        if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.ONE){
 
-            board.getDieDraft(posDieDraft).setValue(Value.SIX);
+            board.getDieDraft(posDieOnDraft).setValue(Value.SIX);
 
         }
 
-        if(board.getDieDraft(posDieDraft).getValueDie()==Value.SIX){
+        if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.SIX){
 
-            board.getDieDraft(posDieDraft).setValue(Value.ONE);
-
-        }
-
-        if(board.getDieDraft(posDieDraft).getValueDie()==Value.FIVE){
-
-            board.getDieDraft(posDieDraft).setValue(Value.TWO);
+            board.getDieDraft(posDieOnDraft).setValue(Value.ONE);
 
         }
 
-        if(board.getDieDraft(posDieDraft).getValueDie()==Value.TWO){
+        if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.FIVE){
 
-            board.getDieDraft(posDieDraft).setValue(Value.FIVE);
-
-        }
-
-        if(board.getDieDraft(posDieDraft).getValueDie()==Value.FOUR){
-
-            board.getDieDraft(posDieDraft).setValue(Value.THREE);
+            board.getDieDraft(posDieOnDraft).setValue(Value.TWO);
 
         }
 
-        if(board.getDieDraft(posDieDraft).getValueDie()==Value.THREE){
+        if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.TWO){
 
-            board.getDieDraft(posDieDraft).setValue(Value.FOUR);
+            board.getDieDraft(posDieOnDraft).setValue(Value.FIVE);
 
         }
-    }
 
-    @Override
-    public List<Object> requestCard(){
+        if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.FOUR){
 
-        int maxChooseDraftDie = board.getSizeDraft();
-        requestForToolCard.add("Which die on draft (from 0 to " + maxChooseDraftDie + ") ?\n");
+            board.getDieDraft(posDieOnDraft).setValue(Value.THREE);
 
-        return  requestForToolCard;
+        }
 
+        if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.THREE){
+
+            board.getDieDraft(posDieOnDraft).setValue(Value.FOUR);
+
+        }
     }
 }

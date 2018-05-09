@@ -1,26 +1,17 @@
 package repolezanettiperuzzi.model.actions;
 
 import repolezanettiperuzzi.model.GameBoard;
-import repolezanettiperuzzi.model.RealPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CreatedListForCardAction extends Action{
 
-    public List<Object> doAction (String clientAnswers, GameBoard board, RealPlayer player, int whichToolCard, int firstCall){
+    public List<Integer> doAction (String clientAnswers, GameBoard board, int whichToolCard){
 
-        List<Object> parameterForCard=new ArrayList<>();
+        ArrayList<Integer> parameterForCard=new ArrayList<>();
         String[] clientAnswersArray= clientAnswers.split(" ");
         int idToolCard= board.getToolCards(whichToolCard).getId();
-
-        // for all card but not for second call for tool card 11, first call is 1 unless when i call tool card 11 for second part
-        if(firstCall==1){
-
-            parameterForCard.add(board);
-            parameterForCard.add(player);
-
-        }
 
         //which die on draft and increment or decrement (1 or 0)
         if(idToolCard==1){
@@ -52,7 +43,8 @@ public class CreatedListForCardAction extends Action{
             }
         }
 
-        //add which die on draft and which die on track round (which turn and which turn's die)
+
+        //for card 9: pos die on draft and final position (x,y),  card 5: pos die on draft and pos die on round track (which round and which die on round)
         if(idToolCard==5 || idToolCard==9){
 
             for(int i=0; i<3;i++){
@@ -82,7 +74,7 @@ public class CreatedListForCardAction extends Action{
             }
         }
 
-        //carta numero 7 non ha bisogno altro oltre board e player mentre carta numero 11 e 8 da fare
+        //carta numero 7 non ha bisogno di qualcosa oltre board e player mentre carta numero 8 da fare
 
         return parameterForCard;
     }

@@ -1,67 +1,47 @@
 package repolezanettiperuzzi.model.actions;
 
-import com.sun.org.apache.xpath.internal.operations.String;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.RealPlayer;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
 
 public class UseCardAction extends Action{
 
-    public List<Object> doAction(RealPlayer player, GameBoard board, int whichToolCard, List<Object> parameterForCard){
+    //For all card and tool card 11's final effect
+    public int doAction(RealPlayer player, GameBoard board, int whichToolCard, List<Integer> parameterForCard){
 
-        List<Object> resultOfAction = new ArrayList<>();
+        int resultOfAction;
 
-        if(player.getFlavorTokens()>=board.getCostToolCard(whichToolCard)){
+        resultOfAction=board.getToolCards(whichToolCard).check(board,player,parameterForCard);
 
-            resultOfAction=board.getToolCards(whichToolCard).check(parameterForCard);
+        //if check is correct, do active action, reduce player's tokens
+        if(resultOfAction==1){
 
-            //if check is correct, do active action, reduce player's tokens
-            if((Integer)resultOfAction.get(0)==1){
+            board.getToolCards(whichToolCard).effect(board,player,parameterForCard);
+            player.reduceFlavorTokens(board.getCostToolCard(whichToolCard));
 
-                board.getToolCards(whichToolCard).effect(parameterForCard);
+            //increment tool card cost if its cost is 1
+            if(board.getCostToolCard(whichToolCard)==1) {
 
-                player.reduceFlavorTokens(board.getCostToolCard(whichToolCard));
-
-                //increment tool card cost if its cost is 1
-                if(board.getCostToolCard(whichToolCard)==1) {
-
-                    board.setCostToolCard(whichToolCard);
-
-                }
+                board.setCostToolCard(whichToolCard);
             }
-
-        } else {
-
-            resultOfAction.add(-1);
-            resultOfAction.add("You don't have enough flavor tokens!");
-
         }
 
         return resultOfAction;
     }
 
-    public List<Object> doActionPreEffect(RealPlayer player, GameBoard board, int whichToolCard, List<Object> parameterForCard){
+    //only for tool card 11
+    public int doActionPreEffect(RealPlayer player, GameBoard board, int whichToolCard, List<Integer> parameterForCard){
 
-        List<Object> resultOfAction = new ArrayList<>();
+        int resultOfAction;
 
-        if(player.getFlavorTokens()>=board.getCostToolCard(whichToolCard)){
+        resultOfAction=board.getToolCards(whichToolCard).checkPreEffect(board,player,parameterForCard);
 
-            resultOfAction=board.getToolCards(whichToolCard).check(parameterForCard);
+        //if check is correct, do active action, not reduce player's tokens
+        if(resultOfAction==1) {
 
-            //if check is correct, do active action, reduce player's tokens
-            if((Integer)resultOfAction.get(0)==1){
-
-                resultOfAction.add(board.getToolCards(whichToolCard).preEffect(parameterForCard));
-
-            }
-
-        } else {
-
-            resultOfAction.add(-1);
-            resultOfAction.add("You don't have enough flavor tokens!");
+            // return +11 -> quest for the client
+            resultOfAction = board.getToolCards(whichToolCard).preEffect(board, player, parameterForCard);
 
         }
 
