@@ -26,7 +26,7 @@ public class InsertDieWithCheckAction extends Action{
 
             resultOfAction=-3;
 
-        }else if(!player.getWindow().controlAdjacences(whichRow,whichColumn)){
+        }else if(!player.getWindow().controlAdjacences(whichRow,whichColumn) && !player.getWindow().isEmpty()){
 
             resultOfAction=-4;
 
