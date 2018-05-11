@@ -8,6 +8,8 @@ public class RealPlayer implements Player {
     private int flavorTokens;
     private Window window;
     private int turn;
+    private String connection; //RMI o Socket
+    private String UI; //CLI o GUI
 
     public RealPlayer(String name){
         this.name = name;

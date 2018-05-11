@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.controller;
 
 import repolezanettiperuzzi.model.GameBoard;
+import repolezanettiperuzzi.model.RealPlayer;
 import repolezanettiperuzzi.model.actions.Action;
 import repolezanettiperuzzi.model.actions.StartRMIServer;
 import repolezanettiperuzzi.view.GameViewSkeleton;
@@ -21,10 +22,11 @@ public class MasterGame {
         StartRMIServer startRMI = new StartRMIServer();
 
         //arrayList di GameViewSkeleton temporaneo
-        ArrayList<GameViewSkeleton> view = new ArrayList<>();
+        ArrayList<RealPlayer> view = new ArrayList<RealPlayer>(); //aggiungo i giocatori man mano che si collegano
+        ControllerContext controller = new ControllerContext(view, board); // passo i player per sapere il tipo di connessione e UI
 
         try {
-            startRMI.doAction(view,board);
+            HandlerStubRMI hStub = startRMI.doAction(controller);
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (AlreadyBoundException e) {

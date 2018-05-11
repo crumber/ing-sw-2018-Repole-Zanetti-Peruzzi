@@ -1,9 +1,9 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.controller;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 //interfaccia della view lato server a cui potra' accedere il controller
-public interface GameViewSkeleton extends Remote {
+public interface HandlerSkeletonRMI extends Remote {
     public void updateView() throws RemoteException;
 }
