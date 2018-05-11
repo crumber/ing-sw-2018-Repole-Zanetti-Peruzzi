@@ -50,7 +50,7 @@ public class InsertDieWithCheckAction extends Action{
 
         if(resultOfAction==1){
 
-            player.getWindow().insertDie(board.getDieDraft(posDieOnDraft),whichRow,whichColumn,"boat");
+            player.getWindow().insertDie(board.getDieDraft(posDieOnDraft),whichRow,whichColumn,"both");
             board.removeDieFromDraft(posDieOnDraft);
 
         }

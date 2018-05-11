@@ -2,6 +2,7 @@ package repolezanettiperuzzi.model.actions;
 
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.RealPlayer;
+
 import java.util.List;
 
 
@@ -24,6 +25,7 @@ public class UseCardAction extends Action{
             if(board.getCostToolCard(whichToolCard)==1) {
 
                 board.setCostToolCard(whichToolCard);
+
             }
         }
 
