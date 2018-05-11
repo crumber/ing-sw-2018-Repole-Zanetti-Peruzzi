@@ -1,11 +1,11 @@
 package repolezanettiperuzzi.model.actions;
 
 import repolezanettiperuzzi.model.GameBoard;
-import repolezanettiperuzzi.model.RealPlayer;
+import repolezanettiperuzzi.model.Player;
 
 public class CheckCostToolCardAction {
 
-    public int checkCostToolCard(GameBoard board, RealPlayer player, int whichCard ){
+    public int checkCostToolCard(GameBoard board, Player player, int whichCard ){
 
         int resultOfCheck;
 

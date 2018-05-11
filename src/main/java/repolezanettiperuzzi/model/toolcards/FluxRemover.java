@@ -2,7 +2,7 @@ package repolezanettiperuzzi.model.toolcards;
 
 import repolezanettiperuzzi.model.Die;
 import repolezanettiperuzzi.model.GameBoard;
-import repolezanettiperuzzi.model.RealPlayer;
+import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.Value;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class FluxRemover extends ToolCard {
     }
 
     @Override
-    public int check(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
+    public int check(GameBoard board, Player player, List<Integer> parameterForCard){
 
         posDieOnDraft=parameterForCard.get(0);
         dieValue=parameterForCard.get(1);
@@ -39,7 +39,7 @@ public class FluxRemover extends ToolCard {
     }
 
     @Override
-    public int checkPreEffect(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
+    public int checkPreEffect(GameBoard board, Player player, List<Integer> parameterForCard){
 
         posDieOnDraft=parameterForCard.get(0);
 
@@ -59,7 +59,7 @@ public class FluxRemover extends ToolCard {
     //put die in bag , remove die from draft, take another die from bag and add this die in draft's final position (change die's position in parameter for card)
     // return 11 -> new quest for client (choose value from 1 to 6)
     @Override
-    public int preEffect(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
+    public int preEffect(GameBoard board, Player player, List<Integer> parameterForCard){
 
         posDieOnDraft=parameterForCard.get(0);
 
@@ -79,7 +79,7 @@ public class FluxRemover extends ToolCard {
 
     // set die's value
     @Override
-    public void effect(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
+    public void effect(GameBoard board, Player player, List<Integer> parameterForCard){
 
         posDieOnDraft=parameterForCard.get(0);
         dieValue=parameterForCard.get(1);

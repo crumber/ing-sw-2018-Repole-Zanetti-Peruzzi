@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameBoard {
-    private ArrayList<RealPlayer> players;
+    private ArrayList<Player> players;
     private ArrayList<Die> diceDraft;
     private PublicCard publicCards[];
     private ToolCard toolCards[];
@@ -17,7 +17,7 @@ public class GameBoard {
     private int [] costToolCard= new int[3];
 
     public GameBoard(){
-        players = new ArrayList<RealPlayer>();
+        players = new ArrayList<Player>();
         diceDraft = new ArrayList<Die>();
         publicCards = new PublicCard[3];
         toolCards = new ToolCard[3];
@@ -34,7 +34,7 @@ public class GameBoard {
 
     public void addPlayer(String playerName){
 
-        players.add(new RealPlayer(playerName));
+        players.add(new Player(playerName));
         this.nPlayers++;
 
     }
@@ -160,7 +160,7 @@ public class GameBoard {
         this.round++;
     }
 
-    public RealPlayer getPlayer(int nPlayer){
+    public Player getPlayer(int nPlayer){
         return players.get(nPlayer);
     }
 

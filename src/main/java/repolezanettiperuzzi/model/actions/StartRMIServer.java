@@ -1,18 +1,16 @@
 package repolezanettiperuzzi.model.actions;
 
 import repolezanettiperuzzi.controller.*;
-import repolezanettiperuzzi.controller.ControllerStub;
-import repolezanettiperuzzi.model.GameBoard;
+
 
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.ArrayList;
 
 //all'inizio del gioco va lanciato il server RMI che imposta tutto
 public class StartRMIServer extends Action {
-    public HandlerStubRMI doAction(ControllerContext controller) throws RemoteException, AlreadyBoundException {
+    public HandlerStubRMI doAction(Controller controller) throws RemoteException, AlreadyBoundException {
         System.setProperty("java.security.policy", "RMI/stupid.policy");
         System.setSecurityManager(new SecurityManager());
 

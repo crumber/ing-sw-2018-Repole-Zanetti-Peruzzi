@@ -1,7 +1,7 @@
 package repolezanettiperuzzi.model.toolcards;
 
 import repolezanettiperuzzi.model.GameBoard;
-import repolezanettiperuzzi.model.RealPlayer;
+import repolezanettiperuzzi.model.Player;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class Lathekin extends ToolCard {
 
     //control for all dice (two) that exist start/end position, that there is die in start position, that there isn't die in end position, control that die respects all bound(colour value and there is die near end position)
     @Override
-    public int check(GameBoard board, RealPlayer player, List<Integer> parameterForCard) {
+    public int check(GameBoard board, Player player, List<Integer> parameterForCard) {
 
         x1Start = parameterForCard.get(0);
         y1Start = parameterForCard.get(1);
@@ -44,7 +44,7 @@ public class Lathekin extends ToolCard {
 
     //move both dice (with all bound)
     @Override
-    public void effect(GameBoard board, RealPlayer player, List<Integer> parameterForCard) {
+    public void effect(GameBoard board, Player player, List<Integer> parameterForCard) {
 
         x1Start = parameterForCard.get(0);
         y1Start = parameterForCard.get(1);

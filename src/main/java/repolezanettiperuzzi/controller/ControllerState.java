@@ -1,16 +1,19 @@
 package repolezanettiperuzzi.controller;
 
 import repolezanettiperuzzi.model.GameBoard;
+import repolezanettiperuzzi.model.Player;
+
+import java.util.ArrayList;
 
 public abstract class ControllerState {
 
-    GameBoard board;
-    // classe astratta view lato server GameView view;
+    private GameBoard board;
+    private ArrayList<Player> view;
 
-    public ControllerState(GameBoard board /*,GameView view*/){
+    public ControllerState(ArrayList<Player> view, GameBoard board ){
 
         this.board=board;
-        //this.view = view;
+        this.view = view;
 
     }
     public abstract void doAction();

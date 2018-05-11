@@ -1,7 +1,7 @@
 package repolezanettiperuzzi.model.toolcards;
 
 import repolezanettiperuzzi.model.GameBoard;
-import repolezanettiperuzzi.model.RealPlayer;
+import repolezanettiperuzzi.model.Player;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class CorkbackedStraightedge extends ToolCard {
 
     //control that there is a die in draft position, that exist window's position, that there isn't die in this position, there aren't dice near this position and die respect bound of box
     @Override
-    public int check(GameBoard board, RealPlayer player, List<Integer> parameterForCard) {
+    public int check(GameBoard board, Player player, List<Integer> parameterForCard) {
 
         posDieOnDraft=parameterForCard.get(0);
         whichRow=parameterForCard.get(1);
@@ -62,7 +62,7 @@ public class CorkbackedStraightedge extends ToolCard {
 
     //insert die in box where there aren't dice near , remove die from draft
     @Override
-    public void effect(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
+    public void effect(GameBoard board, Player player, List<Integer> parameterForCard){
 
         posDieOnDraft=parameterForCard.get(0);
         whichRow=parameterForCard.get(1);

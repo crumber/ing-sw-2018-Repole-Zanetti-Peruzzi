@@ -1,7 +1,7 @@
 package repolezanettiperuzzi.model.toolcards;
 
 import repolezanettiperuzzi.model.GameBoard;
-import repolezanettiperuzzi.model.RealPlayer;
+import repolezanettiperuzzi.model.Player;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class EglomiseBrush extends ToolCard {
 
     //check that the position exists, that there is a die in the initial position, that there isn't a die in the final position, that respects bound (value and die near final position)
     @Override
-    public int check(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
+    public int check(GameBoard board, Player player, List<Integer> parameterForCard){
 
         xStart=parameterForCard.get(0);
         yStart=parameterForCard.get(1);
@@ -55,7 +55,7 @@ public class EglomiseBrush extends ToolCard {
 
     //move die from (xstart,ystart) into (xend,endy). respects bound of value
     @Override
-    public void effect(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
+    public void effect(GameBoard board, Player player, List<Integer> parameterForCard){
 
         xStart=parameterForCard.get(0);
         yStart=parameterForCard.get(1);

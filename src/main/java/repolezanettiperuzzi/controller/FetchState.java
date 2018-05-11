@@ -1,13 +1,16 @@
 package repolezanettiperuzzi.controller;
 
 import repolezanettiperuzzi.model.GameBoard;
+import repolezanettiperuzzi.model.Player;
+
+import java.util.ArrayList;
 
 public class FetchState extends ControllerState {
 
 
-    public FetchState(GameBoard board /*, GameView view*/){
+    public FetchState(ArrayList<Player> view, GameBoard board ){
 
-        super(board);
+        super(view, board);
 
     }
 

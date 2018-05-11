@@ -1,7 +1,7 @@
 package repolezanettiperuzzi.model.toolcards;
 
 import repolezanettiperuzzi.model.GameBoard;
-import repolezanettiperuzzi.model.RealPlayer;
+import repolezanettiperuzzi.model.Player;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class FluxBrush extends ToolCard {
 
     //control that there is die in this position on draft
     @Override
-    public int check(GameBoard board, RealPlayer player, List<Integer> parameterForCard) {
+    public int check(GameBoard board, Player player, List<Integer> parameterForCard) {
 
         posDieOnDraft=parameterForCard.get(0);
 
@@ -30,7 +30,7 @@ public class FluxBrush extends ToolCard {
 
     //roll die in this position on draft
     @Override
-    public void effect(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
+    public void effect(GameBoard board, Player player, List<Integer> parameterForCard){
 
         posDieOnDraft=parameterForCard.get(0);
         board.getDieDraft(posDieOnDraft).rollDie();

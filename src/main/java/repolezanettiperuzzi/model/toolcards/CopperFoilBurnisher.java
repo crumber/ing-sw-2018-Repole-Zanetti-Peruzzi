@@ -17,7 +17,7 @@ public class CopperFoilBurnisher extends ToolCard{
 
     //check that the position exists, that there is a die in the initial position, that there isn't a die in the final position, that respects bound (colour and die near final position)
     @Override
-    public int check(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
+    public int check(GameBoard board, Player player, List<Integer> parameterForCard){
 
         xStart=parameterForCard.get(0);
         yStart=parameterForCard.get(1);
@@ -51,7 +51,7 @@ public class CopperFoilBurnisher extends ToolCard{
 
     //move die from (xstart,ystart) into (xend,endy). respects bound of colour
     @Override
-    public void effect(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
+    public void effect(GameBoard board, Player player, List<Integer> parameterForCard){
 
         xStart=parameterForCard.get(0);
         yStart=parameterForCard.get(1);

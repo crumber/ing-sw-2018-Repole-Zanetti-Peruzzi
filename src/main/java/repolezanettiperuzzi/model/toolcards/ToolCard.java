@@ -13,13 +13,13 @@ public abstract class ToolCard {
         return id;
     }
 
-    public int check(GameBoard board, RealPlayer player, List<Integer> parameterForCard) {
+    public int check(GameBoard board, Player player, List<Integer> parameterForCard) {
 
         return  resultOfAction;
 
     }
 
-    public int checkMoveOneDie(GameBoard board, RealPlayer player, int xStart, int yStart, int xEnd, int yEnd){
+    public int checkMoveOneDie(GameBoard board, Player player, int xStart, int yStart, int xEnd, int yEnd){
 
         int numProblem;
 
@@ -47,7 +47,7 @@ public abstract class ToolCard {
         return numProblem;
     }
 
-    public int checkMoveTwoDice(GameBoard board, RealPlayer player, int x1Start, int y1Start, int x1End, int y1End, int x2Start, int y2Start, int x2End, int y2End){
+    public int checkMoveTwoDice(GameBoard board, Player player, int x1Start, int y1Start, int x1End, int y1End, int x2Start, int y2Start, int x2End, int y2End){
 
         int numProblem;
 
@@ -96,7 +96,7 @@ public abstract class ToolCard {
         return numProblem;
     }
 
-    public int checkDieOnDraft(GameBoard board, RealPlayer player, int posDieOnDraft){
+    public int checkDieOnDraft(GameBoard board, Player player, int posDieOnDraft){
 
         int numProblem;
 
@@ -113,7 +113,7 @@ public abstract class ToolCard {
         return numProblem;
     }
 
-    public int checkDieOnRoundTrack(GameBoard board, RealPlayer player, int whichRound, int whichDieRound){
+    public int checkDieOnRoundTrack(GameBoard board, Player player, int whichRound, int whichDieRound){
 
         int numProblem;
 
@@ -130,19 +130,19 @@ public abstract class ToolCard {
         return numProblem;
     }
 
-    public void effect(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
+    public void effect(GameBoard board, Player player, List<Integer> parameterForCard){
 
     }
 
     //only for card 11
-    public int preEffect(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
+    public int preEffect(GameBoard board, Player player, List<Integer> parameterForCard){
 
         return resultOfAction;
 
     }
 
     //only for card 11
-    public int checkPreEffect(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
+    public int checkPreEffect(GameBoard board, Player player, List<Integer> parameterForCard){
 
         return resultOfAction;
 

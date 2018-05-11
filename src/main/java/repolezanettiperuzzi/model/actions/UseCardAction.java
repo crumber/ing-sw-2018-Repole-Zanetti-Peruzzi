@@ -1,7 +1,7 @@
 package repolezanettiperuzzi.model.actions;
 
 import repolezanettiperuzzi.model.GameBoard;
-import repolezanettiperuzzi.model.RealPlayer;
+import repolezanettiperuzzi.model.Player;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
 public class UseCardAction extends Action{
 
     //For all card and tool card 11's final effect
-    public int doAction(RealPlayer player, GameBoard board, int whichToolCard, List<Integer> parameterForCard){
+    public int doAction(Player player, GameBoard board, int whichToolCard, List<Integer> parameterForCard){
 
         int resultOfAction;
 
@@ -33,7 +33,7 @@ public class UseCardAction extends Action{
     }
 
     //only for tool card 11
-    public int doActionPreEffect(RealPlayer player, GameBoard board, int whichToolCard, List<Integer> parameterForCard){
+    public int doActionPreEffect(Player player, GameBoard board, int whichToolCard, List<Integer> parameterForCard){
 
         int resultOfAction;
 

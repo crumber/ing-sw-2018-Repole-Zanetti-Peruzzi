@@ -1,13 +1,13 @@
 package repolezanettiperuzzi.model.actions;
 
 import repolezanettiperuzzi.model.GameBoard;
-import repolezanettiperuzzi.model.RealPlayer;
+import repolezanettiperuzzi.model.Player;
 
 import java.util.List;
 
 public class InsertDieWithCheckAction extends Action{
 
-    public int doAction(RealPlayer player, GameBoard board, List<Integer> parameterForInserDie){
+    public int doAction(Player player, GameBoard board, List<Integer> parameterForInserDie){
 
         int resultOfAction;
         int posDieOnDraft=parameterForInserDie.get(0);

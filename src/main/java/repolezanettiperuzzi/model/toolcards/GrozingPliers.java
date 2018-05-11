@@ -1,7 +1,7 @@
 package repolezanettiperuzzi.model.toolcards;
 
 import repolezanettiperuzzi.model.GameBoard;
-import repolezanettiperuzzi.model.RealPlayer;
+import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.Value;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class GrozingPliers extends ToolCard {
 
     //control thant change is 1 or 0, that there is a die in this position on draft, that die can increment (if is six no) /decrement (if is one no)
     @Override
-    public int check(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
+    public int check(GameBoard board, Player player, List<Integer> parameterForCard){
 
         numDieFromDraft=parameterForCard.get(0);
         change=parameterForCard.get(1);
@@ -58,7 +58,7 @@ public class GrozingPliers extends ToolCard {
 
     //increment die (if is six no) or decrement die (if is one no)
     @Override
-    public void effect(GameBoard board, RealPlayer player, List<Integer> parameterForCard) {
+    public void effect(GameBoard board, Player player, List<Integer> parameterForCard) {
 
         numDieFromDraft=parameterForCard.get(0);
         change=parameterForCard.get(1);

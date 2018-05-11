@@ -2,7 +2,7 @@ package repolezanettiperuzzi.model.toolcards;
 
 import repolezanettiperuzzi.model.Die;
 import repolezanettiperuzzi.model.GameBoard;
-import repolezanettiperuzzi.model.RealPlayer;
+import repolezanettiperuzzi.model.Player;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class LensCutter extends ToolCard {
 
     //control that there is die in position on draft and control that there is die in position on round track
     @Override
-    public int check(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
+    public int check(GameBoard board, Player player, List<Integer> parameterForCard){
 
         posDieOnDraft=parameterForCard.get(0);
         whichRound=parameterForCard.get(1);
@@ -42,7 +42,7 @@ public class LensCutter extends ToolCard {
 
     //switch dice (one on round track and one on draft)
     @Override
-    public void effect(GameBoard board, RealPlayer player, List<Integer> parameterForCard){
+    public void effect(GameBoard board, Player player, List<Integer> parameterForCard){
 
         posDieOnDraft=parameterForCard.get(0);
         whichRound=parameterForCard.get(1);
