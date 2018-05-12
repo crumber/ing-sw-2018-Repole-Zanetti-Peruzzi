@@ -1,0 +1,5 @@
+Kaleidoscopic Dream 4
+Y B 0 0 1
+G 0 5 0 4
+3 0 R 0 G
+2 0 0 B Y
