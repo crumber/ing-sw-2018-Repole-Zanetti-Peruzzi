@@ -8,6 +8,7 @@ public class  Player {
     private int flavorTokens;
     private Window window;
     private int turn;
+    private int score=0;
     private String connection; //RMI o Socket
     private String UI; //CLI o GUI
 
@@ -31,9 +32,14 @@ public class  Player {
         //lancia i dadi presi dal sacchetto
     }
 
-
     public void passTurn(){
         //chiamo una Action PassTurn
+    }
+
+    public void updateScore(int points){
+
+        score+=points;
+
     }
 
     public Window getWindow(){

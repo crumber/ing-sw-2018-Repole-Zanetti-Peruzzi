@@ -141,6 +141,12 @@ public class GameBoard {
 
     }
 
+    public PublicCard getPublicCards(int whichPublicCard) {
+
+        return publicCards[whichPublicCard];
+
+    }
+
     public int getId(int whichToolCard){
 
         return toolCards[whichToolCard].getId();

@@ -20,7 +20,7 @@ public class LensCutter extends ToolCard {
         return id;
     }
 
-    //control that there is die in position on draft and control that there is die in position on round track
+    //check that there is a die in this position on draft and check that there is a die in this position on round track
     @Override
     public int check(GameBoard board, Player player, List<Integer> parameterForCard){
 

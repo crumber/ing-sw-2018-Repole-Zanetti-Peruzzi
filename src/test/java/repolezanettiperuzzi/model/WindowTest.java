@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 
 public class WindowTest {
 
-    private Window testWindow;
+    /*private Window testWindow;
     private Box[][] testBoxes;
     private String name;
     private Die testDie,testDie2,testDie3;
@@ -194,6 +194,6 @@ public class WindowTest {
 
     }
 
-
+*/
 }
 

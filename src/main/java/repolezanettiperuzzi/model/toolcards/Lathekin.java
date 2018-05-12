@@ -24,7 +24,7 @@ public class Lathekin extends ToolCard {
         return id;
     }
 
-    //control for all dice (two) that exist start/end position, that there is die in start position, that there isn't die in end position, control that die respects all bound(colour value and there is die near end position)
+    //check that exist start/end position, check that there is a die in initial position, check that there isn't a die in end position, check that this die respects all constraint (colour, value and there is die near end position). do it for two dice
     @Override
     public int check(GameBoard board, Player player, List<Integer> parameterForCard) {
 

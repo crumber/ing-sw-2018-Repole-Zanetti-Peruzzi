@@ -16,16 +16,33 @@ public class DiceBagTest {
 
         testDiceBag= new DiceBag();
         int nDice= 2;
-        //int size = testDiceBag.getDiceBag().size();
-        ArrayList<Die> extractDie = testDiceBag.takeDice(nDice);
+        int size = testDiceBag.getSize();
+
+        ArrayList<Die> extractDice = testDiceBag.takeDice(nDice);
 
         //test that the size is decreased by number of Dice(nDice)
-        assertEquals(90-nDice,testDiceBag.getSize());
-
-        //test that the dice is not in Dicebag yet
-        //assertFalse(testDiceBag.getDiceBag.contains(extractDie.get(0)));
-        //assertFalse(testDiceBag.getDiceBag().contains(extractDie.get(1)));
+        assertEquals(size-nDice,testDiceBag.getSize());
 
     }
 
+    @Test
+    public void takeDie(){
+
+        testDiceBag=new DiceBag();
+        int newSize=testDiceBag.getSize();
+        Die dieTest=testDiceBag.takeDie();
+
+        assertEquals(newSize-1,testDiceBag.getSize());
+
+    }
+
+    @Test
+    public void setDieInBag(){
+
+        testDiceBag=new DiceBag();
+        Die chosenDie=testDiceBag.takeDie();
+
+        testDiceBag.setDieInBag(chosenDie);
+        assertEquals(90,testDiceBag.getSize());
+    }
 }

@@ -11,7 +11,7 @@ public class BoxTest {
     private Box testBox;
     private Die die;
 
-    //test box without bounds
+   /* //test box without bounds
     @Test
     public void testGetBoundNull(){
 
@@ -129,6 +129,6 @@ public class BoxTest {
 
     }
 
-
+*/
 
 }

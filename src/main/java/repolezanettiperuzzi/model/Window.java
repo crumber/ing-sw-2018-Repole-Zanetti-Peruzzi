@@ -16,6 +16,7 @@ public class Window {
         for(int i = 0; i< 4; i++) {
 
             System.arraycopy(board[i], 0, boardBox[i], 0, 5);
+
         }
     }
 
@@ -195,6 +196,25 @@ public class Window {
         }
 
         return true;
+    }
+
+    public int calculeteSecretScore(Colour whichSecretColour){
+
+        int secretScore=0;
+
+        for (Box[] aBoardBox : boardBox) {
+
+            for (int j = 0; j < boardBox[0].length; j++) {
+
+                if (aBoardBox[j].die.getColourDie()== whichSecretColour) {
+
+                    secretScore++;
+
+                }
+            }
+        }
+
+        return secretScore;
     }
 
     public boolean controlAllBoundBox(int x, int y, Die d){

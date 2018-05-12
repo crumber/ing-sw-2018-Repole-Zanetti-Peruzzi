@@ -1,6 +1,6 @@
 package repolezanettiperuzzi.view;
 
-import repolezanettiperuzzi.controller.ControllerStub;
+//  import repolezanettiperuzzi.controller.ControllerStub;
 import repolezanettiperuzzi.controller.HandlerSkeletonRMI;
 import repolezanettiperuzzi.controller.HandlerStubRMI;
 import repolezanettiperuzzi.controller.HandlerStubSocket;

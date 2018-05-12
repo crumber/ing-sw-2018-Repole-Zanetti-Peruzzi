@@ -18,7 +18,6 @@ public class DiceBag {
             bag.add(new Die(Colour.PURPLE));
             bag.add(new Die(Colour.GREEN));
             bag.add(new Die(Colour.BLUE));
-
         }
 
         this.size=90;
@@ -33,8 +32,8 @@ public class DiceBag {
 
             Random random= new Random();
             int choose= random.nextInt(max); //return int between 0 and size
-            Die chooseDie= bag.get(choose);
-            diceTaken.add(chooseDie);
+            Die chosenDie= bag.get(choose);
+            diceTaken.add(chosenDie);
             bag.remove(choose);
             max--;
             this.size--;
@@ -50,11 +49,11 @@ public class DiceBag {
         Random random= new Random();
 
         int choose= random.nextInt(max); //return int between 0 and size
-        Die chooseDie= bag.get(choose);
+        Die chosenDie= bag.get(choose);
         bag.remove(choose);
         this.size--;
 
-        return chooseDie;
+        return chosenDie;
 
     }
 
