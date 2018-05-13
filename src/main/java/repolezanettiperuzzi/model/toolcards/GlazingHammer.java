@@ -40,7 +40,7 @@ public class GlazingHammer extends ToolCard {
     @Override
     public void effect(GameBoard board, Player player, List<Integer> parameterForCard){
 
-        int numDiceDraft= board.sizeDraft();
+        int numDiceDraft= board.getSizeDraft();
         for(int i=0;i<numDiceDraft;i++){
 
             board.getDieDraft(i).rollDie();

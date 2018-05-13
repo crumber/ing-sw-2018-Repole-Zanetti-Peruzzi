@@ -43,6 +43,9 @@ public class GameBoard {
         return this.nPlayers;
     }
 
+    /*
+    PER ORA NON USATO E NEMMENO FINITO
+
     public void shuffleCards() throws IOException {
         Deck deck = new Deck("cards/publiccards", "cards/toolcards");
 
@@ -55,6 +58,7 @@ public class GameBoard {
             toolCards[i] = deck.drawToolCard();
         }
     }
+    */
 
     public Die getDieDraft(int posDie) {
 
@@ -99,12 +103,6 @@ public class GameBoard {
 
     }
 
-    public int sizeDraft(){
-
-        return diceDraft.size();
-
-    }
-
     public int getSizeDraft(){
 
         return diceDraft.size();
@@ -120,6 +118,21 @@ public class GameBoard {
     public void setDieToRoundTrack(int whichRound, int whichDieRound, Die d){
 
         roundTrack.setDieOnRoundTrack(whichRound,whichDieRound,d);
+
+    }
+
+    public void addDiceToRoundTrack(){
+
+        ArrayList<Die> remainingDice=new ArrayList<>();
+
+        for(int i=0;i<this.getSizeDraft();i++){
+
+            remainingDice.add(this.getDieDraft(i));
+
+        }
+
+        roundTrack.addDice(remainingDice);
+        diceDraft.clear();
 
     }
 
@@ -161,7 +174,7 @@ public class GameBoard {
 
     //Incrementa il round di 1.
     //Non ho creato una setRound perche' non sarebbe mai utile a noi cambiare il numero del round
-    //da 1 a 4 e sarebbe anche un metodo pericoloso che potrebbe creare risultati inaspettati.
+    //da 1 a 10 e sarebbe anche un metodo pericoloso che potrebbe creare risultati inaspettati.
     public void incrRound(){
         this.round++;
     }
@@ -170,13 +183,10 @@ public class GameBoard {
         return players.get(nPlayer);
     }
 
+    /* inutile perchè quando inserisco i dadi nella round track cancella gia i dadi dal draft
     public void resetDraft(){
         for(int i = 0; i<this.diceDraft.size(); i++){
             this.diceDraft.remove(i);
         }
-    }
-
-    public int getDraftSize(){
-        return this.diceDraft.size();
-    }
+    }*/
 }

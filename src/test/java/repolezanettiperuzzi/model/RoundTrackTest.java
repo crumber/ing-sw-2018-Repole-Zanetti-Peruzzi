@@ -19,10 +19,10 @@ public class RoundTrackTest {
         ArrayList<Die> diceDraft1= new ArrayList<>();
         ArrayList<Die> diceDraft2= new ArrayList<>();
 
-        d1.rollDie();
-        d2.rollDie();
-        d3.rollDie();
-        d4.rollDie();
+        d1.setValue(Value.TWO);
+        d2.setValue(Value.THREE);
+        d3.setValue(Value.FOUR);
+        d4.setValue(Value.FIVE);
 
         diceDraft1.add(d1);
         diceDraft1.add(d2);
@@ -32,8 +32,8 @@ public class RoundTrackTest {
         testRoundTrack.addDice(diceDraft1);
         testRoundTrack.addDice(diceDraft2);
 
-        Die dieTest=testRoundTrack.getDieRoundTrack(0,0);
-        assertEquals(dieTest,d1);
+        Die dieTest=testRoundTrack.getDieRoundTrack(1,0);
+        assertEquals(dieTest,d3);
 
     }
 
