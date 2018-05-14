@@ -46,14 +46,16 @@ public class Window {
         return false;
     }
 
-    public Die removeDie(int x, int y){
+    /*
+    inutile non posso togliere un dado se è nella window e poi esiste gia il metodo nella box e viene usato nel muovi dado in automatico
+     public Die removeDie(int x, int y){
 
         if((boardBox[x][y].die!=null)){
             return boardBox[x][y].removeDie();
         }
 
         else return null;
-    }
+    }*/
 
     public String getName(){
 
@@ -206,9 +208,9 @@ public class Window {
 
             for (int j = 0; j < boardBox[0].length; j++) {
 
-                if (aBoardBox[j].die.getColourDie()== whichSecretColour) {
+                if (aBoardBox[j].die!=null && aBoardBox[j].die.getColourDie()== whichSecretColour) {
 
-                    secretScore++;
+                    secretScore+=aBoardBox[j].die.getValueDie().getNumber();
 
                 }
             }
