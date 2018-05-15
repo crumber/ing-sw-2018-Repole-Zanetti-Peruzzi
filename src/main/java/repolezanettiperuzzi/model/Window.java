@@ -30,9 +30,8 @@ public class Window {
 
     public void moveDie(int xIn,int yIn, int xEnd, int yEnd, String restriction) {
 
-        if((controlAdjacences(xEnd,yEnd))) {
             this.boardBox[xEnd][yEnd].setDie(this.boardBox[xIn][yIn].removeDie(), restriction);
-        }
+
     }
 
     public boolean thereIsDie(int x, int y){
@@ -46,8 +45,6 @@ public class Window {
         return false;
     }
 
-    /*
-    inutile non posso togliere un dado se è nella window e poi esiste gia il metodo nella box e viene usato nel muovi dado in automatico
      public Die removeDie(int x, int y){
 
         if((boardBox[x][y].die!=null)){
@@ -55,7 +52,7 @@ public class Window {
         }
 
         else return null;
-    }*/
+    }
 
     public String getName(){
 

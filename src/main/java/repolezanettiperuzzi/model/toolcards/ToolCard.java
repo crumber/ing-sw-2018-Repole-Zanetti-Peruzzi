@@ -31,17 +31,24 @@ public abstract class ToolCard {
 
             numProblem=-2;
 
-        } else if (player.getWindow().thereIsDie(xEnd, yEnd)) {
+        } else{
 
-            numProblem=-3;
+            Die dTemp=player.getWindow().removeDie(xStart,yStart);
 
-        } else if (!player.getWindow().controlAdjacences(xEnd, yEnd)) {
+            if (player.getWindow().thereIsDie(xEnd, yEnd)) {
 
-            numProblem=-4;
+                numProblem=-3;
 
-        }else{
+            } else if (!player.getWindow().controlAdjacences(xEnd, yEnd)) {
 
-            numProblem=1;
+                numProblem=-4;
+
+            }else{
+
+                numProblem=1;
+            }
+
+            player.getWindow().insertDie(dTemp,xStart,yStart,"both");
         }
 
         return numProblem;
@@ -55,42 +62,55 @@ public abstract class ToolCard {
 
             numProblem=checkMoveOneDie(board,player,x1Start,y1Start,x1End,y1End);
 
-        } else if (!player.getWindow().controlAllBoundBox(x1End, y1End, player.getWindow().getDieFromBoardBox(x1Start, y1Start))) {
+        } else{
 
-            numProblem=-7;
+            Die dTemp=player.getWindow().removeDie(x1Start,y1Start);
 
-        }else if(player.getWindow().controlAllBoundAdjacences(player.getWindow().getDieFromBoardBox(x1Start,y1Start),x1End,y1End)){
+            if (!player.getWindow().controlAllBoundBox(x1End, y1End, dTemp)) {
 
-            numProblem=-25;
+                numProblem=-7;
 
-        } else if(x2Start<0 || x2Start>3 || y2Start<0 || y2Start>4 || x2End<0 || x2End>3 || y2End<0 || y2End>4){
+            }else if(player.getWindow().controlAllBoundAdjacences(dTemp,x1End,y1End)){
 
-            numProblem=-1;
+                numProblem=-25;
 
-        } else if (!player.getWindow().thereIsDie(x2Start, y2Start)) {
+            } else if(x2Start<0 || x2Start>3 || y2Start<0 || y2Start>4 || x2End<0 || x2End>3 || y2End<0 || y2End>4){
 
-            numProblem=-17;
+                numProblem=-1;
 
-        } else if (player.getWindow().thereIsDie(x2End, y2End)) {
+            } else if (!player.getWindow().thereIsDie(x2Start, y2Start)) {
 
-            numProblem=-18;
+                numProblem=-17;
 
-        } else if (!player.getWindow().controlAdjacences(x2End, y2End)) {
+            } else{
 
-            numProblem=-19;
+                Die d2Temp=player.getWindow().removeDie(x2Start,y2Start);
 
-        } else if (!player.getWindow().controlAllBoundBox(x2End, y2End, player.getWindow().getDieFromBoardBox(x2Start, y2Start))) {
+                if (player.getWindow().thereIsDie(x2End, y2End)) {
 
-            numProblem=-20;
+                    numProblem=-18;
 
-        }else if(player.getWindow().controlAllBoundAdjacences(player.getWindow().getDieFromBoardBox(x2Start,y2Start),x2End,y2End)){
+                } else if (!player.getWindow().controlAdjacences(x2End, y2End)) {
 
-            numProblem=-26;
+                    numProblem=-19;
 
-        } else {
+                } else if (!player.getWindow().controlAllBoundBox(x2End, y2End, d2Temp)) {
 
-            numProblem=1;
+                    numProblem=-20;
 
+                }else if(player.getWindow().controlAllBoundAdjacences(d2Temp,x2End,y2End)){
+
+                    numProblem=-26;
+
+                } else {
+
+                    numProblem=1;
+
+                }
+
+                player.getWindow().insertDie(dTemp,x1Start,y1Start,"both");
+                player.getWindow().insertDie(d2Temp,x2Start,y2Start,"both");
+            }
         }
 
         return numProblem;

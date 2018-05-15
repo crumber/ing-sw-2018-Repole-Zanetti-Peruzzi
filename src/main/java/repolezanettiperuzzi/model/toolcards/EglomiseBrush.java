@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.model.toolcards;
 
+import repolezanettiperuzzi.model.Die;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 
@@ -36,18 +37,25 @@ public class EglomiseBrush extends ToolCard {
 
             resultOfAction = checkMoveOneDie(board, player, xStart, yStart, xEnd, yEnd);
 
-        } else if(!player.getWindow().controlValueBoundBox(xEnd,yEnd,player.getWindow().getDieFromBoardBox(xStart,yStart))){
-
-            resultOfAction=-6;
-
-        } else if(player.getWindow().controlValueBoundAdjacences(player.getWindow().getDieFromBoardBox(xStart,yStart),xEnd,yEnd)){
-
-            resultOfAction=-24;
-
         } else{
 
-            resultOfAction=1;
+            Die dTemp= player.getWindow().removeDie(xStart,yStart);
 
+            if(!player.getWindow().controlValueBoundBox(xEnd,yEnd,dTemp)){
+
+                resultOfAction=-6;
+
+            } else if(player.getWindow().controlValueBoundAdjacences(dTemp,xEnd,yEnd)){
+
+                resultOfAction=-24;
+
+            } else{
+
+                resultOfAction=1;
+
+            }
+
+            player.getWindow().insertDie(dTemp,xStart,yStart,"both");
         }
 
         return resultOfAction;
