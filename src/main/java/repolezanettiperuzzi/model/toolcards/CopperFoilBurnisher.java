@@ -28,17 +28,24 @@ public class CopperFoilBurnisher extends ToolCard{
 
             resultOfAction=checkMoveOneDie(board,player,xStart,yStart,xEnd,yEnd);
 
-        } else if(!player.getWindow().controlColourBoundBox(xEnd,yEnd,player.getWindow().getDieFromBoardBox(xStart,yStart))){
-
-            resultOfAction=-5;
-
-        } else if(player.getWindow().controlColourBoundAdjacences(player.getWindow().getDieFromBoardBox(xStart,yStart),xEnd,yEnd)){
-
-            resultOfAction=-23;
-
         } else{
 
-            resultOfAction=1;
+            Die dTemp= player.getWindow().removeDie(xStart,yStart);
+
+            if(!player.getWindow().controlColourBoundBox(xEnd,yEnd,dTemp)){
+
+                resultOfAction=-5;
+
+            } else if(player.getWindow().controlColourBoundAdjacences(dTemp,xEnd,yEnd)){
+
+                resultOfAction=-23;
+
+            } else{
+
+                resultOfAction=1;
+            }
+
+            player.getWindow().insertDie(dTemp,xStart,yStart,"both");
         }
 
         return resultOfAction;
