@@ -84,36 +84,47 @@ public class Window {
 
     public boolean controlAdjacences(int x, int y){
 
-        if(x-1>=0){
+        boolean thereIsDieNextTo;
 
-            if(boardBox[x-1][y].die!=null) {
-                return true;
-            }else if((y-1>=0)&&(boardBox[x-1][y-1].die!=null)){
-                return true;
-            }else if((y+1<boardBox[0].length)&&(boardBox[x-1][y+1].die!=null)){
-                return true;
-            }
+        if(x-1>=0 && boardBox[x-1][y].die!=null) {
 
-        }
+            thereIsDieNextTo=true;
 
-        if(x+1<boardBox.length){
+        }else if(x-1>=0 && (y-1>=0)&&(boardBox[x-1][y-1].die!=null)){
 
-            if(boardBox[x+1][y].die!=null){
-                return true;
-            }else if((y-1>=0)&&(boardBox[x+1][y-1].die!=null)){
-                return true;
-            }else if((y+1<boardBox[0].length)&&(boardBox[x+1][y+1].die!=null)){
-                return true;
-            }
-        }
+            thereIsDieNextTo=true;
 
-        if((y-1>=0)&&(boardBox[x][y-1].die!=null)){
-            return true;
+        }else if(x-1>=0 && (y+1<boardBox[0].length)&&(boardBox[x-1][y+1].die!=null)){
+
+            thereIsDieNextTo=true;
+
+        }else if(x+1<boardBox.length && boardBox[x+1][y].die!=null){
+
+            thereIsDieNextTo=true;
+
+        }else if(x+1<boardBox.length && (y-1>=0)&&(boardBox[x+1][y-1].die!=null)){
+
+            thereIsDieNextTo=true;
+
+        }else if(x+1<boardBox.length && (y+1<boardBox[0].length)&&(boardBox[x+1][y+1].die!=null)){
+
+            thereIsDieNextTo=true;
+
+        }else if((y-1>=0)&&(boardBox[x][y-1].die!=null)){
+
+            thereIsDieNextTo=true;
+
         }else if((y+1<boardBox[0].length)&&(boardBox[x][y+1].die!=null)){
-            return true;
+
+            thereIsDieNextTo=true;
+
+        }else{
+
+            thereIsDieNextTo=false;
+
         }
 
-        return false;
+        return thereIsDieNextTo;
     }
 
     public boolean controlColourBoundAdjacences(Die d, int x, int y){
@@ -182,7 +193,6 @@ public class Window {
 
         }
     }
-
 
     public boolean isEmpty(){
 

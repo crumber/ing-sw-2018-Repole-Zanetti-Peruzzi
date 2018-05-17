@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.model.publiccards;
 
 public class FactoryPublicCard {
+
     public static PublicCard getPublicCard(String criteria)
     {
         if ( criteria.equals("pc1") )
