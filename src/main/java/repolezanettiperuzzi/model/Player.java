@@ -67,6 +67,12 @@ public class Player{
 
     }
 
+    public void setFlavorTokens(int flavorTokens){
+
+        this.flavorTokens=flavorTokens;
+
+    }
+
     public String getName() {
 
         return name;
@@ -81,6 +87,12 @@ public class Player{
     public Colour getSecretColour() {
 
         return secretColour;
+
+    }
+
+    public void setSecretColour(Colour colour){
+
+        this.secretColour=colour;
 
     }
 
@@ -115,4 +127,6 @@ public class Player{
     public Player copy(){
         return new Player(this);
     }
+
+
 }

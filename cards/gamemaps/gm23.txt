@@ -1,4 +1,5 @@
-Sun's Glory 6
+Sun's Glory
+6
 1 P Y 0 4
 P Y 0 0 6
 Y 0 0 5 3

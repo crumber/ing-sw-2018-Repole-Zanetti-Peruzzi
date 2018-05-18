@@ -20,6 +20,11 @@ public class MasterGame {
 
         CreateGame.doAction(board);
 
+        Controller controller = new Controller(board.getPlayers(),board);
+
+        controller.setState(new FetchState());
+
+
 
 
 

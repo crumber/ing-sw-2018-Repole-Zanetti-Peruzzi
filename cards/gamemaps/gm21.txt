@@ -1,4 +1,5 @@
-Lux Mundi 6
+Lux Mundi
+6
 0 0 1 0 0
 1 G 3 B 2
 B 5 4 6 G

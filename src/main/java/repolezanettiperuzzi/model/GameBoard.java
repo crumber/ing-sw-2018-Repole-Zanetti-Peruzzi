@@ -190,10 +190,18 @@ public class GameBoard {
         return players.get(nPlayer);
     }
 
-    /* inutile perchè quando inserisco i dadi nella round track cancella gia i dadi dal draft
-    public void resetDraft(){
-        for(int i = 0; i<this.diceDraft.size(); i++){
-            this.diceDraft.remove(i);
-        }
-    }*/
+    public void setToolCards(ToolCard toolCard, int i) {
+
+        this.toolCards[i]=toolCard;
+    }
+
+    public void setPublicCards(PublicCard publicCard, int i) {
+
+        this.publicCards[i]=publicCard;
+    }
+
+    public ArrayList<Player> getPlayers() {
+
+        return (ArrayList<Player>) this.players.clone();
+    }
 }

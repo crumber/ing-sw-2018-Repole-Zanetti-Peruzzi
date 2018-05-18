@@ -1,4 +1,10 @@
 package repolezanettiperuzzi.controller;
 
-public class StartGameState {
+public class StartGameState extends ControllerState{
+
+    @Override
+    public void doAction(Controller controller){
+
+
+    }
 }

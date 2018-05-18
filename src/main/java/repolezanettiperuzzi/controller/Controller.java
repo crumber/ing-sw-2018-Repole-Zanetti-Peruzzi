@@ -31,7 +31,7 @@ public class Controller {
     public void setState(ControllerState nextState){
 
         this.currentState=nextState;
-
+        this.currentAction();
     }
 
     public ControllerState getState(){
@@ -40,9 +40,10 @@ public class Controller {
 
     }
 
-    public void currentAction(){
+    private void currentAction(){
 
-        this.currentState.doAction();
+        this.currentState.doAction(this);
+
     }
 
     //metodo utile per il loop della classe MultiEchoSocketServer

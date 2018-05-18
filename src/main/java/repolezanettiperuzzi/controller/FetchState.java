@@ -8,14 +8,10 @@ import java.util.ArrayList;
 public class FetchState extends ControllerState {
 
 
-    public FetchState(ArrayList<Player> view, GameBoard board ){
-
-        super(view, board);
-
-    }
-
     @Override
-    public void doAction(){
+    public void doAction(Controller controller){
+
+        controller.setState(new StartGameState());
 
     }
 

@@ -1,4 +1,5 @@
-Chromatic Splendor 4
+Chromatic Splendor
+4
 0 0 G 0 0
 2 Y 5 B 1
 0 R 3 P 0

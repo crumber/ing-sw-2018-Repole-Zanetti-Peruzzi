@@ -1,4 +1,5 @@
-Aurorae Magnificus 5
+Aurorae Magnificus
+5
 5 G B P 2
 P 0 0 0 Y
 Y 0 6 0 P
