@@ -43,6 +43,13 @@ public class GameBoard {
         return this.nPlayers;
     }
 
+    //deep clone
+    public ArrayList<Player> getPlayersCopy(){
+        ArrayList<Player> copy = new ArrayList<Player>(players.size());
+        for (Player p : players) copy.add(p.copy());
+        return copy;
+    }
+
     /*
     PER ORA NON USATO E NEMMENO FINITO
 

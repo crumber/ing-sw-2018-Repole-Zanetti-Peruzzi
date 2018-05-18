@@ -8,16 +8,28 @@ public class Window {
 
     public Window(String name, int ft, Box[][] board) {
 
-        NAME = name;
-        FLAVORTOKENS = ft;
+        this.NAME = name;
+        this.FLAVORTOKENS = ft;
 
-        boardBox=new Box[4][5];
+        this.boardBox = new Box[4][5];
 
         for(int i = 0; i< 4; i++) {
 
             System.arraycopy(board[i], 0, boardBox[i], 0, 5);
 
         }
+    }
+
+    //copy constructor
+    public Window(Window w){
+        this.NAME = w.NAME;
+        this.boardBox = new Box[4][5];
+        for(int i = 0; i<w.boardBox.length; i++){
+            for(int j = 0; j<w.boardBox[0].length; j++){
+                this.boardBox[i][j] = w.boardBox[i][j];
+            }
+        }
+        this.FLAVORTOKENS = w.FLAVORTOKENS;
     }
 
     public void insertDie(Die d, int x, int y, String restriction){
@@ -244,6 +256,9 @@ public class Window {
 
     }
 
-
+    //deep clone method
+    public Window copy(){
+        return new Window(this);
+    }
 
 }

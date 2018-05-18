@@ -1,7 +1,5 @@
 package repolezanettiperuzzi.model.actions;
 
-import java.net.ServerSocket;
-
 public class InitializeGame extends Action{
 
     @Override

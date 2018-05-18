@@ -1,6 +1,6 @@
 package repolezanettiperuzzi.model;
 
-public class  Player {
+public class Player{
 
     private String name;
     private Colour secretColour;
@@ -8,12 +8,26 @@ public class  Player {
     private int flavorTokens;
     private Window window;
     private int turn;
-    private int score=0;
+    private int score;
     private String connection; //RMI o Socket
     private String UI; //CLI o GUI
 
     public Player(String name){
         this.name = name;
+        this.score = 0;
+    }
+
+    //copy constructor
+    public Player(Player p){
+        this.name = p.name;
+        this.secretColour = p.secretColour;
+        this.insertDieInThisTurn = p.insertDieInThisTurn;
+        this.flavorTokens = p.flavorTokens;
+        this.window = p.window.copy();
+        this.turn = p.turn;
+        this.score = p.score;
+        this.connection = p.connection;
+        this.UI = p.UI;
     }
 
     public void useToolCard(){
@@ -95,5 +109,10 @@ public class  Player {
     // sui turni che verranno fatti).
     public void resetTurn(){
         this.turn = 0;
+    }
+
+    //deep clone method
+    public Player copy(){
+        return new Player(this);
     }
 }
