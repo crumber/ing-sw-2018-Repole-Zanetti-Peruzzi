@@ -69,6 +69,12 @@ public class GameBoard {
 
     public Die getDieDraft(int posDie) {
 
+        if(posDie>diceDraft.size()){
+
+            return null;
+
+        }
+
         return diceDraft.get(posDie);
 
     }

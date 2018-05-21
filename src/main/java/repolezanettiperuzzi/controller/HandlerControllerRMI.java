@@ -15,7 +15,9 @@ public class HandlerControllerRMI extends UnicastRemoteObject implements Handler
 
     @Override
     public void faiQualcosa(String description) throws RemoteException {
-        //manipolo i dati...
+        /*
+        manipolo i dati...
         controller.currentAction();
+        */
     }
 }

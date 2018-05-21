@@ -10,7 +10,9 @@ public abstract class ToolCard {
     int resultOfAction;
 
     public int getId() {
+
         return id;
+
     }
 
     public int check(GameBoard board, Player player, List<Integer> parameterForCard) {

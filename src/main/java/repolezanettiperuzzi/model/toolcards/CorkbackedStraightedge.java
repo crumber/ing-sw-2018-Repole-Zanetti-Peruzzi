@@ -9,13 +9,12 @@ public class CorkbackedStraightedge extends ToolCard {
 
     int id=9;
 
-    int resultOfAction;
-
     private int posDieOnDraft;
     private int whichRow;
     private int whichColumn;
 
     public int getId() {
+
         return id;
     }
 
@@ -47,11 +46,7 @@ public class CorkbackedStraightedge extends ToolCard {
 
             resultOfAction=-7;
 
-        }else if(player.getWindow().controlAllBoundAdjacences(board.getDieDraft(posDieOnDraft),whichRow,whichColumn)){
-
-            resultOfAction=-25;
-
-        } else{
+        }else{
 
             resultOfAction=1;
 

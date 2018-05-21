@@ -141,7 +141,7 @@ public class Window {
 
     public boolean controlColourBoundAdjacences(Die d, int x, int y){
 
-        if (x - 1 >= 0 && boardBox[x - 1][y].die != null && boardBox[x - 1][y].die.getColourDie().equals(d.getColourDie())) {
+        if (x - 1 >= 0 && boardBox[x - 1][y].die !=null && boardBox[x - 1][y].die.getColourDie().equals(d.getColourDie())) {
 
             return true;
 
@@ -149,7 +149,7 @@ public class Window {
 
             return true;
 
-        } else if ((y - 1 >= 0) && (boardBox[x][y - 1].die != null && boardBox[x][y - 1].die.getColourDie().equals(d.getColourDie()))) {
+        } else if ((y - 1 >= 0) && boardBox[x][y - 1].die != null && boardBox[x][y - 1].die.getColourDie().equals(d.getColourDie()) ) {
 
             return true;
 

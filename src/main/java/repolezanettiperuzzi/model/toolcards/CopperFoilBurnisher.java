@@ -6,8 +6,7 @@ import java.util.List;
 
 public class CopperFoilBurnisher extends ToolCard{
 
-    int id=3;
-    int resultOfAction;
+     int id=3;
 
     private int xStart;
     private int yStart;
