@@ -8,16 +8,15 @@ import java.util.List;
 
 public class GrozingPliers extends ToolCard {
 
-    int id=1;
+    public GrozingPliers(){
+
+        id=1;
+
+    }
 
     private int numDieFromDraft;
     private int change;
 
-    int resultOfAction;
-
-    public int getId() {
-        return id;
-    }
 
     //control thant change is 1 or 0, that there is a die in this position on draft, that die can increment (if is six no) /decrement (if is one no)
     @Override

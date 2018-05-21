@@ -9,16 +9,14 @@ import java.util.List;
 
 public class FluxRemover extends ToolCard {
 
-    int id=11;
+    public FluxRemover(){
 
-    int resultOfAction;
+        id=11;
+
+    }
 
     private int posDieOnDraft;
     private  int dieValue;
-
-    public int getId() {
-        return id;
-    }
 
     @Override
     public int check(GameBoard board, Player player, List<Integer> parameterForCard){

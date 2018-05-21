@@ -5,9 +5,11 @@ import java.util.List;
 
 public class RunningPliers extends ToolCard {
 
-    int id=8;
+    public RunningPliers(){
 
-    int resultOfAction;
+        id=8;
+
+    }
 
     public int getId() {
         return id;

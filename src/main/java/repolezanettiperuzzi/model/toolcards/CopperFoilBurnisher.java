@@ -6,7 +6,11 @@ import java.util.List;
 
 public class CopperFoilBurnisher extends ToolCard{
 
-     int id=3;
+    public CopperFoilBurnisher(){
+
+        id=3;
+
+    }
 
     private int xStart;
     private int yStart;
@@ -49,11 +53,6 @@ public class CopperFoilBurnisher extends ToolCard{
 
         return resultOfAction;
     }
-
-    public int getId() {
-        return id;
-    }
-
 
     //move die from (xstart,ystart) into (xend,endy). respects bound of colour
     @Override

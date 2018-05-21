@@ -7,15 +7,13 @@ import java.util.List;
 
 public class FluxBrush extends ToolCard {
 
-    int id=6;
+    public FluxBrush(){
+
+        id=6;
+
+    }
 
     private int posDieOnDraft;
-
-    int resultOfAction;
-
-    public int getId() {
-        return id;
-    }
 
     //control that there is die in this position on draft
     @Override

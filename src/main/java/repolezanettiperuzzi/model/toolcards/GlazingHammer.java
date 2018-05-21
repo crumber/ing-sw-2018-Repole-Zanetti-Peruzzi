@@ -7,12 +7,10 @@ import java.util.List;
 
 public class GlazingHammer extends ToolCard {
 
-    int id=7;
+    public GlazingHammer(){
 
-    int resultOfAction;
+        id=7;
 
-    public int getId() {
-        return id;
     }
 
     //control that is second turn of round and that player don't insert die in this turn
