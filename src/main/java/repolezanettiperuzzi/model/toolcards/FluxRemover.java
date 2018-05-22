@@ -40,15 +40,7 @@ public class FluxRemover extends ToolCard {
     public int checkPreEffect(GameBoard board, Player player, List<Integer> parameterForCard){
 
         posDieOnDraft=parameterForCard.get(0);
-
-        if(checkDieOnDraft(board,player,posDieOnDraft)!=1){
-
-            resultOfAction=checkDieOnDraft(board,player,posDieOnDraft);
-
-        }else{
-
-            resultOfAction=1;
-        }
+        resultOfAction=checkDieOnDraft(board,player,posDieOnDraft);
 
         return resultOfAction;
     }

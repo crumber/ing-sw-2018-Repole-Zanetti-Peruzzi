@@ -37,33 +37,23 @@ public class GrindingStone extends ToolCard {
 
             board.getDieDraft(posDieOnDraft).setValue(Value.SIX);
 
-        }
-
-        if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.SIX){
+        }else if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.SIX){
 
             board.getDieDraft(posDieOnDraft).setValue(Value.ONE);
 
-        }
-
-        if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.FIVE){
+        }else if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.FIVE){
 
             board.getDieDraft(posDieOnDraft).setValue(Value.TWO);
 
-        }
-
-        if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.TWO){
+        }else if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.TWO){
 
             board.getDieDraft(posDieOnDraft).setValue(Value.FIVE);
 
-        }
-
-        if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.FOUR){
+        }else if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.FOUR){
 
             board.getDieDraft(posDieOnDraft).setValue(Value.THREE);
 
-        }
-
-        if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.THREE){
+        }else{
 
             board.getDieDraft(posDieOnDraft).setValue(Value.FOUR);
 
