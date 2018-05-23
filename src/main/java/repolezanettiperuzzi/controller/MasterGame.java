@@ -20,7 +20,7 @@ public class MasterGame {
 
         Controller controller = new Controller(board.getPlayers(),board);
 
-        controller.setState(new SetConnectionsState());
+        controller.setState(new SetConnectionState());
 
 
 

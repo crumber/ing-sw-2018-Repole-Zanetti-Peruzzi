@@ -5,11 +5,13 @@ public class Window {
     private final String NAME;
     private Box[][] boardBox;
     private final int FLAVORTOKENS;
+    public final String fileName;
 
-    public Window(String name, int ft, Box[][] board) {
+    public Window(String name, int ft, Box[][] board,String fileName) {
 
         this.NAME = name;
         this.FLAVORTOKENS = ft;
+        this.fileName = fileName;
 
         this.boardBox = new Box[4][5];
 
@@ -30,6 +32,7 @@ public class Window {
             }
         }
         this.FLAVORTOKENS = w.FLAVORTOKENS;
+        this.fileName=w.fileName;
     }
 
     public void insertDie(Die d, int x, int y, String restriction){

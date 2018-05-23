@@ -12,5 +12,6 @@ public class ParameterRequestInsertDieAction extends Action{
                 "where would you put this die (which row (from 0 to 3) and which column (from 0 to 4).. answer like this 2 3) ?\n";
 
         return quest;
+
     }
 }

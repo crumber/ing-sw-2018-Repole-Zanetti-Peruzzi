@@ -1,6 +1,6 @@
 package repolezanettiperuzzi.model.actions;
 
-import javafx.scene.shape.Path;
+
 import repolezanettiperuzzi.model.*;
 
 import java.io.File;
@@ -36,18 +36,13 @@ public class InitializeGame extends Action{
         //assign private objective for each Player
         this.assignPrivateObjective(board);
 
-        this.createWindows(board);
-
-        //TODO assegnare 2 window ad ogni giocatore e la plancia vetrata
-        //aspetta azione di Ale
-
+        this.createWindows();
 
         //assign for each player the tokens that belong to him
         this.assignFlavorTokens(board);
 
 
         //initialize deck with tool cards and public cards
-
         Deck startDeck = null;
         try {
             startDeck = new Deck("cards/publiccards","cards/toolcards");
@@ -76,7 +71,7 @@ public class InitializeGame extends Action{
 
         Collections.shuffle(this.privateObjective);
 
-        for(int i=0 ; i<board.getNPlayers(); i++){
+        for(int i = 0 ; i < board.getNPlayers(); i++){
 
             Player p = board.getPlayer(i);
             p.setSecretColour(this.privateObjective.remove(0));
@@ -87,7 +82,7 @@ public class InitializeGame extends Action{
 
     private void assignFlavorTokens(GameBoard board){
 
-        for(int i=0 ; i<board.getNPlayers(); i++){
+        for(int i = 0 ; i < board.getNPlayers(); i++){
 
             Player p = board.getPlayer(i);
             p.setFlavorTokens(board.getPlayer(i).getWindow().getFTokens());
@@ -95,11 +90,11 @@ public class InitializeGame extends Action{
         }
     }
 
-    private void createWindows(GameBoard board) throws IOException {
+    private void createWindows() throws IOException {
 
         int nWindows = new File("cards/gamemaps").list().length-1;
 
-        for (int i = 0; i<nWindows; i++) {
+        for (int i = 0; i < nWindows; i++) {
 
             ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get("cards/gamemaps" + "/gm" + (i + 1) + ".txt"));
             String name = lines.get(0);
@@ -156,15 +151,21 @@ public class InitializeGame extends Action{
 
             }
 
-            this.windows.add(new Window(name,tokens,this.board));
+            this.windows.add(new Window(name,tokens,this.board,"gm" + ( i + 1 )));
 
         }
 
     }
 
-    private void askWindow(){
+    public ArrayList<Window> getWindows(){
 
+        return this.windows;
 
     }
 
+    public void setChosenWindow(Player player, Window choice){
+
+        player.setWindow(choice);
+
+    }
 }

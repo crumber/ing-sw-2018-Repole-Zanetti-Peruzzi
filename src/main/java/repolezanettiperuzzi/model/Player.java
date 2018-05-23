@@ -68,6 +68,13 @@ public class Player{
     public Window getWindow(){
 
         return this.window;
+
+    }
+
+    public void setWindow(Window window){
+
+        this.window = window;
+
     }
 
     public int getFlavorTokens() {

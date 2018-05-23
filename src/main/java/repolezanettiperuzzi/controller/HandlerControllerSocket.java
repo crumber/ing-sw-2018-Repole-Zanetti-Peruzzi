@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.controller;
 
 import org.json.simple.parser.ParseException;
+import repolezanettiperuzzi.model.Window;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,6 +9,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 //questo e' il nostro server socket che risiede sul server
@@ -74,6 +77,20 @@ public class HandlerControllerSocket {
     }
 
     public void notifyOnNewPlayer(){
+
+    }
+
+    public String askWindow(String message) throws IOException {
+
+
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+        out.println("Choose your window from 0 to 4\n");
+        out.println(message);
+        out.close();
+        String clientChoice = this.in.readLine();
+        this.in.close();
+        this.socket.close();
+        return clientChoice;
 
     }
 

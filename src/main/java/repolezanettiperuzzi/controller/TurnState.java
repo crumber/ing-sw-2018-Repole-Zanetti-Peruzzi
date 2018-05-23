@@ -1,4 +1,4 @@
 package repolezanettiperuzzi.controller;
 
-public class BoardState {
+public class TurnState {
 }
