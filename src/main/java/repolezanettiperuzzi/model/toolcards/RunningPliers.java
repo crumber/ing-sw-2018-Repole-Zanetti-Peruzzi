@@ -11,8 +11,4 @@ public class RunningPliers extends ToolCard {
 
     }
 
-    public int getId() {
-        return id;
-    }
-
 }

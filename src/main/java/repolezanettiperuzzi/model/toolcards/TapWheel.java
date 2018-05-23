@@ -47,13 +47,13 @@ public class TapWheel extends ToolCard {
 
             resultOfAction=checkDieOnRoundTrack(board,player,whichRound,whichDieOnRoundTrack);
 
-        } else if (!player.getWindow().getDieColour(x1Start, y1Start).equals(player.getWindow().getDieColour(x2Start, y2Start))&& (board.getDieFromRoundTrack(whichRound,whichDieOnRoundTrack).getColourDie().equals(player.getWindow().getDieColour(x1Start, y1Start)))){
+        } else if (!(player.getWindow().getDieColour(x1Start, y1Start).equals(player.getWindow().getDieColour(x2Start, y2Start)) && (board.getDieFromRoundTrack(whichRound,whichDieOnRoundTrack).getColourDie().equals(player.getWindow().getDieColour(x1Start, y1Start))))){
 
             resultOfAction=-22;
 
         }else {
 
-            resultOfAction=-1;
+            resultOfAction=1;
 
         }
 

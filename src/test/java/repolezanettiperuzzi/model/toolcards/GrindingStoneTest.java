@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class GrindingStoneTest {
 
-    private GrindingStone testPublicCard=new GrindingStone();
+    private ToolCard testPublicCard=new GrindingStone();
     private GameBoard board=new GameBoard();
     private Player player;
     private ArrayList<Integer> parameterforcard=new ArrayList<>();

@@ -16,6 +16,11 @@ public class RoundTrack {
 
     public Die getDieRoundTrack(int whichRound, int whichDieRound) {
 
+        if(whichRound>=dieRoundTrack.size() || whichDieRound>=dieRoundTrack.get(whichRound).size()){
+
+            return null;
+        }
+
         return dieRoundTrack.get(whichRound).get(whichDieRound);
 
     }
