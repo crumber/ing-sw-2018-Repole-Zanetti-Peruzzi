@@ -19,7 +19,7 @@ public class Controller {
     //model
     protected GameBoard board;
 
-    private ControllerState currentState;
+    protected ControllerState currentState;
 
     public Controller(ArrayList<Player> view, GameBoard board){
 
@@ -92,6 +92,9 @@ public class Controller {
                 } catch (IOException e) {
                     System.out.println("Cannot write on file");
                 }
+
+                board.addPlayer(playerID, connection, UI, addr.toString().substring(1), port);
+                //TODO notifico anche i giocatori
             }
 
         } finally {

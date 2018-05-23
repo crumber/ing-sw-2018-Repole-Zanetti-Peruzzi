@@ -1,0 +1,1 @@
+/etc/sonarqube-7.0/bin/macosx-universal-64/sonar.sh console

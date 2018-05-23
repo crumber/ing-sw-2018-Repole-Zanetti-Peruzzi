@@ -20,7 +20,7 @@ public class GameBoardTest {
         gamer=mock(Player.class);
         when(gamer.getName()).thenReturn("Pippo");
 
-        boardTest.addPlayer(gamer.getName());
+        //boardTest.addPlayer(gamer.getName());
 
         assertEquals("Pippo",gamer.getName());
     }
@@ -34,8 +34,8 @@ public class GameBoardTest {
         Player gamer1=mock(Player.class);
         when(gamer1.getName()).thenReturn("Topolino");
 
-        boardTest.addPlayer(gamer.getName());
-        boardTest.addPlayer(gamer1.getName());
+        //boardTest.addPlayer(gamer.getName());
+        //boardTest.addPlayer(gamer1.getName());
 
         assertEquals(2,boardTest.getNPlayers());
     }

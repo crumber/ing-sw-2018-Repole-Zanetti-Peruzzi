@@ -11,10 +11,17 @@ public class Player{
     private int score;
     private String connection; //RMI o Socket
     private String UI; //CLI o GUI
+    private String address;
+    private int port;
 
-    public Player(String name){
+    public Player(String name, String connection, String UI, String address, int port){
         this.name = name;
         this.score = 0;
+        this.connection = connection;
+        this.UI = UI;
+        this.turn = 0;
+        this.address = address;
+        this.port = port;
     }
 
     //copy constructor
@@ -28,6 +35,8 @@ public class Player{
         this.score = p.score;
         this.connection = p.connection;
         this.UI = p.UI;
+        this.address = p.address;
+        this.port = p.port;
     }
 
     public void useToolCard(){
@@ -65,6 +74,18 @@ public class Player{
 
         return flavorTokens;
 
+    }
+
+    public String getConnection(){
+        return connection;
+    }
+
+    public String getAddress(){
+        return address;
+    }
+
+    public int getPort(){
+        return port;
     }
 
     public void setFlavorTokens(int flavorTokens){

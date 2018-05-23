@@ -32,9 +32,9 @@ public class GameBoard {
         }
     }
 
-    public void addPlayer(String playerName){
+    public void addPlayer(String playerName, String connection, String UI, String address, int port){
 
-        players.add(new Player(playerName));
+        players.add(new Player(playerName, connection, UI, address, port));
         this.nPlayers++;
 
     }

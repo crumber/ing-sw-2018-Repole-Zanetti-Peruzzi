@@ -58,6 +58,10 @@ public class HandlerControllerSocket {
         String pwd = param[0];
         String connection = param[1];
         String UI = param[2];
+
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+        out.println("registered");
+        out.close();
         this.in.close();
         this.socket.close();
         controller.initializePlayer(playerID, pwd, addr, port, connection, UI);
@@ -69,5 +73,8 @@ public class HandlerControllerSocket {
         //controller.setupPlayer(playerID, connection, UI, this.addr, this.port);
     }
 
+    public void notifyOnNewPlayer(){
+
+    }
 
 }
