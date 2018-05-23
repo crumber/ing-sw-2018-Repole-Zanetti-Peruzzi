@@ -66,7 +66,7 @@ public class TapWheelTest {
         die2.setValue(Value.TWO);
         die3.setValue(Value.THREE);
 
-        Window windowTest=new Window("test",4,boardBoxes);
+        Window windowTest=new Window("test",4,boardBoxes,"test");
         windowTest.insertDie(die1,0,0,"colour");
         windowTest.insertDie(die2,1,1,"colour");
 
@@ -174,7 +174,7 @@ public class TapWheelTest {
         Die die2=new Die(Colour.YELLOW);
         die2.setValue(Value.FOUR);
 
-        Window windowTest=new Window("test",4,boardBoxes);
+        Window windowTest=new Window("test",4,boardBoxes,"test");
         windowTest.insertDie(die1,0,0,"colour");
         windowTest.insertDie(die2,1,1,"colour");
 

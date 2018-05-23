@@ -48,7 +48,7 @@ public class EglomiseBrushTest {
 
         die2.setValue(Value.FIVE);
 
-        Window windowTest=new Window("test",4,boardBoxes);
+        Window windowTest=new Window("test",4,boardBoxes,"test");
         windowTest.insertDie(die1,0,0,"colour");
         windowTest.insertDie(die2,0,1,"value");
 
@@ -110,7 +110,7 @@ public class EglomiseBrushTest {
         Die die2=new Die(Colour.YELLOW);
         die2.setValue(Value.TWO);
 
-        Window windowTest=new Window("test",4,boardBoxes);
+        Window windowTest=new Window("test",4,boardBoxes,"test");
         windowTest.insertDie(die1,0,0,"colour");
         windowTest.insertDie(die2,0,1,"value");
 

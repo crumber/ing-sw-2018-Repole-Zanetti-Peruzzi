@@ -28,7 +28,7 @@ public class WindowTest {
         }
 
         name = "Virtus";
-        testWindow = new Window(name,5, testBoxes);
+        testWindow = new Window(name,5, testBoxes,"test");
         testDie = new Die(Colour.YELLOW);
 
         testWindow.insertDie(testDie,0,0,"both");
@@ -59,7 +59,7 @@ public class WindowTest {
         }
 
         name = "Virtus";
-        testWindow = new Window(name,5, testBoxes);
+        testWindow = new Window(name,5, testBoxes,"test");
         testDie = new Die(Colour.YELLOW);
         Die d1=new Die(Colour.RED);
         d1.setValue(Value.THREE);
@@ -91,7 +91,7 @@ public class WindowTest {
         }
 
         name = "Virtus";
-        testWindow = new Window(name,5, testBoxes);
+        testWindow = new Window(name,5, testBoxes,"test");
         testDie = new Die(Colour.YELLOW);
 
         assertEquals("Virtus",testWindow.getName());
@@ -114,7 +114,7 @@ public class WindowTest {
         }
 
         name = "Virtus";
-        testWindow = new Window(name,5, testBoxes);
+        testWindow = new Window(name,5, testBoxes, "test");
         testDie=new Die(Colour.RED);
 
         assertFalse(testWindow.controlAdjacences(1,1));
@@ -160,7 +160,7 @@ public class WindowTest {
         }
 
         name = "Virtus";
-        testWindow = new Window(name,5, testBoxes);
+        testWindow = new Window(name,5, testBoxes,"test");
         testDie = new Die(Colour.RED);
         Die d=new Die(Colour.RED);
         Die d1=new Die(Colour.YELLOW);
@@ -213,7 +213,7 @@ public class WindowTest {
         }
 
         name = "Virtus";
-        testWindow = new Window(name,5, testBoxes);
+        testWindow = new Window(name,5, testBoxes,"test");
 
         testDie = new Die(Colour.YELLOW);
         testDie2=new Die(Colour.RED);
@@ -251,7 +251,7 @@ public class WindowTest {
         }
 
         name = "Virtus";
-        testWindow = new Window(name,5, testBoxes);
+        testWindow = new Window(name,5, testBoxes,"test");
         testDie = new Die(Colour.YELLOW);
         testDie2=new Die(Colour.RED);
 
@@ -278,7 +278,7 @@ public class WindowTest {
         }
 
         name = "Virtus";
-        testWindow = new Window(name,5, testBoxes);
+        testWindow = new Window(name,5, testBoxes, "test");
         testDie = new Die(Colour.YELLOW);
         testDie2=new Die(Colour.RED);
 
@@ -304,7 +304,7 @@ public class WindowTest {
         }
 
         name = "Virtus";
-        testWindow = new Window(name,5, testBoxes);
+        testWindow = new Window(name,5, testBoxes,"test");
 
         testDie = new Die(Colour.YELLOW);
         testDie2=new Die(Colour.RED);

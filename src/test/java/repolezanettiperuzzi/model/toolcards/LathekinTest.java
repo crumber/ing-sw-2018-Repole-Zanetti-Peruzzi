@@ -64,7 +64,7 @@ public class LathekinTest {
         die2.setValue(Value.FIVE);
         die4.setValue(Value.SIX);
 
-        Window windowTest=new Window("test",4,boardBoxes);
+        Window windowTest=new Window("test",4,boardBoxes,"test");
         windowTest.insertDie(die1,0,0,"colour");
         windowTest.insertDie(die2,0,1,"colour");
         windowTest.insertDie(die3,1,0,"colour");
@@ -209,7 +209,7 @@ public class LathekinTest {
         die2.setValue(Value.THREE);
         die4.setValue(Value.FOUR);
 
-        Window windowTest=new Window("test",4,boardBoxes);
+        Window windowTest=new Window("test",4,boardBoxes,"test");
         windowTest.insertDie(die1,0,0,"colour");
         windowTest.insertDie(die2,0,1,"colour");
         windowTest.insertDie(die3,1,0,"colour");

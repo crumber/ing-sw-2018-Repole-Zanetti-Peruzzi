@@ -46,7 +46,7 @@ public class CorkbackedStraightedgeTest {
         }
 
         Die die1=new Die(Colour.GREEN);
-        Window windowTest=new Window("test",4,boardBoxes);
+        Window windowTest=new Window("test",4,boardBoxes,"test");
         windowTest.insertDie(die1,0,0,"colour");
 
         player=mock(Player.class);
@@ -100,7 +100,7 @@ public class CorkbackedStraightedgeTest {
         }
 
         Die die1=new Die(Colour.PURPLE);
-        Window windowTest=new Window("test",4,boardBoxes);
+        Window windowTest=new Window("test",4,boardBoxes,"test");
 
         player=mock(Player.class);
         when(player.getWindow()).thenReturn(windowTest);
