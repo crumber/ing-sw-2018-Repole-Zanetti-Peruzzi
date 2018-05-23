@@ -1,8 +1,7 @@
 package repolezanettiperuzzi.controller;
 
+import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.model.GameBoard;
-
-import repolezanettiperuzzi.model.actions.CreateGame;
 
 
 import java.rmi.AlreadyBoundException;
@@ -14,19 +13,16 @@ public class MasterGame {
     private int nPlayer;
     private static GameBoard board;
 
-    public static void main(String[] args) throws AlreadyBoundException, RemoteException {
+    public static void main(String[] args) throws AlreadyBoundException, RemoteException, ParseException {
 
         board= new GameBoard();
 
-        CreateGame.doAction(board);
+        //la createGame dovrebbe essere uno stato del controller
+        //CreateGame.doAction(board);
 
         Controller controller = new Controller(board.getPlayers(),board);
 
         controller.setState(new FetchState());
-
-
-
-
 
     }
 

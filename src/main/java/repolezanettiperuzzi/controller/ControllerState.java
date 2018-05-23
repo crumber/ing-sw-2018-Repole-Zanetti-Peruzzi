@@ -1,8 +1,10 @@
 package repolezanettiperuzzi.controller;
 
+import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public abstract class ControllerState {
@@ -16,6 +18,6 @@ public abstract class ControllerState {
         this.view = view;
 
     }*/
-    public abstract void doAction(Controller controller);
+    public abstract void doAction(Controller controller) throws RemoteException, ParseException;
 
 }

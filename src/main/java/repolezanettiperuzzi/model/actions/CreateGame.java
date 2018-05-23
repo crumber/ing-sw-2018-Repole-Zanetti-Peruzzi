@@ -15,17 +15,17 @@ public class CreateGame extends Action{
 
 
         //inizializzo socket e RMI per l'ascolto
-        StartRMIServer startRMI = new StartRMIServer();
+        //StartRMIServer startRMI = new StartRMIServer();
 
         //arrayList di GameViewSkeleton temporaneo
         ArrayList<Player> view = new ArrayList<Player>(); //aggiungo i giocatori man mano che si collegano
         Controller controller = new Controller(view, board); // passo i player per sapere il tipo di connessione e UI
 
-        try {
+        /*try {
             HandlerStubRMI hStub = startRMI.doAction(controller);
         } catch (RemoteException | AlreadyBoundException e) {
             e.printStackTrace();
-        }
+        }*/
 
         //inizializzo server socket
     }

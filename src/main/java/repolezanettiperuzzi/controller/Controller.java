@@ -9,6 +9,7 @@ import repolezanettiperuzzi.model.Player;
 
 import java.io.*;
 import java.net.InetAddress;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class Controller {
@@ -28,7 +29,7 @@ public class Controller {
 
     }
 
-    public void setState(ControllerState nextState){
+    public void setState(ControllerState nextState) throws RemoteException, ParseException {
 
         this.currentState=nextState;
         this.currentAction();
@@ -40,19 +41,14 @@ public class Controller {
 
     }
 
-    private void currentAction(){
+    private void currentAction() throws RemoteException, ParseException {
 
         this.currentState.doAction(this);
 
     }
 
-    //metodo utile per il loop della classe MultiEchoSocketServer
-    public boolean isListening(){
-        return this.currentState instanceof EndGameState;
-    }
-
     //metodo chiamato dal giocatore appena si connette al server
-    public void initializePlayer(String playerID, String pwd, InetAddress addr, int port) throws IOException, ParseException {
+    public void initializePlayer(String playerID, String pwd, InetAddress addr, int port, String connection, String UI) throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         FileReader jsonIn = new FileReader("gamedata/playersinfo.json");
         JSONArray jsonArr = (JSONArray) parser.parse(jsonIn);
@@ -78,15 +74,19 @@ public class Controller {
 
             if(!registered) {
 
-                JSONObject obj = new JSONObject();
-                obj.put("playerID", playerID);
-                obj.put("pwd", pwd);
-                jsonArr.add(obj);
+                JSONObject player = new JSONObject();
+                player.put("playerID", playerID);
+                player.put("pwd", pwd);
+                player.put("connection", connection);
+                player.put("UI", UI);
+                player.put("address", addr.toString().substring(1));
+                player.put("port", port);
+                jsonArr.add(player);
 
                 try (FileWriter file = new FileWriter("gamedata/playersinfo.json")) {
-                    file.write(obj.toJSONString());
+                    file.write(jsonArr.toJSONString());
                     System.out.println("Successfully Copied JSON Object to File...");
-                    System.out.println("\nJSON Object: " + obj);
+                    System.out.println("\nJSON Object: " + player);
                     file.close();
                 } catch (IOException e) {
                     System.out.println("Cannot write on file");
@@ -99,7 +99,7 @@ public class Controller {
 
     }
 
-    public boolean setupPlayer(String playerID, String connection, String UI, InetAddress addr, int port) throws IOException, ParseException {
+    /*public boolean setupPlayer(String playerID, String connection, String UI, InetAddress addr, int port) throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         FileReader jsonIn = new FileReader("gamedata/playersinfo.json");
         JSONArray jsonArr = (JSONArray) parser.parse(jsonIn);
@@ -144,7 +144,7 @@ public class Controller {
         } finally {
             jsonIn.close();
         }
-    }
+    }*/
 
 
 }
