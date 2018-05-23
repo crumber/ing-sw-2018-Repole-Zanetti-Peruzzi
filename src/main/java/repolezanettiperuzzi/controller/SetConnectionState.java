@@ -23,11 +23,11 @@ public class SetConnectionState extends ControllerState{
         try (ServerSocket serverSocket = new ServerSocket(port)){
             System.out.println("Server ready");
 
-            Timer timer = new Timer(300000);
+            Timer timer = new Timer(5000);
             timer.start();
             serverSocket.setSoTimeout((int)timer.getRemainingTime()); // sposta da 2 giocatori
 
-            while(nPlayers<4 || timer.timeout()){
+            while(nPlayers<4 && !timer.timeout()){
                 Socket socket = serverSocket.accept();
                 HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
                 handler.handleMessage();
@@ -50,13 +50,16 @@ public class SetConnectionState extends ControllerState{
 
     public void notifyOnNewPlayer(Controller controller) throws IOException, ParseException {
         for(int i = 0; i<controller.board.getNPlayers(); i++){
+            System.out.println("NPlayer "+i+"\n");
             Player player = controller.board.getPlayers().get(i);
             if(player.getConnection().equals("S")){
+                System.out.println("Creo Socket indirizzo "+player.getAddress()+" porta "+ player.getPort()+"\n");
                 try(Socket socket = new Socket(player.getAddress(), player.getPort())){
+                    System.out.println("Creo Handler\n");
                     HandlerControllerSocket handlerControllerSocket = new HandlerControllerSocket(controller, socket);
                     handlerControllerSocket.notifyOnNewPlayer();
-                } catch(Exception e){
-
+                } catch(IOException e){
+                    e.printStackTrace();
                 }
             } else if(controller.board.getPlayers().get(i).getConnection().equals("RMI")){
 

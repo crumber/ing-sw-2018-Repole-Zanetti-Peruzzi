@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.controller;
 
 import org.json.simple.parser.ParseException;
+import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.Window;
 
 import java.io.BufferedReader;
@@ -29,7 +30,6 @@ public class HandlerControllerSocket {
         this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.socket = socket;
         this.addr = socket.getInetAddress();
-        this.port = socket.getPort();
         this.controller = controller;
     }
 
@@ -61,9 +61,10 @@ public class HandlerControllerSocket {
         String pwd = param[0];
         String connection = param[1];
         String UI = param[2];
+        this.port = Integer.parseInt(param[3]);
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
-        out.println("registered");
+        out.println("registered "+port);
         out.close();
         this.in.close();
         this.socket.close();
@@ -76,7 +77,21 @@ public class HandlerControllerSocket {
         //controller.setupPlayer(playerID, connection, UI, this.addr, this.port);
     }
 
-    public void notifyOnNewPlayer(){
+    public void notifyOnNewPlayer() throws IOException {
+        String playersID = "";
+
+        System.out.println("Ciclo sui giocatori\n");
+        for(int i = 0; i<controller.board.getNPlayers(); i++){
+            System.out.println("Stampo giocatore "+i+"\n");
+            Player player = controller.board.getPlayers().get(i);
+            playersID = playersID+player.getName()+" ";
+        }
+
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+        System.out.println("Invio messaggio\n");
+        out.println("newplayers "+playersID);
+        out.close();
+        this.socket.close();
 
     }
 
