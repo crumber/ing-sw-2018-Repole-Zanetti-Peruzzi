@@ -15,9 +15,9 @@ import java.util.ArrayList;
 public class Controller {
 
     //view
-    private ArrayList<Player> view;
+    protected ArrayList<Player> view;
     //model
-    private GameBoard board;
+    protected GameBoard board;
 
     private ControllerState currentState;
 
@@ -29,7 +29,7 @@ public class Controller {
 
     }
 
-    public void setState(ControllerState nextState) throws RemoteException, ParseException {
+    public void setState(ControllerState nextState) throws IOException, ParseException {
 
         this.currentState=nextState;
         this.currentAction();
@@ -41,7 +41,8 @@ public class Controller {
 
     }
 
-    private void currentAction() throws RemoteException, ParseException {
+    //this method do the action of the current state
+    private void currentAction() throws IOException, ParseException {
 
         this.currentState.doAction(this);
 

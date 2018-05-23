@@ -199,6 +199,7 @@ public class GameBoard {
     public void setToolCards(ToolCard toolCard, int i) {
 
         this.toolCards[i]=toolCard;
+
     }
 
     public void setPublicCards(PublicCard publicCard, int i) {
@@ -209,5 +210,6 @@ public class GameBoard {
     public ArrayList<Player> getPlayers() {
 
         return (ArrayList<Player>) this.players.clone();
+
     }
 }

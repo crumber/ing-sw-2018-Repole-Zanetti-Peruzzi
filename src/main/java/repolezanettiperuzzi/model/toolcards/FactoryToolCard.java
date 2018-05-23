@@ -3,7 +3,7 @@ package repolezanettiperuzzi.model.toolcards;
 import repolezanettiperuzzi.model.publiccards.ColorVariety;
 
 public class FactoryToolCard {
-    public static ToolCard getPublicCard(String criteria)
+    public static ToolCard getToolCard(String criteria)
     {
         if ( criteria.equals("tc1") )
             return new CopperFoilBurnisher();

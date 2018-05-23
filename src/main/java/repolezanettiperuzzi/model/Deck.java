@@ -4,6 +4,7 @@ import repolezanettiperuzzi.model.publiccards.FactoryPublicCard;
 import repolezanettiperuzzi.model.publiccards.MediumShades;
 import repolezanettiperuzzi.model.publiccards.PublicCard;
 import repolezanettiperuzzi.model.toolcards.CopperFoilBurnisher;
+import repolezanettiperuzzi.model.toolcards.FactoryToolCard;
 import repolezanettiperuzzi.model.toolcards.ToolCard;
 
 import java.io.File;
@@ -29,16 +30,16 @@ public class Deck {
         publicCardsDeck = new ArrayList<>(nPublicCards);
 
         for(int i = 0; i < nPublicCards; i++){
-            ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(Paths.get(publicCardsFolder + "/pc" + (i + 1)) + ".txt"));
+            ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(publicCardsFolder + "/pc" + (i + 1) + ".txt"));
             publicCardsDeck.add(FactoryPublicCard.getPublicCard(lines.get(2)));
         }
 
-        nPublicCards = new File(toolCardsFolder).list().length-1;
+        nToolCards = new File(toolCardsFolder).list().length-1;
         toolCardsDeck = new ArrayList<>(nToolCards);
 
         for( int i=0 ; i<nToolCards; i++){
-            ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(Paths.get(toolCardsFolder + "/tc" + (i + 1)) + ".txt"));
-            publicCardsDeck.add(FactoryPublicCard.getPublicCard(lines.get(3)));
+            ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(toolCardsFolder + "/tc" + (i + 1) + ".txt"));
+            toolCardsDeck.add(FactoryToolCard.getToolCard(lines.get(3)));
         }
 
     }
@@ -49,7 +50,7 @@ public class Deck {
 
 
     public PublicCard drawPublicCard(){
-    //mischia le carte e pesca la prima dell'arrayList rimuovendola
+        //shuffle cards and take first card in the ArrayList
         Collections.shuffle(this.publicCardsDeck);
         return this.publicCardsDeck.remove(0);
 
