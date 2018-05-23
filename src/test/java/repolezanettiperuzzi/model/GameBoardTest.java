@@ -17,12 +17,9 @@ public class GameBoardTest {
     public void addPlayer() {
 
         boardTest=new GameBoard();
-        gamer=mock(Player.class);
-        when(gamer.getName()).thenReturn("Pippo");
+        boardTest.addPlayer("Pippo","RMI","CLI","127.0.0.1",8008);
+        assertEquals("Pippo",boardTest.getPlayer(0).getName());
 
-        //boardTest.addPlayer(gamer.getName());
-
-        assertEquals("Pippo",gamer.getName());
     }
 
     @Test
@@ -34,8 +31,8 @@ public class GameBoardTest {
         Player gamer1=mock(Player.class);
         when(gamer1.getName()).thenReturn("Topolino");
 
-        //boardTest.addPlayer(gamer.getName());
-        //boardTest.addPlayer(gamer1.getName());
+        boardTest.addPlayer(gamer.getName(),"RMI","CLI","127.0.0.1",8008);
+        boardTest.addPlayer(gamer1.getName(),"RMI","CLI","127.0.0.1",8008);
 
         assertEquals(2,boardTest.getNPlayers());
     }
