@@ -7,9 +7,12 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.rmi.RemoteException;
+import java.util.logging.*;
+
 
 public class SetConnectionState extends ControllerState{
+
+    private final Logger LOGGER = Logger.getLogger(SetConnectionState.class.getName());
 
     @Override
     public void doAction(Controller controller) throws IOException, ParseException {
@@ -59,7 +62,7 @@ public class SetConnectionState extends ControllerState{
                     HandlerControllerSocket handlerControllerSocket = new HandlerControllerSocket(controller, socket);
                     handlerControllerSocket.notifyOnNewPlayer();
                 } catch(IOException e){
-                    e.printStackTrace();
+                    LOGGER.log(Level.WARNING,"IOException: ",e); //da verificare
                 }
             } else if(controller.board.getPlayers().get(i).getConnection().equals("RMI")){
 

@@ -9,12 +9,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.logging.*;
 
 public class InitializeGame extends Action{
 
     private ArrayList<Colour> privateObjective;
     private ArrayList<Window> windows;
     private Box[][] board;
+    private final Logger LOGGER = Logger.getLogger(InitializeGame.class.getName());
 
 
     public InitializeGame(){
@@ -45,21 +49,25 @@ public class InitializeGame extends Action{
         //initialize deck with tool cards and public cards
         Deck startDeck = null;
         try {
+
             startDeck = new Deck("cards/publiccards","cards/toolcards");
+
         } catch (IOException e) {
-            e.printStackTrace();
+
+            LOGGER.log(Level.WARNING,"IOException: ", e);
+
         }
 
 
         for(int i = 0; i < 3; i++){
 
-            board.setPublicCards(startDeck.drawPublicCard(),i);
+            board.setPublicCards(Objects.requireNonNull(startDeck).drawPublicCard(),i);
 
         }
 
         for(int i = 0; i < 3; i++){
 
-            board.setToolCards(startDeck.drawToolCard(),i);
+            board.setToolCards(Objects.requireNonNull(startDeck).drawToolCard(),i);
 
         }
 
@@ -92,7 +100,7 @@ public class InitializeGame extends Action{
 
     private void createWindows() throws IOException {
 
-        int nWindows = new File("cards/gamemaps").list().length-1;
+        int nWindows = Objects.requireNonNull(new File("cards/gamemaps").list()).length-1;
 
         for (int i = 0; i < nWindows; i++) {
 
@@ -157,7 +165,7 @@ public class InitializeGame extends Action{
 
     }
 
-    public ArrayList<Window> getWindows(){
+    public List<Window> getWindows(){
 
         return this.windows;
 
