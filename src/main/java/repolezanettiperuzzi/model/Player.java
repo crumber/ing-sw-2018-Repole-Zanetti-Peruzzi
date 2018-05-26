@@ -39,6 +39,8 @@ public class Player{
         this.port = p.port;
     }
 
+    /*
+    METODI DA FINIRE/CANCELLARE SE NON SERVONO
     public void useToolCard(){
         //chiama una Action useToolCard
     }
@@ -58,10 +60,17 @@ public class Player{
     public void passTurn(){
         //chiamo una Action PassTurn
     }
+    */
 
     public void updateScore(int points){
 
         score+=points;
+
+    }
+
+    public int getScore(){
+
+        return score;
 
     }
 
@@ -104,6 +113,12 @@ public class Player{
     public String getName() {
 
         return name;
+
+    }
+
+    public void setInsertDieInThisTurn(boolean trueOrFalse) {
+
+         insertDieInThisTurn=trueOrFalse;
 
     }
 

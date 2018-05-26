@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class FactoryToolCardTest {
 
     @Test
-    public void getToolCardTest() {
+    public void testGetToolCardTest() {
 
         assertEquals(CopperFoilBurnisher.class,FactoryToolCard.getToolCard("tc1").getClass());
         assertEquals(CorkbackedStraightedge.class,FactoryToolCard.getToolCard("tc2").getClass());

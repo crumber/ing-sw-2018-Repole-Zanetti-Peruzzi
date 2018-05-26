@@ -45,9 +45,10 @@ public class Deck {
     }
 
     public ArrayList<PublicCard> getPublicCardsDeck(){
-        return (ArrayList<PublicCard>) publicCardsDeck.clone();
-    }
 
+        return (ArrayList<PublicCard>) publicCardsDeck.clone();
+
+    }
 
     public PublicCard drawPublicCard(){
         //shuffle cards and take first card in the ArrayList
@@ -62,5 +63,4 @@ public class Deck {
         return this.toolCardsDeck.remove(0);
 
     }
-
 }

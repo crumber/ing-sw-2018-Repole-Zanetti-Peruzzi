@@ -19,7 +19,7 @@ public class FluxBrushTest {
     private ArrayList<Integer> parameterforcard=new ArrayList<>();
 
     @Test
-    public void check() {
+    public void testCheck() {
 
         Die die1=new Die(Colour.RED);
         board.addDieToDraft(die1);
@@ -30,7 +30,7 @@ public class FluxBrushTest {
     }
 
     @Test
-    public void effect() {
+    public void testEffect() {
 
         Die dietest=new Die(Colour.BLUE);
         board.addDieToDraft(dietest);

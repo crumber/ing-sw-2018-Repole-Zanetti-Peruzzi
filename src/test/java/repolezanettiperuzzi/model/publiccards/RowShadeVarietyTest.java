@@ -12,7 +12,7 @@ public class RowShadeVarietyTest {
 
 
     @Test
-    public void effect() {
+    public void testEffect() {
 
         RowShadeVariety cardRowShadeVariety= new RowShadeVariety();
         Window finalWindow=mock (Window.class);

@@ -50,7 +50,7 @@ public abstract class ToolCard {
                 numProblem=1;
             }
 
-            player.getWindow().insertDie(dTemp,xStart,yStart,"both");
+            player.getWindow().insertDie(dTemp,xStart,yStart,"none");
         }
 
         return numProblem;
@@ -70,27 +70,27 @@ public abstract class ToolCard {
 
             if (!player.getWindow().controlAllBoundBox(x1End, y1End, dTemp)) {
 
-                player.getWindow().insertDie(dTemp,x1Start,y1Start,"both");
+                player.getWindow().insertDie(dTemp,x1Start,y1Start,"none");
                 numProblem=-7;
 
             }else if(player.getWindow().controlAllBoundAdjacences(dTemp,x1End,y1End)){
 
-                player.getWindow().insertDie(dTemp,x1Start,y1Start,"both");
+                player.getWindow().insertDie(dTemp,x1Start,y1Start,"none");
                 numProblem=-25;
 
             } else {
 
-                player.getWindow().insertDie(dTemp,x1End,y1End,"both");
+                player.getWindow().insertDie(dTemp,x1End,y1End,"none");
 
                 if(x2Start<0 || x2Start>3 || y2Start<0 || y2Start>4 || x2End<0 || x2End>3 || y2End<0 || y2End>4){
 
-                    player.getWindow().insertDie(dTemp,x1Start,y1Start,"both");
+                    player.getWindow().insertDie(dTemp,x1Start,y1Start,"none");
                     player.getWindow().removeDie(x1End,y1End);
                     numProblem=-1;
 
                 } else if (!player.getWindow().thereIsDie(x2Start, y2Start)) {
 
-                    player.getWindow().insertDie(dTemp,x1Start,y1Start,"both");
+                    player.getWindow().insertDie(dTemp,x1Start,y1Start,"none");
                     player.getWindow().removeDie(x1End,y1End);
                     numProblem=-17;
 
@@ -120,9 +120,9 @@ public abstract class ToolCard {
 
                     }
 
-                    player.getWindow().insertDie(dTemp,x1Start,y1Start,"both");
+                    player.getWindow().insertDie(dTemp,x1Start,y1Start,"none");
                     player.getWindow().removeDie(x1End,y1End);
-                    player.getWindow().insertDie(d2Temp,x2Start,y2Start,"both");
+                    player.getWindow().insertDie(d2Temp,x2Start,y2Start,"none");
                 }
             }
         }

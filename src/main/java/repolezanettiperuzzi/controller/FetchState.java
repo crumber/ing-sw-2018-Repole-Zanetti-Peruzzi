@@ -20,7 +20,7 @@ public class FetchState extends ControllerState {
 
         InitializeGame init = new InitializeGame();
         init.doAction(controller.board);
-        ArrayList<Window> windows = init.getWindows();
+        ArrayList<Window> windows = (ArrayList<Window>) init.getWindows();
 
         for (int i = 0; i < controller.board.getNPlayers(); i++ ){
 

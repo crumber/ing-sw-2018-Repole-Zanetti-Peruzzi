@@ -12,7 +12,7 @@ import static org.mockito.Mockito.when;
 public class ColumnColorVarietyTest {
 
     @Test
-    public void effect() {
+    public void testEffect() {
 
         ColumnColorVariety cardColumnColourVariety= new ColumnColorVariety();
         Window finalWindow=mock (Window.class);

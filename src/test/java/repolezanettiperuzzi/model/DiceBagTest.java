@@ -12,7 +12,7 @@ public class DiceBagTest {
 
 
     @Test
-    public void takeDice() {
+    public void testTakeDice() {
 
         testDiceBag= new DiceBag();
         int nDice= 2;
@@ -26,7 +26,7 @@ public class DiceBagTest {
     }
 
     @Test
-    public void takeDie(){
+    public void testTakeDie(){
 
         testDiceBag=new DiceBag();
         int newSize=testDiceBag.getSize();
@@ -37,7 +37,7 @@ public class DiceBagTest {
     }
 
     @Test
-    public void setDieInBag(){
+    public void testScletDieInBag(){
 
         testDiceBag=new DiceBag();
         Die chosenDie=testDiceBag.takeDie();

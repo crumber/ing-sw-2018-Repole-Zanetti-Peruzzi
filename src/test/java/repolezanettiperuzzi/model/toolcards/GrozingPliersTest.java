@@ -15,7 +15,7 @@ public class GrozingPliersTest {
     private ArrayList<Integer> parameterforcard=new ArrayList<>();
 
     @Test
-    public void check() {
+    public void testCheck() {
 
         Die die1=new Die(Colour.RED);
         die1.setValue(Value.FIVE);
@@ -54,7 +54,7 @@ public class GrozingPliersTest {
     }
 
     @Test
-    public void effect() {
+    public void testEffect() {
 
         Die die1=new Die(Colour.RED);
         die1.setValue(Value.FOUR);

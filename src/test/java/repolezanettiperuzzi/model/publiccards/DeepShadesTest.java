@@ -12,7 +12,7 @@ public class DeepShadesTest {
 
 
     @Test
-    public void effect() {
+    public void testEffect() {
 
         DeepShades cardDeepShade= new DeepShades();
         Window finalWindow=mock (Window.class);

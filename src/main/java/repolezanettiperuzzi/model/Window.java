@@ -41,8 +41,6 @@ public class Window {
 
     }
 
-
-
     public void moveDie(int xIn,int yIn, int xEnd, int yEnd, String restriction) {
 
             this.boardBox[xEnd][yEnd].setDie(this.boardBox[xIn][yIn].removeDie(), restriction);

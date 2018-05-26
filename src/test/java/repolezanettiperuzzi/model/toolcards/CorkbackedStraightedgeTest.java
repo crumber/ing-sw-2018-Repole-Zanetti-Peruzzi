@@ -18,14 +18,14 @@ public class CorkbackedStraightedgeTest {
     private Box[][] boardBoxes;
 
     @Test
-    public void getId() {
+    public void testGetId() {
 
         assertEquals(9,testPublicCard.getId());
 
     }
 
     @Test
-    public void check() {
+    public void testCheck() {
 
         boardBoxes=new Box[4][5];
 
@@ -85,7 +85,7 @@ public class CorkbackedStraightedgeTest {
     }
 
     @Test
-    public void effect() {
+    public void testEffect() {
 
         boardBoxes=new Box[4][5];
 

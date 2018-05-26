@@ -15,7 +15,7 @@ public class GrindingStoneTest {
     private ArrayList<Integer> parameterforcard=new ArrayList<>();
 
     @Test
-    public void check() {
+    public void testCheck() {
 
         Die die1=new Die(Colour.RED);
         board.addDieToDraft(die1);
@@ -26,7 +26,7 @@ public class GrindingStoneTest {
     }
 
     @Test
-    public void effect() {
+    public void testEffect() {
 
         Die die1=new Die(Colour.RED);
 

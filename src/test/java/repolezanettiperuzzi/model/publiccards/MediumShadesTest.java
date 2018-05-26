@@ -12,7 +12,7 @@ public class MediumShadesTest {
 
 
     @Test
-    public void effect() {
+    public void testEffect() {
 
         MediumShades cardMediumShade= new MediumShades();
         Window finalWindow=mock (Window.class);

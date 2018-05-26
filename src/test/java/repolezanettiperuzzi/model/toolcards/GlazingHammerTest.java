@@ -20,7 +20,7 @@ public class GlazingHammerTest {
     private ArrayList<Integer> parameterforcard=new ArrayList<>();
 
     @Test
-    public void check() {
+    public void testCheck() {
 
         player=mock(Player.class);
         when(player.getTurn()).thenReturn(2);
@@ -39,7 +39,7 @@ public class GlazingHammerTest {
     }
 
     @Test
-    public void effect() {
+    public void testEffect() {
 
         player=mock(Player.class);
         when(player.getTurn()).thenReturn(2);

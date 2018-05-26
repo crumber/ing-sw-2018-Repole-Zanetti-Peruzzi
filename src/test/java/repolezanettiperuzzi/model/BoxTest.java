@@ -129,4 +129,17 @@ public class BoxTest {
 
     }
 
+    @Test
+    public void testSetDieNoneBound(){
+
+        testBox = new Box(Value.ONE);
+        die = mock(Die.class);
+        when(die.getColourDie()).thenReturn(Colour.BLUE);
+        when(die.getValueDie()).thenReturn(Value.THREE);
+
+        testBox.setDie(die,"none");
+        assertSame(testBox.die,die);
+
+    }
+
 }

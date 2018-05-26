@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class RoundTrackTest {
 
     @Test
-    public void addDice() {
+    public void testAddDice() {
 
         RoundTrack testRoundTrack=new RoundTrack();
         Die d1= new Die(Colour.PURPLE);
@@ -38,7 +38,7 @@ public class RoundTrackTest {
     }
 
     @Test
-    public void setDieOnRoundTrack(){
+    public void testSetDieOnRoundTrack(){
 
         RoundTrack testRoundTrack=new RoundTrack();
         Die dieTest=new Die(Colour.RED);

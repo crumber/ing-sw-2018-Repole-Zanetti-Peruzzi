@@ -15,7 +15,7 @@ public class FluxRemoverTest {
     private ArrayList<Integer> parameterforcard=new ArrayList<>();
 
     @Test
-    public void check() {
+    public void testCheck() {
 
         Die die1=new Die(Colour.RED);
 
@@ -33,7 +33,7 @@ public class FluxRemoverTest {
     }
 
     @Test
-    public void checkPreEffect() {
+    public void testCheckPreEffect() {
 
         Die dieTest=new Die(Colour.BLUE);
         board.addDieToDraft(dieTest);
@@ -45,7 +45,7 @@ public class FluxRemoverTest {
     }
 
     @Test
-    public void preEffect() {
+    public void testPreEffect() {
 
         Die dieTest=new Die(Colour.BLUE);
         Die die1=new Die(Colour.RED);
@@ -63,7 +63,7 @@ public class FluxRemoverTest {
     }
 
     @Test
-    public void effect() {
+    public void testEffect() {
 
         Die dieTest=new Die(Colour.BLUE);
         Die die1=new Die(Colour.RED);

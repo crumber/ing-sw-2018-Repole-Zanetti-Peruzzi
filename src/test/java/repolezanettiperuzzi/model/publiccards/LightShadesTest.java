@@ -11,7 +11,7 @@ package repolezanettiperuzzi.model.publiccards;
 public class LightShadesTest {
 
     @Test
-    public void effect() {
+    public void testEffect() {
 
         LightShades cardLightShade= new LightShades();
         Window finalWindow=mock (Window.class);

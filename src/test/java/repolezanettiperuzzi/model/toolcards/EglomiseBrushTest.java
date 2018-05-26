@@ -18,7 +18,7 @@ public class EglomiseBrushTest {
     private Box[][] boardBoxes;
 
     @Test
-    public void check() {
+    public void testCheck() {
 
         boardBoxes=new Box[4][5];
 
@@ -85,7 +85,7 @@ public class EglomiseBrushTest {
     }
 
     @Test
-    public void effect() {
+    public void testEffect() {
 
         boardBoxes=new Box[4][5];
 

@@ -19,7 +19,7 @@ public class CopperFoilBurnisherTest {
     private Box[][] boardBoxes;
 
     @Test
-    public void check() {
+    public void testCheck() {
 
         boardBoxes=new Box[4][5];
 
@@ -105,14 +105,14 @@ public class CopperFoilBurnisherTest {
     }
 
     @Test
-    public void getId() {
+    public void testGetId() {
 
         assertEquals(3,testPublicCard.getId());
 
     }
 
     @Test
-    public void effect() {
+    public void testEffect() {
 
         boardBoxes=new Box[4][5];
 

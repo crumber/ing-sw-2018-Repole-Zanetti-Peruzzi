@@ -43,6 +43,12 @@ public class Box {
                 return true;
             }
 
+        }else if(restriction.compareTo("none")==0){
+
+                this.die=dice;
+                return true;
+
+
         }else if(restriction.compareTo("value")==0){
 
             if(controlValue(dice)){
@@ -51,8 +57,6 @@ public class Box {
                 return true;
 
             }
-
-
 
         }else if(restriction.compareTo("colour")==0){
 

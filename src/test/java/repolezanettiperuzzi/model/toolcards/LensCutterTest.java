@@ -18,7 +18,7 @@ public class LensCutterTest {
     private ArrayList<Integer> parameterforcard=new ArrayList<>();
 
     @Test
-    public void check() {
+    public void testCheck() {
 
         Die die1=new Die(Colour.RED);
         Die die2=new Die(Colour.BLUE);
@@ -56,7 +56,7 @@ public class LensCutterTest {
     }
 
     @Test
-    public void effect() {
+    public void testEffect() {
 
         Die die1=new Die(Colour.RED);
         Die die2=new Die(Colour.BLUE);

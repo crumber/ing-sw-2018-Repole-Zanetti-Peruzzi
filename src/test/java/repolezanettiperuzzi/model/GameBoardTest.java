@@ -1,6 +1,11 @@
 package repolezanettiperuzzi.model;
 
 import org.junit.Test;
+import repolezanettiperuzzi.model.publiccards.PublicCard;
+import repolezanettiperuzzi.model.publiccards.RowShadeVariety;
+import repolezanettiperuzzi.model.toolcards.GlazingHammer;
+import repolezanettiperuzzi.model.toolcards.Lathekin;
+import repolezanettiperuzzi.model.toolcards.ToolCard;
 
 import java.util.ArrayList;
 
@@ -14,7 +19,7 @@ public class GameBoardTest {
     private Player gamer;
 
     @Test
-    public void addPlayer() {
+    public void testAddPlayer() {
 
         boardTest=new GameBoard();
         boardTest.addPlayer("Pippo","RMI","CLI","127.0.0.1",8008);
@@ -23,7 +28,7 @@ public class GameBoardTest {
     }
 
     @Test
-    public void getNPlayers() {
+    public void testGetNPlayers() {
 
         boardTest=new GameBoard();
         gamer=mock(Player.class);
@@ -35,10 +40,12 @@ public class GameBoardTest {
         boardTest.addPlayer(gamer1.getName(),"RMI","CLI","127.0.0.1",8008);
 
         assertEquals(2,boardTest.getNPlayers());
+
+
     }
 
     @Test
-    public void getDieDraft() {
+    public void testGetDieDraft() {
 
         boardTest=new GameBoard();
         ArrayList<Die> diceForDraft= new ArrayList<>();
@@ -54,7 +61,7 @@ public class GameBoardTest {
     }
 
     @Test
-    public void setDieDraft() {
+    public void testSetDieDraft() {
 
         boardTest=new GameBoard();
         ArrayList<Die> diceForDraft= new ArrayList<>();
@@ -71,7 +78,7 @@ public class GameBoardTest {
     }
 
     @Test
-    public void putDieInBag() {
+    public void testPutDieInBag() {
 
         boardTest=new GameBoard();
         int okay=0;
@@ -99,9 +106,8 @@ public class GameBoardTest {
         assertEquals(1,okay);
     }
 
-
     @Test
-    public void addDieToDraft() {
+    public void testAddDieToDraft() {
 
         boardTest = new GameBoard();
         ArrayList<Die> diceForDraft = new ArrayList<>();
@@ -118,7 +124,7 @@ public class GameBoardTest {
     }
 
     @Test
-    public void removeDieFromDraft(){
+    public void testRemoveDieFromDraft(){
         boardTest = new GameBoard();
         ArrayList<Die> diceForDraft = new ArrayList<>();
         Die die1 = new Die(Colour.RED);
@@ -134,7 +140,7 @@ public class GameBoardTest {
     }
 
     @Test
-    public void getDieFromRoundTrack() {
+    public void testGetDieFromRoundTrack() {
 
         boardTest = new GameBoard();
         ArrayList<Die> diceForDraft = new ArrayList<>();
@@ -153,7 +159,7 @@ public class GameBoardTest {
     }
 
     @Test
-    public void setDieToRoundTrack() {
+    public void testSetDieToRoundTrack() {
 
         boardTest = new GameBoard();
         ArrayList<Die> diceForDraft = new ArrayList<>();
@@ -170,7 +176,7 @@ public class GameBoardTest {
     }
 
     @Test
-    public void getCostToolCard() {
+    public void testGetCostToolCard() {
 
         boardTest = new GameBoard();
 
@@ -183,25 +189,36 @@ public class GameBoardTest {
     }
 
     @Test
-    public void getToolCards() {
+    public void testGetToolCards() {
 
+        boardTest=new GameBoard();
+        ToolCard cardTool=new Lathekin();
+        ToolCard cardTool1=new GlazingHammer();
+
+        boardTest.setToolCards(cardTool,0);
+        boardTest.setToolCards(cardTool1,1);
+
+        assertEquals(4,boardTest.getId(0));
+        assertEquals(7,boardTest.getId(1));
+
+        assertEquals(Lathekin.class,boardTest.getToolCards(0).getClass());
+        assertEquals(GlazingHammer.class,boardTest.getToolCards(1).getClass());
 
     }
 
     @Test
-    public void getPublicCards() {
+    public void testGetPublicCards() {
 
+        boardTest=new GameBoard();
+        PublicCard cardPublic=new RowShadeVariety();
+
+        boardTest.setPublicCards(cardPublic,0);
+        assertEquals(RowShadeVariety.class,boardTest.getPublicCards(0).getClass());
 
     }
 
     @Test
-    public void getId() {
-
-
-    }
-
-    @Test
-    public void getRound() {
+    public void testGetRound() {
 
         boardTest = new GameBoard();
         boardTest.incrRound();
@@ -209,10 +226,60 @@ public class GameBoardTest {
         assertEquals(2,boardTest.getRound());
     }
 
+    @Test
+    public void testGetPlayers() {
+
+        boardTest=new GameBoard();
+
+        boardTest.addPlayer("pippo","RMI","CLI","127.0.0.1",8008);
+        boardTest.addPlayer("topolino","RMI","CLI","127.0.0.1",8008);
+
+        ArrayList<Player> players=boardTest.getPlayers();
+
+        assertEquals("pippo",players.get(0).getName());
+
+    }
 
     @Test
-    public void getPlayer() {
+    public void getPlayersCopy() {
 
+        boardTest=new GameBoard();
+
+        boardTest.addPlayer("tom","RMI","CLI","127.0.0.1",8008);
+        Box[][] testBoxes = new Box[4][5];
+
+        for ( int i = 0; i < 4; i++){
+
+            for ( int j = 0; j < 5; j++){
+
+                testBoxes[i][j]= new Box(Colour.RED);
+
+            }
+        }
+
+        String name = "testWindow";
+        Window tempWindow = new Window(name,5, testBoxes,"test");
+        boardTest.getPlayer(0).setWindow(tempWindow);
+
+        boardTest.addPlayer("jerry","RMI","CLI","127.0.0.1",8008);
+        Box[][] testBoxes2 = new Box[4][5];
+
+        for ( int i = 0; i < 4; i++){
+
+            for ( int j = 0; j < 5; j++){
+
+                testBoxes2[i][j]= new Box(Colour.BLUE);
+
+            }
+        }
+
+        String name2 = "testWindow2";
+        Window tempWindow2 = new Window(name2,5, testBoxes2,"test2");
+        boardTest.getPlayer(1).setWindow(tempWindow2);
+
+        ArrayList<Player> players=boardTest.getPlayersCopy();
+
+        assertEquals("tom",players.get(0).getName());
 
     }
 }

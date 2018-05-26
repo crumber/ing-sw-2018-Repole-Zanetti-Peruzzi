@@ -21,30 +21,36 @@ public enum Value {
     }
 
     public static Value intToValue(int val){
-        Value value;
-        switch (val) {
 
-            case 1:
-                value = ONE;
-                break;
-            case 2:
-                value = TWO;
-                break;
-            case 3:
-                value = THREE;
-                break;
-            case 4:
-                value = FOUR;
-                break;
-            case 5:
-                value = FIVE;
-                break;
-            default:
-                value = SIX;
-                break;
+        Value valueNum;
+
+        if (val==1) {
+
+            valueNum = ONE;
+
+        }else if(val==2) {
+
+            valueNum = TWO;
+
+        }else if(val==3) {
+
+            valueNum = THREE;
+
+        }else if(val==4) {
+
+            valueNum = FOUR;
+
+        }else if(val==5) {
+
+            valueNum = FIVE;
+
+        }else{
+
+            valueNum=SIX;
 
         }
-        return value;
+
+        return valueNum;
     }
 
     public int getNumber() {
@@ -56,33 +62,10 @@ public enum Value {
     public Value randomValue() {
 
         Random random= new Random();
-        Value realValue;
         int numRandom= random.nextInt(VALUEMAX);
 
-        switch (numRandom) {
-
-            case 1:
-                realValue = ONE;
-                break;
-            case 2:
-                realValue = TWO;
-                break;
-            case 3:
-                realValue = THREE;
-                break;
-            case 4:
-                realValue = FOUR;
-                break;
-            case 5:
-                realValue = FIVE;
-                break;
-            default:
-                realValue = SIX;
-                break;
-
-        }
-
-        return realValue;
+        return intToValue(numRandom);
 
     }
+
 }

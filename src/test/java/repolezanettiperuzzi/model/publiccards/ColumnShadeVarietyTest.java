@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 public class ColumnShadeVarietyTest {
 
     @Test
-    public void effect() {
+    public void testEffect() {
 
         ColumnShadeVariety cardColumnShadeVariety= new ColumnShadeVariety();
         Window finalWindow=mock (Window.class);

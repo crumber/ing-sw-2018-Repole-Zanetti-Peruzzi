@@ -14,7 +14,7 @@ public class WindowTest {
 
 
     @Test
-    public void testInsertDie(){
+    public void testTestInsertDie(){
 
         testBoxes = new Box[4][5];
 
@@ -46,7 +46,7 @@ public class WindowTest {
     }
 
     @Test
-    public void moveDie() {
+    public void testMoveDie() {
         testBoxes = new Box[4][5];
 
         for ( int i = 0; i < 4; i++){
@@ -77,7 +77,7 @@ public class WindowTest {
 
 
     @Test
-    public void getNameFToken() {
+    public void testGetNameFToken() {
 
         testBoxes = new Box[4][5];
 
@@ -100,7 +100,7 @@ public class WindowTest {
     }
 
     @Test
-    public void controlAdjacences() {
+    public void testControlAdjacences() {
 
         testBoxes = new Box[4][5];
 
@@ -146,7 +146,7 @@ public class WindowTest {
     }
 
     @Test
-    public void controlAllBoundAdjacences() {
+    public void testControlAllBoundAdjacences() {
 
         testBoxes = new Box[4][5];
 
@@ -200,7 +200,7 @@ public class WindowTest {
     }
 
     @Test
-    public void calculeteSecretScore() {
+    public void testCalculeteSecretScore() {
         testBoxes = new Box[4][5];
 
         for ( int i = 0; i < 4; i++){
@@ -230,7 +230,7 @@ public class WindowTest {
     }
 
     @Test
-    public void controlAllBoundBox() {
+    public void testControlAllBoundBox() {
 
         testBoxes = new Box[4][5];
 
@@ -264,7 +264,7 @@ public class WindowTest {
     }
 
     @Test
-    public void controlColourBoundBox() {
+    public void testControlColourBoundBox() {
 
         testBoxes = new Box[4][5];
 
@@ -290,7 +290,7 @@ public class WindowTest {
     }
 
     @Test
-    public void controlValueBoundBox() {
+    public void testControlValueBoundBox() {
 
         testBoxes = new Box[4][5];
 
@@ -315,4 +315,30 @@ public class WindowTest {
         assertTrue(testWindow.controlValueBoundBox(0,0,testDie));
         assertFalse(testWindow.controlValueBoundBox(0,0,testDie2));
     }
+
+    @Test
+    public void testCopy() {
+
+        testBoxes = new Box[4][5];
+
+        for ( int i = 0; i < 4; i++){
+
+            for ( int j = 0; j < 5; j++){
+
+                testBoxes[i][j]= new Box(Colour.RED);
+
+            }
+        }
+
+        name = "testWindow";
+        Window tempWindow = new Window(name,5, testBoxes,"test");
+
+        testDie=new Die(Colour.RED);
+        tempWindow.insertDie(testDie,3,3,"none");
+
+        testWindow=new Window(tempWindow.copy());
+
+        assertTrue(testWindow.thereIsDie(3,3));
+    }
+
 }

@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class FactoryPublicCardTest {
 
     @Test
-    public void getPublicCard() {
+    public void testGetPublicCard() {
 
         assertEquals(ColorVariety.class,FactoryPublicCard.getPublicCard("pc1").getClass());
         assertEquals(ColorDiagonals.class,FactoryPublicCard.getPublicCard("pc2").getClass());

@@ -14,7 +14,7 @@ public class ColorVarietyTest {
 
 
     @Test
-    public void effect() {
+    public void testEffect() {
 
         ColorVariety cardColourVariety= new ColorVariety();
         Window finalWindow=mock (Window.class);

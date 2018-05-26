@@ -12,7 +12,7 @@ import static org.mockito.Mockito.when;
 public class ColorDiagonalsTest {
 
     @Test
-    public void effect() {
+    public void testEffect() {
 
         ColorDiagonals cardColourDiagonals= new ColorDiagonals();
         Window finalWindow=mock (Window.class);

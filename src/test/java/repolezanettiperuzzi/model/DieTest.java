@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class DieTest {
 
     @Test
-    public void getColourDie() {
+    public void testGetColourDie() {
 
         Die d1= new Die(Colour.PURPLE);
         assertTrue(d1.getColourDie()==Colour.PURPLE);
@@ -15,22 +15,42 @@ public class DieTest {
     }
 
     @Test
-    public void getValueDie() {
+    public void testGetValueDie() {
 
         Die d1= new Die(Colour.PURPLE);
         assertTrue(d1.getValueDie()==Value.ONE);
     }
 
     @Test
-    public void  setValueDie(){
+    public void  testSetValueDie(){
 
+        Die d=new Die((Colour.RED));
         Die d1=new Die((Colour.RED));
+        Die d2=new Die((Colour.RED));
+        Die d3=new Die((Colour.RED));
+        Die d4=new Die((Colour.RED));
+        Die d5=new Die((Colour.RED));
+        Die d6=new Die((Colour.RED));
+
+        d.setValue(Value.intToValue(1));
+        d2.setValue(Value.intToValue(2));
+        d3.setValue(Value.intToValue(3));
+        d4.setValue(Value.intToValue(4));
+        d5.setValue(Value.intToValue(5));
+        d6.setValue(Value.intToValue(6));
         d1.setValue(Value.SIX);
+
         assertTrue(d1.getValueDie()==Value.SIX);
+        assertTrue(d.getValueDie()==Value.ONE);
+        assertTrue(d2.getValueDie()==Value.TWO);
+        assertTrue(d3.getValueDie()==Value.THREE);
+        assertTrue(d4.getValueDie()==Value.FOUR);
+        assertTrue(d5.getValueDie()==Value.FIVE);
+        assertTrue(d6.getValueDie()==Value.SIX);
     }
 
     @Test
-    public void rollDie(){
+    public void testRollDie(){
 
         Die d=new Die(Colour.GREEN);
         d.rollDie();
