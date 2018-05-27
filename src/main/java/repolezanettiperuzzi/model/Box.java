@@ -82,46 +82,23 @@ public class Box {
 
     public boolean controlBounds(Die dice){
 
-        if(((this.getBoundColour()==null)&&(this.getBoundValue()==null))||
-                ((null != this.getBoundValue())&&(this.getBoundValue().equals(dice.getValueDie())))||
-                ((null != this.getBoundColour())&&(this.getBoundColour().equals(dice.getColourDie())))){
-
-            return true;
-
-        }else{
-
-            return false;
-
-        }
+        return ((this.getBoundColour() == null) && (this.getBoundValue() == null)) ||
+                ((null != this.getBoundValue()) && (this.getBoundValue().equals(dice.getValueDie()))) ||
+                ((null != this.getBoundColour()) && (this.getBoundColour().equals(dice.getColourDie())));
 
     }
 
     // if there aren't bound value or value dice is equals bound value return true else return false
     public boolean controlValue(Die dice){
 
-        if(((this.getBoundValue()==null))||(this.getBoundValue().equals(dice.getValueDie()))){
-
-            return true;
-
-        }else{
-
-            return false;
-        }
+        return ((this.getBoundValue() == null)) || (this.getBoundValue().equals(dice.getValueDie()));
 
     }
 
     // if there aren't bound colour or colour dice is equals bound colour return true else return false
     public boolean controlColour(Die dice){
 
-        if((this.getBoundColour()==null)||(this.getBoundColour().equals(dice.getColourDie()))){
-
-            return true;
-
-        }else{
-
-            return false;
-
-        }
+        return (this.getBoundColour() == null) || (this.getBoundColour().equals(dice.getColourDie()));
 
     }
 

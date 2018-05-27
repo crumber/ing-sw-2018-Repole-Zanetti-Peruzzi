@@ -13,16 +13,13 @@ public class EndRound extends Action{
         //sposto i dadi rimasti nel draft nel roundtrack e poi pulisco il draft
         board.addDiceToRoundTrack();
 
-        /*
-        inutile
+        BeginRound.incrIndex();
 
-        sposto i dadi rimasti nel draft nel roundtrack e poi pulisco il draft
+        if(BeginRound.getIndex()>board.getNPlayers()-1){
 
-        for(int i = 0; i<board.getDraftSize(); i++){
-            board.setDieToRoundTrack(board.getRound(), i, board.getDieDraft(i));
+            BeginRound.resetIndex();
         }
-        board.resetDraft();
-        */
+
     }
 
 }

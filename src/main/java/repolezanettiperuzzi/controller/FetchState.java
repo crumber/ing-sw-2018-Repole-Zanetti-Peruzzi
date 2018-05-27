@@ -2,6 +2,7 @@ package repolezanettiperuzzi.controller;
 
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.model.Window;
+import repolezanettiperuzzi.model.actions.BeginRound;
 import repolezanettiperuzzi.model.actions.InitializeGame;
 import repolezanettiperuzzi.model.actions.TakeClientWindowAction;
 import repolezanettiperuzzi.model.actions.TakeTwoCardWindowAction;
@@ -20,7 +21,7 @@ public class FetchState extends ControllerState {
 
         InitializeGame init = new InitializeGame();
         init.doAction(controller.board);
-        ArrayList<Window> windows = (ArrayList<Window>) init.getWindows();
+        ArrayList<Window> windows =(ArrayList<Window>) init.getWindows();
 
         for (int i = 0; i < controller.board.getNPlayers(); i++ ){
 
@@ -36,9 +37,12 @@ public class FetchState extends ControllerState {
 
 
             }
+
+            //assign for each player the tokens that belong to him
+            init.assignFavorTokens(controller.board);
         }
 
-        controller.setState(new StartGameState());
+        controller.setState(new RoundState());
 
 
     }

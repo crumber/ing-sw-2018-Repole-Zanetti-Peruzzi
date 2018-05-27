@@ -223,7 +223,7 @@ public class GameBoardTest {
         boardTest = new GameBoard();
         boardTest.incrRound();
 
-        assertEquals(2,boardTest.getRound());
+        assertEquals(1,boardTest.getRound());
     }
 
     @Test

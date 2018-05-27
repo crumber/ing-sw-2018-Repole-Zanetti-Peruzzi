@@ -5,7 +5,7 @@ public class Player{
     private String name;
     private Colour secretColour;
     private boolean insertDieInThisTurn;
-    private int flavorTokens;
+    private int favorTokens;
     private Window window;
     private int turn;
     private int score;
@@ -29,7 +29,7 @@ public class Player{
         this.name = p.name;
         this.secretColour = p.secretColour;
         this.insertDieInThisTurn = p.insertDieInThisTurn;
-        this.flavorTokens = p.flavorTokens;
+        this.favorTokens = p.favorTokens;
         this.window = p.window.copy();
         this.turn = p.turn;
         this.score = p.score;
@@ -86,9 +86,15 @@ public class Player{
 
     }
 
-    public int getFlavorTokens() {
+    public int getFavorTokens() {
 
-        return flavorTokens;
+        return favorTokens;
+
+    }
+
+    public void setFavorTokens(int flavorTokens){
+
+        this.favorTokens=flavorTokens;
 
     }
 
@@ -104,11 +110,7 @@ public class Player{
         return port;
     }
 
-    public void setFlavorTokens(int flavorTokens){
 
-        this.flavorTokens=flavorTokens;
-
-    }
 
     public String getName() {
 
@@ -145,9 +147,9 @@ public class Player{
 
     }
 
-    public void reduceFlavorTokens(int reduction) {
+    public void reduceFavorTokens(int reduction) {
 
-        flavorTokens -= reduction;
+        favorTokens -= reduction;
 
     }
 

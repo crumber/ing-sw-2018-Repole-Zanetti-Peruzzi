@@ -9,7 +9,7 @@ public class CheckCostToolCardAction {
 
         int resultOfCheck;
 
-        if(player.getFlavorTokens()<board.getCostToolCard(whichCard)){
+        if(player.getFavorTokens()<board.getCostToolCard(whichCard)){
 
             resultOfCheck=-8;
 

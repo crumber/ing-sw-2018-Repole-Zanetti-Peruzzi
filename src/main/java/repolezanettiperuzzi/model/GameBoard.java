@@ -4,6 +4,7 @@ import repolezanettiperuzzi.model.toolcards.ToolCard;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameBoard {
     private ArrayList<Player> players;
@@ -23,7 +24,7 @@ public class GameBoard {
         toolCards = new ToolCard[3];
         diceBag = new DiceBag();
         roundTrack = new RoundTrack();
-        round=1;
+        round=0;
         nPlayers=0;
         for(int i=0;i<3;i++){
 
@@ -207,7 +208,7 @@ public class GameBoard {
         this.publicCards[i]=publicCard;
     }
 
-    public ArrayList<Player> getPlayers() {
+    public List<Player> getPlayers() {
 
         return (ArrayList<Player>) this.players.clone();
 

@@ -4,13 +4,13 @@ public class Window {
 
     private final String NAME;
     private Box[][] boardBox;
-    private final int FLAVORTOKENS;
+    private final int FAVORTOKENS;
     public final String fileName;
 
     public Window(String name, int ft, Box[][] board,String fileName) {
 
         this.NAME = name;
-        this.FLAVORTOKENS = ft;
+        this.FAVORTOKENS = ft;
         this.fileName = fileName;
 
         this.boardBox = new Box[4][5];
@@ -26,12 +26,14 @@ public class Window {
     public Window(Window w){
         this.NAME = w.NAME;
         this.boardBox = new Box[4][5];
+
         for(int i = 0; i<w.boardBox.length; i++){
-            for(int j = 0; j<w.boardBox[0].length; j++){
-                this.boardBox[i][j] = w.boardBox[i][j];
-            }
+
+            System.arraycopy(w.boardBox[i], 0, this.boardBox[i], 0, w.boardBox[0].length);
+
         }
-        this.FLAVORTOKENS = w.FLAVORTOKENS;
+
+        this.FAVORTOKENS = w.FAVORTOKENS;
         this.fileName=w.fileName;
     }
 
@@ -75,7 +77,7 @@ public class Window {
 
     public int getFTokens(){
 
-        return this.FLAVORTOKENS;
+        return this.FAVORTOKENS;
 
     }
 

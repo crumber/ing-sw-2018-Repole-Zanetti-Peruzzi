@@ -42,8 +42,8 @@ public class InitializeGame extends Action{
 
         this.createWindows();
 
-        //assign for each player the tokens that belong to him
-        this.assignFlavorTokens(board);
+
+
 
 
         //initialize deck with tool cards and public cards
@@ -88,12 +88,12 @@ public class InitializeGame extends Action{
 
     }
 
-    private void assignFlavorTokens(GameBoard board){
+    public void assignFavorTokens(GameBoard board){
 
         for(int i = 0 ; i < board.getNPlayers(); i++){
 
             Player p = board.getPlayer(i);
-            p.setFlavorTokens(board.getPlayer(i).getWindow().getFTokens());
+            p.setFavorTokens(board.getPlayer(i).getWindow().getFTokens());
 
         }
     }

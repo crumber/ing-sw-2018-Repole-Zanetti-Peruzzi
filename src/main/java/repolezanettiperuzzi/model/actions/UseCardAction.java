@@ -19,7 +19,7 @@ public class UseCardAction extends Action{
         if(resultOfAction==1){
 
             board.getToolCards(whichToolCard).effect(board,player,parameterForCard);
-            player.reduceFlavorTokens(board.getCostToolCard(whichToolCard));
+            player.reduceFavorTokens(board.getCostToolCard(whichToolCard));
 
             //increment tool card cost if its cost is 1
             if(board.getCostToolCard(whichToolCard)==1) {

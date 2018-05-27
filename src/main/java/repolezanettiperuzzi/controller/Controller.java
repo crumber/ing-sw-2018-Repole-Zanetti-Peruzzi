@@ -11,6 +11,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
 
@@ -21,10 +22,10 @@ public class Controller {
 
     protected ControllerState currentState;
 
-    public Controller(ArrayList<Player> view, GameBoard board){
+    public Controller(List<Player> view, GameBoard board){
 
        this.currentState = null;
-       this.view = view;
+       this.view = (ArrayList<Player>)view;
        this.board = board;
 
     }
@@ -88,7 +89,6 @@ public class Controller {
                     file.write(jsonArr.toJSONString());
                     System.out.println("Successfully Copied JSON Object to File...");
                     System.out.println("\nJSON Object: " + player);
-                    file.close();
                 } catch (IOException e) {
                     System.out.println("Cannot write on file");
                 }
