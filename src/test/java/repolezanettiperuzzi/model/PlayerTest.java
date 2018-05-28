@@ -87,11 +87,11 @@ public class PlayerTest {
 
         player=new Player("pippo","RMI","CLI","127.0.0.1",8008);
 
-        player.setFlavorTokens(12);
-        assertEquals(12,player.getFlavorTokens());
+        player.setFavorTokens(12);
+        assertEquals(12,player.getFavorTokens());
 
-        player.reduceFlavorTokens(1);
-        assertEquals(11,player.getFlavorTokens());
+        player.reduceFavorTokens(1);
+        assertEquals(11,player.getFavorTokens());
     }
 
     @Test

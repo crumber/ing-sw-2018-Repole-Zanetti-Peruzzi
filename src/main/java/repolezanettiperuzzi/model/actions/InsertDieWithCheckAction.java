@@ -18,6 +18,10 @@ public class InsertDieWithCheckAction extends Action{
 
             resultOfAction=-9;
 
+        }else if(whichRow<0 || whichRow>3 || whichColumn>4 || whichColumn<0){
+
+            resultOfAction=-1;
+
         }else if(player.getWindow().isEmpty() && whichColumn!=0 && whichColumn!=4 && whichRow!=0 && whichRow!=3){
 
             resultOfAction=-27;
@@ -30,17 +34,13 @@ public class InsertDieWithCheckAction extends Action{
 
             resultOfAction=-4;
 
-        }else if(player.getWindow().controlAllBoundBox(whichRow,whichColumn,board.getDieDraft(posDieOnDraft))){
+        }else if(!player.getWindow().controlAllBoundBox(whichRow,whichColumn,board.getDieDraft(posDieOnDraft))){
 
             resultOfAction=-7;
 
         }else if(player.getWindow().controlAllBoundAdjacences(board.getDieDraft(posDieOnDraft),whichRow,whichColumn)){
 
             resultOfAction=-25;
-
-        }else if(whichRow<0 || whichRow>3 || whichColumn>4 || whichColumn<0){
-
-            resultOfAction=-1;
 
         }else{
 

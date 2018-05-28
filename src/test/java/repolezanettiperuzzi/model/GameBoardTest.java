@@ -234,7 +234,7 @@ public class GameBoardTest {
         boardTest.addPlayer("pippo","RMI","CLI","127.0.0.1",8008);
         boardTest.addPlayer("topolino","RMI","CLI","127.0.0.1",8008);
 
-        ArrayList<Player> players=boardTest.getPlayers();
+        ArrayList<Player> players=(ArrayList<Player>) boardTest.getPlayers();
 
         assertEquals("pippo",players.get(0).getName());
 
