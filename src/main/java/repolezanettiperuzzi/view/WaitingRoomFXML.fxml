@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.text.TextFlow?>
+<Group fx:id="group" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+    <fx:define>
+        <ToggleGroup fx:id="groupConn"/>
+        <ToggleGroup fx:id="groupUI"/>
+    </fx:define>
+    <children>
+        <ImageView fx:id="bg" fitWidth="600" preserveRatio="true" smooth="true" cache="true">
+            <image>
+                <Image url="file:assets/sagradaBg.jpg" />
+            </image>
+        </ImageView>
+        <Rectangle  width="600" height="600"  fill="lightgray" opacity="0.95"></Rectangle>
+        <Rectangle y="-30" width="600" height="80"  arcWidth="40" arcHeight="40" fill="darkgray" opacity="0.95"></Rectangle>
+        <Text x="20" y="30" style="-fx-font-weight: bold; -fx-font-size: 20px">Pre-Game Waiting Room</Text>
+        <Text fx:id="timerText" x="480" y="90" style="-fx-font-weight: bold; -fx-font-size: 20px"></Text>
+        <Text  x="20" y="90" style="-fx-font-weight: bold; -fx-font-size: 20px">Players connected:</Text>
+        <Text fx:id="playersText" x="20" y="120" style="-fx-font-weight: bold; -fx-font-size: 20px"></Text>
+
+    </children>
+</Group>

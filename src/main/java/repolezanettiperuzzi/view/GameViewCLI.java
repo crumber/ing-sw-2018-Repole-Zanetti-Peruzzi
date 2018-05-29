@@ -9,20 +9,16 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 public class GameViewCLI implements HandlerSkeletonRMI {
-    public void setupRMI() throws RemoteException, NotBoundException {
-        System.setProperty("java.security.policy", "RMI/stupid.policy");
-        System.setSecurityManager(new SecurityManager());
 
-        Registry registry = LocateRegistry.getRegistry();
-
-        System.out.println("RMI registry bindings:");
-        for (String binding: registry.list()) {
-            System.out.println(">>> " + binding);
+    public void refreshWaitingRoom(int setTimer, String[] players){
+        //se setTimer e' maggiore di 0 allora setto il timer
+        System.out.println("Giocatori in attesa: \n");
+        int i = 0;
+        while(i<players.length){
+            System.out.println(players[i]);
+            i++;
         }
-
-
-        HandlerStubRMI cStub = (HandlerStubRMI) registry.lookup("controller");
-        cStub.faiQualcosa("ciao");
+        System.out.println("\n\n\n\n");
     }
 
     @Override

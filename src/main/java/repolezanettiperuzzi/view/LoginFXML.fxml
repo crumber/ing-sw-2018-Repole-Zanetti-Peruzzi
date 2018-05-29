@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+
+<Group fx:id="group" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="repolezanettiperuzzi.view.LoginFXMLController">
+    <fx:define>
+        <ToggleGroup fx:id="groupConn"/>
+        <ToggleGroup fx:id="groupUI"/>
+    </fx:define>
+    <children>
+        <ImageView fx:id="bg" fitWidth="600" preserveRatio="true" smooth="true" cache="true">
+            <image>
+                <Image url="file:assets/sagradaBg.jpg" />
+            </image>
+        </ImageView>
+        <Rectangle x="175" y="230" width="250" height="320" arcWidth="40" arcHeight="40" fill="lightgray" opacity="0.95"></Rectangle>
+        <Text x="195" y="260" text="Username">
+            <font>
+                <Font size="15" />
+            </font>
+        </Text>
+        <TextField fx:id="textFieldName" layoutX="195" layoutY="270" prefWidth="210"></TextField>
+        <Text x="195" y="320" text="Password">
+            <font>
+                <Font size="15" />
+            </font>
+        </Text>
+        <PasswordField fx:id="textFieldPwd" layoutX="195" layoutY="330" prefWidth="210"></PasswordField>
+
+        <Text x="195" y="390" text="Connection">
+            <font>
+                <Font size="15" />
+            </font>
+        </Text>
+
+        <HBox fx:id="hbConn" layoutX="195" layoutY="400" spacing="50">
+            <RadioButton fx:id="rmi" text="RMI" selected="true" toggleGroup="$groupConn"/>
+            <RadioButton fx:id="sock" text="Socket" toggleGroup="$groupConn"/>
+        </HBox>
+
+        <Text x="195" y="450" text="User Interface">
+            <font>
+                <Font size="15" />
+            </font>
+        </Text>
+
+        <HBox fx:id="hbUI" layoutX="195" layoutY="460" spacing="50">
+            <RadioButton fx:id="cli" text="CLI" selected="true" toggleGroup="$groupUI"/>
+            <RadioButton fx:id="gui" text="GUI" toggleGroup="$groupUI"/>
+        </HBox>
+
+        <Button layoutX="195" layoutY="490" text="Login" prefWidth="210" prefHeight="35" onAction="#onSubmit" style="-fx-background-color: #1cbde9;">
+            <font>
+                <Font size="20" />
+            </font>
+        </Button>
+
+    </children>
+</Group>

@@ -1,74 +1,124 @@
 package repolezanettiperuzzi.view;
 
 //  import repolezanettiperuzzi.controller.ControllerStub;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import repolezanettiperuzzi.controller.HandlerSkeletonRMI;
 import repolezanettiperuzzi.controller.HandlerStubRMI;
 import repolezanettiperuzzi.controller.HandlerStubSocket;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+import java.lang.management.PlatformManagedObject;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.function.Consumer;
 
 //lato client della view che chiama i metodi in remoto del controller
 //prendo i dati gia' elaborati da RMI o Socket e li passo a GameViewCLI o GameViewGUI
-public class GameView  {
+public class GameView {
 
-    public static void main(String args[]) throws InterruptedException, IOException {
+    private String connection;
+    private String UI;
+    private GameViewCLI gvCLI;
+    private FXMLController fxmlController;
+    private GameViewRMI gvRMI;
+    private GameViewSocket gvSocketServer;
+    private GameViewSocket gvSocket;
+    private Consumer<String> onReceiveCallback;
+    private Consumer<Integer> onReceiveLocalPort;
+    private boolean login;
+
+    public GameView(){
+        this.onReceiveCallback = data -> gvSocket.handleMessage(data);
+        this.login = false;
+    }
+
+    public static void main(String args[]) {
+        Application.launch(GameViewGUI.class);
+    }
+
+    public void onLogin(Stage stage, String username, String pwd, String conn, String UI) throws IOException, InterruptedException {
         int port = 0;
-        try(ServerSocket serverSocket = new ServerSocket(0)) {
+        if(!login) {
+            this.connection = conn;
+            this.UI = UI;
+            this.login = true;
 
-            try (Socket echoSocket = new Socket("127.0.0.1", 8080)) {
-                PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
-                out.println("ale init zan S CLI "+serverSocket.getLocalPort());
-                BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
-                String[] line = in.readLine().split(" ");
-                System.out.println(line[0] + " on port " + line[1] + "\n");
-                port = Integer.parseInt(line[1]);
-                out.close();
-                in.close();
-                echoSocket.close();
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (connection.equals("Socket")) {
+                //mi serve creae prima l'oggetto in caso venga chiamata la onReceiveCallback su un oggetto che non esiste
+                gvSocket = new GameViewSocket(this);
+                gvSocketServer = new GameViewSocket(onReceiveCallback);
+                Thread serverThread = new Thread(gvSocketServer);
+                serverThread.setDaemon(true);
+                serverThread.start();
+                Thread.sleep(1000);
+
+                gvSocket.init(username, pwd, conn, UI, gvSocketServer.getLocalServerPort());
+
+
+            } else if (connection.equals("RMI")) {
+                gvRMI = new GameViewRMI();
             }
 
-            System.out.println("Server avviato");
-            boolean read = true;
-            while (read) {
-                Socket socket = serverSocket.accept();
-                System.out.println("Connessione ricevuta");
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                String[] line = in.readLine().split(" ");
-                switch (line[0]) {
-                    case "newplayers":
-                        System.out.println("Giocatori in attesa: \n");
-                        int i = 0;
-                        while(i<line.length-1){
-                            System.out.println(line[i+1]);
-                            i++;
-                        }
-                        System.out.println("\n\n\n\n");
-                        break;
-                    case "quit":
-                        read = false;
-                }
-                in.close();
-                socket.close();
+            if (UI.equals("CLI")) {
+                gvCLI = new GameViewCLI();
+            } else if (UI.equals("GUI")) {
+
             }
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+    }
+
+    public void refreshWaitingRoom(int setTimer, String[] players){
+        if(this.UI.equals("GUI")){
+            ((WaitingRoomFXMLController) fxmlController).refreshPlayers(setTimer, players);
+        } else if(this.UI.equals("CLI")){
+
+        }
+    }
+
+    public void enterWaitingRoom(){
+        if(this.UI.equals("GUI")){
+            ((LoginFXMLController) fxmlController).setWaitingRoomScene();
+        } else if(this.UI.equals("CLI")){
+
+        }
+    }
+
+    public String getConnection(){
+        return this.connection;
+    }
+
+    public GameViewSocket getGvSocket(){
+        return this.gvSocket;
+    }
+
+    public void setFXMLController(FXMLController fxmlController){
+        this.fxmlController = fxmlController;
     }
 
     public void updateView() {

@@ -25,7 +25,7 @@ public class FetchState extends ControllerState {
 
         for (int i = 0; i < controller.board.getNPlayers(); i++ ){
 
-            if(controller.board.getPlayer(i).getConnection().equals("S")){
+            if(controller.board.getPlayer(i).getConnection().equals("Socket")){
 
                 ArrayList<Window> choices = new TakeTwoCardWindowAction().doAction(windows);
                 String message = this.windowsToString(choices);

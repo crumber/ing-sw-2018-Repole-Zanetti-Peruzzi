@@ -13,6 +13,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //questo e' il nostro server socket che risiede sul server
 public class HandlerControllerSocket {
@@ -64,7 +66,7 @@ public class HandlerControllerSocket {
         this.port = Integer.parseInt(param[3]);
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
-        out.println("registered "+port);
+        out.println("registered "+connection+" "+UI);
         out.close();
         this.in.close();
         this.socket.close();
@@ -79,17 +81,21 @@ public class HandlerControllerSocket {
 
     public void notifyOnNewPlayer() throws IOException {
         String playersID = "";
-
-        System.out.println("Ciclo sui giocatori\n");
-        for(int i = 0; i<controller.board.getNPlayers(); i++){
+        System.out.println( "Ciclo sui giocatori\n" );
+        int i;
+        for(i = 0; i<controller.board.getNPlayers(); i++){
             System.out.println("Stampo giocatore "+i+"\n");
             Player player = controller.board.getPlayers().get(i);
             playersID = playersID+player.getName()+" ";
         }
+        int timer = 0;
+        if(i==2){
+            timer = 100;
+        }
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
         System.out.println("Invio messaggio\n");
-        out.println("newplayers "+playersID);
+        out.println("newplayers "+timer+" "+playersID);
         out.close();
         this.socket.close();
 
