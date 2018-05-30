@@ -10,24 +10,6 @@ public class WhichErrorAction {
 
         switch (numError){
 
-            //TRUE AND SPECIAL STRING FOR TOOL CARD 11
-
-            case 1:{
-
-                error="not error";
-
-                break;
-
-            }
-
-            case 11:{
-
-                int posNewDie = board.getSizeDraft() - 1 ;
-                error=("Choose value of die in position "+posNewDie +" ( the value have to be between 1 and 6 )\n");
-
-                break;
-            }
-
             //ERROR LIST
 
             case -1:{
