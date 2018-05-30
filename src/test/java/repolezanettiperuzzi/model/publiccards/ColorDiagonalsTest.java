@@ -20,6 +20,7 @@ public class ColorDiagonalsTest {
 
             for(int j=0;j<5;j++){
 
+                when(finalWindow.thereIsDie(i,j)).thenReturn(true);
                 when(finalWindow.getDieColour(i,j)).thenReturn(Colour.PURPLE);
 
             }

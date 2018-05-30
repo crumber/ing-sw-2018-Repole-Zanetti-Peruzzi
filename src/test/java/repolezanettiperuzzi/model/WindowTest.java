@@ -92,11 +92,11 @@ public class WindowTest {
 
         name = "Virtus";
         testWindow = new Window(name,5, testBoxes,"test");
-        testDie = new Die(Colour.YELLOW);
 
         assertEquals("Virtus",testWindow.getName());
         assertEquals(5,testWindow.getFTokens());
         assertTrue(testWindow.isEmpty());
+        assertEquals(20,testWindow.numBoxEmpty());
     }
 
     @Test

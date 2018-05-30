@@ -21,9 +21,11 @@ public class ColumnShadeVarietyTest {
         when(finalWindow.getDieValue(2,0)).thenReturn(Value.FIVE);
         when(finalWindow.getDieValue(3,0)).thenReturn(Value.TWO);
 
-        for (int j=1;j<5;j++){
+        for (int j=0;j<5;j++){
 
             for(int i=0;i<4;i++){
+
+                when(finalWindow.thereIsDie(i,j)).thenReturn(true);
 
                 if(j==1){
 
@@ -58,12 +60,14 @@ public class ColumnShadeVarietyTest {
 
                 if(j<2){
 
+                    when(finalWindowZero.thereIsDie(i,j)).thenReturn(true);
                     when(finalWindowZero.getDieValue(i,j)).thenReturn(Value.FIVE);
 
                 }
 
                 if(j>=2){
 
+                    when(finalWindowZero.thereIsDie(i,j)).thenReturn(true);
                     when(finalWindowZero.getDieValue(i,j)).thenReturn(Value.SIX);
 
                 }

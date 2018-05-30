@@ -11,38 +11,41 @@ public class ColorVariety implements PublicCard {
         int min=10000; //big number
         int score;
 
-        for(int i=0;i<4;i++){
+        for(int i=0;i<4;i++) {
 
-            for(int j=0;j<5;j++){  // count number of all colour
+            for (int j = 0; j < 5; j++) {  // count number of all colour
 
-                if( finalWindow.getDieColour(i,j).equals(Colour.RED)){
+                if (finalWindow.thereIsDie(i, j)) {
 
-                    counterColour[0]+=1;
+                    if (finalWindow.getDieColour(i, j).equals(Colour.RED)) {
 
-                }
+                        counterColour[0] += 1;
 
-                if( finalWindow.getDieColour(i,j).equals(Colour.PURPLE)){
+                    }
 
-                    counterColour[1]+=1;
+                    if (finalWindow.getDieColour(i, j).equals(Colour.PURPLE)) {
 
-                }
+                        counterColour[1] += 1;
 
-                if( finalWindow.getDieColour(i,j).equals(Colour.GREEN)){
+                    }
 
-                    counterColour[2]+=1;
+                    if (finalWindow.getDieColour(i, j).equals(Colour.GREEN)) {
 
-                }
+                        counterColour[2] += 1;
 
-                if( finalWindow.getDieColour(i,j).equals(Colour.BLUE)){
+                    }
 
-                    counterColour[3]+=1;
+                    if (finalWindow.getDieColour(i, j).equals(Colour.BLUE)) {
 
-                }
+                        counterColour[3] += 1;
 
-                if( finalWindow.getDieColour(i,j).equals(Colour.YELLOW)){
+                    }
 
-                    counterColour[4]+=1;
+                    if (finalWindow.getDieColour(i, j).equals(Colour.YELLOW)) {
 
+                        counterColour[4] += 1;
+
+                    }
                 }
             }
         }

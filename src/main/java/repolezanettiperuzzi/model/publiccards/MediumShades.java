@@ -12,24 +12,26 @@ public class MediumShades implements PublicCard {
         int numFour=0;
         int score;
 
-        for(int i=0;i<4;i++){ // count number of three and four
+        for(int i=0;i<4;i++) { // count number of three and four
 
-            for(int j=0;j<5;j++){
+            for (int j = 0; j < 5; j++) {
 
-                if( finalWindow.getDieValue(i,j).equals(Value.THREE)){
+                if (finalWindow.thereIsDie(i, j)) {
 
-                    numThree++;
+                    if (finalWindow.getDieValue(i, j).equals(Value.THREE)) {
 
-                }
+                        numThree++;
 
-                if( finalWindow.getDieValue(i,j).equals(Value.FOUR)){
+                    }
 
-                    numFour++;
+                    if (finalWindow.getDieValue(i, j).equals(Value.FOUR)) {
 
+                        numFour++;
+
+                    }
                 }
             }
         }
-
         if(numThree<numFour){
 
             score= 2*numThree;

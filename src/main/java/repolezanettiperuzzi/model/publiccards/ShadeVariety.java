@@ -12,48 +12,50 @@ public class ShadeVariety implements PublicCard {
         int min=10000; //big number
         int score;
 
-        for(int i=0;i<4;i++){
+        for(int i=0;i<4;i++) {
 
-            for(int j=0;j<5;j++){  // count number of all value
+            for (int j = 0; j < 5; j++) {  // count number of all value
 
-                if( finalWindow.getDieValue(i,j).equals(Value.ONE)){
+                if (finalWindow.thereIsDie(i, j)) {
 
-                    counterValue[0]+=1;
+                    if (finalWindow.getDieValue(i, j).equals(Value.ONE)) {
 
-                }
+                        counterValue[0] += 1;
 
-                if( finalWindow.getDieValue(i,j).equals(Value.TWO)){
+                    }
 
-                    counterValue[1]+=1;
+                    if (finalWindow.getDieValue(i, j).equals(Value.TWO)) {
 
-                }
+                        counterValue[1] += 1;
 
-                if( finalWindow.getDieValue(i,j).equals(Value.THREE)){
+                    }
 
-                    counterValue[2]+=1;
+                    if (finalWindow.getDieValue(i, j).equals(Value.THREE)) {
 
-                }
+                        counterValue[2] += 1;
 
-                if( finalWindow.getDieValue(i,j).equals(Value.FOUR)){
+                    }
 
-                    counterValue[3]+=1;
+                    if (finalWindow.getDieValue(i, j).equals(Value.FOUR)) {
 
-                }
+                        counterValue[3] += 1;
 
-                if( finalWindow.getDieValue(i,j).equals(Value.FIVE)){
+                    }
 
-                    counterValue[4]+=1;
+                    if (finalWindow.getDieValue(i, j).equals(Value.FIVE)) {
 
-                }
+                        counterValue[4] += 1;
 
-                if( finalWindow.getDieValue(i,j).equals(Value.SIX)){
+                    }
 
-                    counterValue[5]+=1;
+                    if (finalWindow.getDieValue(i, j).equals(Value.SIX)) {
 
+                        counterValue[5] += 1;
+
+                    }
                 }
             }
         }
-
         for(int i=0;i<6;i++){
 
             if(counterValue[i]<min){

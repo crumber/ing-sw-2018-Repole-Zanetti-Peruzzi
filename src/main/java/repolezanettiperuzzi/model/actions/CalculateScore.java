@@ -22,10 +22,9 @@ public class CalculateScore {
             score+=board.getPlayer(i).getWindow().calculeteSecretScore(board.getPlayer(i).getSecretColour());
 
             //toglie punti per caselle senza dado
-            //IMPORTANTEEEEEEEEEEEEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //CREARE IL METODO NELLA WINDOW E CHIAMARLO QUI.. TESTARE SIA NELLA WINDOW CHE QUI....
+            score-=board.getPlayer(i).getWindow().numBoxEmpty();
 
-            //aggiunge 1 punto per ogni favor token rimasto
+            //add number of favor token
             score+=board.getPlayer(i).getFavorTokens();
 
             //aggiorna lo score del player

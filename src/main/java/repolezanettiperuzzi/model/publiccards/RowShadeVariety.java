@@ -19,83 +19,85 @@ public class RowShadeVariety implements PublicCard {
 
             for (int j=0; j < 5; j++) {
 
-                if (finalWindow.getDieValue(i, j).equals(Value.ONE)) {
+                if (finalWindow.thereIsDie(i, j)) {
 
-                    counterValue[0] += 1;
-                    numOfValue++;
+                    if (finalWindow.getDieValue(i, j).equals(Value.ONE)) {
 
-                    if(counterValue[0]==2){
+                        counterValue[0] += 1;
+                        numOfValue++;
 
-                        repeatValue=true;
-                        break;
+                        if (counterValue[0] == 2) {
+
+                            repeatValue = true;
+                            break;
+                        }
+                    }
+
+                    if (finalWindow.getDieValue(i, j).equals(Value.TWO)) {
+
+                        counterValue[1] += 1;
+                        numOfValue++;
+
+                        if (counterValue[1] == 2) {
+
+                            repeatValue = true;
+                            break;
+                        }
+                    }
+
+                    if (finalWindow.getDieValue(i, j).equals(Value.THREE)) {
+
+                        counterValue[2] += 1;
+                        numOfValue++;
+
+                        if (counterValue[2] == 2) {
+
+                            repeatValue = true;
+                            break;
+                        }
+                    }
+
+                    if (finalWindow.getDieValue(i, j).equals(Value.FOUR)) {
+
+                        counterValue[3] += 1;
+                        numOfValue++;
+
+                        if (counterValue[3] == 2) {
+
+                            repeatValue = true;
+                            break;
+                        }
+                    }
+
+                    if (finalWindow.getDieValue(i, j).equals(Value.FIVE)) {
+
+                        counterValue[4] += 1;
+                        numOfValue++;
+
+                        if (counterValue[4] == 2) {
+
+                            repeatValue = true;
+                            break;
+                        }
+                    }
+
+                    if (finalWindow.getDieValue(i, j).equals(Value.SIX)) {
+
+                        counterValue[5] += 1;
+                        numOfValue++;
+
+                        if (counterValue[5] == 2) {
+
+                            repeatValue = true;
+                            break;
+                        }
                     }
                 }
+                if (!repeatValue && numOfValue == 5) {   // if there are five dice and five different value in row, incrise by one
 
-                if (finalWindow.getDieValue(i, j).equals(Value.TWO)) {
+                    numRow++;
 
-                    counterValue[1] += 1;
-                    numOfValue++;
-
-                    if(counterValue[1]==2){
-
-                        repeatValue=true;
-                        break;
-                    }
                 }
-
-                if (finalWindow.getDieValue(i, j).equals(Value.THREE)) {
-
-                    counterValue[2] += 1;
-                    numOfValue++;
-
-                    if(counterValue[2]==2){
-
-                        repeatValue=true;
-                        break;
-                    }
-                }
-
-                if (finalWindow.getDieValue(i, j).equals(Value.FOUR)) {
-
-                    counterValue[3] += 1;
-                    numOfValue++;
-
-                    if(counterValue[3]==2){
-
-                        repeatValue=true;
-                        break;
-                    }
-                }
-
-                if (finalWindow.getDieValue(i, j).equals(Value.FIVE)) {
-
-                    counterValue[4] += 1;
-                    numOfValue++;
-
-                    if(counterValue[4]==2){
-
-                        repeatValue=true;
-                        break;
-                    }
-                }
-
-                if (finalWindow.getDieValue(i, j).equals(Value.SIX)) {
-
-                    counterValue[5] += 1;
-                    numOfValue++;
-
-                    if(counterValue[5]==2){
-
-                        repeatValue=true;
-                        break;
-                    }
-                }
-            }
-
-            if(  !repeatValue && numOfValue==5 ){   // if there are five dice and five different value in row, incrise by one
-
-                numRow++;
-
             }
         }
 

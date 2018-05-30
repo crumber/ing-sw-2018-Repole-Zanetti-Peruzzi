@@ -19,67 +19,69 @@ public class RowColorVariety implements PublicCard {
 
             for (int j=0; j < 5; j++) {
 
-                if (finalWindow.getDieColour(i, j).equals(Colour.RED)) {
+                if (finalWindow.thereIsDie(i, j)) {
 
-                    counterColour[0] += 1;
-                    numOfColour++;
+                    if (finalWindow.getDieColour(i, j).equals(Colour.RED)) {
 
-                    if(counterColour[0]==2){
+                        counterColour[0] += 1;
+                        numOfColour++;
 
-                        repeatValue=true;
-                        break;
+                        if (counterColour[0] == 2) {
+
+                            repeatValue = true;
+                            break;
+                        }
                     }
-                }
 
-                if (finalWindow.getDieColour(i, j).equals(Colour.GREEN)) {
+                    if (finalWindow.getDieColour(i, j).equals(Colour.GREEN)) {
 
-                    counterColour[1] += 1;
-                    numOfColour++;
+                        counterColour[1] += 1;
+                        numOfColour++;
 
-                    if(counterColour[1]==2){
+                        if (counterColour[1] == 2) {
 
-                        repeatValue=true;
-                        break;
+                            repeatValue = true;
+                            break;
+                        }
                     }
-                }
 
-                if (finalWindow.getDieColour(i, j).equals(Colour.PURPLE)) {
+                    if (finalWindow.getDieColour(i, j).equals(Colour.PURPLE)) {
 
-                    counterColour[2] += 1;
-                    numOfColour++;
+                        counterColour[2] += 1;
+                        numOfColour++;
 
-                    if(counterColour[2]==2){
+                        if (counterColour[2] == 2) {
 
-                        repeatValue=true;
-                        break;
+                            repeatValue = true;
+                            break;
+                        }
                     }
-                }
 
-                if (finalWindow.getDieColour(i, j).equals(Colour.BLUE)) {
+                    if (finalWindow.getDieColour(i, j).equals(Colour.BLUE)) {
 
-                    counterColour[3] += 1;
-                    numOfColour++;
+                        counterColour[3] += 1;
+                        numOfColour++;
 
-                    if(counterColour[3]==2){
+                        if (counterColour[3] == 2) {
 
-                        repeatValue=true;
-                        break;
+                            repeatValue = true;
+                            break;
+                        }
                     }
-                }
 
-                if (finalWindow.getDieColour(i, j).equals(Colour.YELLOW)) {
+                    if (finalWindow.getDieColour(i, j).equals(Colour.YELLOW)) {
 
-                    counterColour[4] += 1;
-                    numOfColour++;
+                        counterColour[4] += 1;
+                        numOfColour++;
 
-                    if(counterColour[4]==2){
+                        if (counterColour[4] == 2) {
 
-                        repeatValue=true;
-                        break;
+                            repeatValue = true;
+                            break;
+                        }
                     }
                 }
             }
-
             if( !repeatValue && numOfColour==5 ){   // if there are five dice and five different colour in row, incrise by one
 
                 numRow++;

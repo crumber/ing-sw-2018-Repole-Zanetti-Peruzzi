@@ -12,24 +12,26 @@ public class LightShades implements PublicCard {
         int numTwo=0;
         int score;
 
-        for(int i=0;i<4;i++){ // count number of one and two
+        for(int i=0;i<4;i++) { // count number of one and two
 
-            for(int j=0;j<5;j++){
+            for (int j = 0; j < 5; j++) {
 
-                if( finalWindow.getDieValue(i,j).equals(Value.ONE)){
+                if (finalWindow.thereIsDie(i, j)) {
 
-                    numOne++;
+                    if (finalWindow.getDieValue(i, j).equals(Value.ONE)) {
 
-                }
+                        numOne++;
 
-                if( finalWindow.getDieValue(i,j).equals(Value.TWO)){
+                    }
 
-                    numTwo++;
+                    if (finalWindow.getDieValue(i, j).equals(Value.TWO)) {
 
+                        numTwo++;
+
+                    }
                 }
             }
         }
-
         if(numOne<numTwo){
 
             score= 2*numOne;

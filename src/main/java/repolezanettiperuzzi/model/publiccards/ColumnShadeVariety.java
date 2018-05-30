@@ -19,79 +19,81 @@ public class ColumnShadeVariety implements PublicCard {
 
             for (int j=0; j < 4; j++) {
 
-                if (finalWindow.getDieValue(j, i).equals(Value.ONE)) {
+                if (finalWindow.thereIsDie(j, i)) {
 
-                    counterValue[0] += 1;
-                    numOfValue++;
+                    if (finalWindow.getDieValue(j, i).equals(Value.ONE)) {
 
-                    if(counterValue[0]==2){
+                        counterValue[0] += 1;
+                        numOfValue++;
 
-                        noRepeatValue=false;
-                        break;
+                        if (counterValue[0] == 2) {
+
+                            noRepeatValue = false;
+                            break;
+                        }
                     }
-                }
 
-                if (finalWindow.getDieValue(j, i).equals(Value.TWO)) {
+                    if (finalWindow.getDieValue(j, i).equals(Value.TWO)) {
 
-                    counterValue[1] += 1;
-                    numOfValue++;
+                        counterValue[1] += 1;
+                        numOfValue++;
 
-                    if(counterValue[1]==2){
+                        if (counterValue[1] == 2) {
 
-                        noRepeatValue=false;
-                        break;
+                            noRepeatValue = false;
+                            break;
+                        }
                     }
-                }
 
-                if (finalWindow.getDieValue(j, i).equals(Value.THREE)) {
+                    if (finalWindow.getDieValue(j, i).equals(Value.THREE)) {
 
-                    counterValue[2] += 1;
-                    numOfValue++;
+                        counterValue[2] += 1;
+                        numOfValue++;
 
-                    if(counterValue[2]==2){
+                        if (counterValue[2] == 2) {
 
-                        noRepeatValue=false;
-                        break;
+                            noRepeatValue = false;
+                            break;
+                        }
                     }
-                }
 
-                if (finalWindow.getDieValue(j, i).equals(Value.FOUR)) {
+                    if (finalWindow.getDieValue(j, i).equals(Value.FOUR)) {
 
-                    counterValue[3] += 1;
-                    numOfValue++;
+                        counterValue[3] += 1;
+                        numOfValue++;
 
-                    if(counterValue[3]==2){
+                        if (counterValue[3] == 2) {
 
-                        noRepeatValue=false;
-                        break;
+                            noRepeatValue = false;
+                            break;
+                        }
                     }
-                }
 
-                if (finalWindow.getDieValue(j, i).equals(Value.FIVE)) {
+                    if (finalWindow.getDieValue(j, i).equals(Value.FIVE)) {
 
-                    counterValue[4] += 1;
-                    numOfValue++;
+                        counterValue[4] += 1;
+                        numOfValue++;
 
-                    if(counterValue[4]==2){
+                        if (counterValue[4] == 2) {
 
-                        noRepeatValue=false;
-                        break;
+                            noRepeatValue = false;
+                            break;
+                        }
                     }
-                }
 
-                if (finalWindow.getDieValue(j, i).equals(Value.SIX)) {
+                    if (finalWindow.getDieValue(j, i).equals(Value.SIX)) {
 
-                    counterValue[5] += 1;
-                    numOfValue++;
+                        counterValue[5] += 1;
+                        numOfValue++;
 
-                    if(counterValue[5]==2){
+                        if (counterValue[5] == 2) {
 
-                        noRepeatValue=false;
-                        break;
+                            noRepeatValue = false;
+                            break;
+                        }
                     }
                 }
             }
-
             if( noRepeatValue && numOfValue==4 ){   // if there are four dice and four different value in column, incrise by one
 
                 numColumn++;

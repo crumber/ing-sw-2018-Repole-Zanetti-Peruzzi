@@ -22,9 +22,11 @@ public class RowShadeVarietyTest {
         when(finalWindow.getDieValue(0,3)).thenReturn(Value.FOUR);
         when(finalWindow.getDieValue(0,4)).thenReturn(Value.TWO);
 
-        for (int i=1;i<4;i++){
+        for (int i=0;i<4;i++){
 
             for(int j=0;j<5;j++){
+
+                when(finalWindow.thereIsDie(i,j)).thenReturn(true);
 
                 if(i==1){
 
@@ -52,9 +54,11 @@ public class RowShadeVarietyTest {
         when(finalWindow2.getDieValue(0,3)).thenReturn(Value.FOUR);
         when(finalWindow2.getDieValue(0,4)).thenReturn(Value.TWO);
 
-        for (int i=1;i<4;i++){
+        for (int i=0;i<4;i++){
 
             for(int j=0;j<5;j++){
+
+                when(finalWindow2.thereIsDie(i,j)).thenReturn(true);
 
                 if(i==1){
 

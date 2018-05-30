@@ -22,12 +22,17 @@ public class ShadeVarietyTest {
         when(finalWindow.getDieValue(0,3)).thenReturn(Value.FOUR);
         when(finalWindow.getDieValue(0,4)).thenReturn(Value.FIVE);
 
-        for (int i=1;i<4;i++){
+        for (int i=0;i<4;i++){
 
             for(int j=0;j<5;j++){
 
-                when(finalWindow.getDieValue(i,j)).thenReturn(Value.SIX);
+                when(finalWindow.thereIsDie(i,j)).thenReturn(true);
 
+                if(i>0) {
+
+                    when(finalWindow.getDieValue(i, j)).thenReturn(Value.SIX);
+
+                }
             }
         }
 

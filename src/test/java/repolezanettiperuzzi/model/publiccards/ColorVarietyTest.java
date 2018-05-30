@@ -18,18 +18,23 @@ public class ColorVarietyTest {
 
         ColorVariety cardColourVariety= new ColorVariety();
         Window finalWindow=mock (Window.class);
-        Window zeroFinalWindow=mock (Window.class);
         when(finalWindow.getDieColour(0,0)).thenReturn(Colour.RED);
         when(finalWindow.getDieColour(0,1)).thenReturn(Colour.BLUE);
         when(finalWindow.getDieColour(0,2)).thenReturn(Colour.PURPLE);
         when(finalWindow.getDieColour(0,3)).thenReturn(Colour.YELLOW);
         when(finalWindow.getDieColour(0,4)).thenReturn(Colour.GREEN);
 
-        for (int i=1;i<4;i++){
+        for (int i=0;i<4;i++){
 
             for(int j=0;j<5;j++){
 
-                when(finalWindow.getDieColour(i,j)).thenReturn(Colour.RED);
+                when(finalWindow.thereIsDie(i,j)).thenReturn(true);
+
+                if(i>0) {
+
+                    when(finalWindow.getDieColour(i, j)).thenReturn(Colour.RED);
+
+                }
 
             }
         }

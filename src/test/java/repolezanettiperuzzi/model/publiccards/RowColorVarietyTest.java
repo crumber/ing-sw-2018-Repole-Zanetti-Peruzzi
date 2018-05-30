@@ -22,29 +22,32 @@ public class RowColorVarietyTest {
         when(finalWindow.getDieColour(0,3)).thenReturn(Colour.GREEN);
         when(finalWindow.getDieColour(0,4)).thenReturn(Colour.PURPLE);
 
-        for (int i=1;i<4;i++){
+        for (int i=0;i<4;i++) {
 
-            for(int j=0;j<5;j++){
+            for (int j = 0; j < 5; j++) {
 
-                if(i==1){
+                when(finalWindow.thereIsDie(i,j)).thenReturn(true);
 
-                    when(finalWindow.getDieColour(i,j)).thenReturn(Colour.BLUE);
+                    if (i == 1) {
 
-                }
+                        when(finalWindow.getDieColour(i, j)).thenReturn(Colour.BLUE);
 
-                if(i==2){
+                    }
 
-                    when(finalWindow.getDieColour(i,j)).thenReturn(Colour.GREEN);
+                    if (i == 2) {
 
-                }
+                        when(finalWindow.getDieColour(i, j)).thenReturn(Colour.GREEN);
 
-                if(i==3){
+                    }
 
-                    when(finalWindow.getDieColour(i,j)).thenReturn(Colour.RED);
+                    if (i == 3) {
 
+                        when(finalWindow.getDieColour(i, j)).thenReturn(Colour.RED);
+
+                    }
                 }
             }
-        }
+
 
         Window finalWindow2=mock (Window.class);
         when(finalWindow2.getDieColour(0,0)).thenReturn(Colour.YELLOW);
@@ -53,29 +56,31 @@ public class RowColorVarietyTest {
         when(finalWindow2.getDieColour(0,3)).thenReturn(Colour.GREEN);
         when(finalWindow2.getDieColour(0,4)).thenReturn(Colour.PURPLE);
 
-        for (int i=1;i<4;i++){
+        for (int i=0;i<4;i++) {
 
-            for(int j=0;j<5;j++){
+            for (int j = 0; j < 5; j++) {
 
-                if(i==1){
+                when(finalWindow2.thereIsDie(i,j)).thenReturn(true);
 
-                    when(finalWindow2.getDieColour(i,j)).thenReturn(Colour.PURPLE);
+                    if (i == 1) {
 
-                }
+                        when(finalWindow2.getDieColour(i, j)).thenReturn(Colour.PURPLE);
 
-                if(i==2){
+                    }
 
-                    when(finalWindow2.getDieColour(i,j)).thenReturn(Colour.YELLOW);
+                    if (i == 2) {
 
-                }
+                        when(finalWindow2.getDieColour(i, j)).thenReturn(Colour.YELLOW);
 
-                if(i==3){
+                    }
 
-                    when(finalWindow2.getDieColour(i,j)).thenReturn(Colour.RED);
+                    if (i == 3) {
 
+                        when(finalWindow2.getDieColour(i, j)).thenReturn(Colour.RED);
+
+                    }
                 }
             }
-        }
 
         assertEquals(6, cardRowColourVariety.effect(finalWindow));
         assertEquals(6, cardRowColourVariety.effect(finalWindow2));

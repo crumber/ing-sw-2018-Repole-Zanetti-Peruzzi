@@ -22,9 +22,11 @@ public class ColumnColorVarietyTest {
         when(finalWindow.getDieColour(2,0)).thenReturn(Colour.PURPLE);
         when(finalWindow.getDieColour(3,0)).thenReturn(Colour.GREEN);
 
-        for (int j=1;j<5;j++){
+        for (int j=0;j<5;j++){
 
             for(int i=0;i<4;i++){
+
+                when(finalWindow.thereIsDie(i,j)).thenReturn(true);
 
                 if(j==1){
 
@@ -56,6 +58,7 @@ public class ColumnColorVarietyTest {
 
             for(int i=0;i<4;i++){
 
+                when(finalWindowZero.thereIsDie(i,j)).thenReturn(true);
                 when(finalWindowZero.getDieColour(i,j)).thenReturn(Colour.GREEN);
 
             }

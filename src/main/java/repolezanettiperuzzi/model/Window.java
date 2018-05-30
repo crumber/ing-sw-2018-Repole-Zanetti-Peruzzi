@@ -222,6 +222,25 @@ public class Window {
         return true;
     }
 
+    public int numBoxEmpty(){
+
+        int nEmpty=0;
+
+        for (Box[] aBoardBox : boardBox) {
+
+            for (int j = 0; j < boardBox[0].length; j++) {
+
+                if (aBoardBox[j].die == null) {
+
+                    nEmpty++;
+
+                }
+            }
+        }
+
+        return nEmpty;
+    }
+
     public int calculeteSecretScore(Colour whichSecretColour){
 
         int secretScore=0;

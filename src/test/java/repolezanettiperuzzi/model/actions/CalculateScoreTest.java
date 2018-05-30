@@ -1,11 +1,8 @@
-/*package repolezanettiperuzzi.model.actions;
+package repolezanettiperuzzi.model.actions;
 
 import org.junit.Test;
 import repolezanettiperuzzi.model.*;
-import repolezanettiperuzzi.model.publiccards.ColorDiagonals;
-import repolezanettiperuzzi.model.publiccards.LightShades;
-import repolezanettiperuzzi.model.publiccards.PublicCard;
-import repolezanettiperuzzi.model.publiccards.RowShadeVariety;
+import repolezanettiperuzzi.model.publiccards.*;
 
 import java.util.HashMap;
 
@@ -18,6 +15,13 @@ public class CalculateScoreTest {
     PublicCard card1=new RowShadeVariety(); //valori diversi nella riga
     PublicCard card2=new LightShades();//coppie 1,2
     PublicCard card3=new ColorDiagonals();//numero caselle con stesso colore vicine in diagonale
+    PublicCard card4=new RowColorVariety();// numero righe con tutti colori diversi
+    PublicCard card5=new ColumnShadeVariety();
+    PublicCard card6=new ColumnColorVariety();
+    PublicCard card7=new DeepShades();
+    PublicCard card8=new MediumShades();
+    PublicCard card9=new ColorVariety();
+    PublicCard card10=new ShadeVariety();
     HashMap<String,Integer> ranking=new HashMap<>();
 
     @Test
@@ -90,9 +94,38 @@ public class CalculateScoreTest {
 
         board.addPlayer("jerry","RMI","CLI","127.0.0.1",8008);
         board.getPlayer(0).setWindow(window);
+        board.getPlayer(0).setSecretColour(Colour.GREEN);
+        board.getPlayer(0).setFavorTokens(window.getFTokens());
 
         ranking=testCalculateScore.doAction(board);
         int score=ranking.get("jerry");
-        assertEquals(22,score);
+        assertEquals(34,score);
+
+
+        board.setPublicCards(card4,0);
+        board.setPublicCards(card5,1);
+        board.setPublicCards(card6,2);
+
+        ranking=testCalculateScore.doAction(board);
+        score=ranking.get("jerry");
+        assertEquals(16,score);
+
+
+        board.setPublicCards(card7,0);
+        board.setPublicCards(card8,1);
+        board.setPublicCards(card9,2);
+
+        ranking=testCalculateScore.doAction(board);
+        score=ranking.get("jerry");
+        assertEquals(28,score);
+
+
+        board.setPublicCards(card1,0);
+        board.setPublicCards(card2,1);
+        board.setPublicCards(card10,2);
+
+        ranking=testCalculateScore.doAction(board);
+        score=ranking.get("jerry");
+        assertEquals(29,score);
     }
-}*/
+}

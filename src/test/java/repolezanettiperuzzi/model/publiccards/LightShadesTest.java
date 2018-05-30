@@ -21,15 +21,6 @@ public class LightShadesTest {
         when(finalWindow.getDieValue(0,3)).thenReturn(Value.TWO);
         when(finalWindow.getDieValue(0,4)).thenReturn(Value.TWO);
 
-        for (int i=1;i<4;i++){
-
-            for(int j=0;j<5;j++){
-
-                when(finalWindow.getDieValue(i,j)).thenReturn(Value.SIX);
-
-            }
-        }
-
         Window finalWindow2=mock (Window.class);
         when(finalWindow2.getDieValue(0,0)).thenReturn(Value.ONE);
         when(finalWindow2.getDieValue(0,1)).thenReturn(Value.ONE);
@@ -37,12 +28,17 @@ public class LightShadesTest {
         when(finalWindow2.getDieValue(0,3)).thenReturn(Value.TWO);
         when(finalWindow2.getDieValue(0,4)).thenReturn(Value.TWO);
 
-        for (int i=1;i<4;i++){
+        for (int i=0;i<4;i++){
 
             for(int j=0;j<5;j++){
 
-                when(finalWindow2.getDieValue(i,j)).thenReturn(Value.SIX);
+                when(finalWindow.thereIsDie(i,j)).thenReturn(true);
+                when(finalWindow2.thereIsDie(i,j)).thenReturn(true);
 
+                if(i>0) {
+                    when(finalWindow.getDieValue(i, j)).thenReturn(Value.FIVE);
+                    when(finalWindow2.getDieValue(i, j)).thenReturn(Value.FIVE);
+                }
             }
         }
 
