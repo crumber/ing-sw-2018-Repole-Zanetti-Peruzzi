@@ -8,6 +8,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.function.Consumer;
 
+import static com.sun.deploy.trace.TraceLevel.UI;
+
 public class GameViewSocket implements Runnable{
 
     private Socket socket;
@@ -51,6 +53,7 @@ public class GameViewSocket implements Runnable{
                 gameView.enterWaitingRoom();
                 break;
             case "newplayers":  // setTimer player1 player2
+                System.out.println("newPlayers");
                 String players[] = new String[line.length-2];
                 for(int i = 0; i<players.length; i++){
                     players[i] = line[i+2];
@@ -63,8 +66,13 @@ public class GameViewSocket implements Runnable{
     public void init(String username, String pwd, String conn, String UI, int localPort) throws IOException {
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         out.println(username + " init " + pwd + " " + conn + " " + UI + " " + localPort);
-        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        handleMessage(in.readLine());
+        out.close();
+        socket.close();
+    }
+
+    public void waitingRoomLoaded(String username) throws IOException {
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        out.println(username + " waitingok");
     }
 
     public int getLocalServerPort(){

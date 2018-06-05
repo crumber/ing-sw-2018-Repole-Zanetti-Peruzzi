@@ -84,8 +84,12 @@ public class LoginFXMLController extends FXMLController{
             loader = new FXMLLoader(new File("src/main/java/repolezanettiperuzzi/view/WaitingRoomFXML.fxml").toURI().toURL());
             loader.setController(controller);
             Group root = (Group) loader.load();
-            stage.setScene(new Scene(root, 600 , 600));
-            stage.setUserData(loader);
+            FXMLLoader finalLoader = loader;
+            Platform.runLater(() -> {
+                stage.setScene(new Scene(root, 600, 600));
+                stage.setUserData(finalLoader);
+            });
+            gV.waitingRoomLoaded();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {

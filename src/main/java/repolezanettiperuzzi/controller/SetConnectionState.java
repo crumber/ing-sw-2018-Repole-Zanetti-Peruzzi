@@ -1,12 +1,17 @@
 package repolezanettiperuzzi.controller;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InterruptedIOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.*;
@@ -15,51 +20,99 @@ import java.util.logging.*;
 public class SetConnectionState extends ControllerState{
 
     private final Logger LOGGER = Logger.getLogger(SetConnectionState.class.getName());
+    private GameBoard board;
+    private Controller controller;
 
     @Override
     public void doAction(Controller controller) throws IOException, ParseException {
 
-        //sperando che il server per rmi non blocchi il thread
-        ControllerRMIServer rmiServer = new ControllerRMIServer(controller);
-        //rmiServer.startServer();
+        this.controller = controller;
+        this.board = controller.board;
 
-        int nPlayers = 0;
-        int port = 8080;
-
-        cleanJson("gamedata/playersinfo.json");
-
-        try (ServerSocket serverSocket = new ServerSocket(port)){
-            System.out.println("Server ready");
-
-            Timer timer = new Timer(300000);
-            timer.start();
-            serverSocket.setSoTimeout((int)timer.getRemainingTime()); // sposta da 2 giocatori
-
-            while(nPlayers<4 && !timer.timeout()){
-                Socket socket = serverSocket.accept();
-                HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
-                handler.handleMessage();
-                nPlayers++;
-                //Thread.sleep(500); da aggiunger in caso il messaggio sia inviato troppo presto alla view non dandogli tempo
-                //di caricare la nuova scene e controller della waitingRoom
-                notifyOnNewPlayer(controller);
-                serverSocket.setSoTimeout((int)timer.getRemainingTime());
-            }
-
-        } catch (InterruptedIOException e){
-            System.out.println("Timeout");
-            //System.exit(-2); // timer scaduto
-        } catch (IOException e){
-            System.out.println("Could not listen on port " + port);
-            //System.exit(-1); // porta non disponibile
-            return;
-        }
-
-        controller.setState(new FetchState());
     }
 
-    public void notifyOnNewPlayer(Controller controller) throws IOException, ParseException {
+    //metodo chiamato dal giocatore appena si connette al server
+    public void initializePlayer(String playerID, String pwd, InetAddress addr, int port, String connection, String UI) throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        FileReader jsonIn = new FileReader("gamedata/playersinfo.json");
+        JSONArray jsonArr = (JSONArray) parser.parse(jsonIn);
+
+        try {
+
+            boolean alreadyRegistered = false;
+
+            //playerID, pwd, RMI/Socket, CLI/GUI, addr, port
+            for (Object o : jsonArr) {
+                JSONObject player = (JSONObject) o;
+
+                String name = (String) player.get("playerID");
+
+                String passwd = (String) player.get("pwd");
+
+                //TODO controllo anche che il giocare aveva scelto una window prima di disconnettersi
+                if (name.equals(playerID) && passwd.equals(pwd)) {
+                    //riconnetto il giocatore
+                    onReconnect();
+                    alreadyRegistered = true;
+                    break;
+                }
+            }
+
+            if(!alreadyRegistered) {
+
+                JSONObject player = new JSONObject();
+                player.put("playerID", playerID);
+                player.put("pwd", pwd);
+                player.put("connection", connection);
+                player.put("UI", UI);
+                player.put("address", addr.toString().substring(1));
+                player.put("port", port);
+                jsonArr.add(player);
+
+                try (FileWriter file = new FileWriter("gamedata/playersinfo.json")) {
+                    file.write(jsonArr.toJSONString());
+                    System.out.println("Successfully Copied JSON Object to File...");
+                    System.out.println("\nJSON Object: " + player);
+                } catch (IOException e) {
+                    System.out.println("Cannot write on file");
+                }
+
+                board.addPlayer(playerID, connection, UI, addr.toString().substring(1), port);
+                //dico al giocatore che e' stato registrato
+                notifyOnRegister(controller, connection, UI, addr.toString().substring(1), port);
+            }
+
+        } finally {
+            jsonIn.close();
+        }
+
+    }
+
+    //TODO fare la reconnect
+    public void onReconnect(){
+
+    }
+
+    public void notifyOnRegister(Controller controller, String connection, String UI, String address, int port) throws IOException, ParseException {
+        if(connection.equals("Socket")){
+            HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
+            handleSocket.notifyOnRegister(connection, UI);
+        } else if(connection.equals("RMI")){
+
+        }
+    }
+
+    public void waitingRoomLoaded(String playerName){
         for(int i = 0; i<controller.board.getNPlayers(); i++){
+            if(controller.board.getPlayer(i).getName().equals(playerName)){
+                controller.board.getPlayer(i).setChooseWindowStatus(true);
+                break;
+            }
+        }
+    }
+
+    public void notifyOnNewPlayer() throws IOException, ParseException {
+        for(int i = 0; i<controller.board.getNPlayers() && controller.board.getPlayer(i).getChooseWindowStatus(); i++){
             System.out.println("NPlayer "+i+"\n");
             Player player = controller.board.getPlayers().get(i);
             if(player.getConnection().equals("Socket")){

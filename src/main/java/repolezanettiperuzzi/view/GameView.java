@@ -42,6 +42,7 @@ import java.util.function.Consumer;
 //prendo i dati gia' elaborati da RMI o Socket e li passo a GameViewCLI o GameViewGUI
 public class GameView {
 
+    private String username;
     private String connection;
     private String UI;
     private GameViewCLI gvCLI;
@@ -65,6 +66,7 @@ public class GameView {
     public void onLogin(Stage stage, String username, String pwd, String conn, String UI) throws IOException, InterruptedException {
         int port = 0;
         if(!login) {
+            this.username = username;
             this.connection = conn;
             this.UI = UI;
             this.login = true;
@@ -104,6 +106,15 @@ public class GameView {
     public void enterWaitingRoom(){
         if(this.UI.equals("GUI")){
             ((LoginFXMLController) fxmlController).setWaitingRoomScene();
+        } else if(this.UI.equals("CLI")){
+
+        }
+    }
+
+    public void waitingRoomLoaded() throws IOException {
+        if(this.UI.equals("GUI")){
+            gvSocket = new GameViewSocket(this);
+            gvSocket.waitingRoomLoaded(username);
         } else if(this.UI.equals("CLI")){
 
         }

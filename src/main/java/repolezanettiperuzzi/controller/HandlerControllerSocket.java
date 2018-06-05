@@ -13,11 +13,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 //questo e' il nostro server socket che risiede sul server
-public class HandlerControllerSocket {
+public class HandlerControllerSocket implements Runnable{
     private Socket socket;
     private BufferedReader in;
     private InetAddress addr;
@@ -35,6 +36,17 @@ public class HandlerControllerSocket {
         this.controller = controller;
     }
 
+    @Override
+    public void run() {
+        try {
+            handleMessage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void handleMessage() throws IOException, ParseException {
 
         String[] line = in.readLine().split(" ");
@@ -49,7 +61,13 @@ public class HandlerControllerSocket {
 
         switch(action) {
             case "init":
+                controller.setState(new SetConnectionState());
                 initializePlayer();
+                break;
+            case "waitingok": //il client ha avviato la sua view della waiting room
+                controller.setState(new SetConnectionState());
+                ((SetConnectionState)controller.getState()).waitingRoomLoaded(playerID);
+                ((SetConnectionState)controller.getState()).notifyOnNewPlayer();
                 break;
             case "setup":
                 setupPlayer();
@@ -70,7 +88,13 @@ public class HandlerControllerSocket {
         out.close();
         this.in.close();
         this.socket.close();
-        controller.initializePlayer(playerID, pwd, addr, port, connection, UI);
+        ((SetConnectionState)controller.getState()).initializePlayer(playerID, pwd, addr, port, connection, UI);
+    }
+
+    public void notifyOnRegister(String connection, String UI) throws IOException {
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+        out.println("registered "+connection+" "+UI);
+        out.close();
     }
 
     private void setupPlayer() throws IOException, ParseException {
