@@ -9,28 +9,31 @@ import java.util.List;
 public class GameBoard {
     private ArrayList<Player> players;
     private ArrayList<Die> diceDraft;
-    private PublicCard publicCards[];
-    private ToolCard toolCards[];
+    private PublicCard[] publicCards;
+    private ToolCard[] toolCards;
     private DiceBag diceBag;
     private RoundTrack roundTrack;
     private int round;
     private int nPlayers;
-    private int [] costToolCard= new int[3];
+    private int[] costToolCard = new int[3];
 
     public GameBoard(){
-        players = new ArrayList<Player>();
-        diceDraft = new ArrayList<Die>();
+
+        players = new ArrayList<>();
+        diceDraft = new ArrayList<>();
         publicCards = new PublicCard[3];
         toolCards = new ToolCard[3];
         diceBag = new DiceBag();
         roundTrack = new RoundTrack();
         round=0;
         nPlayers=0;
+
         for(int i=0;i<3;i++){
 
             costToolCard[i]=1;
 
         }
+
     }
 
     public void addPlayer(String playerName, String connection, String UI, String address, int port){

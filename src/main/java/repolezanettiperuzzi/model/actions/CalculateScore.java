@@ -19,7 +19,7 @@ public class CalculateScore {
             score+=board.getPublicCards(2).effect(board.getPlayer(i).getWindow());
 
             //calculate secret score
-            score+=board.getPlayer(i).getWindow().calculeteSecretScore(board.getPlayer(i).getSecretColour());
+            score+=board.getPlayer(i).getWindow().calculateSecretScore(board.getPlayer(i).getSecretColour());
 
             //toglie punti per caselle senza dado
             score-=board.getPlayer(i).getWindow().numBoxEmpty();

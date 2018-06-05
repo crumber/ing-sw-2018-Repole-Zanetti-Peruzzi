@@ -1,10 +1,11 @@
 package repolezanettiperuzzi.controller;
 
 import org.json.simple.parser.ParseException;
+import repolezanettiperuzzi.model.GameBoard;
+import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.Window;
-import repolezanettiperuzzi.model.actions.BeginRound;
 import repolezanettiperuzzi.model.actions.InitializeGame;
-import repolezanettiperuzzi.model.actions.TakeClientWindowAction;
+import repolezanettiperuzzi.model.actions.SetWindowAction;
 import repolezanettiperuzzi.model.actions.TakeTwoCardWindowAction;
 
 import java.io.IOException;
@@ -12,38 +13,41 @@ import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 
 public class FetchState extends ControllerState {
 
+    private GameBoard board;
+    private HashMap<Player,ArrayList<Window>> playersWindowsChoices;
 
     @Override
     public void doAction(Controller controller) throws IOException, ParseException {
 
+        this.board=controller.board;
+        playersWindowsChoices = new HashMap<>();
         InitializeGame init = new InitializeGame();
-        init.doAction(controller.board);
-        ArrayList<Window> windows =(ArrayList<Window>) init.getWindows();
+        init.doAction(board);
+        ArrayList<Window> windows = (ArrayList<Window>) init.getWindows();
 
-        for (int i = 0; i < controller.board.getNPlayers(); i++ ){
 
-            if(controller.board.getPlayer(i).getConnection().equals("Socket")){
+        for (int i = 0; i < board.getNPlayers(); i++ ){
 
-                ArrayList<Window> choices = new TakeTwoCardWindowAction().doAction(windows);
-                String message = this.windowsToString(choices);
-                Socket socket = new Socket(controller.board.getPlayer(i).getAddress(),controller.board.getPlayer(i).getPort());
+            if(board.getPlayer(i).getConnection().equals("Socket")){
+
+                playersWindowsChoices.put(board.getPlayer(i),(ArrayList<Window>) new TakeTwoCardWindowAction().doAction(windows));
+                String message = this.windowsToString(playersWindowsChoices.get(board.getPlayer(i)));
+                Socket socket = new Socket(board.getPlayer(i).getAddress(),board.getPlayer(i).getPort());
                 HandlerControllerSocket handler = new HandlerControllerSocket(controller,socket);
-                init.setChosenWindow(controller.board.getPlayer(i), new TakeClientWindowAction().doAction(choices,handler.askWindow(message)));
+                handler.askWindow(message);
 
-            }else if(controller.board.getPlayer(i).getConnection().equals("RMI")){
+            }else if(board.getPlayer(i).getConnection().equals("RMI")){
+
 
 
             }
 
-            //assign for each player the tokens that belong to him
-            init.assignFavorTokens(controller.board);
         }
-
-        controller.setState(new RoundState());
-
 
     }
 
@@ -65,6 +69,22 @@ public class FetchState extends ControllerState {
         }
 
         return String.valueOf(message);
+
+    }
+
+
+    public void setChosenWindow(Player player, String choose){
+
+        for (Window window : this.playersWindowsChoices.get(player) ) {
+
+            if(window.getName().equals(choose)){
+
+                new SetWindowAction().doAction(player,window);
+                break;
+
+            }
+
+        }
 
     }
 

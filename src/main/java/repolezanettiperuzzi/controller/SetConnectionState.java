@@ -18,6 +18,7 @@ public class SetConnectionState extends ControllerState{
 
     @Override
     public void doAction(Controller controller) throws IOException, ParseException {
+
         //sperando che il server per rmi non blocchi il thread
         ControllerRMIServer rmiServer = new ControllerRMIServer(controller);
         //rmiServer.startServer();

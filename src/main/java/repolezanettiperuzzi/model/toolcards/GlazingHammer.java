@@ -21,7 +21,7 @@ public class GlazingHammer extends ToolCard {
 
             resultOfAction=-12;
 
-        }else if (player.getInserDieInThisTurn()) {
+        }else if (player.getInsertDieInThisTurn()) {
 
             resultOfAction=-13;
 

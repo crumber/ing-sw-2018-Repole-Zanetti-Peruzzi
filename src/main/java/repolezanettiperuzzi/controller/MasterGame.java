@@ -16,7 +16,7 @@ public class MasterGame {
 
     public static void main(String[] args) throws IOException, ParseException {
 
-        board= new GameBoard();
+        board = new GameBoard();
 
         Controller controller = new Controller(board.getPlayers(),board);
 

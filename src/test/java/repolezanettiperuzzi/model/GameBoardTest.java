@@ -236,6 +236,7 @@ public class GameBoardTest {
 
         ArrayList<Player> players=(ArrayList<Player>) boardTest.getPlayers();
 
+
         assertEquals("pippo",players.get(0).getName());
 
     }

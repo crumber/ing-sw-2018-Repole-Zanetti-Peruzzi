@@ -89,6 +89,7 @@ public class Window {
     public Value getDieValue(int x, int y){
 
         return this.boardBox[x][y].die.getValueDie();
+
     }
 
     public Colour getDieColour(int x, int y){
@@ -97,7 +98,7 @@ public class Window {
 
     }
 
-    public boolean controlAdjacences(int x, int y){
+    public boolean controlAdjacencies(int x, int y){
 
         boolean thereIsDieNextTo;
 
@@ -142,7 +143,7 @@ public class Window {
         return thereIsDieNextTo;
     }
 
-    public boolean controlColourBoundAdjacences(Die d, int x, int y){
+    public boolean controlColourBoundAdjacencies(Die d, int x, int y){
 
         if (x - 1 >= 0 && boardBox[x - 1][y].die !=null && boardBox[x - 1][y].die.getColourDie().equals(d.getColourDie())) {
 
@@ -167,7 +168,7 @@ public class Window {
         }
     }
 
-    public boolean controlValueBoundAdjacences(Die d, int x, int y){
+    public boolean controlValueBoundAdjacencies(Die d, int x, int y){
 
         if (x - 1 >= 0 && boardBox[x - 1][y].die != null && boardBox[x - 1][y].die.getValueDie().equals(d.getValueDie())) {
 
@@ -192,13 +193,13 @@ public class Window {
         }
     }
 
-    public boolean controlAllBoundAdjacences(Die d, int x, int y){
+    public boolean controlAllBoundAdjacencies(Die d, int x, int y){
 
-        if(controlColourBoundAdjacences(d,x,y)){
+        if(controlColourBoundAdjacencies(d,x,y)){
 
             return true;
 
-        }else if(controlValueBoundAdjacences(d,x,y)){
+        }else if(controlValueBoundAdjacencies(d,x,y)){
 
             return true;
 
@@ -241,7 +242,8 @@ public class Window {
         return nEmpty;
     }
 
-    public int calculeteSecretScore(Colour whichSecretColour){
+
+    public int calculateSecretScore(Colour whichSecretColour){
 
         int secretScore=0;
 

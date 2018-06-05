@@ -51,6 +51,7 @@ public class Controller {
 
     //metodo chiamato dal giocatore appena si connette al server
     public void initializePlayer(String playerID, String pwd, InetAddress addr, int port, String connection, String UI) throws IOException, ParseException {
+
         JSONParser parser = new JSONParser();
         FileReader jsonIn = new FileReader("gamedata/playersinfo.json");
         JSONArray jsonArr = (JSONArray) parser.parse(jsonIn);

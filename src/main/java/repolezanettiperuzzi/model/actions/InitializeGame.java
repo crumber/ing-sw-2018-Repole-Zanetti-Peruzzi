@@ -40,11 +40,8 @@ public class InitializeGame extends Action{
         //assign private objective for each Player
         this.assignPrivateObjective(board);
 
+        //create windows from files dynamically
         this.createWindows();
-
-
-
-
 
         //initialize deck with tool cards and public cards
         Deck startDeck = null;
@@ -88,15 +85,6 @@ public class InitializeGame extends Action{
 
     }
 
-    public void assignFavorTokens(GameBoard board){
-
-        for(int i = 0 ; i < board.getNPlayers(); i++){
-
-            Player p = board.getPlayer(i);
-            p.setFavorTokens(board.getPlayer(i).getWindow().getFTokens());
-
-        }
-    }
 
     private void createWindows() throws IOException {
 
@@ -171,9 +159,4 @@ public class InitializeGame extends Action{
 
     }
 
-    public void setChosenWindow(Player player, Window choice){
-
-        player.setWindow(choice);
-
-    }
 }

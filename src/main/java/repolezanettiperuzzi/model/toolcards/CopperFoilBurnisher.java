@@ -39,7 +39,7 @@ public class CopperFoilBurnisher extends ToolCard{
 
                 resultOfAction=-5;
 
-            } else if(player.getWindow().controlColourBoundAdjacences(dTemp,xEnd,yEnd)){
+            } else if(player.getWindow().controlColourBoundAdjacencies(dTemp,xEnd,yEnd)){
 
                 resultOfAction=-23;
 

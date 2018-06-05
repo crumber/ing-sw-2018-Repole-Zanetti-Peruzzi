@@ -24,11 +24,11 @@ public class GlazingHammerTest {
 
         player=mock(Player.class);
         when(player.getTurn()).thenReturn(2);
-        when(player.getInserDieInThisTurn()).thenReturn(false);
+        when(player.getInsertDieInThisTurn()).thenReturn(false);
 
         assertEquals(1,testPublicCard.check(board,player,parameterforcard));
 
-        when(player.getInserDieInThisTurn()).thenReturn(true);
+        when(player.getInsertDieInThisTurn()).thenReturn(true);
 
         assertEquals(-13,testPublicCard.check(board,player,parameterforcard));
 
@@ -43,7 +43,7 @@ public class GlazingHammerTest {
 
         player=mock(Player.class);
         when(player.getTurn()).thenReturn(2);
-        when(player.getInserDieInThisTurn()).thenReturn(false);
+        when(player.getInsertDieInThisTurn()).thenReturn(false);
 
         Die die1=new Die(Colour.RED);
         Die die2=new Die(Colour.RED);

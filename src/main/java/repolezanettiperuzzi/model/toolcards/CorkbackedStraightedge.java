@@ -38,7 +38,7 @@ public class CorkbackedStraightedge extends ToolCard {
 
             resultOfAction=-3;
 
-        } else if (player.getWindow().controlAdjacences(whichRow, whichColumn)) {
+        } else if (player.getWindow().controlAdjacencies(whichRow, whichColumn)) {
 
             resultOfAction=-10;
 

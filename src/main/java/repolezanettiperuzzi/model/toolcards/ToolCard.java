@@ -41,7 +41,7 @@ public abstract class ToolCard {
 
                 numProblem=-3;
 
-            } else if (!player.getWindow().controlAdjacences(xEnd, yEnd)) {
+            } else if (!player.getWindow().controlAdjacencies(xEnd, yEnd)) {
 
                 numProblem=-4;
 
@@ -73,7 +73,7 @@ public abstract class ToolCard {
                 player.getWindow().insertDie(dTemp,x1Start,y1Start,"none");
                 numProblem=-7;
 
-            }else if(player.getWindow().controlAllBoundAdjacences(dTemp,x1End,y1End)){
+            }else if(player.getWindow().controlAllBoundAdjacencies(dTemp,x1End,y1End)){
 
                 player.getWindow().insertDie(dTemp,x1Start,y1Start,"none");
                 numProblem=-25;
@@ -102,7 +102,7 @@ public abstract class ToolCard {
 
                         numProblem=-18;
 
-                    } else if (!player.getWindow().controlAdjacences(x2End, y2End)) {
+                    } else if (!player.getWindow().controlAdjacencies(x2End, y2End)) {
 
                         numProblem=-19;
 
@@ -110,7 +110,7 @@ public abstract class ToolCard {
 
                         numProblem=-20;
 
-                    }else if(player.getWindow().controlAllBoundAdjacences(d2Temp,x2End,y2End)){
+                    }else if(player.getWindow().controlAllBoundAdjacencies(d2Temp,x2End,y2End)){
 
                         numProblem=-26;
 

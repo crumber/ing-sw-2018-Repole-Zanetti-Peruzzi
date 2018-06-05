@@ -42,7 +42,7 @@ public class EglomiseBrush extends ToolCard {
 
                 resultOfAction=-6;
 
-            } else if(player.getWindow().controlValueBoundAdjacences(dTemp,xEnd,yEnd)){
+            } else if(player.getWindow().controlValueBoundAdjacencies(dTemp,xEnd,yEnd)){
 
                 resultOfAction=-24;
 

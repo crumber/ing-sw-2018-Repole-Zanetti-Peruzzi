@@ -3,11 +3,12 @@ package repolezanettiperuzzi.model.actions;
 import repolezanettiperuzzi.model.Window;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class TakeTwoCardWindowAction {
 
-    public ArrayList<Window> doAction(ArrayList<Window> windows){
+    public List<Window> doAction(List<Window> windows){
 
         ArrayList<Window> clientWindows=new ArrayList<>();
         Random random= new Random();

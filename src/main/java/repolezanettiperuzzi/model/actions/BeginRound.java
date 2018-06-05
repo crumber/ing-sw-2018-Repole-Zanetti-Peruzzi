@@ -1,23 +1,16 @@
 package repolezanettiperuzzi.model.actions;
 
 import repolezanettiperuzzi.model.GameBoard;
-import repolezanettiperuzzi.model.Player;
 
 public class BeginRound extends Action {
 
-    private static int playerIndex = 0;
+    private static int firstPlayerIndex = 0;
 
     public void doAction(GameBoard board) {
 
-        board.incrRound();
+        board.incrRound(); //increase Round number
 
-        incrIndex();
-
-        //FARE PARTIRE IL TIMER PER QUESTO ROUND DALLA CLASSE TIMER CHE DOBBIAMO ANCORA CREARE
-
-        //si suppone che il draft si stato pulito alla fine del turno precedente
-        //in futuro si potrebbe voler aspettare l'input da parte del giocatore che dovrebbe pescare i dadi
-        //per questo round in modo da rendere la cosa un po' piu' fedele rispetto alle regole del gioco
+        //add die to draft based on number of players
         for (int i = 0; i<((board.getNPlayers()*2)+1); i++) {
 
             board.addDieToDraft(board.takeDieFromBag());
@@ -27,21 +20,21 @@ public class BeginRound extends Action {
     }
 
 
-    public static void incrIndex(){
+    public static void increaseIndex(){
 
-        playerIndex++;
+        firstPlayerIndex++;
 
     }
 
     public static int getIndex(){
 
-        return playerIndex;
+        return firstPlayerIndex;
 
     }
 
     public static void resetIndex(){
 
-        playerIndex=0;
+        firstPlayerIndex=0;
 
     }
 

@@ -68,7 +68,7 @@ public class PlayerTest {
         player=new Player("pippo","RMI","CLI","127.0.0.1",8008);
         player.setInsertDieInThisTurn(true);
 
-        assertEquals(true,player.getInserDieInThisTurn());
+        assertEquals(true,player.getInsertDieInThisTurn());
 
     }
 
@@ -83,7 +83,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testReduceFlavorTokens() {
+    public void testReduceFavorTokens() {
 
         player=new Player("pippo","RMI","CLI","127.0.0.1",8008);
 
@@ -97,7 +97,7 @@ public class PlayerTest {
     @Test
     public void testIncrTurnResetTurn() {
 
-        player=new Player("pippo","RMI","CLI","127.0.0.1",8008);
+        player = new Player("pippo","RMI","CLI","127.0.0.1",8008);
 
         player.incrTurn();
         assertEquals(1,player.getTurn());

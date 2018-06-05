@@ -124,9 +124,10 @@ public class Player{
 
     }
 
-    public boolean getInserDieInThisTurn(){
+    public boolean getInsertDieInThisTurn(){
 
         return insertDieInThisTurn;
+
     }
 
     public Colour getSecretColour() {

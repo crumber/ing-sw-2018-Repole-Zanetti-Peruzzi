@@ -1,7 +1,6 @@
 package repolezanettiperuzzi.model;
 
 import org.junit.Test;
-import org.mockito.internal.matchers.Null;
 
 import static org.junit.Assert.*;
 
@@ -117,31 +116,31 @@ public class WindowTest {
         testWindow = new Window(name,5, testBoxes, "test");
         testDie=new Die(Colour.RED);
 
-        assertFalse(testWindow.controlAdjacences(1,1));
+        assertFalse(testWindow.controlAdjacencies(1,1));
 
         testWindow.insertDie(testDie,0,1,"both");
-        assertTrue(testWindow.controlAdjacences(1,1));
+        assertTrue(testWindow.controlAdjacencies(1,1));
 
         testWindow.moveDie(0,1,0,0,"both");
-        assertTrue(testWindow.controlAdjacences(1,1));
+        assertTrue(testWindow.controlAdjacencies(1,1));
 
         testWindow.moveDie(0,0,0,2,"both");
-        assertTrue(testWindow.controlAdjacences(1,1));
+        assertTrue(testWindow.controlAdjacencies(1,1));
 
         testWindow.moveDie(0,2,2,1,"both");
-        assertTrue(testWindow.controlAdjacences(1,1));
+        assertTrue(testWindow.controlAdjacencies(1,1));
 
         testWindow.moveDie(2,1,2,0,"both");
-        assertTrue(testWindow.controlAdjacences(1,1));
+        assertTrue(testWindow.controlAdjacencies(1,1));
 
         testWindow.moveDie(2,0,2,2,"both");
-        assertTrue(testWindow.controlAdjacences(1,1));
+        assertTrue(testWindow.controlAdjacencies(1,1));
 
         testWindow.moveDie(2,2,1,0,"both");
-        assertTrue(testWindow.controlAdjacences(1,1));
+        assertTrue(testWindow.controlAdjacencies(1,1));
 
         testWindow.moveDie(1,0,1,2,"both");
-        assertTrue(testWindow.controlAdjacences(1,1));
+        assertTrue(testWindow.controlAdjacencies(1,1));
 
     }
 
@@ -169,34 +168,34 @@ public class WindowTest {
 
         testWindow.insertDie(d1,1,3,"both");
 
-        assertFalse(testWindow.controlAllBoundAdjacences(testDie,2,3));
+        assertFalse(testWindow.controlAllBoundAdjacencies(testDie,2,3));
 
         testDie.setValue(Value.THREE);
 
-        assertTrue(testWindow.controlAllBoundAdjacences(testDie,2,3));
+        assertTrue(testWindow.controlAllBoundAdjacencies(testDie,2,3));
 
         testWindow.moveDie(1,3,3,3,"both");
-        assertTrue(testWindow.controlAllBoundAdjacences(testDie,2,3));
+        assertTrue(testWindow.controlAllBoundAdjacencies(testDie,2,3));
 
         testWindow.moveDie(3,3,2,2,"both");
-        assertTrue(testWindow.controlAllBoundAdjacences(testDie,2,3));
+        assertTrue(testWindow.controlAllBoundAdjacencies(testDie,2,3));
 
         testWindow.moveDie(2,2,2,4,"both");
-        assertTrue(testWindow.controlAllBoundAdjacences(testDie,2,3));
+        assertTrue(testWindow.controlAllBoundAdjacencies(testDie,2,3));
 
 
         testWindow.insertDie(d,0,1,"both");
 
-        assertTrue(testWindow.controlAllBoundAdjacences(testDie,1,1));
+        assertTrue(testWindow.controlAllBoundAdjacencies(testDie,1,1));
 
         testWindow.moveDie(0,1,2,1,"both");
-        assertTrue(testWindow.controlAllBoundAdjacences(testDie,1,1));
+        assertTrue(testWindow.controlAllBoundAdjacencies(testDie,1,1));
 
         testWindow.moveDie(2,1,1,0,"both");
-        assertTrue(testWindow.controlAllBoundAdjacences(testDie,1,1));
+        assertTrue(testWindow.controlAllBoundAdjacencies(testDie,1,1));
 
         testWindow.moveDie(1,0,1,2,"both");
-        assertTrue(testWindow.controlAllBoundAdjacences(testDie,1,1));
+        assertTrue(testWindow.controlAllBoundAdjacencies(testDie,1,1));
     }
 
     @Test
@@ -223,8 +222,8 @@ public class WindowTest {
         testWindow.insertDie(testDie,0,0,"both");
         testWindow.insertDie(testDie2,0,1,"both");
 
-        assertEquals(6,testWindow.calculeteSecretScore(Colour.YELLOW));
-        assertEquals(0,testWindow.calculeteSecretScore(Colour.BLUE));
+        assertEquals(6,testWindow.calculateSecretScore(Colour.YELLOW));
+        assertEquals(0,testWindow.calculateSecretScore(Colour.BLUE));
 
 
     }

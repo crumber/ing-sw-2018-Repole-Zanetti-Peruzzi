@@ -101,18 +101,29 @@ public class HandlerControllerSocket {
 
     }
 
-    public String askWindow(String message) throws IOException {
+    public void askWindow(String message) throws IOException {
 
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
-        out.println("Choose your window from 0 to 4\n");
-        out.println(message);
+        out.println("choseWindow\n");
+        out.println(message);//windows
         out.close();
-        String clientChoice = this.in.readLine();
-        this.in.close();
         this.socket.close();
-        return clientChoice;
 
     }
+
+    public String askAction() throws IOException {
+
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+        out.println("What action would you like to do?\n");
+        out.close();
+        //this.in.close();
+        //this.socket.close();
+        return this.in.readLine();
+
+
+    }
+
+
 
 }
