@@ -36,7 +36,6 @@ public class FluxRemover extends ToolCard {
         return resultOfAction;
     }
 
-    @Override
     public int checkPreEffect(GameBoard board, Player player, List<Integer> parameterForCard){
 
         posDieOnDraft=parameterForCard.get(0);
@@ -48,7 +47,6 @@ public class FluxRemover extends ToolCard {
 
     //put die in bag , remove die from draft, take another die from bag and add this die in draft's final position (change die's position in parameter for card)
     // return 11 -> new quest for client (choose value from 1 to 6)
-    @Override
     public int preEffect(GameBoard board, Player player, List<Integer> parameterForCard){
 
         posDieOnDraft=parameterForCard.get(0);

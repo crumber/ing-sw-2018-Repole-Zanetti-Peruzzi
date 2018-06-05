@@ -21,7 +21,7 @@ public class FactoryToolCardTest {
         assertEquals(LensCutter.class,FactoryToolCard.getToolCard("tc10").getClass());
         assertEquals(RunningPliers.class,FactoryToolCard.getToolCard("tc11").getClass());
         assertEquals(TapWheel.class,FactoryToolCard.getToolCard("tc12").getClass());
-        assertEquals(null,FactoryToolCard.getToolCard("tc142"));
+        assertNull(FactoryToolCard.getToolCard("tc142"));
 
     }
 }

@@ -4,6 +4,6 @@ import repolezanettiperuzzi.model.Window;
 
 public interface PublicCard {
 
-    public int effect(Window finalWindow);
+    int effect(Window finalWindow);
 
 }

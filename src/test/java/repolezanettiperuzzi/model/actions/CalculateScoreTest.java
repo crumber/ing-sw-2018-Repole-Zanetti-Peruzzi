@@ -129,6 +129,5 @@ public class CalculateScoreTest {
         assertEquals(29,score);
     }
 }
-}
 
-*/
+

@@ -2,6 +2,7 @@ package repolezanettiperuzzi.model.actions;
 
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
+import repolezanettiperuzzi.model.toolcards.FluxRemover;
 
 import java.util.List;
 
@@ -37,13 +38,13 @@ public class UseCardAction extends Action{
 
         int resultOfAction;
 
-        resultOfAction=board.getToolCards(whichToolCard).checkPreEffect(board,player,parameterForCard);
+        resultOfAction=((FluxRemover)board.getToolCards(whichToolCard)).checkPreEffect(board,player,parameterForCard);
 
         //if check is correct, do active action, not reduce player's tokens
         if(resultOfAction==1) {
 
             // return +11 -> quest for the client
-            resultOfAction = board.getToolCards(whichToolCard).preEffect(board, player, parameterForCard);
+            resultOfAction = ((FluxRemover)board.getToolCards(whichToolCard)).preEffect(board, player, parameterForCard);
 
         }
 

@@ -15,11 +15,7 @@ public abstract class ToolCard {
 
     }
 
-    public int check(GameBoard board, Player player, List<Integer> parameterForCard) {
-
-        return  resultOfAction;
-
-    }
+    public abstract int check(GameBoard board, Player player, List<Integer> parameterForCard);
 
     public int checkMoveOneDie(GameBoard board, Player player, int xStart, int yStart, int xEnd, int yEnd){
 
@@ -164,22 +160,6 @@ public abstract class ToolCard {
         return numProblem;
     }
 
-    public void effect(GameBoard board, Player player, List<Integer> parameterForCard){
-
-    }
-
-    //only for card 11
-    public int preEffect(GameBoard board, Player player, List<Integer> parameterForCard){
-
-        return resultOfAction;
-
-    }
-
-    //only for card 11
-    public int checkPreEffect(GameBoard board, Player player, List<Integer> parameterForCard){
-
-        return resultOfAction;
-
-    }
+    public abstract void effect(GameBoard board, Player player, List<Integer> parameterForCard);
 
 }
