@@ -13,7 +13,8 @@ public class Player{
     private String UI; //CLI o GUI
     private String address;
     private int port;
-    private boolean chooseWindowStatus;
+    private boolean waitingRoomStatus;
+    private boolean liveStatus;
 
     public Player(String name, String connection, String UI, String address, int port){
         this.name = name;
@@ -23,7 +24,8 @@ public class Player{
         this.turn = 0;
         this.address = address;
         this.port = port;
-        this.chooseWindowStatus = false;
+        this.waitingRoomStatus = false;
+        this.liveStatus = true;
     }
 
     //copy constructor
@@ -39,7 +41,8 @@ public class Player{
         this.UI = p.UI;
         this.address = p.address;
         this.port = p.port;
-        this.chooseWindowStatus = p.chooseWindowStatus;
+        this.waitingRoomStatus = p.waitingRoomStatus;
+        this.liveStatus = p.liveStatus;
     }
 
     /*
@@ -89,12 +92,20 @@ public class Player{
 
     }
 
-    public boolean getChooseWindowStatus(){
-        return this.chooseWindowStatus;
+    public boolean getWaitingRoomStatus(){
+        return this.waitingRoomStatus;
     }
 
-    public void setChooseWindowStatus(boolean status){
-        this.chooseWindowStatus = status;
+    public void setWaitingRoomStatus(boolean status){
+        this.waitingRoomStatus = status;
+    }
+
+    public boolean getLiveStatus(){
+        return this.liveStatus;
+    }
+
+    public void setLiveStatus(boolean status){
+        this.liveStatus = status;
     }
 
     public int getFavorTokens() {

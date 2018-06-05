@@ -21,6 +21,7 @@ import repolezanettiperuzzi.controller.HandlerStubRMI;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -60,14 +61,15 @@ public class GameViewGUI extends Application{
     }
 
     @Override
-    public void stop(){
+    public void stop() throws IOException {
         System.out.println("Closing GUI");
         if(stage.getUserData()!=null) {
             FXMLLoader loader = (FXMLLoader) stage.getUserData();
             FXMLController controller = loader.getController();
             if(controller instanceof WaitingRoomFXMLController) {
                 ((WaitingRoomFXMLController) controller).cancelTimer();
-            }
+                ((WaitingRoomFXMLController) controller).notifyOnExit();
+            } //TODO fare else if per gli altri controller con la notifyOnExit()
         }
 
     }

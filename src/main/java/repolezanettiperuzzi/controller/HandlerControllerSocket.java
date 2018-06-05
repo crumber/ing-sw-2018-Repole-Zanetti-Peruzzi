@@ -67,10 +67,22 @@ public class HandlerControllerSocket implements Runnable{
             case "waitingok": //il client ha avviato la sua view della waiting room
                 controller.setState(new SetConnectionState());
                 ((SetConnectionState)controller.getState()).waitingRoomLoaded(playerID);
-                ((SetConnectionState)controller.getState()).notifyOnNewPlayer();
+                ((SetConnectionState)controller.getState()).notifyOnUpdatedPlayer();
                 break;
-            case "setup":
-                setupPlayer();
+            case "exit":
+                switch(param[0]){
+                    case "waitingRoom":
+                        controller.setState(new SetConnectionState());
+                        ((SetConnectionState)controller.getState()).setLiveStatusOffline(playerID);
+                        ((SetConnectionState)controller.getState()).notifyOnUpdatedPlayer();
+                        break;
+                    case "chooseWindow":
+                        //TODO gestire l'uscita durante la scelta delle window
+                        break;
+                    case "duringGame":
+                        //TODO gestire l'uscita durante il gioco
+                        break;
+                }
                 break;
 
 
@@ -97,29 +109,19 @@ public class HandlerControllerSocket implements Runnable{
         out.close();
     }
 
-    private void setupPlayer() throws IOException, ParseException {
-        String connection = param[0];
-        String UI = param[1];
-        //controller.setupPlayer(playerID, connection, UI, this.addr, this.port);
-    }
-
-    public void notifyOnNewPlayer() throws IOException {
+    public void notifyOnUpdatedPlayer(int timer) throws IOException {
         String playersID = "";
         System.out.println( "Ciclo sui giocatori\n" );
-        int i;
-        for(i = 0; i<controller.board.getNPlayers(); i++){
+
+        for(int i = 0; i<controller.board.getNPlayers() && controller.board.getPlayer(i).getLiveStatus(); i++){
             System.out.println("Stampo giocatore "+i+"\n");
             Player player = controller.board.getPlayers().get(i);
             playersID = playersID+player.getName()+" ";
         }
-        int timer = 0;
-        if(i==2){
-            timer = 100;
-        }
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
         System.out.println("Invio messaggio\n");
-        out.println("newplayers "+timer+" "+playersID);
+        out.println("updatedplayers "+timer+" "+playersID);
         out.close();
         this.socket.close();
 

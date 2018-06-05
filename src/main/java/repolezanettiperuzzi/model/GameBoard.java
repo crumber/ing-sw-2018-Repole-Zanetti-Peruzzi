@@ -54,6 +54,16 @@ public class GameBoard {
         return copy;
     }
 
+    public int getPlayersOnline(){
+        int nPlayersOnline = 0;
+        for(int i = 0; i<this.nPlayers; i++){
+            if(players.get(i).getLiveStatus()){
+                nPlayersOnline++;
+            }
+        }
+        return nPlayersOnline;
+    }
+
     /*
     PER ORA NON USATO E NEMMENO FINITO
 

@@ -22,11 +22,14 @@ public class Controller {
 
     protected ControllerState currentState;
 
+    private boolean isTimerOn;
+
     public Controller(List<Player> view, GameBoard board){
 
        this.currentState = null;
        this.view = (ArrayList<Player>)view;
        this.board = board;
+       this.isTimerOn = false;
 
     }
 
@@ -40,6 +43,20 @@ public class Controller {
 
         return this.currentState;
 
+    }
+
+    public boolean isTimerOn(){
+        return this.isTimerOn;
+    }
+
+    public void setTimer(){
+        //TODO creare il timer su un altro thread
+        this.isTimerOn = true;
+    }
+
+    public void cancelTimer(){
+        //TODO cancello il timer
+        this.isTimerOn = false;
     }
 
     //this method do the action of the current state

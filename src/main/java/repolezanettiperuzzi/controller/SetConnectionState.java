@@ -105,14 +105,27 @@ public class SetConnectionState extends ControllerState{
     public void waitingRoomLoaded(String playerName){
         for(int i = 0; i<controller.board.getNPlayers(); i++){
             if(controller.board.getPlayer(i).getName().equals(playerName)){
-                controller.board.getPlayer(i).setChooseWindowStatus(true);
+                controller.board.getPlayer(i).setWaitingRoomStatus(true);
                 break;
             }
         }
     }
 
-    public void notifyOnNewPlayer() throws IOException, ParseException {
-        for(int i = 0; i<controller.board.getNPlayers() && controller.board.getPlayer(i).getChooseWindowStatus(); i++){
+    public void notifyOnUpdatedPlayer() throws IOException, ParseException {
+        int timer = 0;
+        if(controller.board.getPlayersOnline()==2 && !controller.isTimerOn()){
+            timer = 100;
+            controller.setTimer();
+        } else if(controller.board.getPlayersOnline()==1 && controller.isTimerOn()){
+            timer = -1;
+            controller.cancelTimer();
+        } else if(controller.isTimerOn()){
+            //TODO uso metodo del controller che mi ottiene il tempo rimasto al timer gia' fatto partire prima
+            //per ora gli metto un numero a caso
+            timer = 100;
+        }
+
+        for(int i = 0; i<controller.board.getNPlayers() && controller.board.getPlayer(i).getWaitingRoomStatus() && controller.board.getPlayer(i).getLiveStatus(); i++){
             System.out.println("NPlayer "+i+"\n");
             Player player = controller.board.getPlayers().get(i);
             if(player.getConnection().equals("Socket")){
@@ -120,14 +133,22 @@ public class SetConnectionState extends ControllerState{
                 try(Socket socket = new Socket(player.getAddress(), player.getPort())){
                     System.out.println("Creo Handler\n");
                     HandlerControllerSocket handlerControllerSocket = new HandlerControllerSocket(controller, socket);
-                    handlerControllerSocket.notifyOnNewPlayer();
+                    handlerControllerSocket.notifyOnUpdatedPlayer(timer);
                 } catch(IOException e){
                     LOGGER.log(Level.WARNING,"IOException: ",e); //da verificare
                 }
             } else if(controller.board.getPlayers().get(i).getConnection().equals("RMI")){
 
             }
+        }
+    }
 
+    public void setLiveStatusOffline(String playerName){
+        for(int i = 0; i<controller.board.getNPlayers(); i++){
+            if(controller.board.getPlayer(i).getName().equals(playerName)){
+                controller.board.getPlayer(i).setLiveStatus(false);
+                break;
+            }
         }
     }
 

@@ -78,7 +78,7 @@ public class GameView {
                 Thread serverThread = new Thread(gvSocketServer);
                 serverThread.setDaemon(true);
                 serverThread.start();
-                Thread.sleep(1000);
+                Thread.sleep(500);
 
                 gvSocket.init(username, pwd, conn, UI, gvSocketServer.getLocalServerPort());
 
@@ -92,6 +92,15 @@ public class GameView {
             } else if (UI.equals("GUI")) {
 
             }
+        }
+    }
+
+    public void notifyOnExit(String typeView) throws IOException {
+        if (connection.equals("Socket")) {
+            gvSocket = new GameViewSocket(this);
+            gvSocket.notifyOnExit(username, typeView);
+        } else if (connection.equals("RMI")) {
+
         }
     }
 
@@ -112,10 +121,10 @@ public class GameView {
     }
 
     public void waitingRoomLoaded() throws IOException {
-        if(this.UI.equals("GUI")){
+        if(connection.equals("Socket")){
             gvSocket = new GameViewSocket(this);
             gvSocket.waitingRoomLoaded(username);
-        } else if(this.UI.equals("CLI")){
+        } else if(connection.equals("RMI")){
 
         }
     }

@@ -1,7 +1,11 @@
 package repolezanettiperuzzi.view;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -12,6 +16,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,9 +28,9 @@ public class WaitingRoomFXMLController extends FXMLController{
 
     private Stage stage;
     private GameView gV;
-    private static int timerCounter;
-    private Timer timer;
-    private static String textContent;
+    private int timerCounter;
+    private Timeline timerCountdown;
+    private String textContent;
 
     @FXML
     // The reference of inputText will be injected by the FXML loader
@@ -62,33 +67,42 @@ public class WaitingRoomFXMLController extends FXMLController{
     public void setTimer(int timerDuration){
 
         timerCounter = timerDuration;
-        this.timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            public void run() {
-                if(timerCounter > 0)
-                {
-                    Platform.runLater(() -> timerText.setText("Timer: "+timerCounter));
-                    timerCounter--;
-                }
-                else
-                    timer.cancel();
-                    timer = null;
+        timerCountdown = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                timerText.setText("Timer: "+timerCounter);
+                timerCounter--;
             }
-        }, 0,1000);
+        }));
+        timerCountdown.setCycleCount(timerDuration);
+        timerCountdown.play();
     }
 
     public void cancelTimer(){
-        if(this.timer != null){
-            timer.cancel();
+        if(this.timerCountdown != null){
+            timerCountdown.stop();
+            timerCountdown = null;
         }
+    }
+
+    public void notifyOnExit() throws IOException {
+        gV.notifyOnExit("waitingRoom");
     }
 
     public void refreshPlayers(int timerDuration, String[] players){
         if(timerDuration>0){
-            if(this.timer!=null){
-                this.timer.cancel();
+            if(this.timerCountdown!=null){
+                this.timerCountdown.stop();
+                this.timerCountdown = null;
             }
             setTimer(timerDuration);
+        } else if (timerDuration==-1){
+            if(this.timerCountdown!=null){
+                this.timerCountdown.stop();
+                this.timerCountdown = null;
+            }
+            Platform.runLater(() -> timerText.setText(""));
         }
 
         textContent = "";
