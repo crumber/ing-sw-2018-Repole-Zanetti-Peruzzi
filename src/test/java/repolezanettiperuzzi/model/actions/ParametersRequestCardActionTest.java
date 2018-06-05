@@ -46,23 +46,23 @@ public class ParametersRequestCardActionTest {
         board.setToolCards(card1,1);
         board.setToolCards(card2,2);
 
-        assertEquals("startPos endPos ",testParametersRequestCardAction.doAction(board,0));
-        assertEquals("dieDraft endPos ",testParametersRequestCardAction.doAction(board,1));
-        assertEquals("dieDraft ",testParametersRequestCardAction.doAction(board,2));
+        assertEquals("requestCard startPos endPos ",testParametersRequestCardAction.doAction(board,0));
+        assertEquals("requestCard dieDraft endPos ",testParametersRequestCardAction.doAction(board,1));
+        assertEquals("requestCard dieDraft ",testParametersRequestCardAction.doAction(board,2));
 
         board.setToolCards(card3,0);
         board.setToolCards(card4,1);
         board.setToolCards(card5,2);
 
-        assertEquals("dieDraft incrDecrDie ",testParametersRequestCardAction.doAction(board,0));
-        assertEquals("startPos endPos startPos endPos ",testParametersRequestCardAction.doAction(board,1));
-        assertEquals("dieDraft dieRoundTrack ",testParametersRequestCardAction.doAction(board,2));
+        assertEquals("requestCard dieDraft incrDecrDie ",testParametersRequestCardAction.doAction(board,0));
+        assertEquals("requestCard startPos endPos startPos endPos ",testParametersRequestCardAction.doAction(board,1));
+        assertEquals("requestCard dieDraft dieRoundTrack ",testParametersRequestCardAction.doAction(board,2));
 
         board.setToolCards(card6,0);
         board.setToolCards(card7,1);
 
-        assertEquals("startPos endPos startPos endPos dieRoundTrack ",testParametersRequestCardAction.doAction(board,0));
-        assertEquals("NOTHING",testParametersRequestCardAction.doAction(board,1));
+        assertEquals("requestCard startPos endPos startPos endPos dieRoundTrack ",testParametersRequestCardAction.doAction(board,0));
+        assertEquals("requestCard NOTHING",testParametersRequestCardAction.doAction(board,1));
 
     }
 }

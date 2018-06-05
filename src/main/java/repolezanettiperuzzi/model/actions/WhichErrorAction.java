@@ -7,6 +7,7 @@ public class WhichErrorAction {
     public String doAction(GameBoard board, int numError){
 
         String error;
+        String typeMess="error ";
 
         switch (numError){
 
@@ -203,11 +204,11 @@ public class WhichErrorAction {
 
             default:{
 
-                error=" MANCA LA NUMERO 8 DI CARTA FORSE HA ALTRI ERRORI..";
+                error="MANCA LA NUMERO 8 DI CARTA FORSE HA ALTRI ERRORI..";
                 break;
             }
         }
 
-        return error;
+        return typeMess+error;
     }
 }

@@ -22,6 +22,7 @@ public class ParametersRequestCardAction extends Action{
 
         String requestForToolCard;
         int id=board.getToolCards(whichToolCard).getId();
+        String typeMess="requestCard ";
         String start="startPos ";
         String end="endPos ";
         String draft="dieDraft ";
@@ -62,6 +63,6 @@ public class ParametersRequestCardAction extends Action{
 
         }
 
-        return requestForToolCard;
+        return typeMess+requestForToolCard;
     }
 }

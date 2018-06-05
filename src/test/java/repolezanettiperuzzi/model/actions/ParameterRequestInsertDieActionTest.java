@@ -14,6 +14,6 @@ public class ParameterRequestInsertDieActionTest {
     @Test
     public void testDoAction() {
 
-        assertEquals("dieDraft endPos ",testParameterRequestInsertDieAction.doAction());
+        assertEquals("requestInsert dieDraft endPos ",testParameterRequestInsertDieAction.doAction());
     }
 }
