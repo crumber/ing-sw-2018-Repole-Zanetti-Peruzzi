@@ -125,25 +125,28 @@ public class SetConnectionState extends ControllerState{
             timer = 100;
         }
 
-        for(int i = 0; i<controller.board.getNPlayers() && controller.board.getPlayer(i).getWaitingRoomStatus() && controller.board.getPlayer(i).getLiveStatus(); i++){
-            System.out.println("NPlayer "+i+"\n");
-            Player player = controller.board.getPlayers().get(i);
-            if(player.getConnection().equals("Socket")){
-                System.out.println("Creo Socket indirizzo "+player.getAddress()+" porta "+ player.getPort()+"\n");
-                try(Socket socket = new Socket(player.getAddress(), player.getPort())){
-                    System.out.println("Creo Handler\n");
-                    HandlerControllerSocket handlerControllerSocket = new HandlerControllerSocket(controller, socket);
-                    handlerControllerSocket.notifyOnUpdatedPlayer(timer);
-                } catch(IOException e){
-                    LOGGER.log(Level.WARNING,"IOException: ",e); //da verificare
-                }
-            } else if(controller.board.getPlayers().get(i).getConnection().equals("RMI")){
+        for(int i = 0; i<controller.board.getNPlayers(); i++){
+            if(controller.board.getPlayer(i).getWaitingRoomStatus() && controller.board.getPlayer(i).getLiveStatus()) {
+                System.out.println("NPlayer " + i);
+                Player player = controller.board.getPlayers().get(i);
+                if (player.getConnection().equals("Socket")) {
+                    System.out.println("Creo Socket indirizzo " + player.getAddress() + " porta " + player.getPort());
+                    try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+                        HandlerControllerSocket handlerControllerSocket = new HandlerControllerSocket(controller, socket);
+                        handlerControllerSocket.notifyOnUpdatedPlayer(timer);
+                    } catch (IOException e) {
+                        LOGGER.log(Level.WARNING, "IOException: ", e); //da verificare
+                    }
+                } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
 
+                }
             }
         }
+        System.out.println("");
     }
 
     public void setLiveStatusOffline(String playerName){
+        System.out.println("exit waiting room "+playerName);
         for(int i = 0; i<controller.board.getNPlayers(); i++){
             if(controller.board.getPlayer(i).getName().equals(playerName)){
                 controller.board.getPlayer(i).setLiveStatus(false);

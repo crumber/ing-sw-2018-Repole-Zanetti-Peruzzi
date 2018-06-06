@@ -111,13 +111,15 @@ public class HandlerControllerSocket implements Runnable{
 
     public void notifyOnUpdatedPlayer(int timer) throws IOException {
         String playersID = "";
-        System.out.println( "Ciclo sui giocatori\n" );
 
-        for(int i = 0; i<controller.board.getNPlayers() && controller.board.getPlayer(i).getLiveStatus(); i++){
-            System.out.println("Stampo giocatore "+i+"\n");
-            Player player = controller.board.getPlayers().get(i);
-            playersID = playersID+player.getName()+" ";
+        for(int i = 0; i<controller.board.getNPlayers(); i++){
+            if(controller.board.getPlayer(i).getLiveStatus()) {
+                Player player = controller.board.getPlayers().get(i);
+                playersID = playersID + player.getName() + " ";
+            }
         }
+
+        System.out.println("Giocatori stampati: "+playersID);
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
         System.out.println("Invio messaggio\n");
