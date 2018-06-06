@@ -55,13 +55,12 @@ public class LoginFXMLController extends FXMLController{
     }
 
     @FXML
-    private void onSubmit(ActionEvent event)
-    {
-        if ((textFieldName.getText() != null && textFieldPwd.getText()!=null)) {
+    private void onSubmit(ActionEvent event) {
+        this.stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        if ((!textFieldName.getText().equals("") && !textFieldPwd.getText().equals(""))) {
 
             RadioButton conn = (RadioButton) groupConn.getSelectedToggle();
             RadioButton userInt = (RadioButton) groupUI.getSelectedToggle();
-            this.stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             Platform.runLater(() -> {
                 try {
                     gV.onLogin(stage, textFieldName.getText(), textFieldPwd.getText(), conn.getText(), userInt.getText());
@@ -71,7 +70,52 @@ public class LoginFXMLController extends FXMLController{
                     e.printStackTrace();
                 }
             });
+        } else {
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.NONE, "Username or password not inserted", ButtonType.OK);
+                alert.setX(stage.getX()+stage.getScene().getWidth()/2 - 125);
+                alert.setY(stage.getY()+stage.getScene().getHeight()/2 - 60);
+                alert.setTitle("Invalid Login");
+                alert.setResizable(true);
+                alert.getDialogPane().setPrefSize(250, 120);
+                alert.setResizable(false);
+                textFieldName.clear();
+                textFieldPwd.clear();
+
+                alert.showAndWait();
+            });
         }
+    }
+
+    public void showPlayerAlreadyOnlineAlert(){
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.NONE, "The username you chose is already used by a Player online", ButtonType.OK);
+            alert.setX(stage.getX()+stage.getScene().getWidth()/2 - 125);
+            alert.setY(stage.getY()+stage.getScene().getHeight()/2 - 60);
+            alert.setTitle("Player already online");
+            alert.setResizable(true);
+            alert.getDialogPane().setPrefSize(250, 120);
+            alert.setResizable(false);
+            textFieldName.clear();
+            textFieldPwd.clear();
+
+            alert.showAndWait();
+        });
+    }
+
+    public void showWrongPwdAlert(){
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.NONE, "Wrong password inserted, please try again", ButtonType.OK);
+            alert.setX(stage.getX()+stage.getScene().getWidth()/2 - 125);
+            alert.setY(stage.getY()+stage.getScene().getHeight()/2 - 60);
+            alert.setTitle("Wrong password");
+            alert.setResizable(true);
+            alert.getDialogPane().setPrefSize(250, 120);
+            alert.setResizable(false);
+            textFieldPwd.clear();
+
+            alert.showAndWait();
+        });
     }
 
     public void setWaitingRoomScene() {

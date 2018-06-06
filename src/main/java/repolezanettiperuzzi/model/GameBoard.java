@@ -210,6 +210,15 @@ public class GameBoard {
         return players.get(nPlayer);
     }
 
+    public Player getPlayerByName(String playerID){
+        for(int i = 0; i<players.size(); i++){
+            if(players.get(i).getName().equals(playerID)){
+                return players.get(i);
+            }
+        }
+        return null;
+    }
+
     public void setToolCards(ToolCard toolCard, int i) {
 
         this.toolCards[i]=toolCard;

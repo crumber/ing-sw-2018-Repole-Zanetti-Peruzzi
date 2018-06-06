@@ -28,6 +28,7 @@ public class GameViewSocket implements Runnable{
     public void run(){
         try(ServerSocket serverSocket = new ServerSocket(0)){
             this.localServerPort = serverSocket.getLocalPort();
+            System.out.println("port: "+localServerPort);
             boolean read = true;
             while(read){
                 System.out.println("Attendo connessione");
@@ -48,6 +49,7 @@ public class GameViewSocket implements Runnable{
         String[] line = message.split(" ");
         switch(line[0]){
             case "registered":
+                System.out.println("registered");
                 gameView.enterWaitingRoom();
                 break;
             case "updatedplayers":  // setTimer player1 player2
@@ -57,6 +59,13 @@ public class GameViewSocket implements Runnable{
                     players[i] = line[i+2];
                 }
                 gameView.refreshWaitingRoom(Integer.parseInt(line[1]), players);
+                break;
+            case "notregistered":
+                if(line[1].equals("alreadyonline")){
+                    gameView.showPlayerAlreadyOnlineAlert();
+                } else if(line[1].equals("wrongpwd")){
+                    gameView.showWrongPwdAlert();
+                }
                 break;
         }
     }

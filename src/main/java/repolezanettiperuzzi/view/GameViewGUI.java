@@ -55,6 +55,8 @@ public class GameViewGUI extends Application{
         primaryStage.setScene(scene);
         // Set the Title to the Stage
         primaryStage.setTitle("Sagrada");
+        // Not resizable
+        primaryStage.setResizable(false);
         // Display the Stage
         primaryStage.show();
 

@@ -13,7 +13,7 @@ public class Player{
     private String UI; //CLI o GUI
     private String address;
     private int port;
-    private boolean waitingRoomStatus;
+    private String lastScene;
     private boolean liveStatus;
 
     public Player(String name, String connection, String UI, String address, int port){
@@ -24,7 +24,7 @@ public class Player{
         this.turn = 0;
         this.address = address;
         this.port = port;
-        this.waitingRoomStatus = false;
+        this.lastScene = "login";
         this.liveStatus = true;
     }
 
@@ -41,32 +41,9 @@ public class Player{
         this.UI = p.UI;
         this.address = p.address;
         this.port = p.port;
-        this.waitingRoomStatus = p.waitingRoomStatus;
+        this.lastScene = p.lastScene;
         this.liveStatus = p.liveStatus;
     }
-
-    /*
-    METODI DA FINIRE/CANCELLARE SE NON SERVONO
-    public void useToolCard(){
-        //chiama una Action useToolCard
-    }
-
-    public void takeDieFromDraft(){
-        //prende il dado attraverso una Action
-    }
-
-    public void takeDiceFromBag(){
-        //prende il dado dal sacchetto attraverso una Action
-    }
-
-    public void rollDice(){
-        //lancia i dadi presi dal sacchetto
-    }
-
-    public void passTurn(){
-        //chiamo una Action PassTurn
-    }
-    */
 
     public void updateScore(int points){
 
@@ -92,12 +69,16 @@ public class Player{
 
     }
 
-    public boolean getWaitingRoomStatus(){
-        return this.waitingRoomStatus;
+    public boolean checkLastScene(String sceneName){
+        return this.lastScene.equals(sceneName);
     }
 
-    public void setWaitingRoomStatus(boolean status){
-        this.waitingRoomStatus = status;
+    public String getLastScene(){
+        return this.lastScene;
+    }
+
+    public void setLastScene(String sceneName){
+        this.lastScene = sceneName;
     }
 
     public boolean getLiveStatus(){
@@ -106,6 +87,22 @@ public class Player{
 
     public void setLiveStatus(boolean status){
         this.liveStatus = status;
+    }
+
+    public void setConnection(String address){
+        this.address = address;
+    }
+
+    public void setUI(String UI){
+        this.UI = UI;
+    }
+
+    public void setAddress(String address){
+        this.address = address;
+    }
+
+    public void setPort(int port){
+        this.port = port;
     }
 
     public int getFavorTokens() {

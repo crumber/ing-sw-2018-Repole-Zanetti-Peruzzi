@@ -44,6 +44,7 @@ public class GameView {
 
     private String username;
     private String connection;
+    private int localPort;
     private String UI;
     private GameViewCLI gvCLI;
     private FXMLController fxmlController;
@@ -57,6 +58,7 @@ public class GameView {
     public GameView(){
         this.onReceiveCallback = data -> gvSocket.handleMessage(data);
         this.login = false;
+        this.localPort = 0;
     }
 
     public static void main(String args[]) {
@@ -74,13 +76,16 @@ public class GameView {
             if (connection.equals("Socket")) {
                 //mi serve creae prima l'oggetto in caso venga chiamata la onReceiveCallback su un oggetto che non esiste
                 gvSocket = new GameViewSocket(this);
-                gvSocketServer = new GameViewSocket(onReceiveCallback);
-                Thread serverThread = new Thread(gvSocketServer);
-                serverThread.setDaemon(true);
-                serverThread.start();
-                Thread.sleep(500);
+                if(this.localPort==0) {
+                    gvSocketServer = new GameViewSocket(onReceiveCallback);
+                    Thread serverThread = new Thread(gvSocketServer);
+                    serverThread.setDaemon(true);
+                    serverThread.start();
+                    Thread.sleep(500);
 
-                gvSocket.init(username, pwd, conn, UI, gvSocketServer.getLocalServerPort());
+                    this.localPort = gvSocketServer.getLocalServerPort();
+                }
+                gvSocket.init(username, pwd, conn, UI, this.localPort);
 
 
             } else if (connection.equals("RMI")) {
@@ -92,6 +97,24 @@ public class GameView {
             } else if (UI.equals("GUI")) {
 
             }
+        }
+    }
+
+    public void showPlayerAlreadyOnlineAlert(){
+        this.login = false;
+        if(this.UI.equals("GUI")){
+            ((LoginFXMLController) fxmlController).showPlayerAlreadyOnlineAlert();
+        } else if(this.UI.equals("CLI")){
+
+        }
+    }
+
+    public void showWrongPwdAlert(){
+        this.login = false;
+        if(this.UI.equals("GUI")){
+            ((LoginFXMLController) fxmlController).showWrongPwdAlert();
+        } else if(this.UI.equals("CLI")){
+
         }
     }
 

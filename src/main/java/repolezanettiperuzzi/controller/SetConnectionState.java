@@ -39,7 +39,7 @@ public class SetConnectionState extends ControllerState{
 
         try {
 
-            boolean alreadyRegistered = false;
+            String playerAction = "login";
 
             //playerID, pwd, RMI/Socket, CLI/GUI, addr, port
             for (Object o : jsonArr) {
@@ -49,16 +49,25 @@ public class SetConnectionState extends ControllerState{
 
                 String passwd = (String) player.get("pwd");
 
-                //TODO controllo anche che il giocare aveva scelto una window prima di disconnettersi
-                if (name.equals(playerID) && passwd.equals(pwd)) {
-                    //riconnetto il giocatore
-                    onReconnect();
-                    alreadyRegistered = true;
+                if (name.equals(playerID) && passwd.equals(pwd) && !controller.board.getPlayerByName(playerID).getLiveStatus()) { //mi sto riconnettendo
+                    player.put("connection", connection);
+                    player.put("UI", UI);
+                    player.put("address", addr.toString().substring(1));
+                    player.put("port", port);
+                    playerAction = "reconnect";
+                    break;
+                } else if(name.equals(playerID) && controller.board.getPlayerByName(playerID).getLiveStatus()){ //sto cercando di connettermi con il nome di qualcun'altro che e' online
+                    notifyOnStealAccount(controller, connection, UI, addr.toString().substring(1), port);
+                    playerAction = "";
+                    break;
+                } else if(name.equals(playerID) && !passwd.equals(pwd) && !controller.board.getPlayerByName(playerID).getLiveStatus()){ //sto cercando di connettermi con il nome di qualcun'altro che e' offline ma pwd sbagliata
+                    notifyOnWrongPassword(controller, connection, UI, addr.toString().substring(1), port);
+                    playerAction = "";
                     break;
                 }
             }
 
-            if(!alreadyRegistered) {
+            if(playerAction.equals("login")) {
 
                 JSONObject player = new JSONObject();
                 player.put("playerID", playerID);
@@ -80,6 +89,21 @@ public class SetConnectionState extends ControllerState{
                 board.addPlayer(playerID, connection, UI, addr.toString().substring(1), port);
                 //dico al giocatore che e' stato registrato
                 notifyOnRegister(controller, connection, UI, addr.toString().substring(1), port);
+            } else if(playerAction.equals("reconnect")){
+                Player p = board.getPlayerByName(playerID);
+                p.setConnection(connection); //problema se mi arriva prima una waitingok
+                p.setUI(UI);
+                p.setAddress(addr.toString().substring(1));
+                p.setPort(port);
+
+
+                try (FileWriter file = new FileWriter("gamedata/playersinfo.json")) {
+                    file.write(jsonArr.toJSONString());
+                } catch (IOException e) {
+                    System.out.println("Cannot write on file");
+                }
+                controller.board.getPlayerByName(playerID).setLiveStatus(true);
+                onReconnect(controller, connection, UI, addr.toString().substring(1), port, playerID);
             }
 
         } finally {
@@ -88,12 +112,34 @@ public class SetConnectionState extends ControllerState{
 
     }
 
-    //TODO fare la reconnect
-    public void onReconnect(){
-
+    public void onReconnect(Controller controller, String connection, String UI, String address, int port, String playerID) throws IOException {
+        if(connection.equals("Socket")){
+            HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
+            handleSocket.onReconnect(playerID, connection, UI);
+        } else if(connection.equals("RMI")){
+            //TODO controllo anche che il giocare aveva scelto una window prima di disconnettersi
+        }
     }
 
-    public void notifyOnRegister(Controller controller, String connection, String UI, String address, int port) throws IOException, ParseException {
+    public void notifyOnStealAccount(Controller controller, String connection, String UI, String address, int port) throws IOException {
+        if(connection.equals("Socket")){
+            HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
+            handleSocket.notifyOnStealAccount();
+        } else if(connection.equals("RMI")){
+
+        }
+    }
+
+    public void notifyOnWrongPassword(Controller controller, String connection, String UI, String address, int port) throws IOException {
+        if(connection.equals("Socket")){
+            HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
+            handleSocket.notifyOnWrongPassword();
+        } else if(connection.equals("RMI")){
+
+        }
+    }
+
+    public void notifyOnRegister(Controller controller, String connection, String UI, String address, int port) throws IOException {
         if(connection.equals("Socket")){
             HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
             handleSocket.notifyOnRegister(connection, UI);
@@ -105,13 +151,13 @@ public class SetConnectionState extends ControllerState{
     public void waitingRoomLoaded(String playerName){
         for(int i = 0; i<controller.board.getNPlayers(); i++){
             if(controller.board.getPlayer(i).getName().equals(playerName)){
-                controller.board.getPlayer(i).setWaitingRoomStatus(true);
+                controller.board.getPlayer(i).setLastScene("waitingRoom");
                 break;
             }
         }
     }
 
-    public void notifyOnUpdatedPlayer() throws IOException, ParseException {
+    public void notifyOnUpdatedPlayer() {
         int timer = 0;
         if(controller.board.getPlayersOnline()==2 && !controller.isTimerOn()){
             timer = 100;
@@ -121,12 +167,11 @@ public class SetConnectionState extends ControllerState{
             controller.cancelTimer();
         } else if(controller.isTimerOn()){
             //TODO uso metodo del controller che mi ottiene il tempo rimasto al timer gia' fatto partire prima
-            //per ora gli metto un numero a caso
-            timer = 100;
+            timer = controller.getCurrentTime();
         }
 
         for(int i = 0; i<controller.board.getNPlayers(); i++){
-            if(controller.board.getPlayer(i).getWaitingRoomStatus() && controller.board.getPlayer(i).getLiveStatus()) {
+            if(controller.board.getPlayer(i).checkLastScene("waitingRoom") && controller.board.getPlayer(i).getLiveStatus()) {
                 System.out.println("NPlayer " + i);
                 Player player = controller.board.getPlayers().get(i);
                 if (player.getConnection().equals("Socket")) {

@@ -29,7 +29,7 @@ public class HandlerControllerSocket implements Runnable{
     private String[] param;
 
     //struttura messaggo: playerID action parameters
-    public HandlerControllerSocket(Controller controller, Socket socket) throws IOException, ParseException {
+    public HandlerControllerSocket(Controller controller, Socket socket) throws IOException {
         this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.socket = socket;
         this.addr = socket.getInetAddress();
@@ -62,7 +62,7 @@ public class HandlerControllerSocket implements Runnable{
         switch(action) {
             case "init":
                 controller.setState(new SetConnectionState());
-                initializePlayer();
+                ((SetConnectionState)controller.getState()).initializePlayer(playerID, param[0], addr, Integer.parseInt(param[3]), param[1], param[2]);
                 break;
             case "waitingok": //il client ha avviato la sua view della waiting room
                 controller.setState(new SetConnectionState());
@@ -89,24 +89,11 @@ public class HandlerControllerSocket implements Runnable{
         }
     }
 
-    private void initializePlayer() throws IOException, ParseException {
-        String pwd = param[0];
-        String connection = param[1];
-        String UI = param[2];
-        this.port = Integer.parseInt(param[3]);
-
-        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
-        out.println("registered "+connection+" "+UI);
-        out.close();
-        this.in.close();
-        this.socket.close();
-        ((SetConnectionState)controller.getState()).initializePlayer(playerID, pwd, addr, port, connection, UI);
-    }
-
     public void notifyOnRegister(String connection, String UI) throws IOException {
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
         out.println("registered "+connection+" "+UI);
         out.close();
+        this.socket.close();
     }
 
     public void notifyOnUpdatedPlayer(int timer) throws IOException {
@@ -127,6 +114,34 @@ public class HandlerControllerSocket implements Runnable{
         out.close();
         this.socket.close();
 
+    }
+
+    public void onReconnect(String playerID, String connection, String UI) throws IOException {
+        switch(controller.board.getPlayerByName(playerID).getLastScene()){
+            case "waitingRoom":
+                notifyOnRegister(connection, UI);
+                break;
+            case "chooseWindow":
+                //TODO riconnessione in choose window
+                break;
+            case "duringGame":
+                //TODO riconnessione durante la partita
+                break;
+        }
+    }
+
+    public void notifyOnStealAccount() throws IOException {
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+        out.println("notregistered alreadyonline");
+        out.close();
+        this.socket.close();
+    }
+
+    public void notifyOnWrongPassword() throws IOException {
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+        out.println("notregistered wrongpwd");
+        out.close();
+        this.socket.close();
     }
 
     public void askWindow(String message) throws IOException {
