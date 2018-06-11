@@ -20,32 +20,35 @@ public class FetchState extends ControllerState {
 
     private GameBoard board;
     private HashMap<Player,ArrayList<Window>> playersWindowsChoices;
+    private ArrayList<Window> windows;
+    private Controller controller;
 
     @Override
     public void doAction(Controller controller) throws IOException, ParseException {
 
+        this.controller = controller;
         this.board=controller.board;
         playersWindowsChoices = new HashMap<>();
         InitializeGame init = new InitializeGame();
         init.doAction(board);
-        ArrayList<Window> windows = (ArrayList<Window>) init.getWindows();
-
-
-        for (int i = 0; i < board.getNPlayers(); i++ ){
-
-            if(board.getPlayer(i).getConnection().equals("Socket")){
-
-                playersWindowsChoices.put(board.getPlayer(i),(ArrayList<Window>) new TakeTwoCardWindowAction().doAction(windows));
-                String message = this.windowsToString(playersWindowsChoices.get(board.getPlayer(i)));
-                Socket socket = new Socket(board.getPlayer(i).getAddress(),board.getPlayer(i).getPort());
-                HandlerControllerSocket handler = new HandlerControllerSocket(controller,socket);
-                handler.askWindow(message);
-
-            }else if(board.getPlayer(i).getConnection().equals("RMI")){
+        this.windows = (ArrayList<Window>) init.getWindows();
 
 
 
-            }
+
+    }
+
+    public void sendWindows(Player player) throws IOException {
+
+        if(player.getConnection().equals("Socket")){
+
+            playersWindowsChoices.put(player,(ArrayList<Window>) new TakeTwoCardWindowAction().doAction(windows));
+            String message = this.windowsToString(playersWindowsChoices.get(player));
+            Socket socket = new Socket(player.getAddress(),player.getPort());
+            HandlerControllerSocket handler = new HandlerControllerSocket(this.controller,socket);
+            handler.askWindow(message);
+
+        }else if(player.getConnection().equals("RMI")){
 
         }
 
@@ -62,10 +65,12 @@ public class FetchState extends ControllerState {
 
             for(String line: lines){
 
-                message.append(line);
+                message.append(line.replace(" ","-"));
+                message.append(" ");
 
             }
 
+            message.append("_ ");
         }
 
         return String.valueOf(message);

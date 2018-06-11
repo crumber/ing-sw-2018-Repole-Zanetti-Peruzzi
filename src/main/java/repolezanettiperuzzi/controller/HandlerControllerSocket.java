@@ -155,8 +155,7 @@ public class HandlerControllerSocket implements Runnable{
 
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
-        out.println("choseWindow\n");
-        out.println(message);//windows
+        out.println("chooseWindow "+ message);
         out.close();
         this.socket.close();
 
