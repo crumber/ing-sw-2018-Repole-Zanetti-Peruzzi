@@ -7,12 +7,6 @@ import java.util.List;
 
 public class Lathekin extends ToolCard {
 
-    public Lathekin(){
-
-        id=4;
-
-    }
-
     private int x1Start;
     private int y1Start;
     private int x1End;
@@ -21,6 +15,12 @@ public class Lathekin extends ToolCard {
     private int y2Start;
     private int x2End;
     private int y2End;
+
+    public Lathekin(){
+
+        id=4;
+
+    }
 
     //check that exist start/end position, check that there is a die in initial position, check that there isn't a die in end position, check that this die respects all constraint (colour, value and there is die near end position). do it for two dice
     @Override

@@ -5,7 +5,7 @@ import repolezanettiperuzzi.model.Player;
 
 import java.util.List;
 
-public class InsertDieWithCheckAction extends Action{
+public class InsertDieWithCheckAction{
 
     public int doAction(Player player, GameBoard board, List<Integer> parameterForInserDie){
 

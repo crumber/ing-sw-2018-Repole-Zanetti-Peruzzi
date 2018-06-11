@@ -7,16 +7,15 @@ import java.util.List;
 
 public class CorkbackedStraightedge extends ToolCard {
 
+    private int posDieOnDraft;
+    private int whichRow;
+    private int whichColumn;
+
     public CorkbackedStraightedge(){
 
         id=9;
 
     }
-
-    private int posDieOnDraft;
-    private int whichRow;
-    private int whichColumn;
-
 
     //control that there is a die in draft position, that exist window's position, that there isn't die in this position, there aren't dice near this position and die respect bound of box
     @Override

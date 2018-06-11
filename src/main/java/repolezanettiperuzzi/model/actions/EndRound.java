@@ -2,7 +2,7 @@ package repolezanettiperuzzi.model.actions;
 
 import repolezanettiperuzzi.model.GameBoard;
 
-public class EndRound extends Action{
+public class EndRound{
 
     public void doAction(GameBoard board){
 

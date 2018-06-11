@@ -4,8 +4,7 @@ package repolezanettiperuzzi.model.actions;
 import repolezanettiperuzzi.model.Player;
 
 
-public class BeginTurn extends Action{
-
+public class BeginTurn {
 
     public void doAction(Player player){
 

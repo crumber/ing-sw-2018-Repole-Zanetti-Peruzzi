@@ -143,6 +143,15 @@ public class GameView {
         }
     }
 
+    public void enterChooseWIndow(){
+
+        if(this.UI.equals("GUI")){
+            ((WaitingRoomFXMLController) fxmlController).setChooseWindowScene();
+        }else if(this.UI.equals("CLI")){
+
+        }
+    }
+
     public void waitingRoomLoaded() throws IOException {
         if(connection.equals("Socket")){
             gvSocket = new GameViewSocket(this);

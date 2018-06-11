@@ -1,8 +1,8 @@
 package repolezanettiperuzzi.model.actions;
 
-public class Disconnect extends Action{
+public class Disconnect{
 
-    @Override
+
     public void doAction(){
 
     }

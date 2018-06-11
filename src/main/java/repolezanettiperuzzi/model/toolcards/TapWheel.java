@@ -7,12 +7,6 @@ import java.util.List;
 
 public class TapWheel extends ToolCard {
 
-    public TapWheel(){
-
-        id=12;
-
-    }
-
     private int x1Start;
     private int y1Start;
     private int x1End;
@@ -23,6 +17,12 @@ public class TapWheel extends ToolCard {
     private int y2End;
     private int whichRound;
     private int whichDieOnRoundTrack;
+
+    public TapWheel(){
+
+        id=12;
+
+    }
 
     //control for all dice (two) that exist start/end position,that each dice have same colour , that there is die in start position, that there isn't die in end position, control that die respects all bound(colour value and there is die near end position)
     @Override

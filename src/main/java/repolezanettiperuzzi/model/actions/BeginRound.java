@@ -2,7 +2,7 @@ package repolezanettiperuzzi.model.actions;
 
 import repolezanettiperuzzi.model.GameBoard;
 
-public class BeginRound extends Action {
+public class BeginRound {
 
     private static int firstPlayerIndex = 0;
 

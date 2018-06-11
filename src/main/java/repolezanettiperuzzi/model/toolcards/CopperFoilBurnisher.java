@@ -6,17 +6,16 @@ import java.util.List;
 
 public class CopperFoilBurnisher extends ToolCard{
 
-    public CopperFoilBurnisher(){
-
-        id=3;
-
-    }
-
     private int xStart;
     private int yStart;
     private int xEnd;
     private int yEnd;
 
+    public CopperFoilBurnisher(){
+
+        id=3;
+
+    }
 
     //check that the position exists, that there is a die in the initial position, that there isn't a die in the final position, that respects bound (colour and die near final position)
     @Override

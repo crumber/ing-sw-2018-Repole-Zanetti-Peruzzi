@@ -40,14 +40,12 @@ public class HandlerControllerSocket implements Runnable{
     public void run() {
         try {
             handleMessage();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (IOException | ParseException | InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public void handleMessage() throws IOException, ParseException {
+    public void handleMessage() throws IOException, ParseException, InterruptedException {
 
         String[] line = in.readLine().split(" ");
 
@@ -142,6 +140,15 @@ public class HandlerControllerSocket implements Runnable{
         out.println("notregistered wrongpwd");
         out.close();
         this.socket.close();
+    }
+
+    public void notifyOnChooseWindow() throws IOException {
+
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+        out.println("changeView chooseWindow");
+        out.close();
+        this.socket.close();
+
     }
 
     public void askWindow(String message) throws IOException {

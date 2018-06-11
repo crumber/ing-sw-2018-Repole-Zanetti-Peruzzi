@@ -8,13 +8,13 @@ import java.util.List;
 
 public class GrindingStone extends ToolCard {
 
+    private int posDieOnDraft;
+
     public GrindingStone(){
 
         id=10;
 
     }
-
-    private int posDieOnDraft;
 
     //control that there is die in this position on draft
     @Override

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.*;
 
-public class InitializeGame extends Action{
+public class InitializeGame{
 
     private ArrayList<Colour> privateObjective;
     private ArrayList<Window> windows;

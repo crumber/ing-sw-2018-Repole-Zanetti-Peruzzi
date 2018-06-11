@@ -2,7 +2,7 @@ package repolezanettiperuzzi.model.actions;
 
 import repolezanettiperuzzi.model.GameBoard;
 
-public class ParametersRequestCardAction extends Action{
+public class ParametersRequestCardAction{
 
     //manca la 8 la 7 va in nothing perche non ha bisogno di niente
 

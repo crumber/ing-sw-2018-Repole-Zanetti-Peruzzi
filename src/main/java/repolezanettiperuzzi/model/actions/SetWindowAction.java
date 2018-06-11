@@ -3,7 +3,7 @@ package repolezanettiperuzzi.model.actions;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.Window;
 
-public class SetWindowAction extends Action {
+public class SetWindowAction{
 
     public void doAction(Player player, Window choice){
 

@@ -5,7 +5,7 @@ import repolezanettiperuzzi.model.GameBoard;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreatedListForCardAction extends Action{
+public class CreatedListForCardAction{
 
     public List<Integer> doAction (String clientAnswers, GameBoard board, int whichToolCard){
 

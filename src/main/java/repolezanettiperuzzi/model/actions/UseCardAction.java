@@ -7,7 +7,7 @@ import repolezanettiperuzzi.model.toolcards.FluxRemover;
 import java.util.List;
 
 
-public class UseCardAction extends Action{
+public class UseCardAction {
 
     //For all card and tool card 11's final effect
     public int doAction(Player player, GameBoard board, int whichToolCard, List<Integer> parameterForCard){

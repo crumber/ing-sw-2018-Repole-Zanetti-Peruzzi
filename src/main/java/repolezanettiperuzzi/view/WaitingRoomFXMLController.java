@@ -111,4 +111,15 @@ public class WaitingRoomFXMLController extends FXMLController{
         }
         Platform.runLater(() -> playersText.setText(textContent));
     }
+
+    public void setChooseWindowScene(){
+
+        this.cancelTimer();
+        Platform.runLater(() -> {
+            timerText.setX(stage.getScene().getWidth()/2);
+            timerText.setY(stage.getScene().getHeight()/2);
+            timerText.setText("loading choose window scene");
+        });
+
+    }
 }

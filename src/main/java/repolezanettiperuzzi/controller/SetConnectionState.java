@@ -7,12 +7,11 @@ import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InterruptedIOException;
 import java.net.InetAddress;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.*;
 
@@ -24,7 +23,7 @@ public class SetConnectionState extends ControllerState{
     private Controller controller;
 
     @Override
-    public void doAction(Controller controller) throws IOException, ParseException {
+    public void doAction(Controller controller) {
 
         this.controller = controller;
         this.board = controller.board;
@@ -157,14 +156,15 @@ public class SetConnectionState extends ControllerState{
         }
     }
 
-    public void notifyOnUpdatedPlayer() {
+    public void notifyOnUpdatedPlayer() throws IOException, ParseException, InterruptedException {
         int timer = 0;
         if(controller.board.getPlayersOnline()==2 && !controller.isTimerOn()){
-            timer = 100;
-            controller.setTimer();
+            timer = 60;
+            controller.setTimer("setConnection");
         } else if(controller.board.getPlayersOnline()==1 && controller.isTimerOn()){
             timer = -1;
             controller.cancelTimer();
+
         } else if(controller.isTimerOn()){
             //TODO uso metodo del controller che mi ottiene il tempo rimasto al timer gia' fatto partire prima
             timer = controller.getCurrentTime();
@@ -187,6 +187,14 @@ public class SetConnectionState extends ControllerState{
                 }
             }
         }
+
+        if(controller.board.getPlayersOnline()==4 ){
+
+            Thread.sleep(2000);
+            this.sendChooseWindow();
+            controller.cancelTimer();
+
+        }
         System.out.println("");
     }
 
@@ -208,6 +216,61 @@ public class SetConnectionState extends ControllerState{
             file.close();
         } catch (IOException e) {
             System.out.println("Cannot write on file");
+        }
+    }
+
+    //notifia i client ancora connessi che si sta passando alla fase di scelta della window e cancella quelli offline dal file json e dalla board
+    public void sendChooseWindow() throws IOException, ParseException {
+
+        for(int i = 0; i<board.getNPlayers(); i++){
+
+            Player player = board.getPlayer(i);
+
+            if(player.checkLastScene("waitingRoom") && player.getLiveStatus()) {
+
+                if (player.getConnection().equals("Socket")) {
+
+                    try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+
+                        HandlerControllerSocket handlerControllerSocket = new HandlerControllerSocket(controller, socket);
+                        handlerControllerSocket.notifyOnChooseWindow();
+
+                    } catch (IOException e) {
+                        LOGGER.log(Level.WARNING, "IOException: ", e); //da verificare
+                    }
+                } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
+
+                }
+            }else {
+
+                JSONParser parser = new JSONParser();
+                FileReader jsonIn = new FileReader("gamedata/playersinfo.json");
+                JSONArray jsonArr = (JSONArray) parser.parse(jsonIn);
+
+                for (Object o : jsonArr) {
+
+                    JSONObject playerJSon = (JSONObject) o;
+                    String name = (String) playerJSon.get("playerID");
+
+                    if (name.equals(player.getName())) {
+
+                        jsonArr.remove(o);
+                        break;
+
+                    }
+
+                }
+
+                try (FileWriter file = new FileWriter("gamedata/playersinfo.json")) {
+
+                    file.write(jsonArr.toJSONString());
+
+                }
+
+                jsonIn.close();
+
+
+            }
         }
     }
 }

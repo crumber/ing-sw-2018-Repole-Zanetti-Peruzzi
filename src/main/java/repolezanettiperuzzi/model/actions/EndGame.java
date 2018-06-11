@@ -1,8 +1,8 @@
 package repolezanettiperuzzi.model.actions;
 
-public class EndGame extends Action{
+public class EndGame{
 
-    @Override
+
     public void doAction(){
 
     }

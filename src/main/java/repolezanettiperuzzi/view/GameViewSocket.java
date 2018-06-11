@@ -54,10 +54,12 @@ public class GameViewSocket implements Runnable{
                 break;
             case "updatedplayers":  // setTimer player1 player2
                 System.out.println("updatedPlayers");
+
                 String players[] = new String[line.length-2];
                 for(int i = 0; i<players.length; i++){
                     players[i] = line[i+2];
                 }
+
                 gameView.refreshWaitingRoom(Integer.parseInt(line[1]), players);
                 break;
             case "notregistered":
@@ -67,6 +69,10 @@ public class GameViewSocket implements Runnable{
                     gameView.showWrongPwdAlert();
                 }
                 break;
+            case "changeView":
+                if(line[1].equals("chooseWindow")){
+                    gameView.enterChooseWIndow();
+                }
         }
     }
 

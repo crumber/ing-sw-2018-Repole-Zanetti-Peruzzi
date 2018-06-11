@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameBoard {
+
     private ArrayList<Player> players;
     private ArrayList<Die> diceDraft;
     private PublicCard[] publicCards;
@@ -40,6 +41,12 @@ public class GameBoard {
 
         players.add(new Player(playerName, connection, UI, address, port));
         this.nPlayers++;
+
+    }
+
+    public void removePlayer(int playerIndex){
+
+        this.players.remove(playerIndex);
 
     }
 

@@ -1,17 +1,13 @@
 package repolezanettiperuzzi.controller;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 
 import java.io.*;
-import java.net.InetAddress;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 
 public class Controller {
 
@@ -23,6 +19,9 @@ public class Controller {
     protected ControllerState currentState;
 
     private boolean isTimerOn;
+
+    private Timer timer;
+    private ControllerTimer task;
 
     public Controller(List<Player> view, GameBoard board){
 
@@ -37,6 +36,7 @@ public class Controller {
 
         this.currentState=nextState;
         this.currentAction();
+
     }
 
     public ControllerState getState(){
@@ -49,19 +49,28 @@ public class Controller {
         return this.isTimerOn;
     }
 
-    public void setTimer(){
+    public void setTimer(String timerType){
+
         //TODO creare il timer su un altro thread
+        this.task = new ControllerTimer(timerType,this);
+        this.timer = this.task.getTimer();
+        timer.schedule(this.task,0,1000);
         this.isTimerOn = true;
+
     }
 
     public void cancelTimer(){
+
         //TODO cancello il timer
+        this.timer.cancel();
+        this.timer.purge();
         this.isTimerOn = false;
+        
     }
 
     public int getCurrentTime(){
         if(isTimerOn){
-            return 100;//TODO chiamo la getCurrentTime() dal Timer creato
+            return this.task.getCurrentTime();
         } else {
             return -1;
         }
@@ -73,6 +82,8 @@ public class Controller {
         this.currentState.doAction(this);
 
     }
+
+    //TODO metodo setTimer
 
 
 }

@@ -7,14 +7,11 @@ import repolezanettiperuzzi.model.GameBoard;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.rmi.AlreadyBoundException;
-import java.rmi.RemoteException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
 public class MasterGame {
-
     private int nPlayer;
     private static GameBoard board;
 
@@ -29,8 +26,6 @@ public class MasterGame {
         ControllerRMIServer rmiServer = new ControllerRMIServer(controller);
         //rmiServer.startServer();
 
-
-
         int port = 8080;
 
         ExecutorService executor = Executors.newCachedThreadPool();
@@ -44,6 +39,7 @@ public class MasterGame {
                 System.out.println("Server ready");
                 Socket socket = serverSocket.accept();
                 executor.submit(new HandlerControllerSocket(controller, socket));
+
             }
 
 

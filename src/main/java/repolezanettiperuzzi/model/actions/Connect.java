@@ -1,6 +1,6 @@
 package repolezanettiperuzzi.model.actions;
 
-public class Connect extends Action{
+public class Connect{
 
     public void doAction(){
 

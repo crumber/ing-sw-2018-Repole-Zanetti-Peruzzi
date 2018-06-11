@@ -8,15 +8,15 @@ import java.util.List;
 
 public class LensCutter extends ToolCard {
 
+    private int posDieOnDraft;
+    private int whichRound;
+    private int whichDieRound;
+
     public LensCutter(){
 
         id=5;
 
     }
-
-    private int posDieOnDraft;
-    private int whichRound;
-    private int whichDieRound;
 
     //check that there is a die in this position on draft and check that there is a die in this position on round track
     @Override
