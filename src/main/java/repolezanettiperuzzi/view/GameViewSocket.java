@@ -26,7 +26,7 @@ public class GameViewSocket implements Runnable{
 
     public GameViewSocket(GameView gameView) throws IOException {
         this.gameView = gameView;
-        this.socket = new Socket("192.168.43.101", 8080);
+        this.socket = new Socket("127.0.0.1", 8080);
     }
 
     @Override

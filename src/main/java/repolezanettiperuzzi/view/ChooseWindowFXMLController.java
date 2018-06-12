@@ -91,28 +91,6 @@ public class ChooseWindowFXMLController extends FXMLController{
 
     }
 
-    public void refreshPlayers(int timerDuration, String[] players){
-        if(timerDuration>0){
-            if(this.timerCountdown!=null){
-                this.timerCountdown.stop();
-                this.timerCountdown = null;
-            }
-            setTimer(timerDuration);
-        } else if (timerDuration==-1){
-            if(this.timerCountdown!=null){
-                this.timerCountdown.stop();
-                this.timerCountdown = null;
-            }
-            Platform.runLater(() -> timerText.setText(""));
-        }
-
-        textContent = "";
-        for(int i = 0; i<players.length; i++){
-            textContent += players[i]+"\n";
-        }
-        Platform.runLater(() -> playersText.setText(textContent));
-    }
-
     public void setChooseWindowScene(){
 
         this.cancelTimer();
