@@ -13,8 +13,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
-
+/**
+ * Classe che modellizza i mazzi di ToolCards e di PublicCards
+ * @author Giampiero Repole
+ * @author Alessandro Peruzzi
+ * @author Andrea Zanetti
+ */
 public class Deck {
 
     private ArrayList<PublicCard> publicCardsDeck;
@@ -23,9 +29,17 @@ public class Deck {
     int nPublicCards;
     int nToolCards;
 
+    /**
+     * Costruttore della classe
+     * @param publicCardsFolder percorso della cartella in cui si trovano i file che contengono
+     *                          le informazioni sulle PublicCards
+     * @param toolCardsFolder percorso della cartella in cui si trovano i file che contengono
+     *                        le informazioni sulle ToolCards
+     * @throws IOException se il file non viene correttamente aperto
+     */
     public Deck(String publicCardsFolder, String toolCardsFolder) throws IOException{
-        //faccio -1 perche' conta anche il file .DS_Store
 
+        //faccio -1 perche' conta anche il file .DS_Store
         nPublicCards = new File(publicCardsFolder).list().length-1;
         publicCardsDeck = new ArrayList<>(nPublicCards);
 
@@ -44,12 +58,19 @@ public class Deck {
 
     }
 
-    public ArrayList<PublicCard> getPublicCardsDeck(){
+    /**
+     * @return mazzo di PublicCards
+     */
+    public List<PublicCard> getPublicCardsDeck(){
 
         return (ArrayList<PublicCard>) publicCardsDeck.clone();
 
     }
 
+    /**
+     * Pesca casualmente una PublicCard dal mazzo
+     * @return PublicCard pescata
+     */
     public PublicCard drawPublicCard(){
         //shuffle cards and take first card in the ArrayList
         Collections.shuffle(this.publicCardsDeck);
@@ -57,6 +78,10 @@ public class Deck {
 
     }
 
+    /**
+     * Pesca casualmente una ToolCard dal mazzo
+     * @return ToolCard pescata
+     */
     public ToolCard drawToolCard() {
         //mischia le carte e pesca la prima dell'arrayList rimuovendola
         Collections.shuffle(this.toolCardsDeck);

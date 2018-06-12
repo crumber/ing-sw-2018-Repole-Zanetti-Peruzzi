@@ -2,6 +2,11 @@ package repolezanettiperuzzi.model;
 
 import java.util.Random;
 
+/**
+ * Classe che modellizza i valori assunti da un dado
+ * @author Alessandro Peruzzi
+ * @author Giampiero Repole
+ */
 public enum Value {
 
     ONE(1),
@@ -14,12 +19,21 @@ public enum Value {
     private int value;
     public static final int VALUEMAX=6;
 
-    private Value(int value){
+    /**
+     * Costruttore della classe
+     * @param value valore scelto
+     */
+    Value(int value){
 
         this.value=value;
 
     }
 
+    /**
+     * Trasforma un intero nel Value corrispondente
+     * @param val intero che si vuole trasformare
+     * @return Value corrispondente all'intero
+     */
     public static Value intToValue(int val){
 
         Value valueNum;
@@ -53,12 +67,18 @@ public enum Value {
         return valueNum;
     }
 
+    /**
+     * @return intero corrispondente al Value
+     */
     public int getNumber() {
 
         return value;
 
     }
 
+    /**
+     * @return Value scelto randomicamente
+     */
     public Value randomValue() {
 
         Random random= new Random();

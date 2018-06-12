@@ -14,12 +14,12 @@ public class UseCardAction {
 
         int resultOfAction;
 
-        resultOfAction=board.getToolCards(whichToolCard).check(board,player,parameterForCard);
+        resultOfAction=board.getToolCard(whichToolCard).check(board,player,parameterForCard);
 
         //if check is correct, do active action, reduce player's tokens
         if(resultOfAction==1){
 
-            board.getToolCards(whichToolCard).effect(board,player,parameterForCard);
+            board.getToolCard(whichToolCard).effect(board,player,parameterForCard);
             player.reduceFavorTokens(board.getCostToolCard(whichToolCard));
 
             //increment tool card cost if its cost is 1
@@ -38,13 +38,13 @@ public class UseCardAction {
 
         int resultOfAction;
 
-        resultOfAction=((FluxRemover)board.getToolCards(whichToolCard)).checkPreEffect(board,player,parameterForCard);
+        resultOfAction=((FluxRemover)board.getToolCard(whichToolCard)).checkPreEffect(board,player,parameterForCard);
 
         //if check is correct, do active action, not reduce player's tokens
         if(resultOfAction==1) {
 
             // return +11 -> quest for the client
-            resultOfAction = ((FluxRemover)board.getToolCards(whichToolCard)).preEffect(board, player, parameterForCard);
+            resultOfAction = ((FluxRemover)board.getToolCard(whichToolCard)).preEffect(board, player, parameterForCard);
 
         }
 

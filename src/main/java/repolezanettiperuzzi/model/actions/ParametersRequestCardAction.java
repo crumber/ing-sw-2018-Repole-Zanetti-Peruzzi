@@ -21,7 +21,7 @@ public class ParametersRequestCardAction{
     public String doAction(GameBoard board, int whichToolCard){
 
         String requestForToolCard;
-        int id=board.getToolCards(whichToolCard).getId();
+        int id=board.getToolCard(whichToolCard).getId();
         String typeMess="requestCard ";
         String start="startPos ";
         String end="endPos ";

@@ -11,7 +11,7 @@ public class CreatedListForCardAction{
 
         ArrayList<Integer> parameterForCard=new ArrayList<>();
         String[] clientAnswersArray= clientAnswers.split(" ");
-        int idToolCard= board.getToolCards(whichToolCard).getId();
+        int idToolCard= board.getToolCard(whichToolCard).getId();
 
         //which die on draft and increment or decrement (1 or 0)
         if(idToolCard==1){

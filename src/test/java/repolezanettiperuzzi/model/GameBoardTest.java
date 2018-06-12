@@ -201,8 +201,8 @@ public class GameBoardTest {
         assertEquals(4,boardTest.getId(0));
         assertEquals(7,boardTest.getId(1));
 
-        assertEquals(Lathekin.class,boardTest.getToolCards(0).getClass());
-        assertEquals(GlazingHammer.class,boardTest.getToolCards(1).getClass());
+        assertEquals(Lathekin.class,boardTest.getToolCard(0).getClass());
+        assertEquals(GlazingHammer.class,boardTest.getToolCard(1).getClass());
 
     }
 
@@ -278,7 +278,7 @@ public class GameBoardTest {
         Window tempWindow2 = new Window(name2,5, testBoxes2,"test2");
         boardTest.getPlayer(1).setWindow(tempWindow2);
 
-        ArrayList<Player> players=boardTest.getPlayersCopy();
+        ArrayList<Player> players=(ArrayList<Player>)boardTest.getPlayersCopy();
 
         assertEquals("tom",players.get(0).getName());
 

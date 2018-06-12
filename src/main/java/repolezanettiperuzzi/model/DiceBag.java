@@ -4,11 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Classe che modellizza il sacchetto dei dadi
+ * @author Giampiero Repole
+ * @author Alessandro Peruzzi
+ */
 public class DiceBag {
 
     private ArrayList<Die> bag = new ArrayList<>(90);
     private int size;
 
+    /**
+     * Costruttore della classe
+     */
     public DiceBag(){
 
         for(int i=0;i<=17;i++){
@@ -23,6 +31,11 @@ public class DiceBag {
         this.size=90;
     }
 
+    /**
+     * Pesca casualmente un numDice di dadi dal sacchetto
+     * @param numDice numero di dadi da pescare
+     * @return List di dadi pescati
+     */
     public List<Die> takeDice(int numDice){
 
         ArrayList<Die> diceTaken= new ArrayList<>();
@@ -43,6 +56,10 @@ public class DiceBag {
 
     }
 
+    /**
+     * Pesca casualmente un dado dal sacchetto
+     * @return dado pescato
+     */
     public Die takeDie(){
 
         int max=bag.size();
@@ -57,6 +74,10 @@ public class DiceBag {
 
     }
 
+    /**
+     * Inserisce un dado nel sacchetto
+     * @param d dado da inserire
+     */
     public void setDieInBag(Die d) {
 
         bag.add(d);
@@ -64,6 +85,9 @@ public class DiceBag {
 
     }
 
+    /**
+     * @return intero che rappresenta il numero di dadi che contiene il sacchetto
+     */
     public int getSize(){
 
         return this.size;

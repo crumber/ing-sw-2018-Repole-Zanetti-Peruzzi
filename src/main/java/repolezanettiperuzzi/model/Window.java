@@ -1,5 +1,9 @@
 package repolezanettiperuzzi.model;
 
+/**
+ * Classe che modellizza le Windows
+ * @author Giampiero Repole
+ */
 public class Window {
 
     private final String NAME;
@@ -7,6 +11,13 @@ public class Window {
     private final int FAVORTOKENS;
     public final String fileName;
 
+    /**
+     * Costruttore della classe
+     * @param name nome della Window
+     * @param ft FavorToken che assegna in caso venga scelta
+     * @param board caselle della Window
+     * @param fileName nome del file in cui risiedono le informazioni sulla Window
+     */
     public Window(String name, int ft, Box[][] board,String fileName) {
 
         this.NAME = name;
@@ -22,7 +33,10 @@ public class Window {
         }
     }
 
-    //copy constructor
+    /**
+     * Costruttore che crea una copia di una Window passatagli come parametro
+     * @param w Window da copiare
+     */
     public Window(Window w){
         this.NAME = w.NAME;
         this.boardBox = new Box[4][5];
@@ -37,6 +51,13 @@ public class Window {
         this.fileName=w.fileName;
     }
 
+    /**
+     * Inserisce un dado nella casella desiderata
+     * @param d dado da inserire
+     * @param x colonna della casella
+     * @param y riga della casella
+     * @param restriction restrizioni della casella da verificare
+     */
     public void insertDie(Die d, int x, int y, String restriction){
 
         this.boardBox[x][y].setDie(d,restriction);
