@@ -1,12 +1,6 @@
 package repolezanettiperuzzi.view;
 
-import repolezanettiperuzzi.controller.HandlerSkeletonRMI;
-import repolezanettiperuzzi.controller.HandlerStubRMI;
-
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
+import repolezanettiperuzzi.common.HandlerSkeletonRMI;
 
 public class GameViewCLI implements HandlerSkeletonRMI {
 

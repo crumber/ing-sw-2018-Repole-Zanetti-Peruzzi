@@ -1,5 +1,7 @@
 package repolezanettiperuzzi.controller;
 
+import repolezanettiperuzzi.common.HandlerStubRMI;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 

@@ -40,7 +40,6 @@ public class Controller {
     }
 
     public ControllerState getState(){
-
         return this.currentState;
 
     }

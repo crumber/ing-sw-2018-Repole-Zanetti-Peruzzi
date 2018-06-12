@@ -1,7 +1,6 @@
 package repolezanettiperuzzi.view;
 
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -9,26 +8,20 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import repolezanettiperuzzi.view.modelwrapper.WindowClient;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 
-public class WaitingRoomFXMLController extends FXMLController{
+public class ChooseWindowFXMLController extends FXMLController{
 
     private Stage stage;
     private GameView gV;
@@ -52,7 +45,7 @@ public class WaitingRoomFXMLController extends FXMLController{
     private ResourceBundle resources;
 
     // Add a public no-args constructor
-    public WaitingRoomFXMLController()
+    public ChooseWindowFXMLController()
     {
     }
 
@@ -91,7 +84,11 @@ public class WaitingRoomFXMLController extends FXMLController{
     }
 
     public void notifyOnExit() throws IOException {
-        gV.notifyOnExit("waitingRoom");
+        gV.notifyOnExit("chooseWindow");
+    }
+
+    public void viewWindows(ArrayList<WindowClient> windows){
+
     }
 
     public void refreshPlayers(int timerDuration, String[] players){
@@ -131,7 +128,7 @@ public class WaitingRoomFXMLController extends FXMLController{
         controller.setStage(stage);
         FXMLLoader loader = null;
         try {
-            loader = new FXMLLoader(new File("src/main/java/repolezanettiperuzzi/view/ChooseWindowFXML.fxml").toURI().toURL());
+            loader = new FXMLLoader(new File("src/main/java/repolezanettiperuzzi/view/WaitingRoomFXML.fxml").toURI().toURL());
             loader.setController(controller);
             Group root = (Group) loader.load();
             FXMLLoader finalLoader = loader;
@@ -139,7 +136,7 @@ public class WaitingRoomFXMLController extends FXMLController{
                 stage.setScene(new Scene(root, 600, 600));
                 stage.setUserData(finalLoader);
             });
-            gV.chooseWindowSceneLoaded();
+            gV.waitingRoomLoaded();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {

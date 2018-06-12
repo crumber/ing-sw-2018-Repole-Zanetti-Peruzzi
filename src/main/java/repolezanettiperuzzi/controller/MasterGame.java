@@ -24,7 +24,7 @@ public class MasterGame {
 
         //sperando che il server per rmi non blocchi il thread
         ControllerRMIServer rmiServer = new ControllerRMIServer(controller);
-        //rmiServer.startServer();
+        rmiServer.startServer();
 
         int port = 8080;
 
@@ -45,7 +45,6 @@ public class MasterGame {
 
         }
     }
-
 
 
 

@@ -67,6 +67,9 @@ public class HandlerControllerSocket implements Runnable{
                 ((SetConnectionState)controller.getState()).waitingRoomLoaded(playerID);
                 ((SetConnectionState)controller.getState()).notifyOnUpdatedPlayer();
                 break;
+            case "choosewindowok":
+                ((FetchState)controller.getState()).sendWindows(controller.board.getPlayerByName(playerID));
+                break;
             case "exit":
                 switch(param[0]){
                     case "waitingRoom":
