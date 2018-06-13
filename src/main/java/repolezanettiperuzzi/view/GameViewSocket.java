@@ -141,7 +141,8 @@ public class GameViewSocket implements Runnable{
         int m = chosenWindows.get(0).size();
         BoxClient[][] boxMatrix = new BoxClient[n][m];
         for(int i = 0; i < n; i++){
-            boxMatrix[i] = (BoxClient[]) chosenWindows.get(i).toArray();
+            //TODO stampalo per vedere se viene giusto
+            boxMatrix[i] = chosenWindows.get(i).toArray(new BoxClient[0]);
         }
         return boxMatrix;
     }

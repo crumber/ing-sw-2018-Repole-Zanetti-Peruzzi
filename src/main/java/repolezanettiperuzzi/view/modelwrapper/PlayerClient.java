@@ -73,7 +73,7 @@ public class PlayerClient {
     }
 
     public void setConnection(String address){
-        this.address = address;
+        this.connection = connection;
     }
 
     public void setUI(String UI){

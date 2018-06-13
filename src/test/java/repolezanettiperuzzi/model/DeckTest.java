@@ -18,11 +18,11 @@ public class DeckTest {
     public void testDrawPublicCard() throws IOException {
 
         testDeck=new Deck("cards/publiccards","cards/toolcards");
-        ArrayList<PublicCard> beforeDraw=testDeck.getPublicCardsDeck();
+        ArrayList<PublicCard> beforeDraw=(ArrayList<PublicCard>)testDeck.getPublicCardsDeck();
         assertEquals(10,beforeDraw.size());
 
         PublicCard cardPublic=testDeck.drawPublicCard();
-        ArrayList<PublicCard> afterDraw=testDeck.getPublicCardsDeck();
+        ArrayList<PublicCard> afterDraw=(ArrayList<PublicCard>)testDeck.getPublicCardsDeck();
         assertEquals(9,afterDraw.size());
 
     }
