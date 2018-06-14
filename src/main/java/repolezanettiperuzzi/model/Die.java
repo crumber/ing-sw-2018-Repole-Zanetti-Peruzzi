@@ -2,7 +2,9 @@ package repolezanettiperuzzi.model;
 
 /**
  * Classe che modellizza un dado
+ * @author Alessandro Peruzzi
  * @author Giampiero Repole
+ * @author Andrea Zanetti
  */
 public class Die {
 

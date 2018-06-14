@@ -7,7 +7,6 @@ import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -191,7 +190,7 @@ public class SetConnectionState extends ControllerState{
         if(controller.board.getPlayersOnline()==4 ){
 
             Thread.sleep(2000);
-            this.sendChooseWindow();
+            this.notifyOnBeginChooseWindow();
             controller.cancelTimer();
 
         }
@@ -220,7 +219,7 @@ public class SetConnectionState extends ControllerState{
     }
 
     //notifia i client ancora connessi che si sta passando alla fase di scelta della window e cancella quelli offline dal file json e dalla board
-    public void sendChooseWindow() throws IOException, ParseException {
+    public void notifyOnBeginChooseWindow() throws IOException, ParseException {
 
         for(int i = 0; i<board.getNPlayers(); i++){
 

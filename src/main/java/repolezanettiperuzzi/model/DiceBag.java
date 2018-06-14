@@ -8,6 +8,7 @@ import java.util.Random;
  * Classe che modellizza il sacchetto dei dadi
  * @author Giampiero Repole
  * @author Alessandro Peruzzi
+ * @author Andrea Zanetti
  */
 public class DiceBag {
 

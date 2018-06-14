@@ -72,7 +72,7 @@ public class PlayerClient {
         this.liveStatus = status;
     }
 
-    public void setConnection(String address){
+    public void setConnection(String connection){
         this.connection = connection;
     }
 

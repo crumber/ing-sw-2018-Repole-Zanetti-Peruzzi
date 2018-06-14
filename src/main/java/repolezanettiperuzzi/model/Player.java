@@ -3,6 +3,8 @@ package repolezanettiperuzzi.model;
 /**
  * Classe che modellizza il giocatore
  * @author Andrea Zanetti
+ * @author Giampiero Repole
+ * @author Alessandro Peruzzi
  */
 public class Player{
 

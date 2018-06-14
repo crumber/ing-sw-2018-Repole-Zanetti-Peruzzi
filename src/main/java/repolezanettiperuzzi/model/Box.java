@@ -4,6 +4,7 @@ package repolezanettiperuzzi.model;
  * Classe che definisce una casella della window
  * @author Giampiero Repole
  * @author Alessandro Peruzzi
+ * @author Andrea Zanetti
  */
 public class Box {
 

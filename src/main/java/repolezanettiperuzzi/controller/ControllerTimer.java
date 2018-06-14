@@ -32,6 +32,7 @@ public class ControllerTimer extends TimerTask {
                 break;
 
             case "chooseWindow" :
+                this.nextState = new BeginRoundState();
                 break;
 
             case "playerTurn" :
@@ -57,12 +58,16 @@ public class ControllerTimer extends TimerTask {
 
                 case "setConnection" :
 
-                    SetConnectionState state = (SetConnectionState) controller.getState();
+                    SetConnectionState setConnectionState = (SetConnectionState) controller.getState();
                     try {
-                        state.sendChooseWindow();
+                        setConnectionState.notifyOnBeginChooseWindow();
                     } catch (IOException | ParseException e) {
                         e.printStackTrace();
                     }
+                    break;
+                case "chooseWindow" :
+
+                    FetchState fetchState = (FetchState) controller.getState();
                     break;
 
                 default :

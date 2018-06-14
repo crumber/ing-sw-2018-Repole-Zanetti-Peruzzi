@@ -16,12 +16,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
+
 public class FetchState extends ControllerState {
 
     private GameBoard board;
     private HashMap<Player,ArrayList<Window>> playersWindowsChoices;
     private ArrayList<Window> windows;
     private Controller controller;
+    private int readyPlayers = 0;
 
     @Override
     public void doAction(Controller controller) throws IOException, ParseException {
@@ -32,9 +34,6 @@ public class FetchState extends ControllerState {
         InitializeGame init = new InitializeGame();
         init.doAction(board);
         this.windows = (ArrayList<Window>) init.getWindows();
-
-
-
 
     }
 
@@ -93,6 +92,85 @@ public class FetchState extends ControllerState {
 
     }
 
+    public void checkConnectedPlayers() throws IOException, ParseException {
+
+        if(controller.board.getPlayersOnline()>=2){
+
+            for(int i = 0; i<board.getNPlayers(); i++){
+
+                Player player = board.getPlayer(i);
+
+                if(player.checkLastScene("chooseWindowRoom") && player.getLiveStatus()) {
+
+                    if (player.getConnection().equals("Socket")) {
+
+                        try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+
+                            HandlerControllerSocket handlerControllerSocket = new HandlerControllerSocket(controller, socket);
+                            handlerControllerSocket.notifyOnStartGame();
+
+                        } catch (IOException e) {
+
+                            e.printStackTrace();
+
+                        }
+
+                    } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
+
+                    }
+
+                }else{
+
+                    this.setChosenWindow(player,playersWindowsChoices.get(player).get(0).getName());
+
+                }
+            }
+
+        }else if(controller.board.getPlayersOnline()==1){
+
+            for(int i = 0; i<board.getNPlayers(); i++){
+
+                Player player = board.getPlayer(i);
+
+                if(player.checkLastScene("chooseWindowRoom") && player.getLiveStatus()) {
+
+                    if (player.getConnection().equals("Socket")) {
+
+                        try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+
+                            HandlerControllerSocket handlerControllerSocket = new HandlerControllerSocket(controller, socket);
+                            handlerControllerSocket.notifyWinOnChooseWindow();
+
+                        } catch (IOException e) {
+
+                            e.printStackTrace();
+
+                        }
+                         System.exit(1);//TODO da verificare uscita gioco
+
+                    } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
+
+                    }
+                }
+            }
+
+        }else{
+
+           System.exit(1); //TODO da verificare uscita gioco
+        }
+    }
+
+    public void readyToPlay() throws IOException, ParseException {
+
+        this.readyPlayers++;
+
+        if(this.readyPlayers==controller.board.getPlayersOnline()){
+
+            controller.setState(new BeginRoundState());
+
+        }
+
+    }
 
 
 }

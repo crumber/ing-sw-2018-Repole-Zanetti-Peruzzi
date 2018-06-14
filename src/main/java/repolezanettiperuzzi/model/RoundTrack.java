@@ -6,6 +6,8 @@ import java.util.List;
 /**
  * Classe che modellizza la Round Track del gioco
  * @author Alessandro Peruzzi
+ * @author Giampiero Repole
+ * @author Andrea Zanetti
  */
 public class RoundTrack {
 

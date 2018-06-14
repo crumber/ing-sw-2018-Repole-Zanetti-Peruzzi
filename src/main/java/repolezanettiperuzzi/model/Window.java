@@ -3,6 +3,8 @@ package repolezanettiperuzzi.model;
 /**
  * Classe che modellizza le Windows
  * @author Giampiero Repole
+ * @author Alessandro Peruzzi
+ * @author Andrea Zanetti
  */
 public class Window {
 
@@ -64,6 +66,15 @@ public class Window {
 
     }
 
+
+    /**
+     * Muove un dado da una casella ad un'altra
+     * @param xIn
+     * @param yIn
+     * @param xEnd
+     * @param yEnd
+     * @param restriction
+     */
     public void moveDie(int xIn,int yIn, int xEnd, int yEnd, String restriction) {
 
             this.boardBox[xEnd][yEnd].setDie(this.boardBox[xIn][yIn].removeDie(), restriction);

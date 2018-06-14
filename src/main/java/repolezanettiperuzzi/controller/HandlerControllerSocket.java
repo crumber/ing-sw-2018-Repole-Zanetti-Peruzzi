@@ -164,6 +164,15 @@ public class HandlerControllerSocket implements Runnable{
 
     }
 
+    public void notifyBeginRound() throws IOException {
+
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+        out.println("beginRound");
+        out.close();
+        this.socket.close();
+
+    }
+
     public String askAction() throws IOException {
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
@@ -177,5 +186,21 @@ public class HandlerControllerSocket implements Runnable{
     }
 
 
+    public void notifyOnStartGame() throws IOException {
 
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+        out.println("startGame");
+        out.close();
+        this.socket.close();
+
+    }
+
+    public void notifyWinOnChooseWindow() throws IOException {
+
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+        out.println("winChooseWindow");
+        out.close();
+        this.socket.close();
+
+    }
 }

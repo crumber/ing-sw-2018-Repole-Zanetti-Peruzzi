@@ -6,6 +6,7 @@ import java.util.Random;
  * Classe che modellizza i valori assunti da un dado
  * @author Alessandro Peruzzi
  * @author Giampiero Repole
+ * @author Andrea Zanetti
  */
 public enum Value {
 

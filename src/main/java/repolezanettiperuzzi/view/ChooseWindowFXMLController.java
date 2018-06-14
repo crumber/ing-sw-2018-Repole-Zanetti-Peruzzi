@@ -89,6 +89,8 @@ public class ChooseWindowFXMLController extends FXMLController{
 
     public void viewWindows(ArrayList<WindowClient> windows){
 
+        
+
     }
 
     public void setChooseWindowScene(){
