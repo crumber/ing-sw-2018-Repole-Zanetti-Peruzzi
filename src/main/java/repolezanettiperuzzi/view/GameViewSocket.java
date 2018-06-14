@@ -147,6 +147,13 @@ public class GameViewSocket implements Runnable{
         return boxMatrix;
     }
 
+    public void sendChosenWindow(String username, String windowName) throws IOException {
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        out.println(username + " chosenwindow "+windowName);
+        out.close();
+        socket.close();
+    }
+
     public int getLocalServerPort(){
         return this.localServerPort;
     }

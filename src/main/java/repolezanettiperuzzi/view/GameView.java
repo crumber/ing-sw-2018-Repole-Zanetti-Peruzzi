@@ -150,6 +150,15 @@ public class GameView {
         }
     }
 
+    public void sendChosenWindow(String windowName) throws IOException {
+        if(connection.equals("Socket")){
+            gvSocket = new GameViewSocket(this);
+            gvSocket.sendChosenWindow(username, windowName);
+        } else if(connection.equals("RMI")){
+
+        }
+    }
+
     public String getConnection(){
         return this.connection;
     }

@@ -70,6 +70,9 @@ public class HandlerControllerSocket implements Runnable{
             case "choosewindowok":
                 ((FetchState)controller.getState()).sendWindows(controller.board.getPlayerByName(playerID));
                 break;
+            case "chosenwindow":
+                ((FetchState)controller.getState()).setChosenWindow(controller.board.getPlayerByName(param[0]), param[1]);
+                break;
             case "exit":
                 switch(param[0]){
                     case "waitingRoom":
