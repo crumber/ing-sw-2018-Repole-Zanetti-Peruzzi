@@ -88,6 +88,7 @@ public class BoxTest {
         testBox = new Box();
         testBox.setDie(die,"both");
         assertSame(testBox.die,die);
+        assertEquals(false,testBox.setDie(die,"eeee"));
 
         //box with colour bound
         testBox.removeDie();

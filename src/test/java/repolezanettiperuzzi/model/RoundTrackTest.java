@@ -58,6 +58,10 @@ public class RoundTrackTest {
 
         testRoundTrack.setDieOnRoundTrack(0,2, dieTest);
         assertTrue(testRoundTrack.getDieRoundTrack(0,2)==dieTest);
+
+        assertTrue(testRoundTrack.getDieRoundTrack(120,2)==null);
+        assertTrue(testRoundTrack.getDieRoundTrack(0,212)==null);
+
     }
 
 }

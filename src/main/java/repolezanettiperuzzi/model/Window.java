@@ -178,7 +178,7 @@ public class Window {
 
             return true;
 
-        } else if ((y + 1 < boardBox[0].length) && (boardBox[x][y + 1].die != null) && boardBox[x][y + 1].die.getColourDie().equals(d.getColourDie())) {
+        } else if ((y + 1 < boardBox[0].length) && boardBox[x][y + 1].die != null && boardBox[x][y + 1].die.getColourDie().equals(d.getColourDie())) {
 
             return true;
 
@@ -203,7 +203,7 @@ public class Window {
 
             return true;
 
-        } else if ((y + 1 < boardBox[0].length) && (boardBox[x][y + 1].die != null) && boardBox[x][y + 1].die.getValueDie().equals(d.getValueDie())) {
+        } else if ((y + 1 < boardBox[0].length) && boardBox[x][y + 1].die != null && boardBox[x][y + 1].die.getValueDie().equals(d.getValueDie())) {
 
             return true;
 

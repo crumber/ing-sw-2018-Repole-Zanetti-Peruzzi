@@ -104,10 +104,12 @@ public class TapWheelTest {
 
         assertEquals(1,testPublicCard.check(board,player,parameterforcard));
 
+        //testo errore su move one die dovuto alla posizione non esistente nella window
         parameterforcard.add(3,1234);
 
         assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
 
+        //testo che mi ritorni errore -21 dovuto al fatto che non esiste un dado nella posizione scelta del round track
         parameterforcard.clear();
         parameterforcard.add(0);
         parameterforcard.add(0);
@@ -122,6 +124,7 @@ public class TapWheelTest {
 
         assertEquals(-21,testPublicCard.check(board,player,parameterforcard));
 
+        //testo che mi ritorni errore -22 dovuto al fatto che i dadi sono di un colore diverso da quello scelto nel round track
         parameterforcard.clear();
         parameterforcard.add(0);
         parameterforcard.add(0);
@@ -131,6 +134,24 @@ public class TapWheelTest {
         parameterforcard.add(1);
         parameterforcard.add(3);
         parameterforcard.add(1);
+        parameterforcard.add(1);
+        parameterforcard.add(2);
+
+        assertEquals(-22,testPublicCard.check(board,player,parameterforcard));
+
+        //testo errore -22 dovuto al diverso colore dei 2 dadi da muovere scelti
+
+        windowTest.insertDie(die3,3,1,"none");
+
+        parameterforcard.clear();
+        parameterforcard.add(0);
+        parameterforcard.add(0);
+        parameterforcard.add(2);
+        parameterforcard.add(0);
+        parameterforcard.add(3);
+        parameterforcard.add(1);
+        parameterforcard.add(0);
+        parameterforcard.add(2);
         parameterforcard.add(1);
         parameterforcard.add(2);
 

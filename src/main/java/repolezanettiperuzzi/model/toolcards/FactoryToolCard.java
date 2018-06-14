@@ -1,7 +1,5 @@
 package repolezanettiperuzzi.model.toolcards;
 
-import repolezanettiperuzzi.model.publiccards.ColorVariety;
-
 public class FactoryToolCard {
     public static ToolCard getToolCard(String criteria)
     {
@@ -29,7 +27,7 @@ public class FactoryToolCard {
             return new RunningPliers();
         else if ( criteria.equals("tc12") )
             return new TapWheel();
-
-        return null;
+        else
+            return null;
     }
 }

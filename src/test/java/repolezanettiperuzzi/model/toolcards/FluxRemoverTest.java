@@ -21,8 +21,14 @@ public class FluxRemoverTest {
 
         board.addDieToDraft(die1);
 
+        //testo errore -11 dovuto a valore inserito non compreso tra 1 e 6(per numero mag a 6)
         parameterforcard.add(0);
         parameterforcard.add(1234);
+
+        assertEquals(-11,testPublicCard.check(board,player,parameterforcard));
+
+        //testo errore -11 dovuto a valore inserito non compreso tra 1 e 6 (per numero inf a 0)
+        parameterforcard.add(1,-1234);
 
         assertEquals(-11,testPublicCard.check(board,player,parameterforcard));
 

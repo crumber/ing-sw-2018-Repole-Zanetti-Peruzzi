@@ -166,6 +166,8 @@ public class WindowTest {
 
         d1.setValue(Value.THREE);
 
+        assertFalse(testWindow.controlAllBoundAdjacencies(testDie,2,4));
+
         testWindow.insertDie(d1,1,3,"both");
 
         assertFalse(testWindow.controlAllBoundAdjacencies(testDie,2,3));
@@ -196,6 +198,84 @@ public class WindowTest {
 
         testWindow.moveDie(1,0,1,2,"both");
         assertTrue(testWindow.controlAllBoundAdjacencies(testDie,1,1));
+    }
+
+    @Test
+    public void testControlColourBoundAdjacencies(){
+
+        testBoxes = new Box[4][5];
+
+        for ( int i = 0; i < 4; i++){
+
+            for ( int j = 0; j < 5; j++){
+
+                testBoxes[i][j]= new Box(Value.ONE);
+
+            }
+        }
+        name = "Virt";
+        testWindow = new Window(name,5, testBoxes,"test");
+
+        testDie = new Die(Colour.RED);
+
+        assertFalse(testWindow.controlColourBoundAdjacencies(testDie,0,4));
+        assertFalse(testWindow.controlColourBoundAdjacencies(testDie,0,3));
+
+        Die d=new Die(Colour.RED);
+        testWindow.insertDie(d,0,4,"none");
+        assertTrue(testWindow.controlColourBoundAdjacencies(testDie,0,3));
+
+        Die d1=new Die(Colour.BLUE);
+
+        testWindow.insertDie(d1,2,4,"none");
+        assertFalse(testWindow.controlColourBoundAdjacencies(testDie,2,3));
+
+    }
+
+    @Test
+    public void testControlValueBoundAdjacencies(){
+
+        testBoxes = new Box[4][5];
+
+        for ( int i = 0; i < 4; i++){
+
+            for ( int j = 0; j < 5; j++){
+
+                testBoxes[i][j]= new Box(Colour.RED);
+
+            }
+        }
+        name = "Virman";
+        testWindow = new Window(name,8, testBoxes,"test");
+
+        testDie = new Die(Colour.RED);
+        testDie.setValue(Value.TWO);
+
+        assertFalse(testWindow.controlValueBoundAdjacencies(testDie,3,0));
+        assertFalse(testWindow.controlValueBoundAdjacencies(testDie,2,0));
+
+        Die d=new Die(Colour.RED);
+        testWindow.insertDie(d,3,0,"none");
+        assertFalse(testWindow.controlValueBoundAdjacencies(testDie,2,0));
+
+        d.setValue(Value.TWO);
+
+        testWindow.insertDie(d,3,3,"none");
+        assertTrue(testWindow.controlValueBoundAdjacencies(testDie,2,3));
+
+
+        testDie.setValue(Value.THREE);
+        assertFalse(testWindow.controlValueBoundAdjacencies(testDie,0,4));
+        assertFalse(testWindow.controlValueBoundAdjacencies(testDie,0,3));
+
+        testWindow.insertDie(d,2,4,"none");
+        assertFalse(testWindow.controlValueBoundAdjacencies(testDie,2,3));
+
+        d.setValue(Value.THREE);
+
+        testWindow.insertDie(d,0,4,"none");
+        assertTrue(testWindow.controlValueBoundAdjacencies(testDie,0,3));
+
     }
 
     @Test

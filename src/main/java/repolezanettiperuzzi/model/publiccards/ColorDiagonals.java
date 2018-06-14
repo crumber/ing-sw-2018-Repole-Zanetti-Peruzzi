@@ -23,21 +23,21 @@ public class ColorDiagonals implements PublicCard {
                 posColumnControl=j;
                 posColumnControlNext=j+1;
 
-                if(posColumnControl<3 && posRowControl<3 && finalWindow.thereIsDie(posRowControl,posColumnControl) && finalWindow.thereIsDie(posRowControlNext,posColumnControlNext)){
+                if(posRowControl<3 && finalWindow.thereIsDie(posRowControl,posColumnControl) && finalWindow.thereIsDie(posRowControlNext,posColumnControlNext)){
 
-                    if (i==0 && finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour(posRowControlNext, posColumnControlNext))) {
-
-                        score++;
-
-                    }
-
-                    if (i==1 && j<2 && finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour( posRowControlNext, posColumnControlNext))) {
+                    if (i == 0 && finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour(posRowControlNext, posColumnControlNext))) {
 
                         score++;
 
                     }
 
-                    if (i==2 && j<1 && finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour( posRowControlNext, posColumnControlNext))) {
+                    if ((j<2 && i==1 )&& finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour( posRowControlNext, posColumnControlNext))) {
+
+                        score++;
+
+                    }
+
+                    if ((j<1 && i==2 )&& finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour( posRowControlNext, posColumnControlNext))) {
 
                         score++;
 
@@ -59,7 +59,7 @@ public class ColorDiagonals implements PublicCard {
                 posRowControl=i;
                 posRowControlNext=i+1;
 
-                if(posColumnControl<4 && posRowControl<3 && finalWindow.thereIsDie(posRowControl,posColumnControl) && finalWindow.thereIsDie(posRowControlNext,posColumnControlNext)) {
+                if(posColumnControl<4 && finalWindow.thereIsDie(posRowControl,posColumnControl) && finalWindow.thereIsDie(posRowControlNext,posColumnControlNext)) {
 
                     if (j == 1 && finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour(posRowControlNext, posColumnControlNext))) {
 
@@ -67,13 +67,13 @@ public class ColorDiagonals implements PublicCard {
 
                     }
 
-                    if (j == 2 && i < 2 && finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour(posRowControlNext, posColumnControlNext))) {
+                    if ((i < 2 && j == 2 ) && finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour(posRowControlNext, posColumnControlNext))) {
 
                         score++;
 
                     }
 
-                    if (j == 3 && i < 1 && finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour(posRowControlNext, posColumnControlNext))) {
+                    if ((i < 1 && j == 3) && finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour(posRowControlNext, posColumnControlNext))) {
 
                         score++;
 
@@ -97,7 +97,7 @@ public class ColorDiagonals implements PublicCard {
                 posColumnControl=j;
                 posColumnControlNext=j-1;
 
-                if(posColumnControl>1 && posRowControl<3 && finalWindow.thereIsDie(posRowControl,posColumnControl) && finalWindow.thereIsDie(posRowControlNext,posColumnControlNext)) {
+                if(posRowControl<3 && finalWindow.thereIsDie(posRowControl,posColumnControl) && finalWindow.thereIsDie(posRowControlNext,posColumnControlNext)) {
 
                     if (i == 0 && finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour(posRowControlNext, posColumnControlNext))) {
 
@@ -105,13 +105,13 @@ public class ColorDiagonals implements PublicCard {
 
                     }
 
-                    if (i == 1 && j > 2 && finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour(posRowControlNext, posColumnControlNext))) {
+                    if ((j > 2 && i == 1 )&& finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour(posRowControlNext, posColumnControlNext))) {
 
                         score++;
 
                     }
 
-                    if (i == 2 && j > 3 && finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour(posRowControlNext, posColumnControlNext))) {
+                    if ((j > 3 && i == 2  )&& finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour(posRowControlNext, posColumnControlNext))) {
 
                         score++;
 
@@ -132,7 +132,7 @@ public class ColorDiagonals implements PublicCard {
                 posRowControl=i;
                 posRowControlNext=i+1;
 
-                if(posColumnControl>0 && posRowControl<3 && finalWindow.thereIsDie(posRowControl,posColumnControl) && finalWindow.thereIsDie(posRowControlNext,posColumnControlNext)) {
+                if(posColumnControl>0 && finalWindow.thereIsDie(posRowControl,posColumnControl) && finalWindow.thereIsDie(posRowControlNext,posColumnControlNext)) {
 
                     if (j == 3 && finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour(posRowControlNext, posColumnControlNext))) {
 
@@ -140,13 +140,13 @@ public class ColorDiagonals implements PublicCard {
 
                     }
 
-                    if (j == 2 && i < 2 && finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour(posRowControlNext, posColumnControlNext))) {
+                    if ((i < 2 && j == 2 )&& finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour(posRowControlNext, posColumnControlNext))) {
 
                         score++;
 
                     }
 
-                    if (j == 1 && i < 1 && finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour(posRowControlNext, posColumnControlNext))) {
+                    if ((i < 1 && j == 1 ) && finalWindow.getDieColour(posRowControl, posColumnControl).equals(finalWindow.getDieColour(posRowControlNext, posColumnControlNext))) {
 
                         score++;
 

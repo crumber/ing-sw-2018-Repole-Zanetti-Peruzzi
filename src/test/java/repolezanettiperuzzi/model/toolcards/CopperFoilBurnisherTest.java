@@ -74,6 +74,40 @@ public class CopperFoilBurnisherTest {
 
         assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
 
+        parameterforcard.add(3,-123);
+
+        assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
+
+        parameterforcard.add(3,2);
+        parameterforcard.add(2,123);
+
+        assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
+
+        parameterforcard.add(2,-123);
+
+        assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
+
+        parameterforcard.clear();
+        parameterforcard.add(123);
+        parameterforcard.add(0);
+        parameterforcard.add(0);
+        parameterforcard.add(2);
+
+        assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
+
+        parameterforcard.add(0,-123);
+
+        assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
+
+        parameterforcard.add(0,0);
+        parameterforcard.add(1,123);
+
+        assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
+
+        parameterforcard.add(1,-123);
+
+        assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
+
         parameterforcard.clear();
         parameterforcard.add(0);
         parameterforcard.add(2);

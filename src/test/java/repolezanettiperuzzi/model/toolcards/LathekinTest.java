@@ -100,6 +100,30 @@ public class LathekinTest {
 
         assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
 
+        parameterforcard.add(4,-123);
+        assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
+
+        parameterforcard.add(4,1);
+        parameterforcard.add(5,123);
+        assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
+
+        parameterforcard.add(5,-123);
+        assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
+
+        parameterforcard.add(5,0);
+        parameterforcard.add(6,123);
+        assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
+
+        parameterforcard.add(6,-123);
+        assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
+
+        parameterforcard.add(6,3);
+        parameterforcard.add(7,123);
+        assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
+
+        parameterforcard.add(7,-123);
+        assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
+
         parameterforcard.clear();
         parameterforcard.add(0);
         parameterforcard.add(0);

@@ -39,6 +39,43 @@ public class InsertDieWithCheckActionTest {
         board.addPlayer("pumpIt","RMI","CLI","127.0.0.1",8008);
         board.getPlayer(0).setWindow(tempWindow);
 
+        board.addDieToDraft(d1);
+        parameter.add(0);
+        parameter.add(0);
+        parameter.add(1);
+
+        assertEquals(1,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter));
+        board.getPlayer(0).getWindow().removeDie(0,1);
+
+        board.addDieToDraft(d1);
+        parameter.clear();
+        parameter.add(0);
+        parameter.add(2);
+        parameter.add(4);
+
+        assertEquals(1,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter));
+        board.getPlayer(0).getWindow().removeDie(2,4);
+
+        board.addDieToDraft(d1);
+        parameter.clear();
+        parameter.add(0);
+        parameter.add(3);
+        parameter.add(2);
+
+        assertEquals(1,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter));
+        board.getPlayer(0).getWindow().removeDie(3,2);
+
+        board.addDieToDraft(d1);
+        parameter.clear();
+        parameter.add(0);
+        parameter.add(2);
+        parameter.add(0);
+
+        assertEquals(1,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter));
+        board.getPlayer(0).getWindow().removeDie(2,0);
+
+
+        parameter.clear();
         parameter.add(12);
         parameter.add(11);
         parameter.add(1);
@@ -52,7 +89,13 @@ public class InsertDieWithCheckActionTest {
         board.addDieToDraft(d2);
 
         assertEquals(-1,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter));
-
+        parameter.add(1,-11);
+        assertEquals(-1,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter));
+        parameter.add(1,1);
+        parameter.add(2,+11);
+        assertEquals(-1,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter));
+        parameter.add(2,-11);
+        assertEquals(-1,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter));
 
         parameter.clear();
         parameter.add(0);

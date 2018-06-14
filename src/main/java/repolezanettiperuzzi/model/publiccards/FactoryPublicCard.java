@@ -24,7 +24,7 @@ public class FactoryPublicCard {
             return new LightShades();
         else if ( criteria.equals("pc10") )
             return new DeepShades();
-
-        return null;
+        else
+            return null;
     }
 }

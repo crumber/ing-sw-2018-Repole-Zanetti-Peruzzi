@@ -18,6 +18,11 @@ public class CreatedListForCardActionTest {
     ToolCard card5=new LensCutter(); //id 5
     ToolCard card10=new GrindingStone(); //id 10
     ToolCard card12=new TapWheel(); //id 12
+    ToolCard card2=new EglomiseBrush(); //id 2
+    ToolCard card6=new FluxBrush(); //id 6
+    ToolCard card11=new FluxRemover(); //id 11
+    ToolCard card9=new CorkbackedStraightedge(); //id 9
+
     String stringFromClient;
     ArrayList<Integer> intParameter=new ArrayList<>();
 
@@ -74,5 +79,39 @@ public class CreatedListForCardActionTest {
         intParameter=(ArrayList<Integer>)testCreatedListForCardAction.doAction(stringFromClient,board,2);
 
         assertEquals(10,intParameter.size());
+
+
+        board.setToolCards(card2,0);
+        board.setToolCards(card9,1);
+        board.setToolCards(card6,2);
+
+        stringFromClient="1 2 3 4";
+        intParameter.clear();
+        intParameter=(ArrayList<Integer>)testCreatedListForCardAction.doAction(stringFromClient,board,0);
+
+        assertEquals(4,intParameter.size());
+
+
+        stringFromClient="1 2 3";
+        intParameter.clear();
+        intParameter=(ArrayList<Integer>)testCreatedListForCardAction.doAction(stringFromClient,board,1);
+
+        assertEquals(3,intParameter.size());
+
+
+        stringFromClient="1";
+        intParameter.clear();
+        intParameter=(ArrayList<Integer>)testCreatedListForCardAction.doAction(stringFromClient,board,2);
+
+        assertEquals(1,intParameter.size());
+
+
+        board.setToolCards(card11,2);
+
+        stringFromClient="1";
+        intParameter.clear();
+        intParameter=(ArrayList<Integer>)testCreatedListForCardAction.doAction(stringFromClient,board,2);
+
+        assertEquals(1,intParameter.size());
     }
 }

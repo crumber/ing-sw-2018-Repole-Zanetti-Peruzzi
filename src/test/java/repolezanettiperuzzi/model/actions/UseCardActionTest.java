@@ -40,6 +40,10 @@ public class UseCardActionTest {
         assertEquals(Value.FOUR,board.getDieDraft(parameterForCard.get(0)).getValueDie());
         assertEquals(2,board.getCostToolCard(0));
 
+        testUseCardAction.doAction(board.getPlayer(0),board,whichToolCard,parameterForCard);
+        assertEquals(2,board.getCostToolCard(0));
+
+
     }
 
     @Test

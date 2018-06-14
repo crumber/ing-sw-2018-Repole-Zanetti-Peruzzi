@@ -64,6 +64,15 @@ public class CorkbackedStraightedgeTest {
         parameterforcard.add(2,133);
         assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
 
+        parameterforcard.add(2,-133);
+        assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
+
+        parameterforcard.add(1,133);
+        assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
+
+        parameterforcard.add(1,-133);
+        assertEquals(-1,testPublicCard.check(board,player,parameterforcard));
+
         parameterforcard.add(1,0);
         parameterforcard.add(2,1);
 

@@ -46,6 +46,10 @@ public class GrozingPliersTest {
 
         assertEquals(-14,testPublicCard.check(board,player,parameterforcard));
 
+        parameterforcard.add(1,-23);
+
+        assertEquals(-14,testPublicCard.check(board,player,parameterforcard));
+
         parameterforcard.clear();
         parameterforcard.add(1);
         parameterforcard.add(0);

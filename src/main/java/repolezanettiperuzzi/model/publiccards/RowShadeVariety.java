@@ -93,11 +93,11 @@ public class RowShadeVariety implements PublicCard {
                         }
                     }
                 }
-                if (!repeatValue && numOfValue == 5) {   // if there are five dice and five different value in row, incrise by one
+            }
+            if (!repeatValue && numOfValue == 5) {   // if there are five dice and five different value in row, incrise by one
 
-                    numRow++;
+                numRow++;
 
-                }
             }
         }
 
