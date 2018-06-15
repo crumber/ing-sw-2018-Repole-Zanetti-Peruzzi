@@ -26,7 +26,7 @@ public class GameViewGUI extends Application{
         this.stage = primaryStage;
 
         // Create the FXMLLoader
-        FXMLLoader loader = new FXMLLoader(new File("src/main/java/repolezanettiperuzzi/view/LoginFXML.fxml").toURI().toURL());
+        FXMLLoader loader = new FXMLLoader(new File("fxml/LoginFXML.fxml").toURI().toURL());
 
         // Create the Pane and all Details
         Group root = (Group) loader.load();
@@ -39,7 +39,7 @@ public class GameViewGUI extends Application{
         MenuBar menuBar = new MenuBar();
 
         // --- Menu File
-        Menu menuFile = new Menu("About");
+        Menu menuFile = new Menu("About"); //TODO metti info programma
 
         menuBar.getMenus().addAll(menuFile);
 

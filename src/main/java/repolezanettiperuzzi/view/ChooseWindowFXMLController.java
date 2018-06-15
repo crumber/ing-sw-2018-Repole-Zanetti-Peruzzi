@@ -108,7 +108,7 @@ public class ChooseWindowFXMLController extends FXMLController{
         controller.setStage(stage);
         FXMLLoader loader = null;
         try {
-            loader = new FXMLLoader(new File("src/main/java/repolezanettiperuzzi/view/WaitingRoomFXML.fxml").toURI().toURL());
+            loader = new FXMLLoader(new File("fxml/WaitingRoomFXML.fxml").toURI().toURL());
             loader.setController(controller);
             Group root = (Group) loader.load();
             FXMLLoader finalLoader = loader;
