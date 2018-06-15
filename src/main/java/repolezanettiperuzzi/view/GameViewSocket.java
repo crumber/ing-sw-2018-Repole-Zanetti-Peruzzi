@@ -82,6 +82,9 @@ public class GameViewSocket implements Runnable{
             case "chooseWindow":
                 receivedWindows(line);
                 break;
+            case "startGame":
+                //TODO caricare la view per il turno e notificare il controller dopo che e' stata caricata
+                break;
         }
     }
 

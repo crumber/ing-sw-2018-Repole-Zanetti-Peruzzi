@@ -221,6 +221,8 @@ public class SetConnectionState extends ControllerState{
     //notifia i client ancora connessi che si sta passando alla fase di scelta della window e cancella quelli offline dal file json e dalla board
     public void notifyOnBeginChooseWindow() throws IOException, ParseException {
 
+        controller.setState(new FetchState());
+
         for(int i = 0; i<board.getNPlayers(); i++){
 
             Player player = board.getPlayer(i);

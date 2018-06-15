@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -33,6 +35,19 @@ public class GameViewGUI extends Application{
         Scene scene = new Scene(root, 600 , 600);
 
         primaryStage.getIcons().add(new Image(new File("assets/icon.png").toURI().toString()));
+
+        MenuBar menuBar = new MenuBar();
+
+        // --- Menu File
+        Menu menuFile = new Menu("About");
+
+        menuBar.getMenus().addAll(menuFile);
+
+        final String os = System.getProperty("os.name");
+        if (os != null && os.startsWith("Mac"))
+            menuBar.useSystemMenuBarProperty().set(true);
+
+        root.getChildren().addAll(menuBar);
 
         // Set the Scene to the Stage
         primaryStage.setScene(scene);

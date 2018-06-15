@@ -68,6 +68,13 @@ public class ControllerTimer extends TimerTask {
                 case "chooseWindow" :
 
                     FetchState fetchState = (FetchState) controller.getState();
+                    try {
+                        fetchState.checkConnectedPlayers();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     break;
 
                 default :

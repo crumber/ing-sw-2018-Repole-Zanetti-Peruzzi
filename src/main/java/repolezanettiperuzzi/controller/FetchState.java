@@ -24,6 +24,7 @@ public class FetchState extends ControllerState {
     private ArrayList<Window> windows;
     private Controller controller;
     private int readyPlayers = 0;
+    private int playersToCheck;
 
     @Override
     public void doAction(Controller controller) throws IOException, ParseException {
@@ -38,6 +39,8 @@ public class FetchState extends ControllerState {
     }
 
     public void sendWindows(Player player) throws IOException {
+
+        player.setLastScene("chooseWindowRoom");
 
         if(player.getConnection().equals("Socket")){
 
@@ -77,7 +80,7 @@ public class FetchState extends ControllerState {
     }
 
 
-    public void setChosenWindow(Player player, String choose){
+    public void setChosenWindow(Player player, String choose) throws IOException, ParseException {
 
         for (Window window : this.playersWindowsChoices.get(player) ) {
 
@@ -90,11 +93,25 @@ public class FetchState extends ControllerState {
 
         }
 
+        //controllo se hanno impostato una window tutti gli utenti ammessi alla scelta delle window
+        for(int i = 0; i<controller.board.getNPlayers(); i++){
+            //esiste almeno un giocatore (online o offline) che non ha scelto una window.
+            // Allora non posso ancora passare alla fase successiva finche non scade il timer
+            if(board.getPlayer(i).getWindow()==null){
+                return;
+            }
+        }
+
+        //tutti i giocatori hanno scelto una window prima dello scadere del timer
+        checkConnectedPlayers();
+
     }
 
     public void checkConnectedPlayers() throws IOException, ParseException {
 
         if(controller.board.getPlayersOnline()>=2){
+
+            this.playersToCheck = controller.board.getPlayersOnline();
 
             for(int i = 0; i<board.getNPlayers(); i++){
 
@@ -146,7 +163,9 @@ public class FetchState extends ControllerState {
                             e.printStackTrace();
 
                         }
-                         System.exit(1);//TODO da verificare uscita gioco
+
+                        controller.cancelTimer();
+                        System.exit(1);//TODO da verificare uscita gioco
 
                     } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
 
@@ -156,7 +175,9 @@ public class FetchState extends ControllerState {
 
         }else{
 
-           System.exit(1); //TODO da verificare uscita gioco
+            controller.cancelTimer();
+            System.exit(1); //TODO da verificare uscita gioco
+
         }
     }
 
@@ -164,7 +185,7 @@ public class FetchState extends ControllerState {
 
         this.readyPlayers++;
 
-        if(this.readyPlayers==controller.board.getPlayersOnline()){
+        if(this.readyPlayers==this.playersToCheck){
 
             controller.setState(new BeginRoundState());
 

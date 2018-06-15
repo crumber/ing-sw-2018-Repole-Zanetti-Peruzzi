@@ -73,6 +73,9 @@ public class HandlerControllerSocket implements Runnable{
             case "chosenwindow":
                 ((FetchState)controller.getState()).setChosenWindow(controller.board.getPlayerByName(param[0]), param[1]);
                 break;
+            case "startWindowOk":
+                ((FetchState)controller.getState()).readyToPlay();
+                break;
             case "exit":
                 switch(param[0]){
                     case "waitingRoom":
