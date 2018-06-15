@@ -79,7 +79,7 @@ public class GameViewSocket implements Runnable{
                 break;
             case "changeView":
                 if(line[1].equals("chooseWindow")){
-                    gameView.enterChooseWIndow();
+                    gameView.enterChooseWindow();
                 }
                 break;
             case "chooseWindow":

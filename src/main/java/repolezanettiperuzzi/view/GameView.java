@@ -2,6 +2,7 @@ package repolezanettiperuzzi.view;
 
 //  import repolezanettiperuzzi.controller.ControllerStub;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import repolezanettiperuzzi.view.modelwrapper.WindowClient;
 
@@ -22,6 +23,7 @@ public class GameView {
     private FXMLController fxmlController;
     private GameViewRMI gvRMI;
     private GameViewSocket gvSocketServer;
+    private Thread serverThread;
     private GameViewSocket gvSocket;
     private Consumer<String> onReceiveCallback;
     private Consumer<Integer> onReceiveLocalPort;
@@ -45,13 +47,20 @@ public class GameView {
             this.UI = UI;
             this.login = true;
 
+            if (UI.equals("CLI")) {
+                Platform.exit();   //chiudo la GUI
+                gvCLI = new GameViewCLI(this);
+                Thread CLIThread = new Thread(gvCLI);
+                CLIThread.start();
+            }
+
             if (connection.equals("Socket")) {
                 //mi serve creae prima l'oggetto in caso venga chiamata la onReceiveCallback su un oggetto che non esiste
                 gvSocket = new GameViewSocket(this);
                 if(this.localPort==0) {
                     gvSocketServer = new GameViewSocket(onReceiveCallback);
-                    Thread serverThread = new Thread(gvSocketServer);
-                    serverThread.setDaemon(true);
+                    this.serverThread = new Thread(gvSocketServer);
+                    //serverThread.setDaemon(true);
                     serverThread.start();
                     Thread.sleep(500);
 
@@ -62,12 +71,6 @@ public class GameView {
 
             } else if (connection.equals("RMI")) {
                 gvRMI = new GameViewRMI();
-            }
-
-            if (UI.equals("CLI")) {
-                gvCLI = new GameViewCLI();
-            } else if (UI.equals("GUI")) {
-
             }
         }
     }
@@ -91,11 +94,15 @@ public class GameView {
     }
 
     public void notifyOnExit(String typeView) throws IOException {
-        if (connection.equals("Socket")) {
-            gvSocket = new GameViewSocket(this);
-            gvSocket.notifyOnExit(username, typeView);
-        } else if (connection.equals("RMI")) {
+        if(this.login) {   //se non ho fatto il login significa che ho chiuso la GUI per chiudere il gioco
+            if (connection.equals("Socket")) {
+                gvSocket = new GameViewSocket(this);
+                gvSocket.notifyOnExit(username, typeView);
+                System.out.println("esco");
+                System.exit(1);
+            } else if (connection.equals("RMI")) {
 
+            }
         }
     }
 
@@ -103,7 +110,7 @@ public class GameView {
         if(this.UI.equals("GUI")){
             ((WaitingRoomFXMLController) fxmlController).refreshPlayers(setTimer, players);
         } else if(this.UI.equals("CLI")){
-
+            gvCLI.refreshWaitingRoom(setTimer, players);
         }
     }
 
@@ -111,11 +118,11 @@ public class GameView {
         if(this.UI.equals("GUI")){
             ((LoginFXMLController) fxmlController).setWaitingRoomScene();
         } else if(this.UI.equals("CLI")){
-
+            gvCLI.setWaitingRoomScene();
         }
     }
 
-    public void enterChooseWIndow(){
+    public void enterChooseWindow(){
 
         if(this.UI.equals("GUI")){
             ((WaitingRoomFXMLController) fxmlController).setChooseWindowScene();
