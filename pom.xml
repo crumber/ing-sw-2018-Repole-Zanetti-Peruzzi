@@ -63,6 +63,7 @@
           <artifactId>maven-assembly-plugin</artifactId>
           <configuration>
             <archive>
+              <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
               <manifest>
                 <mainClass>repolezanettiperuzzi.view.GameView</mainClass>
               </manifest>

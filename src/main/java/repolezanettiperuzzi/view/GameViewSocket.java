@@ -1,6 +1,9 @@
 package repolezanettiperuzzi.view;
 
+import repolezanettiperuzzi.model.Colour;
 import repolezanettiperuzzi.view.modelwrapper.BoxClient;
+import repolezanettiperuzzi.view.modelwrapper.ColourClient;
+import repolezanettiperuzzi.view.modelwrapper.ValueClient;
 import repolezanettiperuzzi.view.modelwrapper.WindowClient;
 
 import java.io.BufferedReader;
@@ -128,7 +131,7 @@ public class GameViewSocket implements Runnable{
             favorToken = Integer.parseInt(line[i]);
             i++;
             while(!line[i].equals("_")){
-                boxesList.add((ArrayList<String>)Arrays.asList(line[i].split("-")));
+                boxesList.add(new ArrayList<>(Arrays.asList(line[i].split("-"))));
                 i++;
             }
             BoxClient[][] boxMatrix = arrayListToMatrix(boxesList);
@@ -144,8 +147,46 @@ public class GameViewSocket implements Runnable{
         int m = chosenWindows.get(0).size();
         BoxClient[][] boxMatrix = new BoxClient[n][m];
         for(int i = 0; i < n; i++){
-            //TODO stampalo per vedere se viene giusto
-            boxMatrix[i] = chosenWindows.get(i).toArray(new BoxClient[0]);
+            for(int j = 0; j < m; j++){
+                switch (chosenWindows.get(i).get(j)){
+                    case "Y":
+                        boxMatrix[i][j] = new BoxClient(ColourClient.YELLOW);
+                        break;
+                    case "R":
+                        boxMatrix[i][j] = new BoxClient(ColourClient.RED);
+                        break;
+                    case "P":
+                        boxMatrix[i][j] = new BoxClient(ColourClient.PURPLE);
+                        break;
+                    case "G":
+                        boxMatrix[i][j] = new BoxClient(ColourClient.GREEN);
+                        break;
+                    case "B":
+                        boxMatrix[i][j] = new BoxClient(ColourClient.BLUE);
+                        break;
+                    case "0":
+                        boxMatrix[i][j] = new BoxClient();
+                        break;
+                    case "1":
+                        boxMatrix[i][j] = new BoxClient(ValueClient.ONE);
+                        break;
+                    case "2":
+                        boxMatrix[i][j] = new BoxClient(ValueClient.TWO);
+                        break;
+                    case "3":
+                        boxMatrix[i][j] = new BoxClient(ValueClient.THREE);
+                        break;
+                    case "4":
+                        boxMatrix[i][j] = new BoxClient(ValueClient.FOUR);
+                        break;
+                    case "5":
+                        boxMatrix[i][j] = new BoxClient(ValueClient.FIVE);
+                        break;
+                    case "6":
+                        boxMatrix[i][j] = new BoxClient(ValueClient.SIX);
+                        break;
+                }
+            }
         }
         return boxMatrix;
     }

@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 
 public class GameViewGUI extends Application{
 
@@ -25,8 +26,16 @@ public class GameViewGUI extends Application{
 
         this.stage = primaryStage;
 
+        String currPath = System.getProperty("user.dir");
         // Create the FXMLLoader
-        FXMLLoader loader = new FXMLLoader(new File("fxml/LoginFXML.fxml").toURI().toURL());
+        URI checkJar = GameViewGUI.class.getResource("GameViewGUI.class").toURI();
+        FXMLLoader loader;
+        if (checkJar.getScheme().equals("jar")) {
+            String jarName = new File(GameViewGUI.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getName();
+            loader = new FXMLLoader(new URI("jar:file:"+currPath+"/"+jarName+"!/fxml/LoginFXML.fxml").toURL());
+        } else {
+            loader = new FXMLLoader(new File("fxml/LoginFXML.fxml").toURI().toURL());
+        }
 
         // Create the Pane and all Details
         Group root = (Group) loader.load();

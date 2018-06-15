@@ -3,6 +3,8 @@ package repolezanettiperuzzi.view;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -123,9 +125,16 @@ public class LoginFXMLController extends FXMLController{
         controller.setGameView(gV);
         gV.setFXMLController(controller);
         controller.setStage(stage);
+        String currPath = System.getProperty("user.dir");
         FXMLLoader loader = null;
         try {
-            loader = new FXMLLoader(new File("fxml/WaitingRoomFXML.fxml").toURI().toURL());
+            URI checkJar = GameViewGUI.class.getResource("LoginFXMLController.class").toURI();
+            if (checkJar.getScheme().equals("jar")) {
+                String jarName = new File(GameViewGUI.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getName();
+                loader = new FXMLLoader(new URI("jar:file:"+currPath+"/"+jarName+"!/fxml/WaitingRoomFXML.fxml").toURL());
+            } else {
+                loader = new FXMLLoader(new File("fxml/WaitingRoomFXML.fxml").toURI().toURL());
+            }
             loader.setController(controller);
             Group root = (Group) loader.load();
             FXMLLoader finalLoader = loader;
@@ -137,6 +146,8 @@ public class LoginFXMLController extends FXMLController{
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
             e.printStackTrace();
         }
 

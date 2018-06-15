@@ -20,7 +20,7 @@
     <children>
         <ImageView fx:id="bg" fitWidth="600" preserveRatio="true" smooth="true" cache="true">
             <image>
-                <Image url="file:assets/sagradaBg.jpg" />
+                <Image url="@../assets/sagradaBg.jpg" />
             </image>
         </ImageView>
         <Rectangle x="175" y="230" width="250" height="320" arcWidth="40" arcHeight="40" fill="lightgray" opacity="0.95"></Rectangle>

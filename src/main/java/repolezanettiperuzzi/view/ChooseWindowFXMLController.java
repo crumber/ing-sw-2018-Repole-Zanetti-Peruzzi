@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -17,6 +18,8 @@ import repolezanettiperuzzi.view.modelwrapper.WindowClient;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -89,7 +92,18 @@ public class ChooseWindowFXMLController extends FXMLController{
 
     public void viewWindows(ArrayList<WindowClient> windows){
 
-        
+        int j = 0;
+        for(int i = 0; i<windows.size(); i++) {
+            WindowGenerator wGenerator = new WindowGenerator(windows.get(i));
+            //Esempio con GridPane
+            GridPane pane = wGenerator.getWindowFXObject();
+            pane.setLayoutX(200*((i%2)+1)); //posiziono ogni gridpane creata alternando la pos X (prima *1 poi *2 poi *1 poi *2)
+            if(i%2==0){  //incrememnto il moltiplicatore della pos Y ogni 2 cicli
+                j++;
+                pane.setLayoutY(200*j);
+            }
+            ((Group)stage.getScene().getRoot()).getChildren().add(pane);
+        }
 
     }
 
@@ -106,9 +120,16 @@ public class ChooseWindowFXMLController extends FXMLController{
         controller.setGameView(gV);
         gV.setFXMLController(controller);
         controller.setStage(stage);
+        String currPath = System.getProperty("user.dir");
         FXMLLoader loader = null;
         try {
-            loader = new FXMLLoader(new File("fxml/WaitingRoomFXML.fxml").toURI().toURL());
+            URI checkJar = GameViewGUI.class.getResource("ChooseWindowFXMLController.class").toURI();
+            if (checkJar.getScheme().equals("jar")) {
+                String jarName = new File(GameViewGUI.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getName();
+                loader = new FXMLLoader(new URI("jar:file:"+currPath+"/"+jarName+"!/fxml/WaitingRoomFXML.fxml").toURL());
+            } else {
+                loader = new FXMLLoader(new File("fxml/WaitingRoomFXML.fxml").toURI().toURL());
+            }
             loader.setController(controller);
             Group root = (Group) loader.load();
             FXMLLoader finalLoader = loader;
@@ -120,6 +141,8 @@ public class ChooseWindowFXMLController extends FXMLController{
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
             e.printStackTrace();
         }
 
