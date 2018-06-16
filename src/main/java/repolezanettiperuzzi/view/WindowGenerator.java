@@ -147,7 +147,6 @@ public class WindowGenerator {
                     gc.setFill(Color.WHITE);
                     gc.fillRect(0,0,50,50);
                     gridWindow.add(box,i,j);
-                    break;
 
                 }
             }
