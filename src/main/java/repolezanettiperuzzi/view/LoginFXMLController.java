@@ -17,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import repolezanettiperuzzi.common.DynamicPath;
 
 public class LoginFXMLController extends FXMLController{
 
@@ -52,12 +53,13 @@ public class LoginFXMLController extends FXMLController{
     @FXML
     private void initialize()
     {
-        setGameView(new GameView());
+        //setGameView(new GameView());
         gV.setFXMLController(this);
     }
 
     @FXML
     private void onSubmit(ActionEvent event) {
+        System.out.println("chiamaro");
         this.stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         if ((!textFieldName.getText().equals("") && !textFieldPwd.getText().equals(""))) {
 
@@ -65,7 +67,7 @@ public class LoginFXMLController extends FXMLController{
             RadioButton userInt = (RadioButton) groupUI.getSelectedToggle();
             Platform.runLater(() -> {
                 try {
-                    gV.onLogin(stage, textFieldName.getText(), textFieldPwd.getText(), conn.getText(), userInt.getText());
+                    gV.onLogin(textFieldName.getText(), textFieldPwd.getText(), conn.getText(), userInt.getText());
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
@@ -128,13 +130,7 @@ public class LoginFXMLController extends FXMLController{
         String currPath = System.getProperty("user.dir");
         FXMLLoader loader = null;
         try {
-            URI checkJar = GameViewGUI.class.getResource("LoginFXMLController.class").toURI();
-            if (checkJar.getScheme().equals("jar")) {
-                String jarName = new File(GameViewGUI.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getName();
-                loader = new FXMLLoader(new URI("jar:file:"+currPath+"/"+jarName+"!/fxml/WaitingRoomFXML.fxml").toURL());
-            } else {
-                loader = new FXMLLoader(new File("fxml/WaitingRoomFXML.fxml").toURI().toURL());
-            }
+            loader = new FXMLLoader(new URI(new DynamicPath("fxml/WaitingRoomFXML.fxml").getPath()).toURL());
             loader.setController(controller);
             Group root = (Group) loader.load();
             FXMLLoader finalLoader = loader;
@@ -153,7 +149,7 @@ public class LoginFXMLController extends FXMLController{
 
     }
 
-    private void setGameView(GameView gV){
+    public void setGameView(GameView gV){
         this.gV = gV;
     }
 }

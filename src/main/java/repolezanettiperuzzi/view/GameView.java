@@ -9,6 +9,7 @@ import repolezanettiperuzzi.view.modelwrapper.WindowClient;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.function.Consumer;
 
 //lato client della view che chiama i metodi in remoto del controller
@@ -36,10 +37,31 @@ public class GameView {
     }
 
     public static void main(String args[]) {
-        Application.launch(GameViewGUI.class);
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        printSagrada();
+        System.out.println("Che grafica vuoi usare?");
+        System.out.print("Premi 'c' per CLI e 'g' per GUI: ");
+        Scanner scanner = new Scanner(System.in);
+        String uiChosen = scanner.nextLine();
+
+        if(uiChosen.equals("c")){
+            GameView gameView = new GameView();
+
+            GameViewCLI gvCLI = new GameViewCLI(gameView);
+            gameView.setGVCLI(gvCLI);
+            gvCLI.loginScene();
+            //Thread CLIThread = new Thread(gvCLI);
+            //CLIThread.setDaemon(true);
+            //CLIThread.start();
+        } else if(uiChosen.equals("g")){
+            GameView gameView = new GameView();
+            GameViewGUI.gameView = gameView;
+            Application.launch(GameViewGUI.class);
+        }
     }
 
-    public void onLogin(Stage stage, String username, String pwd, String conn, String UI) throws IOException, InterruptedException {
+    public void onLogin(String username, String pwd, String conn, String UI) throws IOException, InterruptedException {
         int port = 0;
         if(!login) {
             this.username = username;
@@ -47,12 +69,7 @@ public class GameView {
             this.UI = UI;
             this.login = true;
 
-            if (UI.equals("CLI")) {
-                Platform.exit();   //chiudo la GUI
-                gvCLI = new GameViewCLI(this);
-                Thread CLIThread = new Thread(gvCLI);
-                CLIThread.start();
-            }
+
 
             if (connection.equals("Socket")) {
                 //mi serve creae prima l'oggetto in caso venga chiamata la onReceiveCallback su un oggetto che non esiste
@@ -166,6 +183,17 @@ public class GameView {
         }
     }
 
+    public static void printSagrada(){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println(" ____                            _       ");
+        System.out.println("/ ___|  __ _  __ _ _ __ __ _  __| | __ _ ");
+        System.out.println("\\___ \\ / _` |/ _` | '__/ _` |/ _` |/ _` |");
+        System.out.println(" ___) | (_| | (_| | | | (_| | (_| | (_| |");
+        System.out.println("|____/ \\__,_|\\__, |_|  \\__,_|\\__,_|\\__,_|     Published by Polimi Inc.");
+        System.out.println("             |___/                       \n\n\n");
+    }
+
     public String getConnection(){
         return this.connection;
     }
@@ -176,6 +204,11 @@ public class GameView {
 
     public void setFXMLController(FXMLController fxmlController){
         this.fxmlController = fxmlController;
+    }
+
+    public void setGVCLI(GameViewCLI gvCLI){
+        this.UI = "CLI";
+        this.gvCLI = gvCLI;
     }
 
     public void updateView() {

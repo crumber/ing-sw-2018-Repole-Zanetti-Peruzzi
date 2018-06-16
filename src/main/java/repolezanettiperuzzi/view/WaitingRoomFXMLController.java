@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import repolezanettiperuzzi.common.DynamicPath;
 
 import java.io.File;
 import java.io.IOException;
@@ -134,13 +135,7 @@ public class WaitingRoomFXMLController extends FXMLController{
         String currPath = System.getProperty("user.dir");
         FXMLLoader loader = null;
         try {
-            URI checkJar = GameViewGUI.class.getResource("WaitingRoomFXMLController.class").toURI();
-            if (checkJar.getScheme().equals("jar")) {
-                String jarName = new File(GameViewGUI.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getName();
-                loader = new FXMLLoader(new URI("jar:file:"+currPath+"/"+jarName+"!/fxml/ChooseWindowFXML.fxml").toURL());
-            } else {
-                loader = new FXMLLoader(new File("fxml/ChooseWindowFXML.fxml").toURI().toURL());
-            }
+            loader = new FXMLLoader(new URI(new DynamicPath("fxml/ChooseWindowFXML.fxml").getPath()).toURL());
             loader.setController(controller);
             Group root = (Group) loader.load();
             FXMLLoader finalLoader = loader;

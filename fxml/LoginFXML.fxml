@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.Font?>
 
-<Group fx:id="group" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="repolezanettiperuzzi.view.LoginFXMLController">
+<Group fx:id="group" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
     <fx:define>
         <ToggleGroup fx:id="groupConn"/>
         <ToggleGroup fx:id="groupUI"/>

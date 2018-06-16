@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.view.modelwrapper.WindowClient;
 
 import java.io.File;
@@ -102,7 +103,10 @@ public class ChooseWindowFXMLController extends FXMLController{
                 j++;
                 pane.setLayoutY(200*j);
             }
-            ((Group)stage.getScene().getRoot()).getChildren().add(pane);
+            Platform.runLater(() -> {
+                ((Group)stage.getScene().getRoot()).getChildren().add(pane);
+            });
+
         }
 
     }
@@ -123,13 +127,7 @@ public class ChooseWindowFXMLController extends FXMLController{
         String currPath = System.getProperty("user.dir");
         FXMLLoader loader = null;
         try {
-            URI checkJar = GameViewGUI.class.getResource("ChooseWindowFXMLController.class").toURI();
-            if (checkJar.getScheme().equals("jar")) {
-                String jarName = new File(GameViewGUI.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getName();
-                loader = new FXMLLoader(new URI("jar:file:"+currPath+"/"+jarName+"!/fxml/WaitingRoomFXML.fxml").toURL());
-            } else {
-                loader = new FXMLLoader(new File("fxml/WaitingRoomFXML.fxml").toURI().toURL());
-            }
+            loader = new FXMLLoader(new URI(new DynamicPath("fxml/ChooseWindowFXML.fxml").getPath()).toURL()); //TODO imposta nuovo controller
             loader.setController(controller);
             Group root = (Group) loader.load();
             FXMLLoader finalLoader = loader;
