@@ -127,7 +127,30 @@ public class CalculateScoreTest {
         ranking=testCalculateScore.doAction(board);
         score=ranking.get("jerry");
         assertEquals(29,score);
+
+        Box[][] boxes2 = new Box[4][5];
+
+        for ( int i = 0; i < 4; i++){
+
+            for ( int j = 0; j < 5; j++){
+
+                boxes2[i][j]= new Box();
+
+            }
+        }
+
+        String name2 = "overpower";
+        Window window2 = new Window(name2,0, boxes2,"test2");
+        board.addPlayer("affo","RMI","CLI","127.0.0.1",8008);
+        board.getPlayer(1).setWindow(window2);
+        board.getPlayer(1).setSecretColour(Colour.BLUE);
+        board.getPlayer(1).setFavorTokens(window2.getFTokens());
+        ranking=testCalculateScore.doAction(board);
+        score=ranking.get("affo");
+        assertEquals(1000,score);
+        score=ranking.get("jerry");
+        assertEquals(29,score);
+
     }
 }
-
 
