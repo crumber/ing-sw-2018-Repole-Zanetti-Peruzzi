@@ -93,17 +93,24 @@ public class ChooseWindowFXMLController extends FXMLController{
 
     public void viewWindows(ArrayList<WindowClient> windows)  {
 
-        System.out.println("arrivato");
         int j = 0;
+        int xPos = 0;
+        int yPos = 0;
         for(int i = 0; i<windows.size(); i++) {
+            //System.out.println("Generate window: "+i);
             WindowGenerator wGenerator = new WindowGenerator(windows.get(i));
             //Esempio con GridPane
             GridPane pane = wGenerator.getWindowFXObject();
-            pane.setLayoutX(200*((i%2)+1)); //posiziono ogni gridpane creata alternando la pos X (prima *1 poi *2 poi *1 poi *2)
+            xPos = 100+(300*((i%2))); //posiziono ogni gridpane creata alternando la pos X (prima *1 poi *2 poi *1 poi *2)
+            //System.out.println("xPos: "+xPos);
+            pane.setLayoutX(xPos);
             if(i%2==0){  //incrememnto il moltiplicatore della pos Y ogni 2 cicli
+                yPos = 150+(300*j);
                 j++;
-                pane.setLayoutY(200*j);
+
             }
+            //System.out.println("yPos: "+yPos);
+            pane.setLayoutY(yPos);
             Platform.runLater(() -> {
                 ((Group)stage.getScene().getRoot()).getChildren().add(pane);
             });

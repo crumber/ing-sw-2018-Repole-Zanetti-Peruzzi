@@ -15,9 +15,14 @@ public class WindowClient {
 
         for(int i = 0; i< board.length; i++) {
 
+            /*for(int j = 0; j<board[0].length; j++){
+                System.out.print(board[i][j].toString()+" ");
+            }
+            System.out.println();*/
             System.arraycopy(board[i], 0, boardBox[i], 0, 5);
 
         }
+        //System.out.println("\n");
     }
 
     public BoxClient[][] getBoardBox(){

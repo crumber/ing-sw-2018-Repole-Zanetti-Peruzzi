@@ -41,6 +41,7 @@ public class FetchState extends ControllerState {
     public void sendWindows(Player player) throws IOException {
 
         player.setLastScene("chooseWindowRoom");
+        System.out.println("Invio finestre a giocatore "+player.getName());
 
         if(player.getConnection().equals("Socket")){
 

@@ -162,7 +162,6 @@ public class HandlerControllerSocket implements Runnable{
 
     public void askWindow(String message) throws IOException {
 
-
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
         out.println("chooseWindow "+ message);
         out.close();

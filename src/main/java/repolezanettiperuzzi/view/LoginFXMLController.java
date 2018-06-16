@@ -59,7 +59,6 @@ public class LoginFXMLController extends FXMLController{
 
     @FXML
     private void onSubmit(ActionEvent event) {
-        System.out.println("chiamaro");
         this.stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         if ((!textFieldName.getText().equals("") && !textFieldPwd.getText().equals(""))) {
 

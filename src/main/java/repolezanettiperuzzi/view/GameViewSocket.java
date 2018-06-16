@@ -36,12 +36,12 @@ public class GameViewSocket implements Runnable{
     public void run(){
         try(ServerSocket serverSocket = new ServerSocket(0)){
             this.localServerPort = serverSocket.getLocalPort();
-            System.out.println("port: "+localServerPort);
+            //System.out.println("port: "+localServerPort);
             boolean read = true;
             while(read){
-                System.out.println("Attendo connessione");
+                //System.out.println("Attendo connessione");
                 this.socket = serverSocket.accept();
-                System.out.println("Connessione accettata\n");
+                //System.out.println("Connessione accettata\n");
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 onReceiveCallback.accept(in.readLine());
                 in.close();
@@ -57,11 +57,11 @@ public class GameViewSocket implements Runnable{
         String[] line = message.split(" ");
         switch(line[0]){
             case "registered":
-                System.out.println("registered");
+                //System.out.println("registered");
                 gameView.enterWaitingRoom();
                 break;
             case "updatedplayers":  // setTimer player1 player2
-                System.out.println("updatedPlayers");
+                //System.out.println("updatedPlayers");
 
                 String players[] = new String[line.length-2];
                 for(int i = 0; i<players.length; i++){
@@ -123,9 +123,10 @@ public class GameViewSocket implements Runnable{
         ArrayList<WindowClient> chosenWindows = new ArrayList<>();
         String windowName = "";
         int favorToken;
-        ArrayList<ArrayList<String>> boxesList = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> boxesList;
         int i = 1;
         while(i < line.length){
+            boxesList = new ArrayList<>();
             windowName = line[i];
             i++;
             favorToken = Integer.parseInt(line[i]);

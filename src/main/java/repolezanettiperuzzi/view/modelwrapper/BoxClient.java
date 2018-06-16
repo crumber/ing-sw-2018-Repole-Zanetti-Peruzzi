@@ -33,6 +33,16 @@ public class BoxClient {
 
     }
 
+    public String toString(){
+        if(this.BOUNDCOLOUR!=null){
+            return this.BOUNDCOLOUR.toString();
+        } else if(this.BOUNDVALUE!=null){
+            return this.BOUNDVALUE.getNumber()+"";
+        } else {
+            return "0";
+        }
+    }
+
     public boolean setDie(DieClient dice,String restriction){
 
         if(restriction.compareTo("both")==0){

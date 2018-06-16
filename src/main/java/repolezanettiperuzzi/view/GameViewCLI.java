@@ -1,21 +1,29 @@
 package repolezanettiperuzzi.view;
 
 import repolezanettiperuzzi.common.HandlerSkeletonRMI;
+import repolezanettiperuzzi.controller.ControllerTimer;
 
 import java.io.Console;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Timer;
 
 public class GameViewCLI implements Runnable {
 
     private GameView gV;
+    private boolean isTimerOn;
+    private CLITimer cliTimer;
+    private Timer timer;
 
     public GameViewCLI(GameView gV){
         this.gV = gV;
+        this.isTimerOn = false;
     }
 
     public void loginScene(){
         Console console = System.console();
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         if (console == null) {
             System.out.println("\nCLI non disponibile su Intellij. Fai partire jar.");
             System.exit(0);
@@ -43,14 +51,44 @@ public class GameViewCLI implements Runnable {
     }
 
     public void refreshWaitingRoom(int setTimer, String[] players){
+        String playersString = "";
         //se setTimer e' maggiore di 0 allora setto il timer
         System.out.println("Giocatori in attesa: \n");
         int i = 0;
         while(i<players.length){
-            System.out.println(players[i]);
+            playersString += players[i]+"\n";
             i++;
         }
-        System.out.println("\n\n\n\n");
+
+        if(!isTimerOn && setTimer!=0 && setTimer!=-1) {
+            this.cliTimer = new CLITimer(playersString, setTimer);
+            timer = cliTimer.getTimer();
+            timer.schedule(cliTimer, 0, 1000);
+            isTimerOn = true;
+        } else if(isTimerOn && setTimer!=0 && setTimer!=-1){
+            cliTimer.setTimeAndPlayer(setTimer, playersString);
+        } else if(isTimerOn && setTimer==-1){
+            timer.cancel();
+            timer.purge();
+            isTimerOn = false;
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("Giocatori in attesa: \n");
+            i = 0;
+            while(i<players.length){
+                System.out.println(players[i]);
+                i++;
+            }
+        } else if(!isTimerOn && setTimer==0){
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("Giocatori in attesa: \n");
+            i = 0;
+            while(i<players.length){
+                System.out.println(players[i]);
+                i++;
+            }
+        }
 
     }
 

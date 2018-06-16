@@ -158,8 +158,8 @@ public class SetConnectionState extends ControllerState{
     public void notifyOnUpdatedPlayer() throws IOException, ParseException, InterruptedException {
         int timer = 0;
         if(controller.board.getPlayersOnline()==2 && !controller.isTimerOn()){
-            timer = 60;
             controller.setTimer("setConnection");
+            timer = controller.getCurrentTime();
         } else if(controller.board.getPlayersOnline()==1 && controller.isTimerOn()){
             timer = -1;
             controller.cancelTimer();

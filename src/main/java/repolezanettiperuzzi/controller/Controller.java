@@ -32,14 +32,14 @@ public class Controller {
 
     }
 
-    public void setState(ControllerState nextState) throws IOException, ParseException {
+    public synchronized void setState(ControllerState nextState) throws IOException, ParseException {
 
         this.currentState=nextState;
         this.currentAction();
 
     }
 
-    public ControllerState getState(){
+    public synchronized ControllerState getState(){
         return this.currentState;
 
     }
@@ -48,7 +48,7 @@ public class Controller {
         return this.isTimerOn;
     }
 
-    public void setTimer(String timerType){
+    public synchronized void setTimer(String timerType){
 
         //TODO creare il timer su un altro thread
         this.task = new ControllerTimer(timerType,this);
@@ -58,7 +58,7 @@ public class Controller {
 
     }
 
-    public void cancelTimer(){
+    public synchronized void cancelTimer(){
 
         //TODO cancello il timer
         this.timer.cancel();
@@ -67,7 +67,7 @@ public class Controller {
         
     }
 
-    public int getCurrentTime(){
+    public synchronized int getCurrentTime(){
         if(isTimerOn){
             return this.task.getCurrentTime();
         } else {

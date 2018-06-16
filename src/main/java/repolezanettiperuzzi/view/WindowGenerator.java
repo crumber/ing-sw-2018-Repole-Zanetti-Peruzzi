@@ -26,6 +26,14 @@ public class WindowGenerator {
         //genero la finestra dinamicamente
         GridPane gridWindow = new GridPane();
         BoxClient[][] copyBoard = window.getBoardBox();
+        //System.out.println("board width: "+copyBoard[0].length);
+        //System.out.println("board height: "+copyBoard.length);
+
+        Color red = Color.rgb(195, 53, 59);
+        Color blue = Color.rgb(66, 169, 173);
+        Color purple = Color.rgb(142, 67, 129);
+        Color green = Color.rgb(36, 157, 107);
+        Color yellow = Color.rgb(228, 209, 68);
 
         for (int i=0; i<copyBoard.length; i++){
 
@@ -44,7 +52,7 @@ public class WindowGenerator {
                             value.setPreserveRatio(true);
                             value.setSmooth(true);
                             value.setCache(true);
-                            gridWindow.add(value,i,j);
+                            gridWindow.add(value,j,i);
                             break;
 
                         case TWO:
@@ -54,7 +62,7 @@ public class WindowGenerator {
                             value.setPreserveRatio(true);
                             value.setSmooth(true);
                             value.setCache(true);
-                            gridWindow.add(value,i,j);
+                            gridWindow.add(value,j,i);
                             break;
 
                         case THREE:
@@ -64,7 +72,7 @@ public class WindowGenerator {
                             value.setPreserveRatio(true);
                             value.setSmooth(true);
                             value.setCache(true);
-                            gridWindow.add(value,i,j);
+                            gridWindow.add(value,j,i);
                             break;
 
                         case FOUR:
@@ -74,7 +82,7 @@ public class WindowGenerator {
                             value.setPreserveRatio(true);
                             value.setSmooth(true);
                             value.setCache(true);
-                            gridWindow.add(value,i,j);
+                            gridWindow.add(value,j,i);
                             break;
 
                         case FIVE:
@@ -84,7 +92,7 @@ public class WindowGenerator {
                             value.setPreserveRatio(true);
                             value.setSmooth(true);
                             value.setCache(true);
-                            gridWindow.add(value,i,j);
+                            gridWindow.add(value,j,i);
                             break;
 
                         case SIX:
@@ -94,7 +102,7 @@ public class WindowGenerator {
                             value.setPreserveRatio(true);
                             value.setSmooth(true);
                             value.setCache(true);
-                            gridWindow.add(value,i,j);
+                            gridWindow.add(value,j,i);
                             break;
 
 
@@ -106,37 +114,37 @@ public class WindowGenerator {
                         case RED:
                             Canvas box = new Canvas(50,50);
                             GraphicsContext gc = box.getGraphicsContext2D();
-                            gc.setFill(Color.RED);
+                            gc.setFill(red);
                             gc.fillRect(0,0,50,50);
-                            gridWindow.add(box,i,j);
+                            gridWindow.add(box,j,i);
                             break;
                         case BLUE:
                             box = new Canvas(50,50);
                             gc = box.getGraphicsContext2D();
-                            gc.setFill(Color.BLUE);
+                            gc.setFill(blue);
                             gc.fillRect(0,0,50,50);
-                            gridWindow.add(box,i,j);
+                            gridWindow.add(box,j,i);
                             break;
                         case GREEN:
                             box = new Canvas(50,50);
                             gc = box.getGraphicsContext2D();
-                            gc.setFill(Color.GREEN);
+                            gc.setFill(green);
                             gc.fillRect(0,0,50,50);
-                            gridWindow.add(box,i,j);
+                            gridWindow.add(box,j,i);
                             break;
                         case PURPLE:
                             box = new Canvas(50,50);
                             gc = box.getGraphicsContext2D();
-                            gc.setFill(Color.PURPLE);
+                            gc.setFill(purple);
                             gc.fillRect(0,0,50,50);
-                            gridWindow.add(box,i,j);
+                            gridWindow.add(box,j,i);
                             break;
                         case YELLOW:
                             box = new Canvas(50,50);
                             gc = box.getGraphicsContext2D();
-                            gc.setFill(Color.YELLOW);
+                            gc.setFill(yellow);
                             gc.fillRect(0,0,50,50);
-                            gridWindow.add(box,i,j);
+                            gridWindow.add(box,j,i);
                             break;
 
                     }
@@ -146,7 +154,7 @@ public class WindowGenerator {
                     GraphicsContext gc = box.getGraphicsContext2D();
                     gc.setFill(Color.WHITE);
                     gc.fillRect(0,0,50,50);
-                    gridWindow.add(box,i,j);
+                    gridWindow.add(box,j,i);
 
                 }
             }

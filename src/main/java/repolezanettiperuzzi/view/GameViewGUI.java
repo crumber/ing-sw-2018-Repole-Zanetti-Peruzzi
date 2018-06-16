@@ -77,7 +77,10 @@ public class GameViewGUI extends Application{
             if(controller instanceof WaitingRoomFXMLController) {
                 ((WaitingRoomFXMLController) controller).cancelTimer();
                 ((WaitingRoomFXMLController) controller).notifyOnExit();
-            } //TODO fare else if per gli altri controller con la notifyOnExit()
+            } else if(controller instanceof ChooseWindowFXMLController){
+                //((ChooseWindowFXMLController) controller).cancelTimer(); //TODO cancellare anche il timer
+                ((ChooseWindowFXMLController) controller).notifyOnExit();
+            }//TODO fare else if per gli altri controller con la notifyOnExit()
         }
 
     }
