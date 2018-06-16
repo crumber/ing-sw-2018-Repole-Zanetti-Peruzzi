@@ -165,7 +165,7 @@ public class FetchState extends ControllerState {
                         }
 
                         controller.cancelTimer();
-                        System.exit(1);//TODO da verificare uscita gioco
+                        System.exit(0);//esce senza errori
 
                     } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
 
@@ -176,7 +176,7 @@ public class FetchState extends ControllerState {
         }else{
 
             controller.cancelTimer();
-            System.exit(1); //TODO da verificare uscita gioco
+            System.exit(0); //esce senza errori
 
         }
     }

@@ -91,8 +91,9 @@ public class ChooseWindowFXMLController extends FXMLController{
         gV.notifyOnExit("chooseWindow");
     }
 
-    public void viewWindows(ArrayList<WindowClient> windows){
+    public void viewWindows(ArrayList<WindowClient> windows)  {
 
+        System.out.println("arrivato");
         int j = 0;
         for(int i = 0; i<windows.size(); i++) {
             WindowGenerator wGenerator = new WindowGenerator(windows.get(i));

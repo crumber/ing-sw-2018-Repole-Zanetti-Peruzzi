@@ -20,6 +20,11 @@ public class WindowClient {
         }
     }
 
+    public BoxClient[][] getBoardBox(){
+
+        return this.boardBox.clone();
+
+    }
     public void insertDie(DieClient d, int x, int y, String restriction){
 
         this.boardBox[x][y].setDie(d,restriction);
