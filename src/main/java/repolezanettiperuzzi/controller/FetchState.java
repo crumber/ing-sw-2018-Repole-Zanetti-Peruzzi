@@ -38,7 +38,7 @@ public class FetchState extends ControllerState {
 
     }
 
-    public void sendWindows(Player player) throws IOException {
+    public synchronized void sendWindows(Player player) throws IOException {
 
         player.setLastScene("chooseWindowRoom");
         System.out.println("Invio finestre a giocatore "+player.getName());
@@ -49,11 +49,14 @@ public class FetchState extends ControllerState {
             String message = this.windowsToString(playersWindowsChoices.get(player));
             Socket socket = new Socket(player.getAddress(),player.getPort());
             HandlerControllerSocket handler = new HandlerControllerSocket(this.controller,socket);
+            System.out.println("pre-ask-window");
             handler.askWindow(message);
 
         }else if(player.getConnection().equals("RMI")){
 
         }
+
+
 
     }
 

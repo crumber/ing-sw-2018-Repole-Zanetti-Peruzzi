@@ -333,7 +333,7 @@ public class GameBoard {
      * @param playerID nome del giocatore che si vuole selezionare
      * @return giocatore selezionato
      */
-    public Player getPlayerByName(String playerID){
+    public synchronized Player getPlayerByName(String playerID){
         for(int i = 0; i<players.size(); i++){
             if(players.get(i).getName().equals(playerID)){
                 return players.get(i);

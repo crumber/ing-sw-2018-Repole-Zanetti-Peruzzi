@@ -68,7 +68,14 @@ public class HandlerControllerSocket implements Runnable{
                 ((SetConnectionState)controller.getState()).notifyOnUpdatedPlayer();
                 break;
             case "choosewindowok":
-                ((FetchState)controller.getState()).sendWindows(controller.board.getPlayerByName(playerID));
+
+                synchronized (controller) {
+                    System.out.println("Giocatore "+playerID+" dentro");
+                    FetchState fetch = (FetchState)controller.getState();
+                    Player playerName = controller.board.getPlayerByName(playerID);
+                    fetch.sendWindows(playerName);
+                    System.out.println("Giocatore "+playerID+" fuori");
+                }
                 break;
             case "chosenwindow":
                 ((FetchState)controller.getState()).setChosenWindow(controller.board.getPlayerByName(param[0]), param[1]);
@@ -162,6 +169,7 @@ public class HandlerControllerSocket implements Runnable{
 
     public void askWindow(String message) throws IOException {
 
+        System.out.println("askWindow");
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
         out.println("chooseWindow "+ message);
         out.close();

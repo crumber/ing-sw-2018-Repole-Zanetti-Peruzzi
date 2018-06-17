@@ -24,7 +24,7 @@
                 <Image url="@../assets/sagradaBg.jpg" />
             </image>
         </ImageView>
-        <Rectangle  width="1024" height="768"  fill="lightgray" opacity="0.95"></Rectangle>
+        <Rectangle  width="1024" height="768" smooth="true" cache="true" fill="lightgray" opacity="0.95"></Rectangle>
         <Rectangle y="-30" width="600" height="80"  arcWidth="40" arcHeight="40" fill="darkgray" opacity="0.95"></Rectangle>
         <Text x="20" y="30" style="-fx-font-weight: bold; -fx-font-size: 20px">Choose Window Room</Text>
         <Text fx:id="timerText" x="480" y="90" style="-fx-font-weight: bold; -fx-font-size: 20px"></Text>

@@ -190,8 +190,8 @@ public class SetConnectionState extends ControllerState{
         if(controller.board.getPlayersOnline()==4 ){
 
             Thread.sleep(2000);
-            this.notifyOnBeginChooseWindow();
             controller.cancelTimer();
+            this.notifyOnBeginChooseWindow();
 
         }
         System.out.println("");

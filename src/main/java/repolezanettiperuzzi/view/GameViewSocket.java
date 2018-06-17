@@ -39,9 +39,9 @@ public class GameViewSocket implements Runnable{
             //System.out.println("port: "+localServerPort);
             boolean read = true;
             while(read){
-                //System.out.println("Attendo connessione");
+                System.out.println("Attendo connessione");
                 this.socket = serverSocket.accept();
-                //System.out.println("Connessione accettata\n");
+                System.out.println("Connessione accettata\n");
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 onReceiveCallback.accept(in.readLine());
                 in.close();
@@ -83,6 +83,7 @@ public class GameViewSocket implements Runnable{
                 }
                 break;
             case "chooseWindow":
+                System.out.println("chooseWindow");
                 receivedWindows(line);
                 break;
             case "startGame":
