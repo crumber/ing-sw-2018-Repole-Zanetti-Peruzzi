@@ -223,6 +223,8 @@ public class SetConnectionState extends ControllerState{
 
         controller.setState(new FetchState());
 
+        //System.out.println("Start send notify");
+
         for(int i = 0; i<board.getNPlayers(); i++){
 
             Player player = board.getPlayer(i);
@@ -273,5 +275,7 @@ public class SetConnectionState extends ControllerState{
 
             }
         }
+
+        //System.out.println("End send notify\n");
     }
 }

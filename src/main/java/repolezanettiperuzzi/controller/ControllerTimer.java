@@ -9,7 +9,7 @@ import java.util.TimerTask;
 
 public class ControllerTimer extends TimerTask {
 
-    private int currentTime = 35;
+    private int currentTime = 60;
     private Timer timer;
     private Controller controller;
     private ControllerState nextState;

@@ -88,7 +88,9 @@ public class InitializeGame{
 
     private void createWindows() throws IOException {
 
-        int nWindows = Objects.requireNonNull(new File("cards/gamemaps").list()).length-1;
+        int nWindows = Objects.requireNonNull(new File("cards/gamemaps").list()).length;
+
+        //System.out.println("NUMERO WINDOWS "+nWindows);
 
         for (int i = 0; i < nWindows; i++) {
 

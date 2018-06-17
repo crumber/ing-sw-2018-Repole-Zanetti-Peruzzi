@@ -10,12 +10,15 @@ public class TakeTwoCardWindowAction {
 
     public List<Window> doAction(List<Window> windows){
 
+        System.out.println("Dentro Action");
+
         ArrayList<Window> clientWindows=new ArrayList<>();
         Random random= new Random();
 
         for(int i=0;i<2;i++) {
 
             int which = random.nextInt(windows.size()); //return int between 0 and size
+            System.out.println("Size "+windows.size()+" which "+which);
 
             clientWindows.add(windows.get(which));
             if (which % 2 == 0) {
@@ -32,6 +35,8 @@ public class TakeTwoCardWindowAction {
 
             }
         }
+
+        System.out.println("Fuori Action");
 
         return clientWindows;
     }

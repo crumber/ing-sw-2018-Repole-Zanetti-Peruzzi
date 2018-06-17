@@ -39,7 +39,9 @@ public class HandlerControllerSocket implements Runnable{
     @Override
     public void run() {
         try {
-            handleMessage();
+            synchronized (controller) {
+                handleMessage();
+            }
         } catch (IOException | ParseException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -68,14 +70,9 @@ public class HandlerControllerSocket implements Runnable{
                 ((SetConnectionState)controller.getState()).notifyOnUpdatedPlayer();
                 break;
             case "choosewindowok":
-
-                synchronized (controller) {
-                    System.out.println("Giocatore "+playerID+" dentro");
-                    FetchState fetch = (FetchState)controller.getState();
-                    Player playerName = controller.board.getPlayerByName(playerID);
-                    fetch.sendWindows(playerName);
-                    System.out.println("Giocatore "+playerID+" fuori");
-                }
+                FetchState fetch = (FetchState)controller.getState();
+                Player playerName = controller.board.getPlayerByName(playerID);
+                fetch.sendWindows(playerName);
                 break;
             case "chosenwindow":
                 ((FetchState)controller.getState()).setChosenWindow(controller.board.getPlayerByName(param[0]), param[1]);

@@ -38,25 +38,21 @@ public class FetchState extends ControllerState {
 
     }
 
-    public synchronized void sendWindows(Player player) throws IOException {
+    public void sendWindows(Player player) throws IOException {
 
         player.setLastScene("chooseWindowRoom");
-        System.out.println("Invio finestre a giocatore "+player.getName());
 
-        if(player.getConnection().equals("Socket")){
+        if (player.getConnection().equals("Socket")) {
 
-            playersWindowsChoices.put(player,(ArrayList<Window>) new TakeTwoCardWindowAction().doAction(windows));
+            playersWindowsChoices.put(player, (ArrayList<Window>) new TakeTwoCardWindowAction().doAction(windows));
             String message = this.windowsToString(playersWindowsChoices.get(player));
-            Socket socket = new Socket(player.getAddress(),player.getPort());
-            HandlerControllerSocket handler = new HandlerControllerSocket(this.controller,socket);
-            System.out.println("pre-ask-window");
+            Socket socket = new Socket(player.getAddress(), player.getPort());
+            HandlerControllerSocket handler = new HandlerControllerSocket(this.controller, socket);
             handler.askWindow(message);
 
-        }else if(player.getConnection().equals("RMI")){
+        } else if (player.getConnection().equals("RMI")) {
 
         }
-
-
 
     }
 
