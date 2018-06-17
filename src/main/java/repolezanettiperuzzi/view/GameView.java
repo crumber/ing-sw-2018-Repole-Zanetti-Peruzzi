@@ -171,6 +171,7 @@ public class GameView {
             ((ChooseWindowFXMLController) fxmlController).viewWindows(windows);
         }else if(this.UI.equals("CLI")){
 
+            gvCLI.viewWindows(windows);
         }
     }
 
