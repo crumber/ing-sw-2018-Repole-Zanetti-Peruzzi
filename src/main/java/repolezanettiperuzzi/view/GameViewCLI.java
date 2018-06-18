@@ -118,123 +118,156 @@ public class GameViewCLI implements Runnable {
 
     public void viewWindows(ArrayList<WindowClient> windows) {
 
-        String highLowedge="+———+———+———+———+———+";
-        String space="     ";
-        String edge="|———+———+———+———+———|";
 
-        for(int i=0; i<4; i++){
+        String highLowEdge="+———";
+        String space="       ";  //space ha lo stesso numero di caratteri di CARDN:
+        String typeEdge1="+———+";
+        String typeEdge2="+———";
+        String middleEdge="|———";
+        String typeEdge3="+———|";
+        String nFV="  FV: ";
+
+        if(windows.get(0).rowSize()==1){
+
+
+            highLowEdge+="+";
+            middleEdge+="|";
+
+        }
+        else{
+
+            for(int i=1;i<windows.get(0).columnSize()-1;i++){
+
+                highLowEdge+=typeEdge2;
+                middleEdge+=typeEdge2;
+
+            }
+
+            highLowEdge+=typeEdge1;
+            middleEdge+=typeEdge3;
+        }
+
+        for(int i=0; i<windows.get(0).rowSize(); i++){
 
             if(i==0){
 
-                System.out.println(highLowedge + space +highLowedge +space +highLowedge +space +highLowedge +"\n");
+                System.out.print(space +"CARD1: " +highLowEdge + space +"CARD2: "+highLowEdge +space +"CARD3: "+highLowEdge +space+ "CARD4: " +highLowEdge +"\n");
 
             }
 
-            System.out.println(createBoundCli(windows.get(0),i,0) +createBoundCli(windows.get(0),i,1) +createBoundCli(windows.get(0),i,2) +createBoundCli(windows.get(0),i,3) +createBoundCli(windows.get(0),i,4) +space);
-            System.out.println(createBoundCli(windows.get(1),i,0) +createBoundCli(windows.get(1),i,1) +createBoundCli(windows.get(1),i,2) +createBoundCli(windows.get(1),i,3) +createBoundCli(windows.get(1),i,4) +space);
-            System.out.println(createBoundCli(windows.get(2),i,0) +createBoundCli(windows.get(2),i,1) +createBoundCli(windows.get(2),i,2) +createBoundCli(windows.get(2),i,3) +createBoundCli(windows.get(2),i,4) +space);
-            System.out.println(createBoundCli(windows.get(3),i,0) +createBoundCli(windows.get(3),i,1) +createBoundCli(windows.get(3),i,2) +createBoundCli(windows.get(3),i,3) +createBoundCli(windows.get(3),i,4) +"\n");
+            System.out.print(space+space +createBoundCli(windows.get(0),i,0) +createBoundCli(windows.get(0),i,1) +createBoundCli(windows.get(0),i,2) +createBoundCli(windows.get(0),i,3) +createBoundCli(windows.get(0),i,4)+"|" +space+space);
+            System.out.print(createBoundCli(windows.get(1),i,0) +createBoundCli(windows.get(1),i,1) +createBoundCli(windows.get(1),i,2) +createBoundCli(windows.get(1),i,3) +createBoundCli(windows.get(1),i,4)+"|" +space+space);
+            System.out.print(createBoundCli(windows.get(2),i,0) +createBoundCli(windows.get(2),i,1) +createBoundCli(windows.get(2),i,2) +createBoundCli(windows.get(2),i,3) +createBoundCli(windows.get(2),i,4)+"|" +space+space);
+            System.out.print(createBoundCli(windows.get(3),i,0) +createBoundCli(windows.get(3),i,1) +createBoundCli(windows.get(3),i,2) +createBoundCli(windows.get(3),i,3) +createBoundCli(windows.get(3),i,4)+"|\n");
 
-            if(i>0 && i<3){
+            if(i<3){
 
-                System.out.println(edge +space +edge +space +edge +space +edge +"\n");
+                System.out.print(space+space +middleEdge +space+space +middleEdge +space+space +middleEdge +space+space +middleEdge +"\n");
 
-            }else if(i==4){
+            }else if(i==3){
 
-                System.out.println(highLowedge + space +highLowedge +space +highLowedge +space +highLowedge +"\n");
+                System.out.print(space+space +highLowEdge + space+space +highLowEdge +space+space +highLowEdge +space+space +highLowEdge +"\n\n");
+
+                System.out.println(space +"CARD1:  name:" +windows.get(0).getName() +nFV +windows.get(0).getFTokens());
+                System.out.println(space +"CARD2:  name:" +windows.get(1).getName() +nFV +windows.get(1).getFTokens());
+                System.out.println(space +"CARD3:  name:" +windows.get(2).getName() +nFV +windows.get(2).getFTokens());
+                System.out.println(space +"CARD4:  name:" +windows.get(3).getName() +nFV +windows.get(3).getFTokens());
+
 
             }
         }
+
+        System.out.print("\n"+space +"Choose your window, write its name: ");
+
     }
 
     public String createBoundCli(WindowClient window, int x,int y){
 
-        String bound="|   |";
+        String bound;
         BoxClient[][] boxes = window.getBoardBox();
-        switch (boxes[x][y].getBoundColour()){
 
-            case RED: {
+        if(boxes[x][y].getBoundColour()!=null) {
 
-                bound="| R |";
-                break;
+            switch (boxes[x][y].getBoundColour()) {
 
-            }
-            case GREEN: {
+                case RED: {
 
-                bound="| G |";
-                break;
+                    bound = "| R ";
+                    break;
 
-            }
-            case BLUE: {
+                }
+                case GREEN: {
 
-                bound="| B |";
-                break;
+                    bound = "| G ";
+                    break;
 
-            }
-            case PURPLE: {
+                }
+                case BLUE: {
 
-                bound="| P |";
-                break;
+                    bound = "| B ";
+                    break;
 
-            }
-            case YELLOW: {
+                }
+                case PURPLE: {
 
-                bound="| Y |";
-                break;
+                    bound = "| P ";
+                    break;
 
-            }
-            default: {
+                }
+                default: {
 
-                break;
+                    bound = "| Y ";
+                    break;
 
-            }
-
-        }
-        switch (boxes[x][y].getBoundValue()){
-
-            case ONE: {
-
-                bound="| 1 |";
-                break;
-
-            }
-            case TWO: {
-
-                bound="| 2 |";
-                break;
-
-            }
-            case THREE: {
-
-                bound="| 3 |";
-                break;
-
-            }
-            case FOUR: {
-
-                bound="| 4 |";
-                break;
-
-            }
-            case FIVE: {
-
-                bound="| 5 |";
-                break;
-
-            }
-            case SIX: {
-
-                bound="| 6 |";
-                break;
-
-            }
-            default:{
-
-                break;
+                }
 
             }
         }
+        else if(boxes[x][y].getBoundValue()!=null){
 
+            switch (boxes[x][y].getBoundValue()){
+
+                case ONE: {
+
+                    bound="| 1 ";
+                    break;
+
+                }
+                case TWO: {
+
+                    bound="| 2 ";
+                    break;
+
+                }
+                case THREE: {
+
+                    bound="| 3 ";
+                    break;
+
+                }
+                case FOUR: {
+
+                    bound="| 4 ";
+                    break;
+
+                }
+                case FIVE: {
+
+                    bound="| 5 ";
+                    break;
+
+                }
+                default: {
+
+                    bound="| 6 ";
+                    break;
+                }
+            }
+
+        }else{
+
+            bound="|   ";
+        }
         return bound;
     }
 
