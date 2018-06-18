@@ -144,7 +144,7 @@ public class GameView {
         if(this.UI.equals("GUI")){
             ((WaitingRoomFXMLController) fxmlController).setChooseWindowScene();
         }else if(this.UI.equals("CLI")){
-
+            gvCLI.setChooseWindowScene();
         }
     }
 

@@ -73,7 +73,7 @@ public class WaitingRoomFXMLController extends FXMLController{
 
     public void setTimer(int timerDuration){
 
-        timerCounter = timerDuration;
+        timerCounter = timerDuration-1; //-1 necessario perche per la creazione della TimeLine ci mette un secondo
         timerCountdown = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
 
             @Override
