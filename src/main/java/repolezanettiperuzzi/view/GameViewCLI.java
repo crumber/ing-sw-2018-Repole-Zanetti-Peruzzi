@@ -118,14 +118,15 @@ public class GameViewCLI implements Runnable {
 
     public void viewWindows(ArrayList<WindowClient> windows) {
 
-
         String highLowEdge="+———";
-        String space="       ";  //space ha lo stesso numero di caratteri di CARDN:
+        String space="          ";  //space ha lo stesso numero di caratteri di CARDN:
         String typeEdge1="+———+";
         String typeEdge2="+———";
         String middleEdge="|———";
         String typeEdge3="+———|";
         String nFV="  FV: ";
+        String nameWindowChoose;
+        boolean choose;
 
         if(windows.get(0).rowSize()==1){
 
@@ -151,7 +152,7 @@ public class GameViewCLI implements Runnable {
 
             if(i==0){
 
-                System.out.print(space +"CARD1: " +highLowEdge + space +"CARD2: "+highLowEdge +space +"CARD3: "+highLowEdge +space+ "CARD4: " +highLowEdge +"\n");
+                System.out.print(space +"WINDOW 1: " +highLowEdge + space +"WINDOW 2: "+highLowEdge +space +"WINDOW 3: "+highLowEdge +space+ "WINDOW 4: " +highLowEdge +"\n");
 
             }
 
@@ -168,17 +169,44 @@ public class GameViewCLI implements Runnable {
 
                 System.out.print(space+space +highLowEdge + space+space +highLowEdge +space+space +highLowEdge +space+space +highLowEdge +"\n\n");
 
-                System.out.println(space +"CARD1:  name:" +windows.get(0).getName() +nFV +windows.get(0).getFTokens());
-                System.out.println(space +"CARD2:  name:" +windows.get(1).getName() +nFV +windows.get(1).getFTokens());
-                System.out.println(space +"CARD3:  name:" +windows.get(2).getName() +nFV +windows.get(2).getFTokens());
-                System.out.println(space +"CARD4:  name:" +windows.get(3).getName() +nFV +windows.get(3).getFTokens());
+                System.out.println(space +"WINDOW 1:  name:" +windows.get(0).getName() +nFV +windows.get(0).getFTokens());
+                System.out.println(space +"WINDOW 2:  name:" +windows.get(1).getName() +nFV +windows.get(1).getFTokens());
+                System.out.println(space +"WINDOW 3:  name:" +windows.get(2).getName() +nFV +windows.get(2).getFTokens());
+                System.out.println(space +"WINDOW 4:  name:" +windows.get(3).getName() +nFV +windows.get(3).getFTokens() +"\n");
 
 
             }
         }
 
-        System.out.print("\n"+space +"Choose your window, write its name: ");
+        do{
+            choose=true;
+            System.out.print(space +"Choose your window, write its number: ");
+            Scanner scanner = new Scanner(System.in);
+            String numWindow = scanner.nextLine();
+            if (numWindow.compareTo("1") == 0) {
 
+                nameWindowChoose = windows.get(0).getName();
+
+            } else if (numWindow.compareTo("2") == 0) {
+
+                nameWindowChoose = windows.get(1).getName();
+
+            } else if (numWindow.compareTo("3") == 0) {
+
+                nameWindowChoose = windows.get(2).getName();
+
+            } else if (numWindow.compareTo("4") == 0) {
+
+                nameWindowChoose = windows.get(3).getName();
+
+            } else {
+
+                choose=false;
+            }
+
+        }while (!choose);
+
+        //ANDARE AVANTI, HO LA SCELTA DEL GIOCATORE (NOME DELLA WINDOW)
     }
 
     public String createBoundCli(WindowClient window, int x,int y){
