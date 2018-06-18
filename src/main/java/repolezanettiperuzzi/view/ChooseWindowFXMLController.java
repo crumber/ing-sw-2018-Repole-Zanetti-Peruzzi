@@ -129,8 +129,11 @@ public class ChooseWindowFXMLController extends FXMLController{
 
     }
 
-    public void setChooseWindowScene(){
+    public void sendChosenWindow(String windowName) throws IOException {
+        gV.sendChosenWindow(windowName);
+    }
 
+    public void setChooseWindowScene(){
         this.cancelTimer();
         Platform.runLater(() -> {
             timerText.setX(stage.getScene().getWidth()/2);

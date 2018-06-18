@@ -195,7 +195,7 @@ public class GameViewSocket implements Runnable{
 
     public void sendChosenWindow(String username, String windowName) throws IOException {
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        out.println(username + " chosenwindow "+windowName);
+        out.println(username + " chosenWindow "+windowName);
         out.close();
         socket.close();
     }

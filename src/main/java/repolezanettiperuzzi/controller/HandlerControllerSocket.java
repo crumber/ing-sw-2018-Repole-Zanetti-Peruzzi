@@ -74,7 +74,7 @@ public class HandlerControllerSocket implements Runnable{
                 Player playerName = controller.board.getPlayerByName(playerID);
                 fetch.sendWindows(playerName);
                 break;
-            case "chosenwindow":
+            case "chosenWindow":
                 ((FetchState)controller.getState()).setChosenWindow(controller.board.getPlayerByName(param[0]), param[1]);
                 break;
             case "startWindowOk":
