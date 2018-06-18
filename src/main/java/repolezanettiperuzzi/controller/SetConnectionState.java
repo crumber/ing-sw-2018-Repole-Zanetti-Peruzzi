@@ -197,15 +197,7 @@ public class SetConnectionState extends ControllerState{
         System.out.println("");
     }
 
-    public void setLiveStatusOffline(String playerName){
-        System.out.println("exit waiting room "+playerName);
-        for(int i = 0; i<controller.board.getNPlayers(); i++){
-            if(controller.board.getPlayer(i).getName().equals(playerName)){
-                controller.board.getPlayer(i).setLiveStatus(false);
-                break;
-            }
-        }
-    }
+
 
     //method to clean the json file every time the game restarts
     private void cleanJson(String jsonPath){

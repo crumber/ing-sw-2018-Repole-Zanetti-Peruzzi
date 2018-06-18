@@ -67,6 +67,12 @@ public class Controller {
         
     }
 
+    public void setIsTimerOn(boolean condition){
+
+        this.isTimerOn=condition;
+
+    }
+
     public synchronized int getCurrentTime(){
         if(isTimerOn){
             return this.task.getCurrentTime();
@@ -82,7 +88,15 @@ public class Controller {
 
     }
 
-    //TODO metodo setTimer
+    public void setLiveStatusOffline(String playerName){
+        System.out.println("exit waiting room "+playerName);
+        for(int i = 0; i<this.board.getNPlayers(); i++){
+            if(this.board.getPlayer(i).getName().equals(playerName)){
+                this.board.getPlayer(i).setLiveStatus(false);
+                break;
+            }
+        }
+    }
 
 
 }
