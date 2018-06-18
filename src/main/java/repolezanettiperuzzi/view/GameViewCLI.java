@@ -148,35 +148,41 @@ public class GameViewCLI implements Runnable {
             middleEdge+=typeEdge3;
         }
 
-        for(int i=0; i<windows.get(0).rowSize(); i++){
+        for(int j=0; j<2; j++) {
 
-            if(i==0){
+            for (int i = 0; i < windows.get(0).rowSize(); i++) {
 
-                System.out.print(space +"WINDOW 1: " +highLowEdge + space +"WINDOW 2: "+highLowEdge +space +"WINDOW 3: "+highLowEdge +space+ "WINDOW 4: " +highLowEdge +"\n");
+                if (i == 0 && j==0) {
 
-            }
+                    System.out.print(space + "WINDOW 1: " + highLowEdge + space + "WINDOW 2: "+ highLowEdge  + "\n");
 
-            System.out.print(space+space +createBoundCli(windows.get(0),i,0) +createBoundCli(windows.get(0),i,1) +createBoundCli(windows.get(0),i,2) +createBoundCli(windows.get(0),i,3) +createBoundCli(windows.get(0),i,4)+"|" +space+space);
-            System.out.print(createBoundCli(windows.get(1),i,0) +createBoundCli(windows.get(1),i,1) +createBoundCli(windows.get(1),i,2) +createBoundCli(windows.get(1),i,3) +createBoundCli(windows.get(1),i,4)+"|" +space+space);
-            System.out.print(createBoundCli(windows.get(2),i,0) +createBoundCli(windows.get(2),i,1) +createBoundCli(windows.get(2),i,2) +createBoundCli(windows.get(2),i,3) +createBoundCli(windows.get(2),i,4)+"|" +space+space);
-            System.out.print(createBoundCli(windows.get(3),i,0) +createBoundCli(windows.get(3),i,1) +createBoundCli(windows.get(3),i,2) +createBoundCli(windows.get(3),i,3) +createBoundCli(windows.get(3),i,4)+"|\n");
+                }else if( i==0 && j!=0){
 
-            if(i<3){
+                    j=2;
+                    System.out.print(space + "WINDOW 3: " + highLowEdge + space + "WINDOW 4: " + highLowEdge + "\n");
 
-                System.out.print(space+space +middleEdge +space+space +middleEdge +space+space +middleEdge +space+space +middleEdge +"\n");
+                }
 
-            }else if(i==3){
+                System.out.print(space + space + createBoundCli(windows.get(j), i, 0) + createBoundCli(windows.get(j), i, 1) + createBoundCli(windows.get(j), i, 2) + createBoundCli(windows.get(j), i, 3) + createBoundCli(windows.get(j), i, 4) + "|" + space + space);
+                System.out.print(createBoundCli(windows.get(j+1), i, 0) + createBoundCli(windows.get(j+1), i, 1) + createBoundCli(windows.get(j+1), i, 2) + createBoundCli(windows.get(j+1), i, 3) + createBoundCli(windows.get(j+1), i, 4) + "|\n");
 
-                System.out.print(space+space +highLowEdge + space+space +highLowEdge +space+space +highLowEdge +space+space +highLowEdge +"\n\n");
+                if (i < 3) {
 
-                System.out.println(space +"WINDOW 1:  name:" +windows.get(0).getName() +nFV +windows.get(0).getFTokens());
-                System.out.println(space +"WINDOW 2:  name:" +windows.get(1).getName() +nFV +windows.get(1).getFTokens());
-                System.out.println(space +"WINDOW 3:  name:" +windows.get(2).getName() +nFV +windows.get(2).getFTokens());
-                System.out.println(space +"WINDOW 4:  name:" +windows.get(3).getName() +nFV +windows.get(3).getFTokens() +"\n");
+                    System.out.print(space + space + middleEdge + space + space + middleEdge + "\n");
 
+                } else if (i == 3) {
 
+                    System.out.print(space + space + highLowEdge + space + space + highLowEdge + "\n\n");
+
+                }
             }
         }
+
+
+        System.out.println(space + "WINDOW 1:  name:" + windows.get(0).getName() + nFV + windows.get(0).getFTokens());
+        System.out.println(space + "WINDOW 2:  name:" + windows.get(1).getName() + nFV + windows.get(1).getFTokens());
+        System.out.println(space + "WINDOW 3:  name:" + windows.get(2).getName() + nFV + windows.get(2).getFTokens());
+        System.out.println(space + "WINDOW 4:  name:" + windows.get(3).getName() + nFV + windows.get(3).getFTokens() + "\n");
 
         do{
             choose=true;
