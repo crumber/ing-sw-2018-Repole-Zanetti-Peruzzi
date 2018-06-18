@@ -9,13 +9,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.view.modelwrapper.WindowClient;
 
+import javax.swing.text.html.ImageView;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -101,18 +104,25 @@ public class ChooseWindowFXMLController extends FXMLController{
             WindowGenerator wGenerator = new WindowGenerator(windows.get(i));
             //Esempio con GridPane
             GridPane pane = wGenerator.getWindowFXObject();
+            VBox box = new VBox();
+            javafx.scene.image.ImageView windowLabel = new javafx.scene.image.ImageView(new Image(new DynamicPath("assets/Windows/"+windows.get(i).getName()+".png").getPath()));
+            windowLabel.setFitWidth(250);
+            windowLabel.setPreserveRatio(true);
+            windowLabel.setSmooth(true);
+            windowLabel.setCache(true);
+            box.getChildren().addAll(pane,windowLabel);
             xPos = 100+(300*((i%2))); //posiziono ogni gridpane creata alternando la pos X (prima *1 poi *2 poi *1 poi *2)
             //System.out.println("xPos: "+xPos);
-            pane.setLayoutX(xPos);
+            box.setLayoutX(xPos);
             if(i%2==0){  //incrememnto il moltiplicatore della pos Y ogni 2 cicli
                 yPos = 150+(300*j);
                 j++;
 
             }
             //System.out.println("yPos: "+yPos);
-            pane.setLayoutY(yPos);
+            box.setLayoutY(yPos);
             Platform.runLater(() -> {
-                ((Group)stage.getScene().getRoot()).getChildren().add(pane);
+                ((Group)stage.getScene().getRoot()).getChildren().add(box);
             });
 
         }
@@ -144,11 +154,7 @@ public class ChooseWindowFXMLController extends FXMLController{
                 stage.setUserData(finalLoader);
             });
             gV.waitingRoomLoaded();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
 
