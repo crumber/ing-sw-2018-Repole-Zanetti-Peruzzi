@@ -273,4 +273,15 @@ public class WindowClient {
 
     }
 
+    public int rowSize(){
+
+        return boardBox.length;
+    }
+
+    public int columnSize(){
+
+        return boardBox[0].length;
+
+    }
+
 }
