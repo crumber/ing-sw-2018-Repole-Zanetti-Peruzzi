@@ -2,9 +2,14 @@ package repolezanettiperuzzi.view;
 
 import repolezanettiperuzzi.common.HandlerSkeletonRMI;
 import repolezanettiperuzzi.controller.ControllerTimer;
+import repolezanettiperuzzi.model.Box;
+import repolezanettiperuzzi.model.Window;
+import repolezanettiperuzzi.view.modelwrapper.BoxClient;
+import repolezanettiperuzzi.view.modelwrapper.WindowClient;
 
 import java.io.Console;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
 
@@ -99,6 +104,128 @@ public class GameViewCLI implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void viewWindows(ArrayList<WindowClient> windows) {
+
+        String highLowedge="+———+———+———+———+———+";
+        String space="     ";
+        String edge="|———+———+———+———+———|";
+
+        for(int i=0; i<4; i++){
+
+            if(i==0){
+
+                System.out.println(highLowedge + space +highLowedge +space +highLowedge +space +highLowedge +"\n");
+
+            }
+
+            System.out.println(createBoundCli(windows.get(0),i,0) +createBoundCli(windows.get(0),i,1) +createBoundCli(windows.get(0),i,2) +createBoundCli(windows.get(0),i,3) +createBoundCli(windows.get(0),i,4) +space);
+            System.out.println(createBoundCli(windows.get(1),i,0) +createBoundCli(windows.get(1),i,1) +createBoundCli(windows.get(1),i,2) +createBoundCli(windows.get(1),i,3) +createBoundCli(windows.get(1),i,4) +space);
+            System.out.println(createBoundCli(windows.get(2),i,0) +createBoundCli(windows.get(2),i,1) +createBoundCli(windows.get(2),i,2) +createBoundCli(windows.get(2),i,3) +createBoundCli(windows.get(2),i,4) +space);
+            System.out.println(createBoundCli(windows.get(3),i,0) +createBoundCli(windows.get(3),i,1) +createBoundCli(windows.get(3),i,2) +createBoundCli(windows.get(3),i,3) +createBoundCli(windows.get(3),i,4) +"\n");
+
+            if(i>0 && i<3){
+
+                System.out.println(edge +space +edge +space +edge +space +edge +"\n");
+
+            }else if(i==4){
+
+                System.out.println(highLowedge + space +highLowedge +space +highLowedge +space +highLowedge +"\n");
+
+            }
+        }
+    }
+
+    public String createBoundCli(WindowClient window, int x,int y){
+
+        String bound="|   |";
+        BoxClient[][] boxes = window.getBoardBox();
+        switch (boxes[x][y].getBoundColour()){
+
+            case RED: {
+
+                bound="| R |";
+                break;
+
+            }
+            case GREEN: {
+
+                bound="| G |";
+                break;
+
+            }
+            case BLUE: {
+
+                bound="| B |";
+                break;
+
+            }
+            case PURPLE: {
+
+                bound="| P |";
+                break;
+
+            }
+            case YELLOW: {
+
+                bound="| Y |";
+                break;
+
+            }
+            default: {
+
+                break;
+
+            }
+
+        }
+        switch (boxes[x][y].getBoundValue()){
+
+            case ONE: {
+
+                bound="| 1 |";
+                break;
+
+            }
+            case TWO: {
+
+                bound="| 2 |";
+                break;
+
+            }
+            case THREE: {
+
+                bound="| 3 |";
+                break;
+
+            }
+            case FOUR: {
+
+                bound="| 4 |";
+                break;
+
+            }
+            case FIVE: {
+
+                bound="| 5 |";
+                break;
+
+            }
+            case SIX: {
+
+                bound="| 6 |";
+                break;
+
+            }
+            default:{
+
+                break;
+
+            }
+        }
+
+        return bound;
     }
 
     public void updateView() {
