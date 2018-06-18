@@ -1,9 +1,5 @@
 package repolezanettiperuzzi.view;
 
-import repolezanettiperuzzi.common.HandlerSkeletonRMI;
-import repolezanettiperuzzi.controller.ControllerTimer;
-import repolezanettiperuzzi.model.Box;
-import repolezanettiperuzzi.model.Window;
 import repolezanettiperuzzi.view.modelwrapper.BoxClient;
 import repolezanettiperuzzi.view.modelwrapper.WindowClient;
 
@@ -30,7 +26,7 @@ public class GameViewCLI implements Runnable {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         if (console == null) {
-            System.out.println("\nCLI non disponibile su Intellij. Fai partire jar.");
+            System.out.println("\nCLI non disponibile su Intellij. Fai partire il jar.");
             System.exit(0);
         }
         System.out.println("\n\n//// Schermata di login ////\n\n");
@@ -67,8 +63,8 @@ public class GameViewCLI implements Runnable {
 
         if(!isTimerOn && setTimer!=0 && setTimer!=-1) {
             this.cliTimer = new CLITimer(playersString, setTimer);
-            timer = cliTimer.getTimer();
-            timer.schedule(cliTimer, 0, 1000);
+            this.timer = cliTimer.getTimer();
+            this.timer.schedule(cliTimer, 0, 1000);
             isTimerOn = true;
         } else if(isTimerOn && setTimer!=0 && setTimer!=-1){
             cliTimer.setTimeAndPlayer(setTimer, playersString);
@@ -101,6 +97,20 @@ public class GameViewCLI implements Runnable {
         System.out.println("Sala d'attesa: \n\n");
         try {
             gV.waitingRoomLoaded();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setChooseWindowScene(){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("Choose window: \n\n");
+        this.timer.cancel();
+        this.timer.purge();
+        this.isTimerOn = false;
+        try {
+            gV.chooseWindowSceneLoaded();
         } catch (IOException e) {
             e.printStackTrace();
         }
