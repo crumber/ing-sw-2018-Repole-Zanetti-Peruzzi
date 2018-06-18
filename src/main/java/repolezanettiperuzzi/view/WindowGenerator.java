@@ -173,6 +173,8 @@ public class WindowGenerator {
             }
         }
 
+        gridWindow.setGridLinesVisible(true);
+
         return gridWindow;
     }
 }
