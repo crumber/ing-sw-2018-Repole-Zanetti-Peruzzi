@@ -40,7 +40,9 @@ public class HandlerControllerSocket implements Runnable{
     public void run() {
         try {
             synchronized (controller) {
+
                 handleMessage();
+
             }
         } catch (IOException | ParseException | InterruptedException e) {
             e.printStackTrace();
@@ -74,8 +76,8 @@ public class HandlerControllerSocket implements Runnable{
                 Player playerName = controller.board.getPlayerByName(playerID);
                 fetch.sendWindows(playerName);
                 break;
-            case "chosenwindow":
-                ((FetchState)controller.getState()).setChosenWindow(controller.board.getPlayerByName(param[0]), param[1]);
+            case "chosenWindow":
+                ((FetchState)controller.getState()).setChosenWindow(controller.board.getPlayerByName(playerID), param[0].replace("-"," "));
                 break;
             case "startWindowOk":
                 ((FetchState)controller.getState()).readyToPlay();
@@ -84,11 +86,12 @@ public class HandlerControllerSocket implements Runnable{
                 switch(param[0]){
                     case "waitingRoom":
                         controller.setState(new SetConnectionState());
-                        ((SetConnectionState)controller.getState()).setLiveStatusOffline(playerID);
+                        controller.setLiveStatusOffline(playerID);
                         ((SetConnectionState)controller.getState()).notifyOnUpdatedPlayer();
                         break;
                     case "chooseWindow":
                         //TODO gestire l'uscita durante la scelta delle window
+                        controller.setLiveStatusOffline(playerID);
                         break;
                     case "duringGame":
                         //TODO gestire l'uscita durante il gioco
@@ -164,11 +167,10 @@ public class HandlerControllerSocket implements Runnable{
 
     }
 
-    public void askWindow(String message) throws IOException {
+    public void askWindow(String message,int currentTime) throws IOException {
 
-        System.out.println("askWindow");
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
-        out.println("chooseWindow "+ message);
+        out.println("chooseWindow "+ message +currentTime);
         out.close();
         this.socket.close();
 

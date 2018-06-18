@@ -42,13 +42,20 @@ public class FetchState extends ControllerState {
 
         player.setLastScene("chooseWindowRoom");
 
+        if(!controller.isTimerOn()){
+
+            controller.setTimer("chooseWindow");
+
+        }
+
         if (player.getConnection().equals("Socket")) {
 
             playersWindowsChoices.put(player, (ArrayList<Window>) new TakeTwoCardWindowAction().doAction(windows));
             String message = this.windowsToString(playersWindowsChoices.get(player));
             Socket socket = new Socket(player.getAddress(), player.getPort());
             HandlerControllerSocket handler = new HandlerControllerSocket(this.controller, socket);
-            handler.askWindow(message);
+            //System.out.println(controller.getCurrentTime());
+            handler.askWindow(message,controller.getCurrentTime());
 
         } else if (player.getConnection().equals("RMI")) {
 
@@ -100,6 +107,7 @@ public class FetchState extends ControllerState {
             if(board.getPlayer(i).getWindow()==null){
                 return;
             }
+
         }
 
         //tutti i giocatori hanno scelto una window prima dello scadere del timer
@@ -117,29 +125,58 @@ public class FetchState extends ControllerState {
 
                 Player player = board.getPlayer(i);
 
-                if(player.checkLastScene("chooseWindowRoom") && player.getLiveStatus()) {
+                if(player.getWindow()!=null) {
 
-                    if (player.getConnection().equals("Socket")) {
+                    if (player.checkLastScene("chooseWindowRoom") && player.getLiveStatus()) {
 
-                        try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+                        if (player.getConnection().equals("Socket")) {
 
-                            HandlerControllerSocket handlerControllerSocket = new HandlerControllerSocket(controller, socket);
-                            handlerControllerSocket.notifyOnStartGame();
+                            try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
 
-                        } catch (IOException e) {
+                                HandlerControllerSocket handlerControllerSocket = new HandlerControllerSocket(controller, socket);
+                                handlerControllerSocket.notifyOnStartGame();
 
-                            e.printStackTrace();
+                            } catch (IOException e) {
+
+                                e.printStackTrace();
+
+                            }
+
+                        } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
 
                         }
-
-                    } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
 
                     }
 
                 }else{
 
-                    this.setChosenWindow(player,playersWindowsChoices.get(player).get(0).getName());
+                    if(player.getLastScene().equals("chooseWindowRoom")&& player.getLiveStatus()){
 
+
+                        this.setChosenWindow(player,playersWindowsChoices.get(player).get(0).getName());
+
+                        if (player.getConnection().equals("Socket")) {
+
+                            try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+
+                                HandlerControllerSocket handlerControllerSocket = new HandlerControllerSocket(controller, socket);
+                                handlerControllerSocket.notifyOnStartGame();
+
+                            } catch (IOException e) {
+
+                                e.printStackTrace();
+
+                            }
+
+                        } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
+
+                        }
+
+                    }else if(player.getLastScene().equals("chooseWindowRoom")&& !player.getLiveStatus()){
+
+                        this.setChosenWindow(player,playersWindowsChoices.get(player).get(0).getName());
+
+                    }
                 }
             }
 
@@ -186,7 +223,7 @@ public class FetchState extends ControllerState {
         this.readyPlayers++;
 
         if(this.readyPlayers==this.playersToCheck){
-
+            System.out.println("arrivato");
             controller.setState(new BeginRoundState());
 
         }

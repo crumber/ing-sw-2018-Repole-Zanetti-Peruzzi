@@ -9,7 +9,7 @@ import java.util.TimerTask;
 
 public class ControllerTimer extends TimerTask {
 
-    private int currentTime = 60;
+    private int currentTime;
     private Timer timer;
     private Controller controller;
     private ControllerState nextState;
@@ -22,6 +22,7 @@ public class ControllerTimer extends TimerTask {
         this.timer = new Timer();
         this.controller = controller;
         this.currentState=timerType;
+        this.currentTime = 60;
 
         //TODO apro file configurazione durata timer
 
@@ -48,11 +49,11 @@ public class ControllerTimer extends TimerTask {
     public void run() {
 
         currentTime--;//aggiorna il timer ad ogni esecuzione
-
         if (currentTime==0){
 
             timer.cancel();
             timer.purge();
+            controller.setIsTimerOn(false);
 
             switch (currentState){
 

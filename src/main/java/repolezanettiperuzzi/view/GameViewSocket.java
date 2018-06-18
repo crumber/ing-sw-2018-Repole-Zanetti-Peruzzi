@@ -126,7 +126,8 @@ public class GameViewSocket implements Runnable{
         int favorToken;
         ArrayList<ArrayList<String>> boxesList;
         int i = 1;
-        while(i < line.length){
+        int currentTime = 0 ;
+        while(i < line.length-1){
             boxesList = new ArrayList<>();
             windowName = line[i];
             i++;
@@ -140,8 +141,10 @@ public class GameViewSocket implements Runnable{
             chosenWindows.add(new WindowClient(windowName, favorToken, boxMatrix));
             i++;
 
+
         }
-        gameView.viewWindows(chosenWindows);
+        currentTime = Integer.parseInt(line[i]);
+        gameView.viewWindows(chosenWindows,currentTime);
     }
 
     private BoxClient[][] arrayListToMatrix(ArrayList<ArrayList<String>> chosenWindows){
@@ -194,8 +197,9 @@ public class GameViewSocket implements Runnable{
     }
 
     public void sendChosenWindow(String username, String windowName) throws IOException {
+
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        out.println(username + " chosenwindow "+windowName);
+        out.println(username + " chosenWindow "+windowName);
         out.close();
         socket.close();
     }

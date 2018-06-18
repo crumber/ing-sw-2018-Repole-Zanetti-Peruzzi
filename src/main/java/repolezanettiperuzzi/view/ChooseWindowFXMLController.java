@@ -9,6 +9,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -94,43 +97,53 @@ public class ChooseWindowFXMLController extends FXMLController{
         gV.notifyOnExit("chooseWindow");
     }
 
-    public void viewWindows(ArrayList<WindowClient> windows)  {
+    public void viewWindows(ArrayList<WindowClient> windows, int currentTime)  {
 
+        this.setTimer(currentTime);
         int j = 0;
         int xPos = 0;
         int yPos = 0;
         for(int i = 0; i<windows.size(); i++) {
-            //System.out.println("Generate window: "+i);
+
             WindowGenerator wGenerator = new WindowGenerator(windows.get(i));
             //Esempio con GridPane
             GridPane pane = wGenerator.getWindowFXObject();
             VBox box = new VBox();
             javafx.scene.image.ImageView windowLabel = new javafx.scene.image.ImageView(new Image(new DynamicPath("assets/Windows/"+windows.get(i).getName()+".png").getPath()));
-            windowLabel.setFitWidth(250);
+            windowLabel.setFitWidth(50*windows.get(i).getBoardBox()[0].length);
             windowLabel.setPreserveRatio(true);
             windowLabel.setSmooth(true);
             windowLabel.setCache(true);
             box.getChildren().addAll(pane,windowLabel);
+            Button b = new Button();
+            b.setId(i+"");
+            b.setGraphic(box);
             xPos = 100+(300*((i%2))); //posiziono ogni gridpane creata alternando la pos X (prima *1 poi *2 poi *1 poi *2)
             //System.out.println("xPos: "+xPos);
-            box.setLayoutX(xPos);
+            b.setLayoutX(xPos);
             if(i%2==0){  //incrememnto il moltiplicatore della pos Y ogni 2 cicli
                 yPos = 150+(300*j);
                 j++;
 
             }
             //System.out.println("yPos: "+yPos);
-            box.setLayoutY(yPos);
+            String windowName = windows.get(i).getName();
+            b.setLayoutY(yPos);
+            b.setStyle("-fx-background-color: transparent;"+"-fx-text-fill: transparent;");
+            b.setOnAction(e -> onWindowClick(e,windowName));
             Platform.runLater(() -> {
-                ((Group)stage.getScene().getRoot()).getChildren().add(box);
+                ((Group)stage.getScene().getRoot()).getChildren().add(b);
             });
 
         }
 
     }
 
-    public void setChooseWindowScene(){
+    public void sendChosenWindow(String windowName) throws IOException {
+        gV.sendChosenWindow(windowName);
+    }
 
+    public void setChooseWindowScene(){
         this.cancelTimer();
         Platform.runLater(() -> {
             timerText.setX(stage.getScene().getWidth()/2);
@@ -157,6 +170,41 @@ public class ChooseWindowFXMLController extends FXMLController{
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public void onWindowClick (ActionEvent e, String windowName){
+
+        Button b = (Button) e.getSource();
+        b.setStyle(".button:pressed {\n" +
+                "    -fx-background-color: black;\n" +
+                "    -fx-text-fill: transparent;\n" +
+                "}");
+
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.NONE,"Do you want to choose this window?",ButtonType.YES,ButtonType.NO);
+            alert.setX(stage.getX()+stage.getScene().getWidth()/2 - 125);
+            alert.setY(stage.getY()+stage.getScene().getHeight()/2 - 60);
+            alert.setTitle("Confirm Window");
+            alert.setResizable(true);
+            alert.getDialogPane().setPrefSize(250, 120);
+            alert.setResizable(false);
+            alert.showAndWait();
+
+            if(alert.getResult()==ButtonType.YES){
+
+                try {
+                    this.sendChosenWindow(windowName);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+
+            }else{
+
+                b.setStyle("-fx-background-color: transparent;"+"-fx-text-fill: transparent;");
+            }
+        });
+
 
     }
 }
