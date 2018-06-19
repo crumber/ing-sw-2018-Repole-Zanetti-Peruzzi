@@ -71,7 +71,6 @@ public class Deck {
 
             for (int i = 0; i<sortedPaths.size(); i++) {
 
-                System.out.println(sortedPaths.get(i));
                 BufferedReader bR = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(sortedPaths.get(i))));
                 bR.readLine();
                 bR.readLine();
@@ -99,7 +98,6 @@ public class Deck {
 
             for (int i = 0; i<sortedPaths.size(); i++) {
 
-                System.out.println(sortedPaths.get(i));
                 BufferedReader bR = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(sortedPaths.get(i))));
                 bR.readLine();
                 bR.readLine();

@@ -59,7 +59,7 @@
             <RadioButton fx:id="gui" text="GUI" toggleGroup="$groupUI"/>
         </HBox>
 
-        <Button layoutX="195" layoutY="490" text="Login" prefWidth="210" prefHeight="35" onAction="#onSubmit" style="-fx-background-color: #1cbde9;">
+        <Button fx:id="sendButton" layoutX="195" layoutY="490" text="Login" prefWidth="210" prefHeight="35" onAction="#onSubmit" style="-fx-background-color: #1cbde9;">
             <font>
                 <Font size="20" />
             </font>

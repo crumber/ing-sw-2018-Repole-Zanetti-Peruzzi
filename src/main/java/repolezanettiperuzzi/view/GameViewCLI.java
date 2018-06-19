@@ -16,12 +16,22 @@ public class GameViewCLI implements Runnable {
     private CLITimer cliTimer;
     private Timer timer;
 
+    final String ANSI_RESET = "\u001B[0m";
+    final String ANSI_BLACK = "\u001B[30m";
+    final String ANSI_RED = "\u001B[31m";
+    final String ANSI_GREEN = "\u001B[32m";
+    final String ANSI_YELLOW = "\u001B[33m";
+    final String ANSI_BLUE = "\u001B[34m";
+    final String ANSI_PURPLE = "\u001B[35m";
+    final String ANSI_CYAN = "\u001B[36m";
+    final String ANSI_WHITE = "\u001B[37m";
+
     public GameViewCLI(GameView gV){
         this.gV = gV;
         this.isTimerOn = false;
     }
 
-    public void loginScene(){
+    public void loginScene(String message){
         Console console = System.console();
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -29,14 +39,23 @@ public class GameViewCLI implements Runnable {
             System.out.println("\nCLI non disponibile su Intellij. Fai partire il jar.");
             System.exit(0);
         }
-        System.out.println("\n\n//// Schermata di login ////\n\n");
+        System.out.println("\n\n//// "+ message +"////\n\n");
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Username: ");
-        String username = scanner.nextLine();
-        System.out.print("Password: ");
-        String password = new String(console.readPassword());
-        System.out.print("Connection ('s' for Socket 'r' for RMI): ");
-        String connection = scanner.nextLine();
+        String username;
+        do {
+            System.out.print("Username: ");
+            username = scanner.nextLine();
+        }while(username.equals(""));
+        String password;
+        do {
+            System.out.print("Password: ");
+            password = new String(console.readPassword());
+        }while(password.equals(""));
+        String connection;
+        do {
+            System.out.print("Connection ('s' for Socket 'r' for RMI): ");
+            connection = scanner.nextLine();
+        }while(!connection.equals("s") && !connection.equals("r"));
         if(connection.equals("s")){
             connection = "Socket";
         } else if(connection.equals("r")){
@@ -120,6 +139,7 @@ public class GameViewCLI implements Runnable {
 
         String highLowEdge="+———";
         String space="        ";  //space ha lo stesso numero di caratteri di CARDN:
+        String bigspace="                  ";
         String typeEdge1="+———+";
         String typeEdge2="+———";
         String middleEdge="|———";
@@ -163,16 +183,16 @@ public class GameViewCLI implements Runnable {
 
                 }
 
-                System.out.print(space + space + createBoundCli(windows.get(j), i, 0) + createBoundCli(windows.get(j), i, 1) + createBoundCli(windows.get(j), i, 2) + createBoundCli(windows.get(j), i, 3) + createBoundCli(windows.get(j), i, 4) + "|" + space + space);
+                System.out.print(bigspace + createBoundCli(windows.get(j), i, 0) + createBoundCli(windows.get(j), i, 1) + createBoundCli(windows.get(j), i, 2) + createBoundCli(windows.get(j), i, 3) + createBoundCli(windows.get(j), i, 4) + "|" + bigspace);
                 System.out.print(createBoundCli(windows.get(j+1), i, 0) + createBoundCli(windows.get(j+1), i, 1) + createBoundCli(windows.get(j+1), i, 2) + createBoundCli(windows.get(j+1), i, 3) + createBoundCli(windows.get(j+1), i, 4) + "|\n");
 
                 if (i < 3) {
 
-                    System.out.print(space + space + middleEdge + space + space + middleEdge + "\n");
+                    System.out.print(bigspace + middleEdge + bigspace + middleEdge + "\n");
 
                 } else if (i == 3) {
 
-                    System.out.print(space + space + highLowEdge + space + space + highLowEdge + "\n\n");
+                    System.out.print(bigspace + highLowEdge + bigspace + highLowEdge + "\n\n");
 
                 }
             }
@@ -226,31 +246,31 @@ public class GameViewCLI implements Runnable {
 
                 case RED: {
 
-                    bound = "| R ";
+                    bound = "| "+ANSI_RED+"R "+ANSI_RESET;
                     break;
 
                 }
                 case GREEN: {
 
-                    bound = "| G ";
+                    bound = "| "+ANSI_GREEN+"G "+ANSI_RESET;
                     break;
 
                 }
                 case BLUE: {
 
-                    bound = "| B ";
+                    bound = "| "+ANSI_BLUE+"B "+ANSI_RESET;
                     break;
 
                 }
                 case PURPLE: {
 
-                    bound = "| P ";
+                    bound = "| "+ANSI_PURPLE+"P "+ANSI_RESET;
                     break;
 
                 }
                 default: {
 
-                    bound = "| Y ";
+                    bound = "| "+ANSI_YELLOW+"Y "+ANSI_RESET;
                     break;
 
                 }

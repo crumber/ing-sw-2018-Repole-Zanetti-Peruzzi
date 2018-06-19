@@ -50,7 +50,7 @@ public class GameView {
 
             GameViewCLI gvCLI = new GameViewCLI(gameView);
             gameView.setGVCLI(gvCLI);
-            gvCLI.loginScene();
+            gvCLI.loginScene("Schermata di login");
             //Thread CLIThread = new Thread(gvCLI);
             //CLIThread.setDaemon(true);
             //CLIThread.start();
@@ -97,7 +97,7 @@ public class GameView {
         if(this.UI.equals("GUI")){
             ((LoginFXMLController) fxmlController).showPlayerAlreadyOnlineAlert();
         } else if(this.UI.equals("CLI")){
-
+            gvCLI.loginScene("The username you chose is already used by a Player online");
         }
     }
 
@@ -106,7 +106,7 @@ public class GameView {
         if(this.UI.equals("GUI")){
             ((LoginFXMLController) fxmlController).showWrongPwdAlert();
         } else if(this.UI.equals("CLI")){
-
+            gvCLI.loginScene("Wrong password inserted, please try again");
         }
     }
 

@@ -115,7 +115,6 @@ public class InitializeGame{
         Collections.sort(sortedPaths.subList(0, sortedPaths.size()));
         for (int i = 0; i<sortedPaths.size(); i++) {
 
-            System.out.println(sortedPaths.get(i));
             String addZero = ""; //serve per aggiungere lo 0 davanti ai nomi dei file fino a gm9.txt -> gm09.txt
 
             if(i<9){

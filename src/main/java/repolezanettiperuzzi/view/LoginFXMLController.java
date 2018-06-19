@@ -38,6 +38,9 @@ public class LoginFXMLController extends FXMLController{
     @FXML
     private ToggleGroup groupUI;
 
+    @FXML
+    private Button sendButton;
+
     // location and resources will be automatically injected by the FXML loader
     @FXML
     private URL location;
@@ -55,6 +58,7 @@ public class LoginFXMLController extends FXMLController{
     {
         //setGameView(new GameView());
         gV.setFXMLController(this);
+        sendButton.setDefaultButton(true);
     }
 
     @FXML
