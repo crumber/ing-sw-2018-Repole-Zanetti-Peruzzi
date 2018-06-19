@@ -1,17 +1,18 @@
 package repolezanettiperuzzi.model.actions;
 
 
+import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.model.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.*;
+import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import java.util.logging.*;
+import java.util.stream.Stream;
 
 public class InitializeGame{
 
@@ -41,13 +42,16 @@ public class InitializeGame{
         this.assignPrivateObjective(board);
 
         //create windows from files dynamically
-        this.createWindows();
+        try {
+            this.createWindows();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
 
         //initialize deck with tool cards and public cards
         Deck startDeck = null;
         try {
-
-            startDeck = new Deck("cards/publiccards","cards/toolcards");
+            startDeck = new Deck("cards/publiccards", "cards/toolcards");
 
         } catch (IOException e) {
 
@@ -86,73 +90,189 @@ public class InitializeGame{
     }
 
 
-    private void createWindows() throws IOException {
+    private void createWindows() throws IOException, URISyntaxException {
 
-        int nWindows = Objects.requireNonNull(new File("cards/gamemaps").list()).length;
+        DynamicPath dP = new DynamicPath("");
+
+        Path myPath;
+
+        FileSystem fileSystem = null;
+        if (dP.isJar()) {
+            URI uri = InitializeGame.class.getResource("/cards/gamemaps").toURI();
+            fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
+            myPath = fileSystem.getPath("/cards/gamemaps");
+        } else {
+            myPath = Paths.get(new URI(new DynamicPath("/cards/gamemaps").getPath()));
+        }
+
+        Stream<Path> walk = Files.walk(myPath, 1);
 
         //System.out.println("NUMERO WINDOWS "+nWindows);
 
-        for (int i = 0; i < nWindows; i++) {
+        Iterator<Path> it = walk.iterator();
+        it.next(); //Salto il primo elemento nella cartella che rappresenta la cartella stessa
+        ArrayList<String> sortedPaths = sortPaths(it);
+        Collections.sort(sortedPaths.subList(0, sortedPaths.size()));
+        for (int i = 0; i<sortedPaths.size(); i++) {
 
-            ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get("cards/gamemaps" + "/gm" + (i + 1) + ".txt"));
-            String name = lines.get(0);
-            int tokens = Integer.parseInt(lines.get(1));
+            System.out.println(sortedPaths.get(i));
+            String addZero = ""; //serve per aggiungere lo 0 davanti ai nomi dei file fino a gm9.txt -> gm09.txt
 
-            for (int j = 2; j < 6; j++) {
+            if(i<9){
+                addZero = "0";
+            } else {
+                addZero = "";
+            }
 
-                String[] row = lines.get(j).split(" ");
+            String name;
+            int tokens;
 
-                for (int k = 0; k < row.length; k++){
+            if(dP.isJar()){
+                BufferedReader bR = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(sortedPaths.get(i))));
+                name = bR.readLine();
+                tokens = Integer.parseInt(bR.readLine());
+                createdWindowsJar(bR);
+                bR.close();
+            } else {
+                ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(sortedPaths.get(i)));
+                name = lines.get(0);
+                System.out.println("name "+name);
+                tokens = Integer.parseInt(lines.get(1));
+                createWindowsDebug(lines);
+            }
 
-                    switch(row[k]){
+            this.windows.add(new Window(name,tokens,this.board,"gm" +addZero+( i + 1 )));
 
-                        case "Y":
-                            this.board[j-2][k] = new Box(Colour.YELLOW);
-                            break;
-                        case "R":
-                            this.board[j-2][k] = new Box(Colour.RED);
-                            break;
-                        case "P":
-                            this.board[j-2][k] = new Box(Colour.PURPLE);
-                            break;
-                        case "G":
-                            this.board[j-2][k] = new Box(Colour.GREEN);
-                            break;
-                        case "B":
-                            this.board[j-2][k] = new Box(Colour.BLUE);
-                            break;
-                        case "1":
-                            this.board[j-2][k] = new Box(Value.ONE);
-                            break;
-                        case "2":
-                            this.board[j-2][k] = new Box(Value.TWO);
-                            break;
-                        case "3":
-                            this.board[j-2][k] = new Box(Value.THREE);
-                            break;
-                        case "4":
-                            this.board[j-2][k] = new Box(Value.FOUR);
-                            break;
-                        case "5":
-                            this.board[j-2][k] = new Box(Value.FIVE);
-                            break;
-                        case "6":
-                            this.board[j-2][k] = new Box(Value.SIX);
-                            break;
-                        default:
-                            this.board[j-2][k] = new Box();
-                            break;
+        }
 
-                    }
+        walk.close();
+        if(fileSystem!=null)
+            fileSystem.close();
+
+    }
+
+    public void createWindowsDebug(ArrayList<String> lines){
+        for (int j = 2; j<lines.size(); j++) {
+
+            String[] row = lines.get(j).split(" ");
+
+            for (int k = 0; k < row.length; k++){
+
+                switch(row[k]){
+
+                    case "Y":
+                        this.board[j-2][k] = new Box(Colour.YELLOW);
+                        break;
+                    case "R":
+                        this.board[j-2][k] = new Box(Colour.RED);
+                        break;
+                    case "P":
+                        this.board[j-2][k] = new Box(Colour.PURPLE);
+                        break;
+                    case "G":
+                        this.board[j-2][k] = new Box(Colour.GREEN);
+                        break;
+                    case "B":
+                        this.board[j-2][k] = new Box(Colour.BLUE);
+                        break;
+                    case "1":
+                        this.board[j-2][k] = new Box(Value.ONE);
+                        break;
+                    case "2":
+                        this.board[j-2][k] = new Box(Value.TWO);
+                        break;
+                    case "3":
+                        this.board[j-2][k] = new Box(Value.THREE);
+                        break;
+                    case "4":
+                        this.board[j-2][k] = new Box(Value.FOUR);
+                        break;
+                    case "5":
+                        this.board[j-2][k] = new Box(Value.FIVE);
+                        break;
+                    case "6":
+                        this.board[j-2][k] = new Box(Value.SIX);
+                        break;
+                    default:
+                        this.board[j-2][k] = new Box();
+                        break;
 
                 }
 
             }
 
-            this.windows.add(new Window(name,tokens,this.board,"gm" + ( i + 1 )));
+        }
+    }
+
+    public void createdWindowsJar(BufferedReader bR) throws IOException {
+        String line;
+        int j = 0;
+        while ((line = bR.readLine())!=null) {
+
+            String[] row = line.split(" ");
+
+            for (int k = 0; k < row.length; k++){
+
+                switch(row[k]){
+
+                    case "Y":
+                        this.board[j][k] = new Box(Colour.YELLOW);
+                        break;
+                    case "R":
+                        this.board[j][k] = new Box(Colour.RED);
+                        break;
+                    case "P":
+                        this.board[j][k] = new Box(Colour.PURPLE);
+                        break;
+                    case "G":
+                        this.board[j][k] = new Box(Colour.GREEN);
+                        break;
+                    case "B":
+                        this.board[j][k] = new Box(Colour.BLUE);
+                        break;
+                    case "1":
+                        this.board[j][k] = new Box(Value.ONE);
+                        break;
+                    case "2":
+                        this.board[j][k] = new Box(Value.TWO);
+                        break;
+                    case "3":
+                        this.board[j][k] = new Box(Value.THREE);
+                        break;
+                    case "4":
+                        this.board[j][k] = new Box(Value.FOUR);
+                        break;
+                    case "5":
+                        this.board[j][k] = new Box(Value.FIVE);
+                        break;
+                    case "6":
+                        this.board[j][k] = new Box(Value.SIX);
+                        break;
+                    default:
+                        this.board[j][k] = new Box();
+                        break;
+
+                }
+
+            }
+
+            j++;
 
         }
+    }
 
+    /**
+     * serve un metodo per ordinare perche' i file che leggo dalla cartella sono in ordine decrescente
+     * @param it iteratore sui path
+     * @return ArrayList<String> lista di percorsi ordinati in ordine crescente
+     */
+    public ArrayList<String> sortPaths(Iterator<Path> it){
+        ArrayList<String> pathsList = new ArrayList<>();
+        while(it.hasNext()){
+            String path = it.next().toString();
+            pathsList.add(path);
+        }
+        return pathsList;
     }
 
     public List<Window> getWindows(){

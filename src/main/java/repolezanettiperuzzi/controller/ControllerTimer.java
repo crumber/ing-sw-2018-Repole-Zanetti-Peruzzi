@@ -22,7 +22,7 @@ public class ControllerTimer extends TimerTask {
         this.timer = new Timer();
         this.controller = controller;
         this.currentState=timerType;
-        this.currentTime = 60;
+        this.currentTime = 10;
 
         //TODO apro file configurazione durata timer
 
@@ -82,7 +82,7 @@ public class ControllerTimer extends TimerTask {
                     break;
             }
 
-            try {
+            /*try {     setto già lo stato successivo nel metodo notifyOnBeginConnection
 
                 controller.setState(this.nextState);
 
@@ -90,7 +90,7 @@ public class ControllerTimer extends TimerTask {
 
                 e.printStackTrace();
 
-            }
+            }*/
 
 
         }

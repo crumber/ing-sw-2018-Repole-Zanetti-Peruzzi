@@ -119,7 +119,7 @@ public class GameViewCLI implements Runnable {
     public void viewWindows(ArrayList<WindowClient> windows) {
 
         String highLowEdge="+———";
-        String space="          ";  //space ha lo stesso numero di caratteri di CARDN:
+        String space="        ";  //space ha lo stesso numero di caratteri di CARDN:
         String typeEdge1="+———+";
         String typeEdge2="+———";
         String middleEdge="|———";

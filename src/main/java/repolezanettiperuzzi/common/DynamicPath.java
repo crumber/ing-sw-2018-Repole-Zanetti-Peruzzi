@@ -33,6 +33,33 @@ public class DynamicPath {
         }
     }
 
+    public String getPathNoFile(){
+        if(isJar()){
+            System.out.println(path);
+            //System.out.println(getJarPath());
+            //System.out.println(DynamicPath.class.getResourceAsStream("/"+path));
+            return getClass().getResource("/"+path).toExternalForm();
+        } else {
+            return getDebugPath().substring(5);
+        }
+    }
+
+    public String getPathJsonFile(){
+        String currPath = System.getProperty("user.dir");
+        if(isJar()){
+            return currPath+"/playersinfo.json";
+        } else {
+            return getDebugPath().substring(5);
+        }
+    }
+
+    public String getJarName(){
+        if(isJar()){
+            return new File(GameViewGUI.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getName();
+        }
+        return "";
+    }
+
     public boolean isJar(){
         boolean isJar = false;
         try {

@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 
@@ -32,7 +33,7 @@ public class SetConnectionState extends ControllerState{
     //metodo chiamato dal giocatore appena si connette al server
     public void initializePlayer(String playerID, String pwd, InetAddress addr, int port, String connection, String UI) throws IOException, ParseException {
         JSONParser parser = new JSONParser();
-        FileReader jsonIn = new FileReader("gamedata/playersinfo.json");
+        FileReader jsonIn = new FileReader(new DynamicPath("gamedata/playersinfo.json").getPathJsonFile());
         JSONArray jsonArr = (JSONArray) parser.parse(jsonIn);
 
         try {
@@ -76,7 +77,7 @@ public class SetConnectionState extends ControllerState{
                 player.put("port", port);
                 jsonArr.add(player);
 
-                try (FileWriter file = new FileWriter("gamedata/playersinfo.json")) {
+                try (FileWriter file = new FileWriter(new DynamicPath("gamedata/playersinfo.json").getPathJsonFile())) {
                     file.write(jsonArr.toJSONString());
                     System.out.println("Successfully Copied JSON Object to File...");
                     System.out.println("\nJSON Object: " + player);
@@ -95,7 +96,7 @@ public class SetConnectionState extends ControllerState{
                 p.setPort(port);
 
 
-                try (FileWriter file = new FileWriter("gamedata/playersinfo.json")) {
+                try (FileWriter file = new FileWriter(new DynamicPath("gamedata/playersinfo.json").getPathJsonFile())) {
                     file.write(jsonArr.toJSONString());
                 } catch (IOException e) {
                     System.out.println("Cannot write on file");
@@ -202,7 +203,7 @@ public class SetConnectionState extends ControllerState{
     //method to clean the json file every time the game restarts
     private void cleanJson(String jsonPath){
         JSONArray jsonArr = new JSONArray();
-        try (FileWriter file = new FileWriter(jsonPath)) {
+        try (FileWriter file = new FileWriter(new DynamicPath(jsonPath).getPathJsonFile())) {
             file.write(jsonArr.toJSONString());
             file.close();
         } catch (IOException e) {
@@ -239,7 +240,7 @@ public class SetConnectionState extends ControllerState{
             }else {
 
                 JSONParser parser = new JSONParser();
-                FileReader jsonIn = new FileReader("gamedata/playersinfo.json");
+                FileReader jsonIn = new FileReader(new DynamicPath("gamedata/playersinfo.json").getPathJsonFile());
                 JSONArray jsonArr = (JSONArray) parser.parse(jsonIn);
 
                 for (Object o : jsonArr) {
@@ -256,7 +257,7 @@ public class SetConnectionState extends ControllerState{
 
                 }
 
-                try (FileWriter file = new FileWriter("gamedata/playersinfo.json")) {
+                try (FileWriter file = new FileWriter(new DynamicPath("gamedata/playersinfo.json").getPathJsonFile())) {
 
                     file.write(jsonArr.toJSONString());
 

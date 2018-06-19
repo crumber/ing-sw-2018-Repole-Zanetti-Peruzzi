@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.controller;
 
 import org.json.simple.parser.ParseException;
+import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.Window;
@@ -8,7 +9,9 @@ import repolezanettiperuzzi.model.actions.InitializeGame;
 import repolezanettiperuzzi.model.actions.SetWindowAction;
 import repolezanettiperuzzi.model.actions.TakeTwoCardWindowAction;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -66,23 +69,44 @@ public class FetchState extends ControllerState {
     //create a string that contains the windows selectable from the player
     private String windowsToString(ArrayList<Window> windows) throws IOException {
 
-        StringBuilder message = new StringBuilder();
+        DynamicPath dP = new DynamicPath("");
 
-        for (Window window: windows) {
+        if(dP.isJar()){
 
-            ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get("cards/gamemaps/" + window.fileName + ".txt" ));
+            StringBuilder message = new StringBuilder();
 
-            for(String line: lines){
-
-                message.append(line.replace(" ","-"));
-                message.append(" ");
-
+            for (Window window: windows) {
+                String elemPath = "/cards/gamemaps/" + window.fileName + ".txt";
+                BufferedReader bR = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(elemPath.toString())));
+                String line;
+                while((line=bR.readLine())!=null){
+                    message.append(line.replace(" ", "-"));
+                    message.append(" ");
+                }
+                message.append("_ ");
+                bR.close();
             }
 
-            message.append("_ ");
-        }
+            return String.valueOf(message);
+        } else {
+            StringBuilder message = new StringBuilder();
 
-        return String.valueOf(message);
+            for (Window window: windows) {
+
+                ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(new DynamicPath("cards/gamemaps/" + window.fileName + ".txt").getPathNoFile()));
+
+                for(String line: lines){
+
+                    message.append(line.replace(" ","-"));
+                    message.append(" ");
+
+                }
+
+                message.append("_ ");
+            }
+
+            return String.valueOf(message);
+        }
 
     }
 
@@ -223,7 +247,6 @@ public class FetchState extends ControllerState {
         this.readyPlayers++;
 
         if(this.readyPlayers==this.playersToCheck){
-            System.out.println("arrivato");
             controller.setState(new BeginRoundState());
 
         }

@@ -1,5 +1,7 @@
 package repolezanettiperuzzi.model;
 
+import repolezanettiperuzzi.common.DynamicPath;
+import repolezanettiperuzzi.model.actions.InitializeGame;
 import repolezanettiperuzzi.model.publiccards.FactoryPublicCard;
 import repolezanettiperuzzi.model.publiccards.MediumShades;
 import repolezanettiperuzzi.model.publiccards.PublicCard;
@@ -7,13 +9,18 @@ import repolezanettiperuzzi.model.toolcards.CopperFoilBurnisher;
 import repolezanettiperuzzi.model.toolcards.FactoryToolCard;
 import repolezanettiperuzzi.model.toolcards.ToolCard;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Classe che modellizza i mazzi di ToolCards e di PublicCards
@@ -39,21 +46,95 @@ public class Deck {
      */
     public Deck(String publicCardsFolder, String toolCardsFolder) throws IOException{
 
-        //faccio -1 perche' conta anche il file .DS_Store
-        nPublicCards = new File(publicCardsFolder).list().length-1;
-        publicCardsDeck = new ArrayList<>(nPublicCards);
+        DynamicPath dP = new DynamicPath("");
+        if(dP.isJar()) {
+            URI publicUri = null;
+            URI toolUri = null;
+            try {
+                publicUri = InitializeGame.class.getResource("/"+publicCardsFolder).toURI();
+                toolUri = InitializeGame.class.getResource("/"+toolCardsFolder).toURI();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
 
-        for(int i = 0; i < nPublicCards; i++){
-            ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(publicCardsFolder + "/pc" + (i + 1) + ".txt"));
-            publicCardsDeck.add(FactoryPublicCard.getPublicCard(lines.get(2)));
-        }
+            FileSystem publicFileSystem = FileSystems.newFileSystem(publicUri, Collections.<String, Object>emptyMap());
+            Path publicPath = publicFileSystem.getPath("/"+publicCardsFolder);
+            Stream<Path> publicWalk = Files.walk(publicPath, 1);
+            Iterator<Path> publicIt = publicWalk.iterator();
 
-        nToolCards = new File(toolCardsFolder).list().length-1;
-        toolCardsDeck = new ArrayList<>(nToolCards);
+            int localNPublicCards = 0;
+            publicCardsDeck = new ArrayList<>();
 
-        for( int i=0 ; i<nToolCards; i++){
-            ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(toolCardsFolder + "/tc" + (i + 1) + ".txt"));
-            toolCardsDeck.add(FactoryToolCard.getToolCard(lines.get(3)));
+            publicIt.next();
+            ArrayList<String> sortedPaths = sortPaths(publicIt);
+            Collections.sort(sortedPaths.subList(0, sortedPaths.size()));
+
+            for (int i = 0; i<sortedPaths.size(); i++) {
+
+                System.out.println(sortedPaths.get(i));
+                BufferedReader bR = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(sortedPaths.get(i))));
+                bR.readLine();
+                bR.readLine();
+                publicCardsDeck.add(FactoryPublicCard.getPublicCard(bR.readLine()));
+                bR.close();
+                localNPublicCards++;
+            }
+
+            this.nPublicCards = localNPublicCards;
+
+            publicFileSystem.close();
+            publicWalk.close();
+
+            FileSystem toolFileSystem = FileSystems.newFileSystem(toolUri, Collections.<String, Object>emptyMap());
+            Path toolPath = toolFileSystem.getPath("/"+toolCardsFolder);
+            Stream<Path> toolWalk = Files.walk(toolPath, 1);
+            Iterator<Path> toolIt = toolWalk.iterator();
+
+            int localNToolCards = 0;
+            toolCardsDeck = new ArrayList<>();
+
+            toolIt.next();
+            sortedPaths = sortPaths(toolIt);
+            Collections.sort(sortedPaths.subList(0, sortedPaths.size()));
+
+            for (int i = 0; i<sortedPaths.size(); i++) {
+
+                System.out.println(sortedPaths.get(i));
+                BufferedReader bR = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(sortedPaths.get(i))));
+                bR.readLine();
+                bR.readLine();
+                toolCardsDeck.add(FactoryToolCard.getToolCard(bR.readLine()));
+                bR.close();
+                localNToolCards++;
+            }
+
+
+            this.nToolCards = localNToolCards;
+
+            toolFileSystem.close();
+            toolWalk.close();
+
+        } else {
+            nPublicCards = new File(new DynamicPath(publicCardsFolder).getPathNoFile()).list().length-1;    //-1, a differenza delle tool cards. sembra ci sia un file nascoto in piu' qui
+            publicCardsDeck = new ArrayList<>(nPublicCards);
+
+            String addZero;
+            System.out.println("nPublicCards "+nPublicCards);
+            for (int i = 0; i < nPublicCards; i++) {
+                addZero = i<9 ? "0" : "";
+                ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(new DynamicPath(publicCardsFolder + "/pc" + addZero+(i + 1) + ".txt").getPathNoFile()));
+                publicCardsDeck.add(FactoryPublicCard.getPublicCard(lines.get(2)));
+            }
+
+            nToolCards = new File(new DynamicPath(toolCardsFolder).getPathNoFile()).list().length;
+            toolCardsDeck = new ArrayList<>(nToolCards);
+
+            System.out.println("nToolCards "+nToolCards);
+            for (int i = 0; i < nToolCards; i++) {
+                addZero = i<9 ? "0" : "";
+                ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(new DynamicPath(toolCardsFolder + "/tc" + addZero+(i + 1) + ".txt").getPathNoFile()));
+                toolCardsDeck.add(FactoryToolCard.getToolCard(lines.get(3)));
+            }
         }
 
     }
@@ -87,5 +168,19 @@ public class Deck {
         Collections.shuffle(this.toolCardsDeck);
         return this.toolCardsDeck.remove(0);
 
+    }
+
+    /**
+     * serve un metodo per ordinare perche' i file che leggo dalla cartella sono in ordine decrescente
+     * @param it iteratore sui path
+     * @return ArrayList<String> lista di percorsi ordinati in ordine crescente
+     */
+    public ArrayList<String> sortPaths(Iterator<Path> it){
+        ArrayList<String> pathsList = new ArrayList<>();
+        while(it.hasNext()){
+            String path = it.next().toString();
+            pathsList.add(path);
+        }
+        return pathsList;
     }
 }
