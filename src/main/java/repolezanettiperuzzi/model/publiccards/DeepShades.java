@@ -12,9 +12,9 @@ public class DeepShades implements PublicCard {
         int numSix=0;
         int score;
 
-        for(int i=0;i<4;i++) { // count number of five and six
+        for(int i=0;i<finalWindow.numRow();i++) { // count number of five and six
 
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < finalWindow.numColumn(); j++) {
 
                 if (finalWindow.thereIsDie(i, j)) {
 

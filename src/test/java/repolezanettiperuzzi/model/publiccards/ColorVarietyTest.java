@@ -18,6 +18,9 @@ public class ColorVarietyTest {
 
         ColorVariety cardColourVariety= new ColorVariety();
         Window finalWindow=mock (Window.class);
+
+        when(finalWindow.numRow()).thenReturn(4);
+        when(finalWindow.numColumn()).thenReturn(5);
         when(finalWindow.getDieColour(0,0)).thenReturn(Colour.RED);
         when(finalWindow.getDieColour(0,1)).thenReturn(Colour.BLUE);
         when(finalWindow.getDieColour(0,2)).thenReturn(Colour.PURPLE);

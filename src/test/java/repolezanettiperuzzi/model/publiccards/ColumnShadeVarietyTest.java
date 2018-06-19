@@ -16,6 +16,11 @@ public class ColumnShadeVarietyTest {
         ColumnShadeVariety cardColumnShadeVariety= new ColumnShadeVariety();
         Window finalWindow=mock (Window.class);
         Window finalWindowZero=mock (Window.class);
+
+        when(finalWindow.numRow()).thenReturn(4);
+        when(finalWindow.numColumn()).thenReturn(5);
+        when(finalWindowZero.numRow()).thenReturn(4);
+        when(finalWindowZero.numColumn()).thenReturn(5);
         when(finalWindow.getDieValue(0,0)).thenReturn(Value.ONE);
         when(finalWindow.getDieValue(1,0)).thenReturn(Value.THREE);
         when(finalWindow.getDieValue(2,0)).thenReturn(Value.FIVE);

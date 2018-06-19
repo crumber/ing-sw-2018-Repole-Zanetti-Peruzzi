@@ -16,6 +16,8 @@ public class RowColorVarietyTest {
 
         RowColorVariety cardRowColourVariety= new RowColorVariety();
         Window finalWindow=mock (Window.class);
+        when(finalWindow.numRow()).thenReturn(4);
+        when(finalWindow.numColumn()).thenReturn(5);
         when(finalWindow.getDieColour(0,0)).thenReturn(Colour.YELLOW);
         when(finalWindow.getDieColour(0,1)).thenReturn(Colour.RED);
         when(finalWindow.getDieColour(0,2)).thenReturn(Colour.BLUE);
@@ -50,6 +52,8 @@ public class RowColorVarietyTest {
 
 
         Window finalWindow2=mock (Window.class);
+        when(finalWindow2.numRow()).thenReturn(4);
+        when(finalWindow2.numColumn()).thenReturn(5);
         when(finalWindow2.getDieColour(0,0)).thenReturn(Colour.YELLOW);
         when(finalWindow2.getDieColour(0,1)).thenReturn(Colour.RED);
         when(finalWindow2.getDieColour(0,2)).thenReturn(Colour.BLUE);

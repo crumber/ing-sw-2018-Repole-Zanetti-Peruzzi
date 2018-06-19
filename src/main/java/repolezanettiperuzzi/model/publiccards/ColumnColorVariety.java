@@ -11,13 +11,13 @@ public class ColumnColorVariety implements PublicCard {
         int numColumn=0;
         int score;
 
-        for(int i=0;i<5;i++) { // count number of column with 4 different colour of dice
+        for(int i=0;i<finalWindow.numColumn();i++) { // count number of column with 4 different colour of dice
 
             int [] counterColour= {0,0,0,0,0};
             int numOfColour=0;
             boolean noRepeatValue=true;
 
-            for (int j=0; j < 4; j++) {
+            for (int j=0; j < finalWindow.numRow(); j++) {
 
                 if (finalWindow.thereIsDie(j, i)) {
 
@@ -82,7 +82,7 @@ public class ColumnColorVariety implements PublicCard {
                     }
                 }
             }
-            if( noRepeatValue && numOfColour==4 ){   // if there are 4 dice and five different colour in column, incrise by one
+            if( noRepeatValue && numOfColour==finalWindow.numRow() ){   // if there are 4 dice and different colour in column, incrise by one
 
                 numColumn++;
 

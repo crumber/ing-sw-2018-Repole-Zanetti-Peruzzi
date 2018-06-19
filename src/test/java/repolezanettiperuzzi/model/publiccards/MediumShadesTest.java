@@ -16,6 +16,8 @@ public class MediumShadesTest {
 
         MediumShades cardMediumShade= new MediumShades();
         Window finalWindow=mock (Window.class);
+        when(finalWindow.numRow()).thenReturn(4);
+        when(finalWindow.numColumn()).thenReturn(5);
         when(finalWindow.getDieValue(0,0)).thenReturn(Value.THREE);
         when(finalWindow.getDieValue(0,1)).thenReturn(Value.THREE);
         when(finalWindow.getDieValue(0,2)).thenReturn(Value.THREE);
@@ -23,6 +25,8 @@ public class MediumShadesTest {
         when(finalWindow.getDieValue(0,4)).thenReturn(Value.FOUR);
 
         Window finalWindow2=mock (Window.class);
+        when(finalWindow2.numRow()).thenReturn(4);
+        when(finalWindow2.numColumn()).thenReturn(5);
         when(finalWindow2.getDieValue(0,0)).thenReturn(Value.THREE);
         when(finalWindow2.getDieValue(0,1)).thenReturn(Value.THREE);
         when(finalWindow2.getDieValue(0,2)).thenReturn(Value.FOUR);

@@ -33,7 +33,7 @@ public class DeckTest {
         testDeck = new Deck("cards/publiccards", "cards/toolcards");
         int nToolCard=0;
 
-        for(int i=0; i<3;i++){
+        for(int i=0; i<12;i++){
 
             ToolCard testToolCard=testDeck.drawToolCard();
 
@@ -44,6 +44,6 @@ public class DeckTest {
             }
         }
 
-        assertEquals(3,nToolCard);
+        assertEquals(12,nToolCard);
     }
 }

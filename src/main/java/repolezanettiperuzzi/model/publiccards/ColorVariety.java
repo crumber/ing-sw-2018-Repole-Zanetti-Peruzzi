@@ -11,9 +11,9 @@ public class ColorVariety implements PublicCard {
         int min=10000; //big number
         int score;
 
-        for(int i=0;i<4;i++) {
+        for(int i=0;i<finalWindow.numRow();i++) {
 
-            for (int j = 0; j < 5; j++) {  // count number of all colour
+            for (int j = 0; j < finalWindow.numColumn(); j++) {  // count number of all colour
 
                 if (finalWindow.thereIsDie(i, j)) {
 

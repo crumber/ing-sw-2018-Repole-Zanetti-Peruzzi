@@ -18,11 +18,11 @@ public class InsertDieWithCheckAction{
 
             resultOfAction=-9;
 
-        }else if(whichRow<0 || whichRow>3 || whichColumn>4 || whichColumn<0){
+        }else if(whichRow<0 || whichRow>player.getWindow().numRow()-1 || whichColumn>player.getWindow().numColumn()-1 || whichColumn<0){
 
             resultOfAction=-1;
 
-        }else if(player.getWindow().isEmpty() && whichColumn!=0 && whichColumn!=4 && whichRow!=0 && whichRow!=3){
+        }else if(player.getWindow().isEmpty() && whichColumn!=0 && whichColumn!=player.getWindow().numColumn()-1 && whichRow!=0 && whichRow!=player.getWindow().numRow()-1){
 
             resultOfAction=-27;
 

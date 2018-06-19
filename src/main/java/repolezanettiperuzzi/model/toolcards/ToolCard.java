@@ -21,7 +21,7 @@ public abstract class ToolCard {
 
         int numProblem;
 
-        if(xStart<0 || xStart>3 || yStart<0 || yStart>4 || xEnd<0 || xEnd>3 || yEnd<0 || yEnd>4){
+        if(xStart<0 || xStart>player.getWindow().numRow()-1 || yStart<0 || yStart>player.getWindow().numColumn()-1 || xEnd<0 || xEnd>player.getWindow().numRow()-1 || yEnd<0 || yEnd>player.getWindow().numColumn()-1){
 
             numProblem=-1;
 
@@ -78,7 +78,7 @@ public abstract class ToolCard {
 
                 player.getWindow().insertDie(dTemp,x1End,y1End,"none");
 
-                if(x2Start<0 || x2Start>3 || y2Start<0 || y2Start>4 || x2End<0 || x2End>3 || y2End<0 || y2End>4){
+                if(x2Start<0 || x2Start>player.getWindow().numRow()-1 || y2Start<0 || y2Start>player.getWindow().numColumn()-1 || x2End<0 || x2End>player.getWindow().numRow()-1 || y2End<0 || y2End>player.getWindow().numColumn()-1){
 
                     player.getWindow().insertDie(dTemp,x1Start,y1Start,"none");
                     player.getWindow().removeDie(x1End,y1End);

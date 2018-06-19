@@ -17,6 +17,8 @@ public class RowShadeVarietyTest {
         //window con prima riga con dadi di valori tutti diversi mentre le altre righe con dadi dello stesso valore(1,2,3)
         RowShadeVariety cardRowShadeVariety= new RowShadeVariety();
         Window finalWindow=mock (Window.class);
+        when(finalWindow.numRow()).thenReturn(4);
+        when(finalWindow.numColumn()).thenReturn(5);
         when(finalWindow.getDieValue(0,0)).thenReturn(Value.ONE);
         when(finalWindow.getDieValue(0,1)).thenReturn(Value.THREE);
         when(finalWindow.getDieValue(0,2)).thenReturn(Value.FIVE);
@@ -50,6 +52,8 @@ public class RowShadeVarietyTest {
 
         //window con prima riga con dadi di valori tutti diversi mentre le altre righe con dadi dello stesso valore(4,5,6)
         Window finalWindow2=mock (Window.class);
+        when(finalWindow2.numRow()).thenReturn(4);
+        when(finalWindow2.numColumn()).thenReturn(5);
         when(finalWindow2.getDieValue(0,0)).thenReturn(Value.ONE);
         when(finalWindow2.getDieValue(0,1)).thenReturn(Value.THREE);
         when(finalWindow2.getDieValue(0,2)).thenReturn(Value.FIVE);

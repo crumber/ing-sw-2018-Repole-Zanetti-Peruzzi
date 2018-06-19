@@ -19,7 +19,7 @@ public class WindowClient {
                 System.out.print(board[i][j].toString()+" ");
             }
             System.out.println();*/
-            System.arraycopy(board[i], 0, boardBox[i], 0, 5);
+            System.arraycopy(board[i], 0, boardBox[i], 0, board[0].length);
 
         }
         //System.out.println("\n");

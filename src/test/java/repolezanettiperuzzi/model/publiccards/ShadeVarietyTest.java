@@ -16,6 +16,8 @@ public class ShadeVarietyTest {
 
         ShadeVariety cardShadeVariety= new ShadeVariety();
         Window finalWindow=mock (Window.class);
+        when(finalWindow.numRow()).thenReturn(4);
+        when(finalWindow.numColumn()).thenReturn(5);
         when(finalWindow.getDieValue(0,0)).thenReturn(Value.ONE);
         when(finalWindow.getDieValue(0,1)).thenReturn(Value.TWO);
         when(finalWindow.getDieValue(0,2)).thenReturn(Value.THREE);

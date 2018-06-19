@@ -26,11 +26,11 @@ public class Window {
         this.FAVORTOKENS = ft;
         this.fileName = fileName;
 
-        this.boardBox = new Box[4][5];
+        this.boardBox = new Box[board.length][board[0].length];
 
-        for(int i = 0; i< 4; i++) {
+        for(int i = 0; i< board.length; i++) {
 
-            System.arraycopy(board[i], 0, boardBox[i], 0, 5);
+            System.arraycopy(board[i], 0, boardBox[i], 0, board[0].length);
 
         }
     }
@@ -41,7 +41,7 @@ public class Window {
      */
     public Window(Window w){
         this.NAME = w.NAME;
-        this.boardBox = new Box[4][5];
+        this.boardBox = new Box[w.boardBox.length][w.boardBox[0].length];
 
         for(int i = 0; i<w.boardBox.length; i++){
 
@@ -83,7 +83,7 @@ public class Window {
 
     public boolean thereIsDie(int x, int y){
 
-        if(boardBox[x][y].die!=null){
+        if(x>=0 && y>=0 && x<boardBox.length && y<boardBox[0].length && boardBox[x][y].die!=null){
 
              return true;
 
@@ -317,4 +317,15 @@ public class Window {
         return new Window(this);
     }
 
+    public int numRow(){
+
+        return boardBox.length;
+
+    }
+
+    public int numColumn(){
+
+        return boardBox[0].length;
+
+    }
 }

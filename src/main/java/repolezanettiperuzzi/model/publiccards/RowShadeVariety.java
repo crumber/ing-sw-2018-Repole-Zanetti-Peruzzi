@@ -11,13 +11,13 @@ public class RowShadeVariety implements PublicCard {
         int numRow=0;
         int score;
 
-        for(int i=0;i<4;i++) { // count number of row with 5 different value of dice
+        for(int i=0;i<finalWindow.numRow();i++) { // count number of row with 5 different value of dice
 
             int [] counterValue= {0,0,0,0,0,0};
             int numOfValue=0;
             boolean repeatValue=false;
 
-            for (int j=0; j < 5; j++) {
+            for (int j=0; j < finalWindow.numColumn(); j++) {
 
                 if (finalWindow.thereIsDie(i, j)) {
 
@@ -94,7 +94,7 @@ public class RowShadeVariety implements PublicCard {
                     }
                 }
             }
-            if (!repeatValue && numOfValue == 5) {   // if there are five dice and five different value in row, incrise by one
+            if (!repeatValue && numOfValue == finalWindow.numColumn()) {   // if there are five dice and five different value in row, incrise by one
 
                 numRow++;
 

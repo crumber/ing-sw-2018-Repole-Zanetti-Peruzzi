@@ -29,7 +29,7 @@ public class CorkbackedStraightedge extends ToolCard {
 
             resultOfAction=checkDieOnDraft(board,player,posDieOnDraft);
 
-        } else if(whichRow<0 || whichRow>3 || whichColumn<0 || whichColumn>4){
+        } else if(whichRow<0 || whichRow>player.getWindow().numRow()-1 || whichColumn<0 || whichColumn>player.getWindow().numColumn()-1){
 
             resultOfAction=-1;
 

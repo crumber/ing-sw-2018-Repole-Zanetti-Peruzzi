@@ -17,14 +17,18 @@ public class ColumnColorVarietyTest {
         ColumnColorVariety cardColumnColourVariety= new ColumnColorVariety();
         Window finalWindow=mock (Window.class);
         Window finalWindowZero=mock (Window.class);
+
+        when(finalWindow.numRow()).thenReturn(3);
+        when(finalWindow.numColumn()).thenReturn(5);
+        when(finalWindowZero.numRow()).thenReturn(3);
+        when(finalWindowZero.numColumn()).thenReturn(5);
         when(finalWindow.getDieColour(0,0)).thenReturn(Colour.BLUE);
         when(finalWindow.getDieColour(1,0)).thenReturn(Colour.RED);
         when(finalWindow.getDieColour(2,0)).thenReturn(Colour.PURPLE);
-        when(finalWindow.getDieColour(3,0)).thenReturn(Colour.GREEN);
 
         for (int j=0;j<5;j++){
 
-            for(int i=0;i<4;i++){
+            for(int i=0;i<3;i++){
 
                 when(finalWindow.thereIsDie(i,j)).thenReturn(true);
 
@@ -56,7 +60,7 @@ public class ColumnColorVarietyTest {
         }
         for (int j=0;j<5;j++){
 
-            for(int i=0;i<4;i++){
+            for(int i=0;i<3;i++){
 
                 when(finalWindowZero.thereIsDie(i,j)).thenReturn(true);
                 when(finalWindowZero.getDieColour(i,j)).thenReturn(Colour.GREEN);
