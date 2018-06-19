@@ -183,20 +183,31 @@ public class GameViewCLI implements Runnable {
 
                 }
 
-                System.out.print(bigspace + createBoundCli(windows.get(j), i, 0) + createBoundCli(windows.get(j), i, 1) + createBoundCli(windows.get(j), i, 2) + createBoundCli(windows.get(j), i, 3) + createBoundCli(windows.get(j), i, 4) + "|" + bigspace);
-                System.out.print(createBoundCli(windows.get(j+1), i, 0) + createBoundCli(windows.get(j+1), i, 1) + createBoundCli(windows.get(j+1), i, 2) + createBoundCli(windows.get(j+1), i, 3) + createBoundCli(windows.get(j+1), i, 4) + "|\n");
+                for(int k=0; k<windows.get(0).columnSize();k++) {
 
-                if (i < 3) {
-
-                    System.out.print(bigspace + middleEdge + bigspace + middleEdge + "\n");
-
-                } else if (i == 3) {
-
-                    System.out.print(bigspace + highLowEdge + bigspace + highLowEdge + "\n\n");
+                    System.out.print(bigspace + createBoundCli(windows.get(j), i, k));
+                    System.out.print( "|" + bigspace);
 
                 }
+
+                for(int k=0; k<windows.get(0).columnSize();k++) {
+
+                    System.out.print(createBoundCli(windows.get(j+1), i, k));
+                    System.out.print( "|" + "\n");
+
+                }
+
+                    if (i < windows.get(0).rowSize() - 1) {
+
+                        System.out.print(bigspace + middleEdge + bigspace + middleEdge + "\n");
+
+                    } else if (i == windows.get(0).rowSize() - 1) {
+
+                        System.out.print(bigspace + highLowEdge + bigspace + highLowEdge + "\n\n");
+
+                    }
+                }
             }
-        }
 
 
         System.out.println(space + "WINDOW 1:  name:" + windows.get(0).getName() + nFV + windows.get(0).getFTokens());
