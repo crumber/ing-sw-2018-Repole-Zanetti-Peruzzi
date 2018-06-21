@@ -22,6 +22,7 @@ public class GameViewSocket implements Runnable{
     private Consumer<String> onReceiveCallback;
     private int localServerPort;
     private GameView gameView;
+    private boolean serverLoop;
 
     public GameViewSocket(Consumer<String> onReceiveCallback){
         this.onReceiveCallback = onReceiveCallback;
@@ -37,8 +38,8 @@ public class GameViewSocket implements Runnable{
         try(ServerSocket serverSocket = new ServerSocket(0)){
             this.localServerPort = serverSocket.getLocalPort();
             //System.out.println("port: "+localServerPort);
-            boolean read = true;
-            while(read){
+            serverLoop = true;
+            while(serverLoop){
                 //System.out.println("Attendo connessione");
                 this.socket = serverSocket.accept();
                 //System.out.println("Connessione accettata\n");
@@ -51,6 +52,10 @@ public class GameViewSocket implements Runnable{
         } catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    public void shutdownServer(){
+        this.serverLoop = false;
     }
 
     public void handleMessage(String message){
@@ -89,6 +94,8 @@ public class GameViewSocket implements Runnable{
             case "startGame":
                 //TODO caricare la view per il turno e notificare il controller dopo che e' stata caricata
                 break;
+            case "exit":
+                gameView.shutdownClient();
         }
     }
 

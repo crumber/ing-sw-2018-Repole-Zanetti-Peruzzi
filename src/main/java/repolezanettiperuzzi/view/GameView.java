@@ -40,10 +40,14 @@ public class GameView {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         printSagrada();
-        System.out.println("Che grafica vuoi usare?");
-        System.out.print("Premi 'c' per CLI e 'g' per GUI: ");
+
         Scanner scanner = new Scanner(System.in);
-        String uiChosen = scanner.nextLine();
+        String uiChosen;
+        System.out.println("Che grafica vuoi usare?");
+        do {
+            System.out.print("Premi 'c' per CLI e 'g' per GUI: ");
+            uiChosen = scanner.nextLine();
+        }while(!uiChosen.equals("c") && !uiChosen.equals("g"));
 
         if(uiChosen.equals("c")){
             GameView gameView = new GameView();
@@ -115,11 +119,18 @@ public class GameView {
             if (connection.equals("Socket")) {
                 gvSocket = new GameViewSocket(this);
                 gvSocket.notifyOnExit(username, typeView);
-                System.out.println("esco");
-                System.exit(1);
+                gvSocketServer.shutdownServer();
+                System.out.println("invio uscita");
             } else if (connection.equals("RMI")) {
 
             }
+        }
+    }
+
+    public void shutdownClient(){
+        if(this.login) {
+            System.out.println("logout");
+            System.exit(0);
         }
     }
 

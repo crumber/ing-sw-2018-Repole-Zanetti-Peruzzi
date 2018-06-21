@@ -15,6 +15,7 @@ public class GameViewCLI implements Runnable {
     private boolean isTimerOn;
     private CLITimer cliTimer;
     private Timer timer;
+    private String lastScene;
 
     final String ANSI_RESET = "\u001B[0m";
     final String ANSI_BLACK = "\u001B[30m";
@@ -113,6 +114,8 @@ public class GameViewCLI implements Runnable {
     }
 
     public void setWaitingRoomScene()  {
+        this.lastScene = "waitingRoom";
+        Runtime.getRuntime().addShutdownHook(new ShutdownConsole(lastScene, timer, gV));
         System.out.println("Sala d'attesa: \n\n");
         try {
             gV.waitingRoomLoaded();
@@ -122,6 +125,7 @@ public class GameViewCLI implements Runnable {
     }
 
     public void setChooseWindowScene(){
+        this.lastScene = "chooseWindow";
         System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.println("Choose window: \n\n");
@@ -154,8 +158,7 @@ public class GameViewCLI implements Runnable {
             highLowEdge+="+";
             middleEdge+="|";
 
-        }
-        else{
+        }else{
 
             for(int i=1;i<windows.get(0).columnSize()-1;i++){
 

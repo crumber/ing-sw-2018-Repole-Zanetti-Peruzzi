@@ -1,11 +1,11 @@
 package repolezanettiperuzzi.controller;
 
-import com.sun.xml.internal.ws.api.FeatureConstructor;
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 
 import java.io.*;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -87,6 +87,22 @@ public class Controller {
 
         this.currentState.doAction(this);
 
+    }
+
+    public void notifyExitToClient(String playerID) throws IOException {
+        Player player = board.getPlayerByName(playerID);
+        if(player.getConnection().equals("Socket")){
+            Socket socket = null;
+            try {
+                socket = new Socket(player.getAddress(), player.getPort());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            HandlerControllerSocket handlerControllerSocket = new HandlerControllerSocket(this, socket);
+            handlerControllerSocket.notifyExitToClient();
+        } else if(board.getPlayerByName(playerID).getConnection().equals("RMI")){
+
+        }
     }
 
     public void setLiveStatusOffline(String playerName){

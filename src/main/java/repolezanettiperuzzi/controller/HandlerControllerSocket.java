@@ -83,6 +83,7 @@ public class HandlerControllerSocket implements Runnable{
                 ((FetchState)controller.getState()).readyToPlay();
                 break;
             case "exit":
+                controller.notifyExitToClient(playerID);
                 switch(param[0]){
                     case "waitingRoom":
                         controller.setState(new SetConnectionState());
@@ -128,6 +129,13 @@ public class HandlerControllerSocket implements Runnable{
         out.close();
         this.socket.close();
 
+    }
+
+    public void notifyExitToClient() throws IOException {
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+        out.println("exit");
+        out.close();
+        this.socket.close();
     }
 
     public void onReconnect(String playerID, String connection, String UI) throws IOException {
