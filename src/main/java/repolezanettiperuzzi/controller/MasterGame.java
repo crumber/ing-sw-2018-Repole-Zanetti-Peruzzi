@@ -2,11 +2,13 @@ package repolezanettiperuzzi.controller;
 
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.model.GameBoard;
+import repolezanettiperuzzi.view.ShutdownConsole;
 
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.rmi.registry.Registry;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -24,7 +26,8 @@ public class MasterGame {
 
         //sperando che il server per rmi non blocchi il thread
         ControllerRMIServer rmiServer = new ControllerRMIServer(controller);
-        //rmiServer.startServer();
+        Registry registry = rmiServer.startServer();
+        Runtime.getRuntime().addShutdownHook(new ShutdownRMIServer(registry, controller.getHandlerRMI()));
 
         int port = 8080;
 

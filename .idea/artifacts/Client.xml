@@ -17,6 +17,9 @@
       <element id="directory" name="fxml">
         <element id="dir-copy" path="$PROJECT_DIR$/fxml" />
       </element>
+      <element id="directory" name="RMI">
+        <element id="dir-copy" path="$PROJECT_DIR$/RMI" />
+      </element>
     </root>
   </artifact>
 </component>

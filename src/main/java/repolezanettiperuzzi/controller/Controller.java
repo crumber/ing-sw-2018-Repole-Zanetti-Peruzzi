@@ -24,12 +24,15 @@ public class Controller {
     private Timer timer;
     private ControllerTimer task;
 
+    private HandlerControllerRMI handlerRMI;
+
     public Controller(List<Player> view, GameBoard board){
 
        this.currentState = null;
        this.view = (ArrayList<Player>)view;
        this.board = board;
        this.isTimerOn = false;
+       this.handlerRMI = null;
 
     }
 
@@ -87,6 +90,14 @@ public class Controller {
 
         this.currentState.doAction(this);
 
+    }
+
+    public void setHandlerRMI(HandlerControllerRMI handlerRMI){
+        this.handlerRMI = handlerRMI;
+    }
+
+    public HandlerControllerRMI getHandlerRMI(){
+        return this.handlerRMI;
     }
 
     public void notifyExitToClient(String playerID) throws IOException {

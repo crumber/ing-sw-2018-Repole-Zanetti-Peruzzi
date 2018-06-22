@@ -31,10 +31,11 @@ public class SetConnectionState extends ControllerState{
     }
 
     //metodo chiamato dal giocatore appena si connette al server
-    public void initializePlayer(String playerID, String pwd, InetAddress addr, int port, String connection, String UI) throws IOException, ParseException {
+    public boolean initializePlayer(String playerID, String pwd, InetAddress addr, int port, String connection, String UI) throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         FileReader jsonIn = new FileReader(new DynamicPath("gamedata/playersinfo.json").getPathJsonFile());
         JSONArray jsonArr = (JSONArray) parser.parse(jsonIn);
+        boolean result = false;
 
         try {
 
@@ -58,11 +59,11 @@ public class SetConnectionState extends ControllerState{
                 } else if(name.equals(playerID) && controller.board.getPlayerByName(playerID).getLiveStatus()){ //sto cercando di connettermi con il nome di qualcun'altro che e' online
                     notifyOnStealAccount(controller, connection, UI, addr.toString().substring(1), port);
                     playerAction = "";
-                    break;
+                    result = false;
                 } else if(name.equals(playerID) && !passwd.equals(pwd) && !controller.board.getPlayerByName(playerID).getLiveStatus()){ //sto cercando di connettermi con il nome di qualcun'altro che e' offline ma pwd sbagliata
                     notifyOnWrongPassword(controller, connection, UI, addr.toString().substring(1), port);
                     playerAction = "";
-                    break;
+                    result = false;
                 }
             }
 
@@ -87,7 +88,8 @@ public class SetConnectionState extends ControllerState{
 
                 board.addPlayer(playerID, connection, UI, addr.toString().substring(1), port);
                 //dico al giocatore che e' stato registrato
-                notifyOnRegister(controller, connection, UI, addr.toString().substring(1), port);
+                notifyOnRegister(controller, connection, UI, board.getPlayerByName(playerID));
+                result = true;
             } else if(playerAction.equals("reconnect")){
                 Player p = board.getPlayerByName(playerID);
                 p.setConnection(connection); //problema se mi arriva prima una waitingok
@@ -103,10 +105,12 @@ public class SetConnectionState extends ControllerState{
                 }
                 controller.board.getPlayerByName(playerID).setLiveStatus(true);
                 onReconnect(controller, connection, UI, addr.toString().substring(1), port, playerID);
+                result = true;
             }
 
         } finally {
             jsonIn.close();
+            return result;
         }
 
     }
@@ -138,12 +142,14 @@ public class SetConnectionState extends ControllerState{
         }
     }
 
-    public void notifyOnRegister(Controller controller, String connection, String UI, String address, int port) throws IOException {
+    public void notifyOnRegister(Controller controller, String connection, String UI, Player player) throws IOException {
         if(connection.equals("Socket")){
-            HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
+            HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(player.getAddress(), player.getPort()));
             handleSocket.notifyOnRegister(connection, UI);
         } else if(connection.equals("RMI")){
-
+            //System.out.println("Dentro RMI");
+            //HandlerControllerRMI handlerRMI = controller.getHandlerRMI();
+            //handlerRMI.notifyOnRegister(player.getName());
         }
     }
 

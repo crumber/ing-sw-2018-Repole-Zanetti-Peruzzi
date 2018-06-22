@@ -1,1 +1,1 @@
-[{"address":"127.0.0.1","UI":"GUI","port":56794,"connection":"Socket","pwd":"sdsd","playerID":"cioa"},{"address":"127.0.0.1","UI":"CLI","port":56802,"connection":"Socket","pwd":"s","playerID":"asd"},{"address":"127.0.0.1","UI":"GUI","port":56831,"connection":"Socket","pwd":"sdf","playerID":"asasd"}]
+[{"address":"0.0.0.0","UI":"CLI","port":0,"connection":"RMI","pwd":"aza","playerID":"andrea"}]

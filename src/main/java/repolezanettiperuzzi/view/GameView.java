@@ -4,17 +4,22 @@ package repolezanettiperuzzi.view;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import org.json.simple.parser.ParseException;
+import repolezanettiperuzzi.common.ClientStubRMI;
+import repolezanettiperuzzi.common.ControllerStubRMI;
 import repolezanettiperuzzi.view.modelwrapper.WindowClient;
 
 import java.io.*;
 import java.lang.reflect.Array;
+import java.rmi.NotBoundException;
+import java.rmi.Remote;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
 //lato client della view che chiama i metodi in remoto del controller
 //prendo i dati gia' elaborati da RMI o Socket e li passo a GameViewCLI o GameViewGUI
-public class GameView {
+public class GameView implements ClientStubRMI {
 
     private String username;
     private String connection;
@@ -27,6 +32,7 @@ public class GameView {
     private Thread serverThread;
     private GameViewSocket gvSocket;
     private Consumer<String> onReceiveCallback;
+    private GameViewRMIServer gvRMIServer;
     private Consumer<Integer> onReceiveLocalPort;
     private boolean login;
 
@@ -91,7 +97,22 @@ public class GameView {
 
 
             } else if (connection.equals("RMI")) {
-                gvRMI = new GameViewRMI();
+                this.gvRMIServer = new GameViewRMIServer(this);
+                boolean registered = false;
+                try {
+                    ControllerStubRMI stub = gvRMIServer.bind();
+                    registered = stub.init(gvRMIServer.getClientStub(), username, pwd, conn, UI);
+                } catch (NotBoundException e) {
+                    e.printStackTrace();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if(registered){
+                    enterWaitingRoom();
+                } else {
+                    //TODO
+                }
+
             }
         }
     }
@@ -143,6 +164,7 @@ public class GameView {
     }
 
     public void enterWaitingRoom(){
+        System.out.println("enter");
         if(this.UI.equals("GUI")){
             ((LoginFXMLController) fxmlController).setWaitingRoomScene();
         } else if(this.UI.equals("CLI")){

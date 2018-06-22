@@ -1,11 +1,15 @@
 package repolezanettiperuzzi.common;
 
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 //questa e' l'interfaccia a cui potra' accedere la view dal lato client
-public interface HandlerStubRMI extends Remote {
+public interface ControllerStubRMI extends Remote {
     void faiQualcosa(String description) throws RemoteException;
+    boolean init(ClientStubRMI callbackClient, String username, String pwd, String conn, String UI) throws IOException, ParseException;
 }

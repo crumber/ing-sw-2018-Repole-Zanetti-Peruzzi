@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.controller;
 
+import repolezanettiperuzzi.common.ControllerStubRMI;
 import repolezanettiperuzzi.common.DynamicPath;
 
 import java.io.IOException;
@@ -16,9 +17,11 @@ public class ControllerRMIServer {
         this.controller = controller;
     }
 
-    public void startServer() throws RemoteException {
+    public Registry startServer() throws RemoteException {
 
-        Registry registry = LocateRegistry.createRegistry(1099);
+        int port = 1099;
+
+        Registry registry = LocateRegistry.createRegistry(port);
 
         System.setProperty("java.rmi.server.useCodebaseOnly", "false");
         System.setProperty("java.rmi.server.logCalls", "true");
@@ -34,15 +37,18 @@ public class ControllerRMIServer {
 
         System.out.println("Creating new RMI Handler");
         HandlerControllerRMI handlerRMI = new HandlerControllerRMI(controller);
+        controller.setHandlerRMI(handlerRMI);
         System.out.println("Exporting HandlerRMI");
-        HandlerStubRMI stub = (HandlerStubRMI) UnicastRemoteObject.exportObject (handlerRMI, 39000);
+        ControllerStubRMI stub = (ControllerStubRMI) UnicastRemoteObject.exportObject (handlerRMI, 39000);
 
         System.out.println("Binding");
         registry.rebind("controller", stub);
 
-        System.out.println("Waiting for invocations...");
+        System.out.println("Server RMI ready on port "+port);
 
         //UnicastRemoteObject.unexportObject(ctrlRMI, true);
         //UnicastRemoteObject.unexportObject(registry, true);
+
+        return registry;
     }
 }
