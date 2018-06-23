@@ -35,7 +35,7 @@ public class GameViewRMIServer {
         String serverIp = "127.0.0.1";
 
         Registry registry= LocateRegistry.getRegistry(serverIp, 1099);
-        System.out.print("RMI registry bindings: ");
+        //System.out.print("RMI registry bindings: ");
         String[] e = registry.list();
 
         for (int i=0; i<e.length; i++)
@@ -46,6 +46,7 @@ public class GameViewRMIServer {
 
         //System.out.println("Registering for callback");
         this.clientStub = (ClientStubRMI) UnicastRemoteObject.exportObject(gameview, 0);
+        gameview.setRMIActive();
         return h;
     }
 

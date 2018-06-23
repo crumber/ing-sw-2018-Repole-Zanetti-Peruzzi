@@ -65,5 +65,12 @@
             </font>
         </Button>
 
+        <Rectangle fx:id="progressBg" x="200" y="200" width="200" height="200" arcWidth="40" arcHeight="40" fill="lightgray" opacity="0.95"></Rectangle>
+        <Text fx:id="progressText" x="225" y="370" text="Connecting to RMI Server...">
+            <font>
+                <Font size="12" />
+            </font>
+        </Text>
+
     </children>
 </Group>

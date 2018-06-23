@@ -16,6 +16,10 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import repolezanettiperuzzi.common.DynamicPath;
 
@@ -48,6 +52,12 @@ public class LoginFXMLController extends FXMLController{
     @FXML
     private ResourceBundle resources;
 
+    @FXML
+    private Rectangle progressBg;
+
+    @FXML
+    private Text progressText;
+
     // Add a public no-args constructor
     public LoginFXMLController()
     {
@@ -59,6 +69,12 @@ public class LoginFXMLController extends FXMLController{
         //setGameView(new GameView());
         gV.setFXMLController(this);
         sendButton.setDefaultButton(true);
+        progressBg.setVisible(false);
+        progressText.setVisible(false);
+    }
+
+    public void notifyOnExit() throws IOException {
+        gV.notifyOnExit("login");
     }
 
     @FXML
@@ -149,6 +165,21 @@ public class LoginFXMLController extends FXMLController{
             e.printStackTrace();
         }
 
+    }
+
+    public void showProgressIndicator(){
+        Platform.runLater(() -> {
+            progressBg.setVisible(true);
+            progressText.setVisible(true);
+            ProgressIndicator p1 = new ProgressIndicator();
+            p1.setPrefWidth(100);
+            p1.setPrefHeight(100);
+            p1.setLayoutX((stage.getScene().getWidth() / 2)-50);
+            p1.setLayoutY((stage.getScene().getHeight() / 2)-70);
+            p1.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
+            Group root = (Group) stage.getScene().getRoot();
+            root.getChildren().add(p1);
+        });
     }
 
     public void setGameView(GameView gV){

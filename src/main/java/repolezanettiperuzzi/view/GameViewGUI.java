@@ -35,6 +35,7 @@ public class GameViewGUI extends Application{
         controller.setGameView(gameView);
         gameView.setFXMLController(controller);
         loader.setController(controller);
+        stage.setUserData(loader);
 
         // Create the Pane and all Details
         Group root = (Group) loader.load();
@@ -74,7 +75,9 @@ public class GameViewGUI extends Application{
         if(stage.getUserData()!=null) {
             FXMLLoader loader = (FXMLLoader) stage.getUserData();
             FXMLController controller = loader.getController();
-            if(controller instanceof WaitingRoomFXMLController) {
+            if(controller instanceof LoginFXMLController) {
+                ((LoginFXMLController) controller).notifyOnExit();
+            }else if(controller instanceof WaitingRoomFXMLController) {
                 ((WaitingRoomFXMLController) controller).cancelTimer();
                 ((WaitingRoomFXMLController) controller).notifyOnExit();
             } else if(controller instanceof ChooseWindowFXMLController){

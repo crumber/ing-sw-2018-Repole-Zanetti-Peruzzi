@@ -12,6 +12,7 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.rmi.NotBoundException;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.function.Consumer;
@@ -29,17 +30,20 @@ public class GameView implements ClientStubRMI {
     private GameViewRMI gvRMI;
     private GameViewSocket gvSocketServer;
     private Thread serverThread;
+    private Thread startingRMIThread;
     private GameViewSocket gvSocket;
     private Consumer<String> onReceiveCallback;
     private GameViewRMIServer gvRMIServer;
     private ControllerStubRMI stub;
     private Consumer<Integer> onReceiveLocalPort;
+    private boolean RMIActive;
     private boolean login;
 
     public GameView(){
         this.onReceiveCallback = data -> gvSocket.handleMessage(data);
         this.login = false;
         this.localPort = 0;
+        this.RMIActive = false;
     }
 
     public static void main(String args[]) {
@@ -97,38 +101,60 @@ public class GameView implements ClientStubRMI {
 
 
             } else if (connection.equals("RMI")) {
-                if(gvRMIServer==null){
-                    this.gvRMIServer = new GameViewRMIServer(this);
-                }
-                String message = "";
-                try {
-                    if(this.stub==null) {
-                        this.stub = gvRMIServer.bind();
-                    }
-                    message = stub.init(gvRMIServer.getClientStub(), username, pwd, conn, UI);
-                } catch (NotBoundException e) {
-                    e.printStackTrace();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                if(message.equals("registered")){
-                    enterWaitingRoom();
-                } else if(message.contains("reconnect")) {
-                    String lastScene = message.split(" ")[1];
-                    switch(lastScene){
-                        case "waitingRoom":
-                            enterWaitingRoom();
-                            break;
-                        case "chooseWindow":
-                            break;
-                    }
-                } else if(message.equals("stealAccount")){
-                    showPlayerAlreadyOnlineAlert();
-                } else if(message.equals("wrongPassword")){
-                    showWrongPwdAlert();
+                GameView gameView = this;
+                if(this.UI.equals("GUI")) {
+                    this.startingRMIThread =new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((LoginFXMLController) fxmlController).showProgressIndicator();
+                            initRMI(gameView, pwd, conn);
+                        }
+                    });
+                    startingRMIThread.start();
+                } else if(this.UI.equals("CLI")){
+                    System.out.println("Connecting to RMI Server... (this may take up to 20 seconds)");
+                    initRMI(gameView, pwd, conn);
                 }
 
+
             }
+        }
+    }
+
+    public void initRMI(GameView gameView, String pwd, String conn){
+        if(gvRMIServer==null){
+            gvRMIServer = new GameViewRMIServer(gameView);
+        }
+        String message = "";
+        try {
+            if(stub==null) {
+                stub = gvRMIServer.bind();
+            }
+            message = stub.init(gvRMIServer.getClientStub(), username, pwd, conn, UI);
+        } catch (NotBoundException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(message.equals("registered")){
+            enterWaitingRoom();
+        } else if(message.contains("reconnect")) {
+            String lastScene = message.split(" ")[1];
+            switch(lastScene){
+                case "waitingRoom":
+                    enterWaitingRoom();
+                    break;
+                case "chooseWindow":
+                    break;
+            }
+        } else if(message.equals("stealAccount")){
+            showPlayerAlreadyOnlineAlert();
+        } else if(message.equals("wrongPassword")){
+            showWrongPwdAlert();
         }
     }
 
@@ -151,23 +177,32 @@ public class GameView implements ClientStubRMI {
     }
 
     public void notifyOnExit(String typeView) throws IOException {
+        System.out.println("fuori login");
         if(this.login) {   //se non ho fatto il login significa che ho chiuso la GUI per chiudere il gioco
+            System.out.println("dentro login");
             if (connection.equals("Socket")) {
                 gvSocket = new GameViewSocket(this);
                 gvSocket.notifyOnExit(username, typeView);
                 gvSocketServer.shutdownServer();
                 System.out.println("invio uscita");
             } else if (connection.equals("RMI")) {
-                boolean response = false;
-                try {
-                    response = stub.notifyOnExit(username, typeView);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                if(response){
-                    gvRMIServer.unexportRMI();
+                System.out.println("dentro rmi");
+                if(RMIActive) {
+                    boolean response = false;
+                    try {
+                        response = stub.notifyOnExit(username, typeView);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (response) {
+                        gvRMIServer.unexportRMI();
+                    }
+                } else {
+                    System.out.println("ciao");
+                    startingRMIThread.interrupt();
+                    System.exit(0);
                 }
             }
         }
@@ -267,6 +302,10 @@ public class GameView implements ClientStubRMI {
     public void setGVCLI(GameViewCLI gvCLI){
         this.UI = "CLI";
         this.gvCLI = gvCLI;
+    }
+
+    public void setRMIActive(){
+        this.RMIActive = true;
     }
 
     public void updateView() {
