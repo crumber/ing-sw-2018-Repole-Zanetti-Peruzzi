@@ -64,7 +64,22 @@ public class HandlerControllerSocket implements Runnable{
         switch(action) {
             case "init":
                 controller.setState(new SetConnectionState());
-                ((SetConnectionState)controller.getState()).initializePlayer(playerID, param[0], addr, Integer.parseInt(param[3]), param[1], param[2]);
+                String result = ((SetConnectionState)controller.getState()).initializePlayer(playerID, param[0], addr, Integer.parseInt(param[3]), param[1], param[2]);
+                Player player = controller.board.getPlayerByName(playerID);
+                switch (result){
+                    case "registered":
+                        ((SetConnectionState)controller.getState()).notifyOnRegister(controller, param[1], param[2], player.getAddress(), player.getPort());
+                        break;
+                    case "stealAccount":
+                        ((SetConnectionState)controller.getState()).notifyOnStealAccount(controller, player.getConnection(), player.getUI(), player.getAddress(), player.getPort());
+                        break;
+                    case "wrongPassword":
+                        ((SetConnectionState)controller.getState()).notifyOnWrongPassword(controller, player.getConnection(), player.getUI(), player.getAddress(), player.getPort());
+                        break;
+                    case "reconnect":
+                        ((SetConnectionState)controller.getState()).notifyOnReconnect(controller, player.getConnection(), player.getUI(), player.getAddress(), player.getPort(), player.getName());
+                        break;
+                }
                 break;
             case "waitingok": //il client ha avviato la sua view della waiting room
                 controller.setState(new SetConnectionState());
@@ -138,7 +153,7 @@ public class HandlerControllerSocket implements Runnable{
         this.socket.close();
     }
 
-    public void onReconnect(String playerID, String connection, String UI) throws IOException {
+    public void notifyOnReconnect(String playerID, String connection, String UI) throws IOException {
         switch(controller.board.getPlayerByName(playerID).getLastScene()){
             case "waitingRoom":
                 notifyOnRegister(connection, UI);

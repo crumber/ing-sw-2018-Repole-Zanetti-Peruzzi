@@ -31,15 +31,13 @@ public class SetConnectionState extends ControllerState{
     }
 
     //metodo chiamato dal giocatore appena si connette al server
-    public boolean initializePlayer(String playerID, String pwd, InetAddress addr, int port, String connection, String UI) throws IOException, ParseException {
+    public String initializePlayer(String playerID, String pwd, InetAddress addr, int port, String connection, String UI) throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         FileReader jsonIn = new FileReader(new DynamicPath("gamedata/playersinfo.json").getPathJsonFile());
         JSONArray jsonArr = (JSONArray) parser.parse(jsonIn);
-        boolean result = false;
+        String playerAction = "login";
 
         try {
-
-            String playerAction = "login";
 
             //playerID, pwd, RMI/Socket, CLI/GUI, addr, port
             for (Object o : jsonArr) {
@@ -54,16 +52,11 @@ public class SetConnectionState extends ControllerState{
                     player.put("UI", UI);
                     player.put("address", addr.toString().substring(1));
                     player.put("port", port);
-                    playerAction = "reconnect";
                     break;
                 } else if(name.equals(playerID) && controller.board.getPlayerByName(playerID).getLiveStatus()){ //sto cercando di connettermi con il nome di qualcun'altro che e' online
-                    notifyOnStealAccount(controller, connection, UI, addr.toString().substring(1), port);
-                    playerAction = "";
-                    result = false;
+                    playerAction = "stealAccount";
                 } else if(name.equals(playerID) && !passwd.equals(pwd) && !controller.board.getPlayerByName(playerID).getLiveStatus()){ //sto cercando di connettermi con il nome di qualcun'altro che e' offline ma pwd sbagliata
-                    notifyOnWrongPassword(controller, connection, UI, addr.toString().substring(1), port);
-                    playerAction = "";
-                    result = false;
+                    playerAction = "wrongPassword";
                 }
             }
 
@@ -87,38 +80,33 @@ public class SetConnectionState extends ControllerState{
                 }
 
                 board.addPlayer(playerID, connection, UI, addr.toString().substring(1), port);
-                //dico al giocatore che e' stato registrato
-                notifyOnRegister(controller, connection, UI, board.getPlayerByName(playerID));
-                result = true;
+                playerAction = "registered";
             } else if(playerAction.equals("reconnect")){
                 Player p = board.getPlayerByName(playerID);
                 p.setConnection(connection); //problema se mi arriva prima una waitingok
                 p.setUI(UI);
                 p.setAddress(addr.toString().substring(1));
                 p.setPort(port);
-
-
                 try (FileWriter file = new FileWriter(new DynamicPath("gamedata/playersinfo.json").getPathJsonFile())) {
                     file.write(jsonArr.toJSONString());
                 } catch (IOException e) {
                     System.out.println("Cannot write on file");
                 }
                 controller.board.getPlayerByName(playerID).setLiveStatus(true);
-                onReconnect(controller, connection, UI, addr.toString().substring(1), port, playerID);
-                result = true;
+                playerAction = "reconnect "+board.getPlayerByName(playerID).getLastScene();
             }
 
         } finally {
             jsonIn.close();
-            return result;
+            return playerAction;
         }
 
     }
 
-    public void onReconnect(Controller controller, String connection, String UI, String address, int port, String playerID) throws IOException {
+    public void notifyOnReconnect(Controller controller, String connection, String UI, String address, int port, String playerID) throws IOException {
         if(connection.equals("Socket")){
             HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
-            handleSocket.onReconnect(playerID, connection, UI);
+            handleSocket.notifyOnReconnect(playerID, connection, UI);
         } else if(connection.equals("RMI")){
             //TODO controllo anche che il giocare aveva scelto una window prima di disconnettersi
         }
@@ -142,9 +130,9 @@ public class SetConnectionState extends ControllerState{
         }
     }
 
-    public void notifyOnRegister(Controller controller, String connection, String UI, Player player) throws IOException {
+    public void notifyOnRegister(Controller controller, String connection, String UI, String address, int port) throws IOException {
         if(connection.equals("Socket")){
-            HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(player.getAddress(), player.getPort()));
+            HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
             handleSocket.notifyOnRegister(connection, UI);
         } else if(connection.equals("RMI")){
             //System.out.println("Dentro RMI");
@@ -189,7 +177,7 @@ public class SetConnectionState extends ControllerState{
                         LOGGER.log(Level.WARNING, "IOException: ", e); //da verificare
                     }
                 } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
-
+                    controller.getHandlerRMI().refreshWaitingRoom(player.getName(), timer);
                 }
             }
         }

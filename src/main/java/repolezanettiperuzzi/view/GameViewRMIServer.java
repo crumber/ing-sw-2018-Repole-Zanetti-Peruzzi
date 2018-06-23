@@ -22,7 +22,7 @@ public class GameViewRMIServer {
 
     public ControllerStubRMI bind() throws RemoteException, NotBoundException {
         System.setProperty("java.rmi.server.useCodebaseOnly", "false");
-        System.setProperty("java.rmi.server.logCalls", "true");
+        System.setProperty("java.rmi.server.logCalls", "false");
 
         System.setProperty("java.rmi.server.codebase", new DynamicPath("view/").getPath()+" "+new DynamicPath("common/").getPath());
         System.setProperty("java.security.policy", new DynamicPath("RMI/stupid.policy").getPath());
@@ -44,7 +44,7 @@ public class GameViewRMIServer {
         String remoteObjectName = "controller";
         ControllerStubRMI h = (ControllerStubRMI) registry.lookup(remoteObjectName);
 
-        System.out.println("Registering for callback");
+        //System.out.println("Registering for callback");
         this.clientStub = (ClientStubRMI) UnicastRemoteObject.exportObject(gameview, 0);
         return h;
     }

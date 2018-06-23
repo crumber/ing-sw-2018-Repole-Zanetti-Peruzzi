@@ -1,6 +1,5 @@
 package repolezanettiperuzzi.view;
 
-//  import repolezanettiperuzzi.controller.ControllerStub;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -33,6 +32,7 @@ public class GameView implements ClientStubRMI {
     private GameViewSocket gvSocket;
     private Consumer<String> onReceiveCallback;
     private GameViewRMIServer gvRMIServer;
+    private ControllerStubRMI stub;
     private Consumer<Integer> onReceiveLocalPort;
     private boolean login;
 
@@ -97,20 +97,35 @@ public class GameView implements ClientStubRMI {
 
 
             } else if (connection.equals("RMI")) {
-                this.gvRMIServer = new GameViewRMIServer(this);
-                boolean registered = false;
+                if(gvRMIServer==null){
+                    this.gvRMIServer = new GameViewRMIServer(this);
+                }
+                String message = "";
                 try {
-                    ControllerStubRMI stub = gvRMIServer.bind();
-                    registered = stub.init(gvRMIServer.getClientStub(), username, pwd, conn, UI);
+                    if(this.stub==null) {
+                        this.stub = gvRMIServer.bind();
+                    }
+                    message = stub.init(gvRMIServer.getClientStub(), username, pwd, conn, UI);
                 } catch (NotBoundException e) {
                     e.printStackTrace();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                if(registered){
+                if(message.equals("registered")){
                     enterWaitingRoom();
-                } else {
-                    //TODO
+                } else if(message.contains("reconnect")) {
+                    String lastScene = message.split(" ")[1];
+                    switch(lastScene){
+                        case "waitingRoom":
+                            enterWaitingRoom();
+                            break;
+                        case "chooseWindow":
+                            break;
+                    }
+                } else if(message.equals("stealAccount")){
+                    showPlayerAlreadyOnlineAlert();
+                } else if(message.equals("wrongPassword")){
+                    showWrongPwdAlert();
                 }
 
             }
@@ -143,7 +158,17 @@ public class GameView implements ClientStubRMI {
                 gvSocketServer.shutdownServer();
                 System.out.println("invio uscita");
             } else if (connection.equals("RMI")) {
-
+                boolean response = false;
+                try {
+                    response = stub.notifyOnExit(username, typeView);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(response){
+                    gvRMIServer.unexportRMI();
+                }
             }
         }
     }
@@ -164,7 +189,6 @@ public class GameView implements ClientStubRMI {
     }
 
     public void enterWaitingRoom(){
-        System.out.println("enter");
         if(this.UI.equals("GUI")){
             ((LoginFXMLController) fxmlController).setWaitingRoomScene();
         } else if(this.UI.equals("CLI")){
@@ -186,7 +210,7 @@ public class GameView implements ClientStubRMI {
             gvSocket = new GameViewSocket(this);
             gvSocket.waitingRoomLoaded(username);
         } else if(connection.equals("RMI")){
-
+            stub.waitingRoomLoaded(username);
         }
     }
 

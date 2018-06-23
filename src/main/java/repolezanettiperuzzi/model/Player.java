@@ -6,7 +6,7 @@ package repolezanettiperuzzi.model;
  * @author Giampiero Repole
  * @author Alessandro Peruzzi
  */
-public class Player{
+public class Player {
 
     private String name;
     private Colour secretColour;
@@ -24,13 +24,14 @@ public class Player{
 
     /**
      * Costruttore della classe
-     * @param name nome del giocatore
+     *
+     * @param name       nome del giocatore
      * @param connection connessione del giocatore (socket o RMI)
-     * @param UI interfaccia
-     * @param address indirizzo ip del client
-     * @param port porta del client
+     * @param UI         interfaccia
+     * @param address    indirizzo ip del client
+     * @param port       porta del client
      */
-    public Player(String name, String connection, String UI, String address, int port){
+    public Player(String name, String connection, String UI, String address, int port) {
         this.name = name;
         this.score = 0;
         this.connection = connection;
@@ -44,9 +45,10 @@ public class Player{
 
     /**
      * Costruttore della classe che crea una copia di un altro giocatore
+     *
      * @param p giocatore da copiare
      */
-    public Player(Player p){
+    public Player(Player p) {
         this.name = p.name;
         this.secretColour = p.secretColour;
         this.insertDieInThisTurn = p.insertDieInThisTurn;
@@ -64,18 +66,19 @@ public class Player{
 
     /**
      * Aggiorna il punteggio del giocatore
+     *
      * @param points punti del giocatore
      */
-    public void updateScore(int points){
+    public void updateScore(int points) {
 
-        score+=points;
+        score += points;
 
     }
 
     /**
      * @return punti attuali del giocatore
      */
-    public int getScore(){
+    public int getScore() {
 
         return score;
 
@@ -84,7 +87,7 @@ public class Player{
     /**
      * @return Window del giocatore
      */
-    public Window getWindow(){
+    public Window getWindow() {
 
         return this.window;
 
@@ -92,9 +95,10 @@ public class Player{
 
     /**
      * Setta la Window scelta dal giocatore per la partita attuale
+     *
      * @param window Window scelta
      */
-    public void setWindow(Window window){
+    public void setWindow(Window window) {
 
         this.window = window;
 
@@ -102,72 +106,79 @@ public class Player{
 
     /**
      * Controlla che il giocatore abbia già giocato la scena attuale
+     *
      * @param sceneName scena attuale
      * @return vero se l'ha gia giocata, falso altrimenti
      */
-    public boolean checkLastScene(String sceneName){
+    public boolean checkLastScene(String sceneName) {
         return this.lastScene.equals(sceneName);
     }
 
     /**
      * @return Stringa che rappresenta l'ultima scena giocata dal Player
      */
-    public String getLastScene(){
+    public String getLastScene() {
         return this.lastScene;
     }
 
     /**
      * Setta l'ultima scena giocata dal Player
+     *
      * @param sceneName scena giocata
      */
-    public void setLastScene(String sceneName){
+    public void setLastScene(String sceneName) {
         this.lastScene = sceneName;
     }
 
     /**
      * @return vero se il giocatore è online, falso altrimenti
      */
-    public boolean getLiveStatus(){
+    public boolean getLiveStatus() {
         return this.liveStatus;
     }
 
     /**
      * Setta lo stato di connessione del giocatore
+     *
      * @param status vero se Online, falso se OffLine
      */
-    public void setLiveStatus(boolean status){
+    public void setLiveStatus(boolean status) {
         this.liveStatus = status;
     }
 
     /**
      * Imposta il tipo di connessione scelta dal giocatore
+     *
      * @param connection connessione scelta
      */
-    public void setConnection(String connection){
+    public void setConnection(String connection) {
         this.connection = connection;
     }
 
     /**
      * Imposta il tipo di interfaccia scelta dal giocatore
+     *
      * @param UI interfaccia scelta
      */
-    public void setUI(String UI){
+    public void setUI(String UI) {
         this.UI = UI;
     }
 
     /**
      * Imposta l'indirizzo IP del client
+     *
      * @param address indirizzo IP
      */
-    public void setAddress(String address){
+    public void setAddress(String address) {
         this.address = address;
     }
 
     /**
      * Imposta la porta per comunicare col client
+     *
      * @param port porta dle client
      */
-    public void setPort(int port){
+    public void setPort(int port) {
         this.port = port;
     }
 
@@ -182,19 +193,27 @@ public class Player{
 
     /**
      * Imposta i FavorTokens che spettano al giocatore relativamente alla Window che ha scelto
+     *
      * @param flavorTokens FavorTokens del giocatore
      */
-    public void setFavorTokens(int flavorTokens){
+    public void setFavorTokens(int flavorTokens) {
 
-        this.favorTokens=flavorTokens;
+        this.favorTokens = flavorTokens;
 
     }
 
     /**
      * @return connessione del giocatore
      */
-    public String getConnection(){
+    public String getConnection() {
         return connection;
+    }
+
+    /**
+     * @return user interface del giocatore
+     */
+    public String getUI(){
+            return UI;
     }
 
     /**
