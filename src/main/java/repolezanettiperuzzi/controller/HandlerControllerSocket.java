@@ -71,10 +71,10 @@ public class HandlerControllerSocket implements Runnable{
                         ((SetConnectionState)controller.getState()).notifyOnRegister(controller, param[1], param[2], player.getAddress(), player.getPort());
                         break;
                     case "stealAccount":
-                        ((SetConnectionState)controller.getState()).notifyOnStealAccount(controller, player.getConnection(), player.getUI(), player.getAddress(), player.getPort());
+                        ((SetConnectionState)controller.getState()).notifyOnStealAccount(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), Integer.parseInt(param[3])); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
                         break;
                     case "wrongPassword":
-                        ((SetConnectionState)controller.getState()).notifyOnWrongPassword(controller, player.getConnection(), player.getUI(), player.getAddress(), player.getPort());
+                        ((SetConnectionState)controller.getState()).notifyOnWrongPassword(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), Integer.parseInt(param[3])); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
                         break;
                     case "reconnect":
                         ((SetConnectionState)controller.getState()).notifyOnReconnect(controller, player.getConnection(), player.getUI(), player.getAddress(), player.getPort(), player.getName());
@@ -87,14 +87,16 @@ public class HandlerControllerSocket implements Runnable{
                 ((SetConnectionState)controller.getState()).notifyOnUpdatedPlayer();
                 break;
             case "choosewindowok":
-                FetchState fetch = (FetchState)controller.getState();
+                controller.setState(new FetchState());
                 Player playerName = controller.board.getPlayerByName(playerID);
-                fetch.sendWindows(playerName);
+                ((FetchState)controller.getState()).sendWindows(playerName);
                 break;
             case "chosenWindow":
+                controller.setState(new FetchState());
                 ((FetchState)controller.getState()).setChosenWindow(controller.board.getPlayerByName(playerID), param[0].replace("-"," "));
                 break;
             case "startWindowOk":
+                controller.setState(new FetchState());
                 ((FetchState)controller.getState()).readyToPlay();
                 break;
             case "exit":

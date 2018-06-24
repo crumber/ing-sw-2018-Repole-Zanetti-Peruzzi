@@ -23,22 +23,19 @@ import java.util.HashMap;
 public class FetchState extends ControllerState {
 
     private GameBoard board;
-    private HashMap<Player,ArrayList<Window>> playersWindowsChoices;
-    private ArrayList<Window> windows;
     private Controller controller;
-    private int readyPlayers = 0;
-    private int playersToCheck;
 
     @Override
-    public void doAction(Controller controller) throws IOException, ParseException {
+    public void doAction(Controller controller) throws IOException {
 
         this.controller = controller;
         this.board=controller.board;
-        playersWindowsChoices = new HashMap<>();
-        InitializeGame init = new InitializeGame();
-        init.doAction(board);
-        this.windows = (ArrayList<Window>) init.getWindows();
-
+        if(board.getWindowsPool()==null){
+            board.initPlayersWindowsChoices();
+            InitializeGame init = new InitializeGame();
+            init.doAction(board);
+            board.setWindowsPool((ArrayList<Window>) init.getWindows());
+        }
     }
 
     public void sendWindows(Player player) throws IOException {
@@ -53,8 +50,8 @@ public class FetchState extends ControllerState {
 
         if (player.getConnection().equals("Socket")) {
 
-            playersWindowsChoices.put(player, (ArrayList<Window>) new TakeTwoCardWindowAction().doAction(windows));
-            String message = this.windowsToString(playersWindowsChoices.get(player));
+            board.putPlayersWindowsChoices(player, (ArrayList<Window>) new TakeTwoCardWindowAction().doAction(board.getWindowsPool()));
+            String message = this.windowsToString(board.getPlayersWindowsChoices(player));
             Socket socket = new Socket(player.getAddress(), player.getPort());
             HandlerControllerSocket handler = new HandlerControllerSocket(this.controller, socket);
             //System.out.println(controller.getCurrentTime());
@@ -113,7 +110,7 @@ public class FetchState extends ControllerState {
 
     public void setChosenWindow(Player player, String choose) throws IOException, ParseException {
 
-        for (Window window : this.playersWindowsChoices.get(player) ) {
+        for (Window window : board.getPlayersWindowsChoices(player) ) {
 
             if(window.getName().equals(choose)){
 
@@ -143,7 +140,7 @@ public class FetchState extends ControllerState {
 
         if(controller.board.getPlayersOnline()>=2){
 
-            this.playersToCheck = controller.board.getPlayersOnline();
+            board.setFetchPlayersToCheck(board.getPlayersOnline());
 
             for(int i = 0; i<board.getNPlayers(); i++){
 
@@ -177,7 +174,7 @@ public class FetchState extends ControllerState {
                     if(player.getLastScene().equals("chooseWindowRoom")&& player.getLiveStatus()){
 
 
-                        this.setChosenWindow(player,playersWindowsChoices.get(player).get(0).getName());
+                        this.setChosenWindow(player,board.getPlayersWindowsChoices(player).get(0).getName());
 
                         if (player.getConnection().equals("Socket")) {
 
@@ -198,7 +195,7 @@ public class FetchState extends ControllerState {
 
                     }else if(player.getLastScene().equals("chooseWindowRoom")&& !player.getLiveStatus()){
 
-                        this.setChosenWindow(player,playersWindowsChoices.get(player).get(0).getName());
+                        this.setChosenWindow(player,board.getPlayersWindowsChoices(player).get(0).getName());
 
                     }
                 }
@@ -244,9 +241,9 @@ public class FetchState extends ControllerState {
 
     public void readyToPlay() throws IOException, ParseException {
 
-        this.readyPlayers++;
+        board.incrFetchReadyPlayers();
 
-        if(this.readyPlayers==this.playersToCheck){
+        if(board.getFetchPlayersToCheck()==board.getFetchReadyPlayers()){
             controller.setState(new BeginRoundState());
 
         }

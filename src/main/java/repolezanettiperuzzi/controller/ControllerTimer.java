@@ -59,18 +59,20 @@ public class ControllerTimer extends TimerTask {
 
                 case "setConnection" :
 
-                    SetConnectionState setConnectionState = (SetConnectionState) controller.getState();
                     try {
-                        setConnectionState.notifyOnBeginChooseWindow();
-                    } catch (IOException | ParseException e) {
+                        controller.setState(new SetConnectionState());
+                        ((SetConnectionState) controller.getState()).notifyOnBeginChooseWindow();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     break;
                 case "chooseWindow" :
 
-                    FetchState fetchState = (FetchState) controller.getState();
                     try {
-                        fetchState.checkConnectedPlayers();
+                        controller.setState(new FetchState());
+                        ((FetchState) controller.getState()).checkConnectedPlayers();
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (ParseException e) {

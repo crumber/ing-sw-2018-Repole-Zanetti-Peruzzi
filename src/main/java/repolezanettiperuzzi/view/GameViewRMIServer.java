@@ -38,8 +38,9 @@ public class GameViewRMIServer {
         //System.out.print("RMI registry bindings: ");
         String[] e = registry.list();
 
-        for (int i=0; i<e.length; i++)
-            System.out.println(e[i]);
+        for (int i=0; i<e.length; i++) {
+            //System.out.println(e[i]);
+        }
 
         String remoteObjectName = "controller";
         ControllerStubRMI h = (ControllerStubRMI) registry.lookup(remoteObjectName);

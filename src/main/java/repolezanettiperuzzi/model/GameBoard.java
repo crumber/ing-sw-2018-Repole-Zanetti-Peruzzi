@@ -4,6 +4,7 @@ import repolezanettiperuzzi.model.toolcards.ToolCard;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -20,6 +21,10 @@ public class GameBoard {
     private ToolCard[] toolCards;
     private DiceBag diceBag;
     private RoundTrack roundTrack;
+    private ArrayList<Window> windowsPool;
+    private HashMap<Player,ArrayList<Window>> playersWindowsChoices;
+    private int fetchPlayersToCheck;
+    private int fetchReadyPlayers = 0;
     private int round;
     private int nPlayers;
     private int[] costToolCard = new int[3];
@@ -351,6 +356,81 @@ public class GameBoard {
 
         this.toolCards[i]=toolCard;
 
+    }
+
+    /**
+     * Ritorna il pool delle Window utile al FetchState
+     * @return Pool di Window attuale
+     */
+    public ArrayList<Window> getWindowsPool(){
+        return this.windowsPool;
+    }
+
+    /**
+     * Setta l'attributo locale prendendo come parametro un windowsPool
+     * @param windowsPool Pool di Windows che verra settato nell'attributo locale
+     */
+    public void setWindowsPool(ArrayList<Window> windowsPool){
+        this.windowsPool = windowsPool;
+    }
+
+    /**
+     * Inizializza l'attributo playersWindowsChoices chiamato nella prima doAction del FetchState
+     */
+    public void initPlayersWindowsChoices(){
+        this.playersWindowsChoices = new HashMap<>();
+    }
+
+    /**
+     * Inserisce una entry nella Hash Map delle finestre associate ai singoli giocatori
+     * @param player Giocatore da inserire come chiave
+     * @param windows Windows tra cui puo' scegliere il giocatore
+     */
+    public void putPlayersWindowsChoices(Player player, ArrayList<Window> windows){
+        this.playersWindowsChoices.put(player, windows);
+    }
+
+    /**
+     * Ritorna la Window tra cui puo' scegliere un determinato giocatore
+     * @param player Giocatore della quale si vogliono ottenere le Window
+     * @return
+     */
+    public ArrayList<Window> getPlayersWindowsChoices(Player player){
+        return this.playersWindowsChoices.get(player);
+    }
+
+    /**
+     * Imposta il numero di giocatori da controllare che siano online allo scadere del timer del FetchState
+     * @param nPlayers Numero di giocatori
+     */
+    public void setFetchPlayersToCheck(int nPlayers){
+        this.fetchPlayersToCheck = nPlayers;
+    }
+
+    /**
+     * Ritorna il numero di giocatori da controllare che siano online allo scadere del timer del FetchState
+     * @return Numero di iogcaori da controllare
+     */
+    public int getFetchPlayersToCheck(){
+        return this.fetchPlayersToCheck;
+    }
+
+    /**
+     * Incrementa il numero di giocatori pronti ad iniziare la partita con una Window associata e che abbiano caricato
+     * la view per il turno
+     */
+    public void incrFetchReadyPlayers(){
+        this.fetchReadyPlayers++;
+    }
+
+    /**
+     * Ritorna il numero di giocatori pronti ad iniziare la partita con una Window associata e che abbiano caricato
+     * la view per il turno
+     * @return Numero di giocatori pronti ad iniziare la partita con una Window associata e che abbiano caricato
+     * la view per il turno
+     */
+    public int getFetchReadyPlayers(){
+        return this.fetchReadyPlayers;
     }
 
     /**

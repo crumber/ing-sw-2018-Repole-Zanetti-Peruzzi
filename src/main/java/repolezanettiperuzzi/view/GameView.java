@@ -8,6 +8,7 @@ import repolezanettiperuzzi.common.ClientStubRMI;
 import repolezanettiperuzzi.common.ControllerStubRMI;
 import repolezanettiperuzzi.view.modelwrapper.WindowClient;
 
+import javax.swing.*;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.rmi.NotBoundException;
@@ -103,6 +104,7 @@ public class GameView implements ClientStubRMI {
             } else if (connection.equals("RMI")) {
                 GameView gameView = this;
                 if(this.UI.equals("GUI")) {
+                    //creo in un thread separato per non bloccare la GUI
                     this.startingRMIThread =new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -121,7 +123,15 @@ public class GameView implements ClientStubRMI {
         }
     }
 
-    public void initRMI(GameView gameView, String pwd, String conn){
+    /**
+     * Inizializza la connessione RMI e invia il messaggio di richiesta di login.
+     * Deve essere un metodo esterno al metodo onLogin perche' cosi' puo essere chiamato da dentro o fuori un Thread in caso
+     * sia fatto partire da GUI o da CLI.
+     * @param gameView riferimento alla classe GameView che sta chiamando il metodo
+     * @param pwd Password inserita dall'utente
+     * @param conn Connessione scelta dall'utente (RMI/Socket)
+     */
+    private void initRMI(GameView gameView, String pwd, String conn){
         if(gvRMIServer==null){
             gvRMIServer = new GameViewRMIServer(gameView);
         }
@@ -176,17 +186,21 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Viene chiamato dalle rispettive CLI o GUI del client e notifica il server della disconnesione del client.
+     * Dopo una conferma del server allora il client procede a chiudere in modo appropriato le connesioni RMI/Socket.
+     * In caso il client venga chiuso durante la connesione al server RMI, il metodo interrompe il thread che si
+     * sta occupando di questa operazione e successivamente chiude il programma.
+     * @param typeView Nome dell'ultima view che è arrivato a visualizzare il client
+     * @throws IOException
+     */
     public void notifyOnExit(String typeView) throws IOException {
-        System.out.println("fuori login");
         if(this.login) {   //se non ho fatto il login significa che ho chiuso la GUI per chiudere il gioco
-            System.out.println("dentro login");
             if (connection.equals("Socket")) {
                 gvSocket = new GameViewSocket(this);
                 gvSocket.notifyOnExit(username, typeView);
                 gvSocketServer.shutdownServer();
-                System.out.println("invio uscita");
             } else if (connection.equals("RMI")) {
-                System.out.println("dentro rmi");
                 if(RMIActive) {
                     boolean response = false;
                     try {
@@ -200,9 +214,10 @@ public class GameView implements ClientStubRMI {
                         gvRMIServer.unexportRMI();
                     }
                 } else {
-                    System.out.println("ciao");
-                    startingRMIThread.interrupt();
-                    System.exit(0);
+                    if(UI.equals("GUI")) {
+                        startingRMIThread.interrupt();
+                        System.exit(0);
+                    }
                 }
             }
         }
@@ -262,7 +277,6 @@ public class GameView implements ClientStubRMI {
         if(this.UI.equals("GUI")){
             ((ChooseWindowFXMLController) fxmlController).viewWindows(windows,currentTime);
         }else if(this.UI.equals("CLI")){
-
             gvCLI.viewWindows(windows);
         }
     }
@@ -304,6 +318,12 @@ public class GameView implements ClientStubRMI {
         this.gvCLI = gvCLI;
     }
 
+    /**
+     * Viene chiamato dalla procedura di connessione con il server RMI una volta che la connessione e' stabilita.
+     * Utile per capire durante il login se l'utente chiude il client se la connessione RMI e' stata gia' stabilita
+     * e in caso affermativo disattivare l'esportazione dello stub del client. In caso la connessione sia ancora in
+     * corso e sia in uso la GUI allora interrompe il thread che si occupa di stabilire la connessione.
+     */
     public void setRMIActive(){
         this.RMIActive = true;
     }

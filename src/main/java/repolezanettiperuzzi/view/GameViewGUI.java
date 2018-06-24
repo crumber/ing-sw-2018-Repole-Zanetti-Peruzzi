@@ -10,9 +10,11 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import repolezanettiperuzzi.common.DynamicPath;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
 
 public class GameViewGUI extends Application{
 
@@ -43,7 +45,7 @@ public class GameViewGUI extends Application{
         // Create the Scene
         Scene scene = new Scene(root, 600 , 600);
 
-        primaryStage.getIcons().add(new Image(new File("assets/icon.png").toURI().toString()));
+        primaryStage.getIcons().add(new javafx.scene.image.Image(new File("assets/icon.png").toURI().toString()));
 
         MenuBar menuBar = new MenuBar();
 
@@ -53,8 +55,11 @@ public class GameViewGUI extends Application{
         menuBar.getMenus().addAll(menuFile);
 
         final String os = System.getProperty("os.name");
-        if (os != null && os.startsWith("Mac"))
+        if (os != null && os.startsWith("Mac")) {
             menuBar.useSystemMenuBarProperty().set(true);
+            java.awt.Image image = new ImageIcon(new URL(new DynamicPath("assets/icon.png").getPath())).getImage();
+            com.apple.eawt.Application.getApplication().setDockIconImage(image);
+        }
 
         root.getChildren().addAll(menuBar);
 
