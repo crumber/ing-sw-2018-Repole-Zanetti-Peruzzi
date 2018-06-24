@@ -52,11 +52,14 @@ public class SetConnectionState extends ControllerState{
                     player.put("UI", UI);
                     player.put("address", addr.toString().substring(1));
                     player.put("port", port);
+                    playerAction = "reconnect";
                     break;
                 } else if(name.equals(playerID) && controller.board.getPlayerByName(playerID).getLiveStatus()){ //sto cercando di connettermi con il nome di qualcun'altro che e' online
                     playerAction = "stealAccount";
+                    break;
                 } else if(name.equals(playerID) && !passwd.equals(pwd) && !controller.board.getPlayerByName(playerID).getLiveStatus()){ //sto cercando di connettermi con il nome di qualcun'altro che e' offline ma pwd sbagliata
                     playerAction = "wrongPassword";
+                    break;
                 }
             }
 
@@ -93,7 +96,7 @@ public class SetConnectionState extends ControllerState{
                     System.out.println("Cannot write on file");
                 }
                 controller.board.getPlayerByName(playerID).setLiveStatus(true);
-                playerAction = "reconnect "+board.getPlayerByName(playerID).getLastScene();
+                playerAction = "reconnect";
             }
 
         } finally {

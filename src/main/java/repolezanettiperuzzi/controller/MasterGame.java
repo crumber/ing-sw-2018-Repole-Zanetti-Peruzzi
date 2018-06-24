@@ -39,10 +39,10 @@ public class MasterGame {
 
             boolean isOpen = true;
             String serverAddress = InetAddress.getLocalHost().getHostAddress();
+            System.out.println("Server socket ready with address "+serverAddress+" port "+port);
 
             while (isOpen) {
 
-                System.out.println("Server socket ready with address "+serverAddress+" port "+port);
                 Socket socket = serverSocket.accept();
                 executor.submit(new HandlerControllerSocket(controller, socket));
 

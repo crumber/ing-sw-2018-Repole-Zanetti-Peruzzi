@@ -172,6 +172,7 @@ public class LoginFXMLController extends FXMLController{
             progressBg.setVisible(true);
             progressText.setVisible(true);
             ProgressIndicator p1 = new ProgressIndicator();
+            p1.setId("progress");
             p1.setPrefWidth(100);
             p1.setPrefHeight(100);
             p1.setLayoutX((stage.getScene().getWidth() / 2)-50);
@@ -179,6 +180,15 @@ public class LoginFXMLController extends FXMLController{
             p1.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
             Group root = (Group) stage.getScene().getRoot();
             root.getChildren().add(p1);
+        });
+    }
+
+    public void removeProgressIndicator(){
+        Platform.runLater(() -> {
+            Group root = (Group) stage.getScene().getRoot();
+            root.getChildren().remove(root.lookup("#progress"));
+            progressBg.setVisible(false);
+            progressText.setVisible(false);
         });
     }
 

@@ -39,10 +39,12 @@ public class GameView implements ClientStubRMI {
     private Consumer<Integer> onReceiveLocalPort;
     private boolean RMIActive;
     private boolean login;
+    private boolean rejectedLogin;
 
     public GameView(){
         this.onReceiveCallback = data -> gvSocket.handleMessage(data);
         this.login = false;
+        this.rejectedLogin = false;
         this.localPort = 0;
         this.RMIActive = false;
     }
@@ -151,8 +153,10 @@ public class GameView implements ClientStubRMI {
             e.printStackTrace();
         }
         if(message.equals("registered")){
+            rejectedLogin = false;
             enterWaitingRoom();
         } else if(message.contains("reconnect")) {
+            rejectedLogin = false;
             String lastScene = message.split(" ")[1];
             switch(lastScene){
                 case "waitingRoom":
@@ -162,14 +166,17 @@ public class GameView implements ClientStubRMI {
                     break;
             }
         } else if(message.equals("stealAccount")){
+            ((LoginFXMLController)fxmlController).removeProgressIndicator();
             showPlayerAlreadyOnlineAlert();
         } else if(message.equals("wrongPassword")){
+            ((LoginFXMLController)fxmlController).removeProgressIndicator();
             showWrongPwdAlert();
         }
     }
 
     public void showPlayerAlreadyOnlineAlert(){
         this.login = false;
+        this.rejectedLogin = true;
         if(this.UI.equals("GUI")){
             ((LoginFXMLController) fxmlController).showPlayerAlreadyOnlineAlert();
         } else if(this.UI.equals("CLI")){
@@ -179,6 +186,7 @@ public class GameView implements ClientStubRMI {
 
     public void showWrongPwdAlert(){
         this.login = false;
+        this.rejectedLogin = true;
         if(this.UI.equals("GUI")){
             ((LoginFXMLController) fxmlController).showWrongPwdAlert();
         } else if(this.UI.equals("CLI")){
@@ -195,24 +203,24 @@ public class GameView implements ClientStubRMI {
      * @throws IOException
      */
     public void notifyOnExit(String typeView) throws IOException {
-        if(this.login) {   //se non ho fatto il login significa che ho chiuso la GUI per chiudere il gioco
+        if(this.login || rejectedLogin) {   //se non ho fatto il login significa che ho chiuso la GUI per chiudere il gioco
             if (connection.equals("Socket")) {
                 gvSocket = new GameViewSocket(this);
                 gvSocket.notifyOnExit(username, typeView);
                 gvSocketServer.shutdownServer();
             } else if (connection.equals("RMI")) {
                 if(RMIActive) {
-                    boolean response = false;
-                    try {
-                        response = stub.notifyOnExit(username, typeView);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    if(!rejectedLogin) {
+                        boolean response = false;
+                        try {
+                            response = stub.notifyOnExit(username, typeView);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
-                    if (response) {
-                        gvRMIServer.unexportRMI();
-                    }
+                    gvRMIServer.unexportRMI();
                 } else {
                     if(UI.equals("GUI")) {
                         startingRMIThread.interrupt();
@@ -239,6 +247,7 @@ public class GameView implements ClientStubRMI {
     }
 
     public void enterWaitingRoom(){
+        rejectedLogin = false;
         if(this.UI.equals("GUI")){
             ((LoginFXMLController) fxmlController).setWaitingRoomScene();
         } else if(this.UI.equals("CLI")){
