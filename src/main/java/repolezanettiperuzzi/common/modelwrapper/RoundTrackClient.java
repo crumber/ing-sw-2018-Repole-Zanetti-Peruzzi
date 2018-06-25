@@ -1,8 +1,9 @@
-package repolezanettiperuzzi.view.modelwrapper;
+package repolezanettiperuzzi.common.modelwrapper;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class RoundTrackClient {
+public class RoundTrackClient implements Serializable {
 
     private static final int MAXROUNDTRACK = 10;
     private ArrayList<ArrayList<DieClient>> dieRoundTrack = new ArrayList<ArrayList<DieClient>>();

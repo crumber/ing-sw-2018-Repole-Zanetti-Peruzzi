@@ -1,6 +1,8 @@
-package repolezanettiperuzzi.view.modelwrapper;
+package repolezanettiperuzzi.common.modelwrapper;
 
-public class PlayerClient {
+import java.io.Serializable;
+
+public class PlayerClient implements Serializable {
 
     private String name;
     private ColourClient secretColour;

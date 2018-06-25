@@ -3,7 +3,9 @@ package repolezanettiperuzzi.controller;
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.common.ClientStubRMI;
 import repolezanettiperuzzi.common.ControllerStubRMI;
+import repolezanettiperuzzi.common.modelwrapper.WindowClient;
 import repolezanettiperuzzi.model.Player;
+import repolezanettiperuzzi.model.Window;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -86,6 +88,13 @@ public class HandlerControllerRMI implements ControllerStubRMI {
         synchronized (controller) {
             Player player = controller.board.getPlayerByName(playerName);
             player.setLastScene("waitingRoom");
+            try {
+                controller.setState(new SetConnectionState());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -119,6 +128,68 @@ public class HandlerControllerRMI implements ControllerStubRMI {
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public synchronized void notifyOnBeginChooseWindow(String playerName){
+        synchronized (controller){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        clients.get(playerName).enterChooseWindow();
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+    }
+
+    public synchronized void chooseWindowSceneLoaded(String playerName){
+        synchronized(controller){
+            System.out.println("Scene loaded");
+            try {
+                controller.setState(new FetchState());
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            ((FetchState) controller.getState()).sendWindows(controller.board.getPlayerByName(playerName));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Sends the windows to view to the client
+     */
+    public synchronized void viewWindows(String playerName, ArrayList<Window> windows, int setTimer){
+        synchronized (controller) {
+            ArrayList<WindowClient> windowsClient = new ArrayList<>();
+            for (Window w : windows) {
+                windowsClient.add(new WindowClient(w.getName(), w.getFTokens(), w.toString()));
+            }
+
+            System.out.println("Sending windows");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        clients.get(playerName).viewWindows(windowsClient, setTimer);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         }
     }
 

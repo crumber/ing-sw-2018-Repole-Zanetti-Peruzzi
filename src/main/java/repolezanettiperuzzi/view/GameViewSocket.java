@@ -1,10 +1,9 @@
 package repolezanettiperuzzi.view;
 
-import repolezanettiperuzzi.model.Colour;
-import repolezanettiperuzzi.view.modelwrapper.BoxClient;
-import repolezanettiperuzzi.view.modelwrapper.ColourClient;
-import repolezanettiperuzzi.view.modelwrapper.ValueClient;
-import repolezanettiperuzzi.view.modelwrapper.WindowClient;
+import repolezanettiperuzzi.common.modelwrapper.BoxClient;
+import repolezanettiperuzzi.common.modelwrapper.ColourClient;
+import repolezanettiperuzzi.common.modelwrapper.ValueClient;
+import repolezanettiperuzzi.common.modelwrapper.WindowClient;
 
 import java.io.BufferedReader;
 import java.io.IOException;

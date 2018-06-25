@@ -19,12 +19,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
-import repolezanettiperuzzi.view.modelwrapper.WindowClient;
+import repolezanettiperuzzi.common.modelwrapper.WindowClient;
 
-import javax.swing.text.html.ImageView;
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -109,7 +106,8 @@ public class ChooseWindowFXMLController extends FXMLController{
             //Esempio con GridPane
             GridPane pane = wGenerator.getWindowFXObject();
             VBox box = new VBox();
-            javafx.scene.image.ImageView windowLabel = new javafx.scene.image.ImageView(new Image(new DynamicPath("assets/Windows/"+windows.get(i).getName()+".png").getPath()));
+            String windowName = windows.get(i).getName().replace(" ", "-"); //questo per gestire in caso la window arrivi da RMI in cui il nome e' senza trattini
+            javafx.scene.image.ImageView windowLabel = new javafx.scene.image.ImageView(new Image(new DynamicPath("assets/Windows/"+windowName+".png").getPath()));
             windowLabel.setFitWidth(50*windows.get(i).getBoardBox()[0].length);
             windowLabel.setPreserveRatio(true);
             windowLabel.setSmooth(true);
@@ -127,7 +125,6 @@ public class ChooseWindowFXMLController extends FXMLController{
 
             }
             //System.out.println("yPos: "+yPos);
-            String windowName = windows.get(i).getName();
             b.setLayoutY(yPos);
             b.setStyle("-fx-background-color: transparent;"+"-fx-text-fill: transparent;");
             b.setOnAction(e -> onWindowClick(e,windowName));

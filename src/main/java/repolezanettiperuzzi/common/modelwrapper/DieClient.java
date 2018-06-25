@@ -1,6 +1,8 @@
-package repolezanettiperuzzi.view.modelwrapper;
+package repolezanettiperuzzi.common.modelwrapper;
 
-public class DieClient {
+import java.io.Serializable;
+
+public class DieClient implements Serializable {
 
     private final ColourClient COLOURDIE;
     private ValueClient valueDie;

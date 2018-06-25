@@ -1,10 +1,11 @@
-package repolezanettiperuzzi.view.modelwrapper;
+package repolezanettiperuzzi.common.modelwrapper;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class GameBoardClient {
+public class GameBoardClient implements Serializable {
 
     private ArrayList<PlayerClient> players;
     private ArrayList<DieClient> diceDraft;

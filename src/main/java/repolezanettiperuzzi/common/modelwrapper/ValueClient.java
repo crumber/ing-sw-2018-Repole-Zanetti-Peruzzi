@@ -1,8 +1,9 @@
-package repolezanettiperuzzi.view.modelwrapper;
+package repolezanettiperuzzi.common.modelwrapper;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public enum ValueClient {
+public enum ValueClient implements Serializable{
 
     ONE(1),
     TWO(2),

@@ -148,4 +148,33 @@ public class Box {
 
     }
 
+    @Override
+    public String toString(){
+        String res = "";
+        if(getBoundColour()!=null){
+            switch (getBoundColour()){
+                case YELLOW:
+                    res = "Y";
+                    break;
+                case RED:
+                    res = "R";
+                    break;
+                case BLUE:
+                    res = "B";
+                    break;
+                case PURPLE:
+                    res = "P";
+                    break;
+                case GREEN:
+                    res = "G";
+                    break;
+            }
+        } else if(getBoundValue()!=null){
+            res = getBoundValue().getNumber()+"";
+        } else if((getBoundColour()==null) && (getBoundValue()==null)){
+            res = "0";
+        }
+        return res;
+    }
+
 }

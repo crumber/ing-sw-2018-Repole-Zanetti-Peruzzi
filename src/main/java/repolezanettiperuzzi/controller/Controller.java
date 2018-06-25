@@ -117,7 +117,7 @@ public class Controller {
     }
 
     public void setLiveStatusOffline(String playerName){
-        System.out.println("exit waiting room "+playerName);
+        System.out.println("exit game "+playerName);
         for(int i = 0; i<this.board.getNPlayers(); i++){
             if(this.board.getPlayer(i).getName().equals(playerName)){
                 this.board.getPlayer(i).setLiveStatus(false);

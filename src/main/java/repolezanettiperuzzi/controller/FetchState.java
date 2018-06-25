@@ -12,6 +12,7 @@ import repolezanettiperuzzi.model.actions.TakeTwoCardWindowAction;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -58,7 +59,10 @@ public class FetchState extends ControllerState {
             handler.askWindow(message,controller.getCurrentTime());
 
         } else if (player.getConnection().equals("RMI")) {
-
+            System.out.println("Fetch state");
+            board.putPlayersWindowsChoices(player, (ArrayList<Window>) new TakeTwoCardWindowAction().doAction(board.getWindowsPool()));
+            ArrayList<Window> windows = board.getPlayersWindowsChoices(player);
+            controller.getHandlerRMI().viewWindows(player.getName(), windows, controller.getCurrentTime());
         }
 
     }

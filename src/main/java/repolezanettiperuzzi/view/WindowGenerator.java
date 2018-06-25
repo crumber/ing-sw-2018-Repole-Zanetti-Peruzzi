@@ -2,18 +2,12 @@ package repolezanettiperuzzi.view;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import repolezanettiperuzzi.common.DynamicPath;
-import repolezanettiperuzzi.view.modelwrapper.BoxClient;
-import repolezanettiperuzzi.view.modelwrapper.WindowClient;
-
-import java.net.URI;
-import java.net.URISyntaxException;
+import repolezanettiperuzzi.common.modelwrapper.BoxClient;
+import repolezanettiperuzzi.common.modelwrapper.WindowClient;
 
 
 public class WindowGenerator {

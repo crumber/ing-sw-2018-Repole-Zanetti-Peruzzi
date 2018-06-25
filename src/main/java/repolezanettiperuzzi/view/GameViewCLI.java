@@ -1,7 +1,7 @@
 package repolezanettiperuzzi.view;
 
-import repolezanettiperuzzi.view.modelwrapper.BoxClient;
-import repolezanettiperuzzi.view.modelwrapper.WindowClient;
+import repolezanettiperuzzi.common.modelwrapper.BoxClient;
+import repolezanettiperuzzi.common.modelwrapper.WindowClient;
 
 import java.io.Console;
 import java.io.IOException;

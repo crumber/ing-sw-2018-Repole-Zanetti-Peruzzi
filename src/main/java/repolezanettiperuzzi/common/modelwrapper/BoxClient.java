@@ -1,6 +1,8 @@
-package repolezanettiperuzzi.view.modelwrapper;
+package repolezanettiperuzzi.common.modelwrapper;
 
-public class BoxClient {
+import java.io.Serializable;
+
+public class BoxClient implements Serializable {
 
     protected DieClient die;
     private final ColourClient BOUNDCOLOUR ;

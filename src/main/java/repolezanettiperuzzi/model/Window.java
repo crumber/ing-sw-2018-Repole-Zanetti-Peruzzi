@@ -328,4 +328,21 @@ public class Window {
         return boardBox[0].length;
 
     }
+
+    @Override
+    public String toString(){
+        String windowToString = "";
+        for(int i = 0; i<boardBox.length; i++){
+            for(int j = 0; j<boardBox[0].length; j++){
+                windowToString += boardBox[i][j].toString();
+                if(j<boardBox[0].length-1){ //solo se e' il penultimo elemento della riga
+                    windowToString += "-";
+                }
+            }
+            if(i<boardBox.length-1) {
+                windowToString += " ";
+            }
+        }
+        return windowToString;
+    }
 }

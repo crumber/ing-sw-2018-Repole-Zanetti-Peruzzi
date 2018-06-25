@@ -1,6 +1,8 @@
-package repolezanettiperuzzi.view.modelwrapper;
+package repolezanettiperuzzi.common.modelwrapper;
 
-public class WindowClient {
+import java.io.Serializable;
+
+public class WindowClient implements Serializable{
 
     private final String NAME;
     private BoxClient[][] boardBox;
@@ -23,6 +25,61 @@ public class WindowClient {
 
         }
         //System.out.println("\n");
+    }
+
+    public WindowClient(String name, int ft, String board){
+        this.NAME = name;
+        this.FAVORTOKENS = ft;
+
+        String[] boxRows = board.split(" ");
+        int rows = boxRows.length;
+        int cols = boxRows[0].split("-").length;
+
+        this.boardBox = new BoxClient[rows][cols];
+
+        for(int i = 0; i<rows; i++){
+            String[] box = boxRows[i].split("-");
+            for(int j = 0; j<cols; j++){
+                switch (box[j]){
+                    case "Y":
+                        boardBox[i][j] = new BoxClient(ColourClient.YELLOW);
+                        break;
+                    case "R":
+                        boardBox[i][j] = new BoxClient(ColourClient.RED);
+                        break;
+                    case "P":
+                        boardBox[i][j] = new BoxClient(ColourClient.PURPLE);
+                        break;
+                    case "G":
+                        boardBox[i][j] = new BoxClient(ColourClient.GREEN);
+                        break;
+                    case "B":
+                        boardBox[i][j] = new BoxClient(ColourClient.BLUE);
+                        break;
+                    case "0":
+                        boardBox[i][j] = new BoxClient();
+                        break;
+                    case "1":
+                        boardBox[i][j] = new BoxClient(ValueClient.ONE);
+                        break;
+                    case "2":
+                        boardBox[i][j] = new BoxClient(ValueClient.TWO);
+                        break;
+                    case "3":
+                        boardBox[i][j] = new BoxClient(ValueClient.THREE);
+                        break;
+                    case "4":
+                        boardBox[i][j] = new BoxClient(ValueClient.FOUR);
+                        break;
+                    case "5":
+                        boardBox[i][j] = new BoxClient(ValueClient.FIVE);
+                        break;
+                    case "6":
+                        boardBox[i][j] = new BoxClient(ValueClient.SIX);
+                        break;
+                }
+            }
+        }
     }
 
     public BoxClient[][] getBoardBox(){

@@ -1,18 +1,13 @@
 package repolezanettiperuzzi.view;
 
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.stage.Stage;
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.common.ClientStubRMI;
 import repolezanettiperuzzi.common.ControllerStubRMI;
-import repolezanettiperuzzi.view.modelwrapper.WindowClient;
+import repolezanettiperuzzi.common.modelwrapper.WindowClient;
 
-import javax.swing.*;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.rmi.NotBoundException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -39,7 +34,7 @@ public class GameView implements ClientStubRMI {
     private Consumer<Integer> onReceiveLocalPort;
     private boolean RMIActive;
     private boolean login;
-    private boolean rejectedLogin;
+    private boolean rejectedLogin; //useful to know if login has been rejected, because server socket and RMI have been started and have to be shut down during notifyOnExit()
 
     public GameView(){
         this.onReceiveCallback = data -> gvSocket.handleMessage(data);
@@ -256,7 +251,6 @@ public class GameView implements ClientStubRMI {
     }
 
     public void enterChooseWindow(){
-
         if(this.UI.equals("GUI")){
             ((WaitingRoomFXMLController) fxmlController).setChooseWindowScene();
         }else if(this.UI.equals("CLI")){
@@ -278,7 +272,7 @@ public class GameView implements ClientStubRMI {
             gvSocket = new GameViewSocket(this);
             gvSocket.chooseWindowSceneLoaded(username);
         } else if(connection.equals("RMI")){
-
+            stub.chooseWindowSceneLoaded(username);
         }
     }
 

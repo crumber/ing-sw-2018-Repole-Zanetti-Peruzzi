@@ -232,7 +232,7 @@ public class SetConnectionState extends ControllerState{
                         LOGGER.log(Level.WARNING, "IOException: ", e); //da verificare
                     }
                 } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
-
+                    controller.getHandlerRMI().notifyOnBeginChooseWindow(player.getName());
                 }
             }else {
 

@@ -5,4 +5,4 @@ repolezanettiperuzzi.model.actions
 repolezanettiperuzzi.model.publiccards
 repolezanettiperuzzi.model.toolcards
 repolezanettiperuzzi.view
-repolezanettiperuzzi.view.modelwrapper
+repolezanettiperuzzi.common.modelwrapper
