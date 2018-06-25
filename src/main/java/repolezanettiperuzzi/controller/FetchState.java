@@ -111,6 +111,20 @@ public class FetchState extends ControllerState {
 
     }
 
+    public void setChosenWindowOnTimer(Player player, String choose) throws IOException, ParseException {
+
+        for (Window window : board.getPlayersWindowsChoices(player)) {
+
+            if (window.getName().equals(choose)) {
+
+                new SetWindowAction().doAction(player, window);
+                break;
+
+            }
+
+        }
+    }
+
 
     public void setChosenWindow(Player player, String choose) throws IOException, ParseException {
 
@@ -134,7 +148,7 @@ public class FetchState extends ControllerState {
             }
 
         }
-
+        //if(isTimerOn() && giocatori con window!=null == 4) --> chiamo la check
         //tutti i giocatori hanno scelto una window prima dello scadere del timer
         checkConnectedPlayers();
 
@@ -168,7 +182,7 @@ public class FetchState extends ControllerState {
                             }
 
                         } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
-
+                            controller.getHandlerRMI().enterGame(player.getName());
                         }
 
                     }
@@ -178,7 +192,7 @@ public class FetchState extends ControllerState {
                     if(player.getLastScene().equals("chooseWindowRoom")&& player.getLiveStatus()){
 
 
-                        this.setChosenWindow(player,board.getPlayersWindowsChoices(player).get(0).getName());
+                        this.setChosenWindowOnTimer(player,board.getPlayersWindowsChoices(player).get(0).getName());
 
                         if (player.getConnection().equals("Socket")) {
 
@@ -194,18 +208,18 @@ public class FetchState extends ControllerState {
                             }
 
                         } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
-
+                            controller.getHandlerRMI().enterGame(player.getName());
                         }
 
                     }else if(player.getLastScene().equals("chooseWindowRoom")&& !player.getLiveStatus()){
 
-                        this.setChosenWindow(player,board.getPlayersWindowsChoices(player).get(0).getName());
+                        this.setChosenWindowOnTimer(player,board.getPlayersWindowsChoices(player).get(0).getName());
 
                     }
                 }
             }
 
-        }else if(controller.board.getPlayersOnline()==1){
+        }else if(controller.board.getPlayersOnline()==1){       //caso in cui ci sia solo un giocatore rimasto online
 
             for(int i = 0; i<board.getNPlayers(); i++){
 
@@ -230,7 +244,9 @@ public class FetchState extends ControllerState {
                         System.exit(0);//esce senza errori
 
                     } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
-
+                        controller.getHandlerRMI().showWinOnChooseWindowAlert(player.getName());
+                        controller.cancelTimer();
+                        System.exit(0);//esce senza errori
                     }
                 }
             }
@@ -243,9 +259,10 @@ public class FetchState extends ControllerState {
         }
     }
 
-    public void readyToPlay() throws IOException, ParseException {
+    public void readyToPlay(String playerName) throws IOException, ParseException {
 
         board.incrFetchReadyPlayers();
+        board.getPlayerByName(playerName).setLastScene("game");
 
         if(board.getFetchPlayersToCheck()==board.getFetchReadyPlayers()){
             controller.setState(new BeginRoundState());

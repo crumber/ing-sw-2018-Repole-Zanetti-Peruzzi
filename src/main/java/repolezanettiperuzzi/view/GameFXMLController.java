@@ -28,7 +28,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class ChooseWindowFXMLController extends FXMLController{
+public class GameFXMLController extends FXMLController{
 
     private Stage stage;
     private GameView gV;
@@ -52,7 +52,7 @@ public class ChooseWindowFXMLController extends FXMLController{
     private ResourceBundle resources;
 
     // Add a public no-args constructor
-    public ChooseWindowFXMLController()
+    public GameFXMLController()
     {
     }
 
@@ -91,21 +91,7 @@ public class ChooseWindowFXMLController extends FXMLController{
     }
 
     public void notifyOnExit() throws IOException {
-        gV.notifyOnExit("chooseWindow");
-    }
-
-    public void showWinOnChooseWindowAlert(){
-        Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.NONE, "You won! Seems like you're the only player left online!", ButtonType.OK);
-            alert.setX(stage.getX()+stage.getScene().getWidth()/2 - 125);
-            alert.setY(stage.getY()+stage.getScene().getHeight()/2 - 60);
-            alert.setTitle("You won!");
-            alert.setResizable(true);
-            alert.getDialogPane().setPrefSize(250, 120);
-            alert.setResizable(false);
-
-            alert.showAndWait();
-        });
+        gV.notifyOnExit("game");
     }
 
     public void viewWindows(ArrayList<WindowClient> windows, int currentTime)  {
@@ -161,17 +147,18 @@ public class ChooseWindowFXMLController extends FXMLController{
         controller.setGameView(gV);
         gV.setFXMLController(controller);
         controller.setStage(stage);
+        String currPath = System.getProperty("user.dir");
         FXMLLoader loader = null;
         try {
-            loader = new FXMLLoader(new URI(new DynamicPath("fxml/GameFXML.fxml").getPath()).toURL()); //TODO imposta nuovo controller
+            loader = new FXMLLoader(new URI(new DynamicPath("fxml/ChooseWindowFXML.fxml").getPath()).toURL()); //TODO imposta nuovo controller
             loader.setController(controller);
             Group root = (Group) loader.load();
             FXMLLoader finalLoader = loader;
             Platform.runLater(() -> {
-                stage.setScene(new Scene(root, 1280, 720));
+                stage.setScene(new Scene(root, 600, 600));
                 stage.setUserData(finalLoader);
             });
-            gV.gameLoaded();
+            gV.waitingRoomLoaded();
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }

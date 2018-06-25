@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
 
-public class GameViewCLI implements Runnable {
+public class GameViewCLI {
 
     private GameView gV;
     private boolean isTimerOn;
@@ -340,13 +340,13 @@ public class GameViewCLI implements Runnable {
         return bound;
     }
 
-    public void updateView() {
-        //aggiorno View
+    public void setGameScene(){
+        //System.out.print("\033[H\033[2J");
+        //System.out.flush();
+        //TODO set game scene
     }
 
-    @Override
-    public void run() {
-
-        System.out.println("ciaoIO");
+    public void updateView() {
+        //aggiorno View
     }
 }

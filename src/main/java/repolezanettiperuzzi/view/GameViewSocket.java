@@ -95,7 +95,11 @@ public class GameViewSocket implements Runnable{
                 receivedWindows(line);
                 break;
             case "startGame":
+                gameView.enterGame();
                 //TODO caricare la view per il turno e notificare il controller dopo che e' stata caricata
+                break;
+            case "winChooseWindow":
+                gameView.showWinOnChooseWindowAlert();
                 break;
             case "exit":
                 gameView.shutdownClient();
@@ -111,14 +115,21 @@ public class GameViewSocket implements Runnable{
 
     public void waitingRoomLoaded(String username) throws IOException {
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        out.println(username + " waitingok");
+        out.println(username + " waitingOk");
         out.close();
         socket.close();
     }
 
     public void chooseWindowSceneLoaded(String username) throws IOException{
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        out.println(username + " choosewindowok");
+        out.println(username + " chooseWindowOk");
+        out.close();
+        socket.close();
+    }
+
+    public void gameSceneLoaded(String username) throws IOException{
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        out.println(username + " gameOk");
         out.close();
         socket.close();
     }

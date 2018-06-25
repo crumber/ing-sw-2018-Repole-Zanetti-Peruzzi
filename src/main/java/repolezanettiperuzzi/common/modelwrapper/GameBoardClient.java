@@ -38,6 +38,21 @@ public class GameBoardClient implements Serializable {
         return this.nPlayers;
     }
 
+    /**
+     * Aggiunge un giocatore alla lista di giocatori che hanno aderito alla partita
+     * @param playerName nome del giocatore
+     * @param connection tipo di connessione del giocatore
+     * @param UI tipo di interfaccia
+     * @param address indirizzo ip del giocatore
+     * @param port porta del client
+     */
+    public void addPlayer(String playerName, String connection, String UI, String address, int port){
+
+        players.add(new PlayerClient(playerName, connection, UI, address, port));
+        this.nPlayers++;
+
+    }
+
     public int getPlayersOnline(){
         int nPlayersOnline = 0;
         for(int i = 0; i<this.nPlayers; i++){

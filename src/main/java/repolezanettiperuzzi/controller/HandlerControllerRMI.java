@@ -71,7 +71,8 @@ public class HandlerControllerRMI implements ControllerStubRMI {
                         //TODO gestire l'uscita durante la scelta delle window
                         controller.setLiveStatusOffline(playerName);
                         break;
-                    case "duringGame":
+                    case "game":
+                        controller.setLiveStatusOffline(playerName);
                         //TODO gestire l'uscita durante il gioco
                         break;
                 }
@@ -190,6 +191,69 @@ public class HandlerControllerRMI implements ControllerStubRMI {
                     }
                 }
             }).start();
+        }
+    }
+
+    public synchronized void readyToPlay(String playerName){
+        synchronized (controller){
+            new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            controller.setState(new FetchState());
+                            ((FetchState)controller.getState()).readyToPlay(playerName);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+        }
+    }
+
+    public synchronized void sendChosenWindow(String playerName, String windowName){
+        synchronized (controller){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        controller.setState(new FetchState());
+                        ((FetchState) controller.getState()).setChosenWindow(controller.board.getPlayerByName(playerName), windowName.replace("-", " "));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+    }
+
+    public synchronized void enterGame(String playerName){
+        synchronized (controller) {
+            System.out.println("enterGame");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        System.out.println("insideEnterGame");
+                        clients.get(playerName).enterGame();
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+    }
+
+    public synchronized void showWinOnChooseWindowAlert(String playerName){
+        synchronized (controller){
+            try {
+                clients.get(playerName).showWinOnChooseWindowAlert();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
     }
 

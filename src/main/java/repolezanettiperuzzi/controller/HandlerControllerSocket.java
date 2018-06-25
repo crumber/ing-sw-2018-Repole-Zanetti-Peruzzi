@@ -98,12 +98,12 @@ public class HandlerControllerSocket implements Runnable{
                 }
                 break;
 
-            case "waitingok": //il client ha avviato la sua view della waiting room
+            case "waitingOk": //il client ha avviato la sua view della waiting room
                 controller.setState(new SetConnectionState());
                 ((SetConnectionState)controller.getState()).waitingRoomLoaded(playerID);
                 ((SetConnectionState)controller.getState()).notifyOnUpdatedPlayer();
                 break;
-            case "choosewindowok":
+            case "chooseWindowOk":
                 controller.setState(new FetchState());
                 Player playerName = controller.board.getPlayerByName(playerID);
                 ((FetchState)controller.getState()).sendWindows(playerName);
@@ -112,9 +112,9 @@ public class HandlerControllerSocket implements Runnable{
                 controller.setState(new FetchState());
                 ((FetchState)controller.getState()).setChosenWindow(controller.board.getPlayerByName(playerID), param[0].replace("-"," "));
                 break;
-            case "startWindowOk":
+            case "gameOk":
                 controller.setState(new FetchState());
-                ((FetchState)controller.getState()).readyToPlay();
+                ((FetchState)controller.getState()).readyToPlay(playerID);
                 break;
             case "exit":
                 controller.notifyExitToClient(playerID);
@@ -128,7 +128,8 @@ public class HandlerControllerSocket implements Runnable{
                         //TODO gestire l'uscita durante la scelta delle window
                         controller.setLiveStatusOffline(playerID);
                         break;
-                    case "duringGame":
+                    case "game":
+                        controller.setLiveStatusOffline(playerID);
                         //TODO gestire l'uscita durante il gioco
                         break;
                 }
@@ -180,7 +181,7 @@ public class HandlerControllerSocket implements Runnable{
             case "chooseWindow":
                 //TODO riconnessione in choose window
                 break;
-            case "duringGame":
+            case "game":
                 //TODO riconnessione durante la partita
                 break;
         }

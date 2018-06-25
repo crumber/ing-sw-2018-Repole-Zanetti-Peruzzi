@@ -16,4 +16,6 @@ public interface ControllerStubRMI extends Remote {
     void waitingRoomLoaded(String playerName) throws RemoteException ;
     boolean notifyOnExit(String playerName, String typeView) throws IOException, ParseException, InterruptedException;
     void chooseWindowSceneLoaded(String playerName) throws RemoteException;
+    void readyToPlay(String playerName) throws RemoteException;
+    void sendChosenWindow(String playerName, String windowName) throws RemoteException;
 }
