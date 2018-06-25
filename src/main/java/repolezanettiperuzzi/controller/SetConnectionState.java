@@ -63,7 +63,7 @@ public class SetConnectionState extends ControllerState{
                 }
             }
 
-            if(playerAction.equals("login")) {
+            if(playerAction.equals("login") && !board.isGameLocked()) {
 
                 JSONObject player = new JSONObject();
                 player.put("playerID", playerID);
@@ -97,6 +97,10 @@ public class SetConnectionState extends ControllerState{
                 }
                 controller.board.getPlayerByName(playerID).setLiveStatus(true);
                 playerAction = "reconnect";
+            } else if(playerAction.equals("login") && board.isGameLocked()){ //sto tentando di fare il login a gioco iniziato
+                playerAction = "gameAlreadyStarted";
+            } else if(playerAction.equals("login") && !board.isGameLocked() && board.getPlayersOnline()==4){ //sto tentando di fare il login quando ci sono gia 4 giocatori
+                playerAction = "already4Players";
             }
 
         } finally {
@@ -128,6 +132,24 @@ public class SetConnectionState extends ControllerState{
         if(connection.equals("Socket")){
             HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
             handleSocket.notifyOnWrongPassword();
+        } else if(connection.equals("RMI")){
+
+        }
+    }
+
+    public void notifyOnGameAlreadyStarted(Controller controller, String connection, String UI, String address, int port) throws IOException {
+        if(connection.equals("Socket")){
+            HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
+            handleSocket.notifyOnGameAlreadyStarted();
+        } else if(connection.equals("RMI")){
+
+        }
+    }
+
+    public void notifyOnAlready4Players(Controller controller, String connection, String UI, String address, int port) throws IOException {
+        if(connection.equals("Socket")){
+            HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
+            handleSocket.notifyOnAlready4Players();
         } else if(connection.equals("RMI")){
 
         }
@@ -212,6 +234,8 @@ public class SetConnectionState extends ControllerState{
     public void notifyOnBeginChooseWindow() throws IOException, ParseException {
 
         controller.setState(new FetchState());
+
+        board.setGameLocked();
 
         //System.out.println("Start send notify");
 

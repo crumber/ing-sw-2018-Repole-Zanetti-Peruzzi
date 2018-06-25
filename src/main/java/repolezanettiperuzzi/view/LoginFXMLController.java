@@ -141,6 +141,36 @@ public class LoginFXMLController extends FXMLController{
         });
     }
 
+    public void showGameAlreadyStartedAlert(){
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.NONE, "A game already started, we're sorry. Try again after the end of this game", ButtonType.OK);
+            alert.setX(stage.getX()+stage.getScene().getWidth()/2 - 125);
+            alert.setY(stage.getY()+stage.getScene().getHeight()/2 - 60);
+            alert.setTitle("Game already started");
+            alert.setResizable(true);
+            alert.getDialogPane().setPrefSize(250, 120);
+            alert.setResizable(false);
+            textFieldPwd.clear();
+
+            alert.showAndWait();
+        });
+    }
+
+    public void showAlready4PlayersAlert(){
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.NONE, "There are already 4 players online waiting the start of the game. Try again after the end of this game", ButtonType.OK);
+            alert.setX(stage.getX()+stage.getScene().getWidth()/2 - 125);
+            alert.setY(stage.getY()+stage.getScene().getHeight()/2 - 60);
+            alert.setTitle("Already 4 Players online");
+            alert.setResizable(true);
+            alert.getDialogPane().setPrefSize(250, 120);
+            alert.setResizable(false);
+            textFieldPwd.clear();
+
+            alert.showAndWait();
+        });
+    }
+
     public void setWaitingRoomScene() {
         WaitingRoomFXMLController controller = new WaitingRoomFXMLController();
         controller.setGameView(gV);

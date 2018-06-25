@@ -24,7 +24,8 @@ public class GameBoard {
     private ArrayList<Window> windowsPool;
     private HashMap<Player,ArrayList<Window>> playersWindowsChoices;
     private int fetchPlayersToCheck;
-    private int fetchReadyPlayers = 0;
+    private int fetchReadyPlayers;
+    private boolean gameLocked; //indica se possono ancora aggiungersi giocatori al gioco
     private int round;
     private int nPlayers;
     private int[] costToolCard = new int[3];
@@ -42,6 +43,8 @@ public class GameBoard {
         roundTrack = new RoundTrack();
         round=0;
         nPlayers=0;
+        fetchReadyPlayers = 0;
+        gameLocked = false;
 
         for(int i=0;i<3;i++){
 
@@ -450,5 +453,13 @@ public class GameBoard {
 
         return (ArrayList<Player>) this.players.clone();
 
+    }
+
+    public boolean isGameLocked(){
+        return this.gameLocked;
+    }
+
+    public void setGameLocked(){
+        this.gameLocked = true;
     }
 }

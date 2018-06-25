@@ -79,6 +79,10 @@ public class GameViewSocket implements Runnable{
                     gameView.showPlayerAlreadyOnlineAlert();
                 } else if(line[1].equals("wrongpwd")){
                     gameView.showWrongPwdAlert();
+                } else if(line[1].equals("gameAlreadyStarted")){
+                    gameView.showGameAlreadyStarted();
+                } else if(line[1].equals("already4Players")){
+                    gameView.showAlready4Players();
                 }
                 break;
             case "changeView":

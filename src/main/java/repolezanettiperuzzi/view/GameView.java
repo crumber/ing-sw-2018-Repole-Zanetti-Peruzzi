@@ -161,11 +161,17 @@ public class GameView implements ClientStubRMI {
                     break;
             }
         } else if(message.equals("stealAccount")){
-            ((LoginFXMLController)fxmlController).removeProgressIndicator();
+            if(UI.equals("GUI")) ((LoginFXMLController)fxmlController).removeProgressIndicator();
             showPlayerAlreadyOnlineAlert();
         } else if(message.equals("wrongPassword")){
-            ((LoginFXMLController)fxmlController).removeProgressIndicator();
+            if(UI.equals("GUI")) ((LoginFXMLController)fxmlController).removeProgressIndicator();
             showWrongPwdAlert();
+        } else if(message.equals("gameAlreadyStarted")){
+            if(UI.equals("GUI")) ((LoginFXMLController)fxmlController).removeProgressIndicator();
+            showGameAlreadyStarted();
+        } else if(message.equals("already4Players")){
+            if(UI.equals("GUI")) ((LoginFXMLController)fxmlController).removeProgressIndicator();
+            showAlready4Players();
         }
     }
 
@@ -186,6 +192,26 @@ public class GameView implements ClientStubRMI {
             ((LoginFXMLController) fxmlController).showWrongPwdAlert();
         } else if(this.UI.equals("CLI")){
             gvCLI.loginScene("Wrong password inserted, please try again");
+        }
+    }
+
+    public void showGameAlreadyStarted(){
+        this.login = false;
+        this.rejectedLogin = true;
+        if(this.UI.equals("GUI")){
+            ((LoginFXMLController) fxmlController).showGameAlreadyStartedAlert();
+        } else if(this.UI.equals("CLI")){
+            gvCLI.loginScene("A game already started, we're sorry. Try again after this game");
+        }
+    }
+
+    public void showAlready4Players(){
+        this.login = false;
+        this.rejectedLogin = true;
+        if(this.UI.equals("GUI")){
+            ((LoginFXMLController) fxmlController).showAlready4PlayersAlert();
+        } else if(this.UI.equals("CLI")){
+            gvCLI.loginScene("There are already 4 players online. Try later");
         }
     }
 

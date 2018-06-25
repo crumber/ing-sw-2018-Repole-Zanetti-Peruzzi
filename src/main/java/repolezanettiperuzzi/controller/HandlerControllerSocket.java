@@ -65,22 +65,39 @@ public class HandlerControllerSocket implements Runnable{
             case "init":
                 controller.setState(new SetConnectionState());
                 String result = ((SetConnectionState)controller.getState()).initializePlayer(playerID, param[0], addr, Integer.parseInt(param[3]), param[1], param[2]);
-                Player player = controller.board.getPlayerByName(playerID);
+
                 switch (result){
-                    case "registered":
-                        ((SetConnectionState)controller.getState()).notifyOnRegister(controller, param[1], param[2], player.getAddress(), player.getPort());
+                    case "registered": {
+                        Player player = controller.board.getPlayerByName(playerID);
+                        ((SetConnectionState) controller.getState()).notifyOnRegister(controller, param[1], param[2], player.getAddress(), player.getPort());
                         break;
-                    case "stealAccount":
-                        ((SetConnectionState)controller.getState()).notifyOnStealAccount(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), Integer.parseInt(param[3])); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
+                    }
+                    case "stealAccount": {
+                        Player player = controller.board.getPlayerByName(playerID);
+                        ((SetConnectionState) controller.getState()).notifyOnStealAccount(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), Integer.parseInt(param[3])); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
                         break;
-                    case "wrongPassword":
-                        ((SetConnectionState)controller.getState()).notifyOnWrongPassword(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), Integer.parseInt(param[3])); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
+                    }
+                    case "wrongPassword": {
+                        Player player = controller.board.getPlayerByName(playerID);
+                        ((SetConnectionState) controller.getState()).notifyOnWrongPassword(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), Integer.parseInt(param[3])); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
                         break;
-                    case "reconnect":
-                        ((SetConnectionState)controller.getState()).notifyOnReconnect(controller, player.getConnection(), player.getUI(), player.getAddress(), player.getPort(), player.getName());
+                    }
+                    case "reconnect": {
+                        Player player = controller.board.getPlayerByName(playerID);
+                        ((SetConnectionState) controller.getState()).notifyOnReconnect(controller, player.getConnection(), player.getUI(), player.getAddress(), player.getPort(), player.getName());
                         break;
+                    }
+                    case "gameAlreadyStarted": {
+                        ((SetConnectionState) controller.getState()).notifyOnGameAlreadyStarted(controller, param[1], param[2], addr.toString().substring(1), Integer.parseInt(param[3]));
+                        break;
+                    }
+                    case "already4Players": {
+                        ((SetConnectionState) controller.getState()).notifyOnAlready4Players(controller, param[1], param[2], addr.toString().substring(1), Integer.parseInt(param[3]));
+                        break;
+                    }
                 }
                 break;
+
             case "waitingok": //il client ha avviato la sua view della waiting room
                 controller.setState(new SetConnectionState());
                 ((SetConnectionState)controller.getState()).waitingRoomLoaded(playerID);
@@ -179,6 +196,20 @@ public class HandlerControllerSocket implements Runnable{
     public void notifyOnWrongPassword() throws IOException {
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
         out.println("notregistered wrongpwd");
+        out.close();
+        this.socket.close();
+    }
+
+    public void notifyOnGameAlreadyStarted() throws IOException {
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+        out.println("notregistered gameAlreadyStarted");
+        out.close();
+        this.socket.close();
+    }
+
+    public void notifyOnAlready4Players() throws IOException {
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+        out.println("notregistered already4Players");
         out.close();
         this.socket.close();
     }
