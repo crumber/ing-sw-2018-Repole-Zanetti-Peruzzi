@@ -1,3 +1,7 @@
 ColumnColorVariety
 
+5
+
 pc3
+
+Columns with no repeated colors

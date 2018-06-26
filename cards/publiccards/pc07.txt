@@ -1,3 +1,7 @@
 ShadeVariety
 
+5
+
 pc7
+
+Sets of one of each value anywhere

@@ -2,3 +2,5 @@ EglomiseBrush
 BLUE
 
 tc2
+
+Move any one die in your window ignoring color restrictions. You must obey all other placement restrictions. You must obey all other placement restrictions

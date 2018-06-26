@@ -2,3 +2,5 @@ RunningPliers
 RED
 
 tc8
+
+After your first turn, immediately draft a die. Skip your next turn this round

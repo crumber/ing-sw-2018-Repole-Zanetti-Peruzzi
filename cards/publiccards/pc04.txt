@@ -1,3 +1,7 @@
 ColumnShadeVariety
 
+4
+
 pc4
+
+Columns with no repeated values

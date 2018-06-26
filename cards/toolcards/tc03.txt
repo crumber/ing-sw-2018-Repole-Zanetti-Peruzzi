@@ -2,3 +2,5 @@ CopperFoilBurnisher
 RED
 
 tc3
+
+Move any one die in your window ignoring value restrictions. You must obey all other placement restrictions

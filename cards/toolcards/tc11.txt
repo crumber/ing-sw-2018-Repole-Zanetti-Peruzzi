@@ -2,3 +2,5 @@ FluxRemover
 PURPLE
 
 tc11
+
+After drafting, return the die to the Dice Bag and pull 1 die from the bag. Choose a value and place the new die, obeying all placement restrictions, or return it to the Draft Pool

@@ -3,7 +3,7 @@ package repolezanettiperuzzi.model.publiccards;
 import repolezanettiperuzzi.model.Colour;
 import repolezanettiperuzzi.model.Window;
 
-public class RowColorVariety implements PublicCard {
+public class RowColorVariety extends PublicCard {
 
     @Override
     public int effect(Window finalWindow){

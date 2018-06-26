@@ -2,3 +2,5 @@ GlazingHammer
 BLUE
 
 tc7
+
+Re-roll all dice in the Draft Pool. This may only be used on your second turn before drafting

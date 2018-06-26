@@ -6,12 +6,31 @@ import java.util.List;
 
 public abstract class ToolCard {
 
-    int id;
-    int resultOfAction;
+    protected int id;
+    protected int resultOfAction;
+    private String title;
+    private String description;
+    private int value;
+
+    public void setDescription(String description){
+        this.description = description;
+    }
+
+    public void setTitle(String title){
+        this.title = title;
+    }
+
+    public String getDescription(){
+        return this.description;
+    }
+
+    public String getTitle(){
+        return this.title;
+    }
 
     public int getId() {
 
-        return id;
+        return this.id;
 
     }
 

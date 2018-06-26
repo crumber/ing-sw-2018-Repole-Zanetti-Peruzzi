@@ -2,3 +2,5 @@ Lathekin
 YELLOW
 
 tc4
+
+Move exactly two dice, obeying all placement restrictions

@@ -72,9 +72,16 @@ public class Deck {
             for (int i = 0; i<sortedPaths.size(); i++) {
 
                 BufferedReader bR = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(sortedPaths.get(i))));
+                String title = bR.readLine();
                 bR.readLine();
+                int value = Integer.parseInt(bR.readLine());
                 bR.readLine();
                 publicCardsDeck.add(FactoryPublicCard.getPublicCard(bR.readLine()));
+                bR.readLine();
+                String description = bR.readLine();
+                publicCardsDeck.get(i).setTitle(title);
+                publicCardsDeck.get(i).setDescription(description);
+                publicCardsDeck.get(i).setValue(value);
                 bR.close();
                 localNPublicCards++;
             }
@@ -99,9 +106,14 @@ public class Deck {
             for (int i = 0; i<sortedPaths.size(); i++) {
 
                 BufferedReader bR = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(sortedPaths.get(i))));
-                bR.readLine();
+                String title = bR.readLine();
+                String color = bR.readLine();
                 bR.readLine();
                 toolCardsDeck.add(FactoryToolCard.getToolCard(bR.readLine()));
+                bR.readLine();
+                String description = bR.readLine();
+                toolCardsDeck.get(i).setTitle(title);
+                toolCardsDeck.get(i).setDescription(description);
                 bR.close();
                 localNToolCards++;
             }
@@ -121,7 +133,10 @@ public class Deck {
             for (int i = 0; i < nPublicCards; i++) {
                 addZero = i<9 ? "0" : "";
                 ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(new DynamicPath(publicCardsFolder + "/pc" + addZero+(i + 1) + ".txt").getPathNoFile()));
-                publicCardsDeck.add(FactoryPublicCard.getPublicCard(lines.get(2)));
+                publicCardsDeck.add(FactoryPublicCard.getPublicCard(lines.get(4)));
+                publicCardsDeck.get(i).setTitle(lines.get(0));
+                publicCardsDeck.get(i).setDescription(lines.get(6));
+                publicCardsDeck.get(i).setValue(Integer.parseInt(lines.get(2)));
             }
 
             nToolCards = new File(new DynamicPath(toolCardsFolder).getPathNoFile()).list().length;
@@ -132,6 +147,8 @@ public class Deck {
                 addZero = i<9 ? "0" : "";
                 ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(new DynamicPath(toolCardsFolder + "/tc" + addZero+(i + 1) + ".txt").getPathNoFile()));
                 toolCardsDeck.add(FactoryToolCard.getToolCard(lines.get(3)));
+                toolCardsDeck.get(i).setTitle(lines.get(0));
+                toolCardsDeck.get(i).setDescription(lines.get(5));
             }
         }
 

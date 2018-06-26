@@ -1,3 +1,7 @@
-ColorDiagonal
+ColorDiagonals
+
+1
 
 pc2
+
+Count of diagonally adjacent same color dice

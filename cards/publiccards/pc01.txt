@@ -1,3 +1,7 @@
 ColorVariety
 
+4
+
 pc1
+
+Sets of one of each color anywhere

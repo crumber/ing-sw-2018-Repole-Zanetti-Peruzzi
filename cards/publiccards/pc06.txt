@@ -1,3 +1,7 @@
 RowShadeVariety
 
+5
+
 pc6
+
+Rows with no repeated values

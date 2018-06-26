@@ -2,3 +2,5 @@ LensCutter
 GREEN
 
 tc5
+
+After drafting, swap drafted die with a die from the Round Track

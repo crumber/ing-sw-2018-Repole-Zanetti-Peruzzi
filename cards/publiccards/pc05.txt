@@ -1,3 +1,7 @@
 RowColorVariety
 
+6
+
 pc5
+
+Rows with no repeated colors

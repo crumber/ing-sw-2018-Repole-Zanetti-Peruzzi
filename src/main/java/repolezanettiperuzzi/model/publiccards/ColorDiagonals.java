@@ -2,7 +2,7 @@ package repolezanettiperuzzi.model.publiccards;
 
 import repolezanettiperuzzi.model.Window;
 
-public class ColorDiagonals implements PublicCard {
+public class ColorDiagonals extends PublicCard {
 
     @Override
     public int effect(Window finalWindow){

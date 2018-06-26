@@ -1,6 +1,9 @@
 package repolezanettiperuzzi.common.modelwrapper;
 
+import repolezanettiperuzzi.model.publiccards.PublicCard;
+
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,8 +12,8 @@ public class GameBoardClient implements Serializable {
 
     private ArrayList<PlayerClient> players;
     private ArrayList<DieClient> diceDraft;
-    private HashMap<Integer, String> publicCards;
-    private HashMap<Integer, String> toolCards;
+    private ArrayList<PublicCardClient> publicCards;
+    private ArrayList<ToolCardClient> toolCards;
     private RoundTrackClient roundTrack;
     private int round;
     private int nPlayers;
@@ -20,8 +23,8 @@ public class GameBoardClient implements Serializable {
 
         players = new ArrayList<>();
         diceDraft = new ArrayList<>();
-        publicCards = new HashMap<>();
-        toolCards = new HashMap<>();
+        publicCards = new ArrayList<>();
+        toolCards = new ArrayList<>();
         roundTrack = new RoundTrackClient();
         round=0;
         nPlayers=0;
@@ -51,6 +54,22 @@ public class GameBoardClient implements Serializable {
         players.add(new PlayerClient(playerName, connection, UI, address, port));
         this.nPlayers++;
 
+    }
+
+    public void addPublicCard(String title, String description, int value){
+        publicCards.add(new PublicCardClient(title, description, value));
+    }
+
+    public void addToolCard(String title, String description){
+        toolCards.add(new ToolCardClient(title, description));
+    }
+
+    public ArrayList<PublicCardClient> getPublicCards(){
+        return this.publicCards;
+    }
+
+    public ArrayList<ToolCardClient> getToolCards(){
+        return this.toolCards;
     }
 
     public int getPlayersOnline(){

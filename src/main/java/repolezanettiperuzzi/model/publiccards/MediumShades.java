@@ -3,7 +3,7 @@ package repolezanettiperuzzi.model.publiccards;
 import repolezanettiperuzzi.model.Value;
 import repolezanettiperuzzi.model.Window;
 
-public class MediumShades implements PublicCard {
+public class MediumShades extends PublicCard {
 
     @Override
     public int effect(Window finalWindow){

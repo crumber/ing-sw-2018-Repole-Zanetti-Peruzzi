@@ -185,6 +185,8 @@ public class FetchState extends ControllerState {
                             controller.getHandlerRMI().enterGame(player.getName());
                         }
 
+                    }else if(player.getLastScene().equals("chooseWindowRoom")&& !player.getLiveStatus()){
+                        player.setLastScene("game");
                     }
 
                 }else{
@@ -214,6 +216,7 @@ public class FetchState extends ControllerState {
                     }else if(player.getLastScene().equals("chooseWindowRoom")&& !player.getLiveStatus()){
 
                         this.setChosenWindowOnTimer(player,board.getPlayersWindowsChoices(player).get(0).getName());
+                        player.setLastScene("game");
 
                     }
                 }
