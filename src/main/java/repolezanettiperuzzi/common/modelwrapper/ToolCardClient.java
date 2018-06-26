@@ -6,7 +6,7 @@ public class ToolCardClient {
 
     public ToolCardClient(String title, String description){
         this.title = title;
-        this.description = title;
+        this.description = description;
     }
 
     public String getTitle(){

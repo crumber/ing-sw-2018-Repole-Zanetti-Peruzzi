@@ -9,7 +9,11 @@ public class CheckCostToolCardAction {
 
         int resultOfCheck;
 
-        if(player.getFavorTokens()<board.getCostToolCard(whichCard)){
+        if(player.getUseCardInThisTurn()){
+
+            resultOfCheck=-29;
+
+        } else if(player.getFavorTokens()<board.getCostToolCard(whichCard)){
 
             resultOfCheck=-8;
 

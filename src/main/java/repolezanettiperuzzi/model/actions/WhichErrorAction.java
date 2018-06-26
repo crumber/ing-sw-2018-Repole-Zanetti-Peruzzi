@@ -15,196 +15,203 @@ public class WhichErrorAction {
 
             case -1:{
 
-                error="You can't move this die because your starting/final position doesn't exist!!!!";
+                error="startingFinalPositionNotExist"; //You can't move this die because your starting/final position not exist!!!!
 
                 break;
             }
 
             case -2:{
 
-                error="You can't move this die because you have chosen an empty box";
+                error="notMoveChosenEmptyBox"; //You can't move this die because you have chosen an empty box
 
                 break;
             }
 
             case -3:{
 
-                error="You can't move this die into this position because there's a die inside";
+                error="notMoveThereIsDieInside"; //You can't move this die into this position because there's a die inside
 
                 break;
             }
 
             case -4:{
 
-                error="You can't move this die in this position because there isn't at least one dice next to it";
+                error="notMoveNotDiceNextToIt"; //You can't move this die in this position because there isn't at least one dice next to it
 
                 break;
             }
 
             case -5:{
 
-                error="You can't move this die in this position because it doesn't respect the box's colour restriction";
+                error="notMoveNotRespectColourRestriction"; //You can't move this die in this position because it doesn't respect the box's colour restriction
 
                 break;
             }
 
             case -6:{
 
-                error="You can't move this die in this position because it doesn't respect box's value restriction";
+                error="notMoveNotRespectValueRestriction"; //You can't move this die in this position because it doesn't respect the box's value restriction
 
                 break;
             }
 
             case -7:{
 
-                error="You can't move this die in this position box because it doesn't respect box's restriction";
+                error="notMoveRespectRestriction"; //You can't move this die in this position box because it doesn't respect box's restriction
 
                 break;
             }
 
             case -8:{
 
-                error="You don't have enough favor tokens!";
+                error="notNaveFavorTokens"; //You don't have enough favor tokens!
 
                 break;
             }
 
             case -9:{
 
-                error="You have chosen an empty position on the draft!";
+                error="emptyPositionDraft"; //You have chosen an empty position on the draft!
 
                 break;
             }
 
             case -10:{
 
-                error="You can't move this die in this position because there is at least one die next to it!";
+                error="notMoveThereisDieNextToIt"; //You can't move this die in this position because there is at least one die next to it!
 
                 break;
             }
 
             case -11:{
 
-                error="Wrong number! You have to choose a value between 1 and 6!";
+                error="wrongNumber"; //Wrong number! You have to choose a value between 1 and 6!
 
                 break;
             }
 
             case -12:{
 
-                error="You can't use this card because this is not the second turn of this round!";
+                error="notUseCardIsNotSecondTurn"; //You can't use this card because this is not the second turn of this round!
 
                 break;
             }
 
             case -13:{
 
-                error="You can't use this card because you have already inserted a die!";
+                error="notUseCardHaveAlreadyInsertedDie"; //You can't use this card because you have already inserted a die!
 
                 break;
             }
 
             case -14:{
 
-                error="Your choice does not exist, 1 for increase 0 for decrease!!!";
+                error="choiceNotExist"; //Your choice does not exist, 1 for increase 0 for decrease!!!
 
                 break;
             }
 
             case -15:{
 
-                error="You can't decrease this value because it has already the minimum one";
+                error="notDecreaseIsMinimum";  //You can't decrease this value because it has already the minimum one
 
                 break;
             }
 
             case -16:{
 
-                error="You can't increase value because it has already the maximum one";
+                error="notIncreaseIsMaximum";  //You can't increase value because it has already the maximum one
 
                 break;
             }
 
             case -17:{
 
-                error="You can't move die 2 because you have chosen an empty box!";
+                error="notMoveDie2BoxEmpty";  //You can't move die 2 because you have chosen an empty box!
 
                 break;
             }
 
             case -18:{
 
-                error="You can't move die 2 in this position because there's a die inside!";
+                error="notMoveDie2NotEmptyBox!"; //You can't move die 2 in this position because there's a die inside!
 
                 break;
             }
 
             case -19:{
 
-                error="You can't move die 2 in this position because there isn't at least one dice next to it";
+                error="notMoveDie2NotDiceNextToIt"; //You can't move die 2 in this position because there isn't at least one dice next to it
 
                 break;
             }
 
             case -20:{
 
-                error="You can't move die 2 in this position because it doesn't respect box's restriction!";
+                error="notMoveDie2NotRespectRestriction!"; //You can't move die 2 in this position because it doesn't respect box's restriction!
 
                 break;
             }
 
             case -21:{
 
-                error="There isn't die on round track in the position you have chosen!";
+                error="notDieOnRoundTrack";  //There isn't die on round track in the position you have chosen!
 
                 break;
             }
 
             case -22:{
 
-                error="You don't move dice because they don't have the same colour of die on round track!";
+                error="notMoveDiceNotSameColourRoundTrack!"; //You don't move dice because they don't have the same colour of die on round track!
 
                 break;
             }
 
             case -23:{
 
-                error="You don't put this die in a final position because there is another one with the same color near this position";
+                error="notPutThereIsDieSameColorNear"; //You don't put this die in a final position because there is another one with the same color near this position
 
                 break;
             }
 
             case -24:{
 
-                error="You don't put this die in a final position because there is another one with the same value next to this position";
+                error="notPutThereIsDieSameValueNear"; //You don't put this die in a final position because there is another one with the same value next to this position
 
                 break;
             }
 
             case -25:{
 
-                error="You don't put this die in a final position because there is another one with the same color or value next to this position!";
+                error="notPutDieThereIsDieSameColorValue"; //You don't put this die in a final position because there is another one with the same color or value next to this position!
 
                 break;
             }
 
             case -26:{
 
-                error="You don't put die 2 in a final position because there is another one with the same color or value next to this position!";
+                error="notPutDie2ThereIsSameColorValue"; //You don't put die 2 in a final position because there is another one with the same color or value next to this position!
 
                 break;
             }
 
             case -27:{
 
-                error="You can't put this die here, you need to select a boundary position!";
+                error="notPutDieHereNotBoundaryPosition"; //You can't put this die here, you need to select a boundary position!
+
+                break;
+            }
+
+            case -28:{
+
+                error="alreadyInsertedDie"; //You already inserted a die in this turn!
 
                 break;
             }
 
             default:{
 
-                error="MANCA LA NUMERO 8 DI CARTA FORSE HA ALTRI ERRORI..";
+                error="alreadyUsedToolCard"; //You already used a tool card in this turn!!
                 break;
             }
         }

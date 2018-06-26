@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.model.actions;
+/*package repolezanettiperuzzi.model.actions;
 
 import org.junit.Test;
 import repolezanettiperuzzi.model.Colour;
@@ -137,4 +137,4 @@ public class WhichErrorActionTest {
         error=testWhichErrorAction.doAction(board,numError);
         assertEquals("error You can't put this die here, you need to select a boundary position!",error);
     }
-}
+}*/

@@ -1,9 +1,6 @@
 package repolezanettiperuzzi.view;
 
-import repolezanettiperuzzi.common.modelwrapper.BoxClient;
-import repolezanettiperuzzi.common.modelwrapper.DieClient;
-import repolezanettiperuzzi.common.modelwrapper.GameBoardClient;
-import repolezanettiperuzzi.common.modelwrapper.WindowClient;
+import repolezanettiperuzzi.common.modelwrapper.*;
 
 import java.io.Console;
 import java.io.IOException;
@@ -139,6 +136,14 @@ public class GameViewCLI implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setGameScene(){
+
+        this.lastScene= "game";
+        //System.out.print("\033[H\033[2J");
+        //System.out.flush();
+
     }
 
     public void viewWindows(ArrayList<WindowClient> windows) {
@@ -566,13 +571,36 @@ public class GameViewCLI implements Runnable {
         System.out.print("\n\n");
 
 
+        //PUBLIC CARD
+        ArrayList<PublicCardClient> publicCardClients=boardClient.getPublicCards();
+
+        for(int i=0; i<publicCardClients.size(); i++){
+
+            System.out.println(space +ANSI_PURPLE +"PUBLIC CARD " +(i+1) +": " +ANSI_RESET +publicCardClients.get(i).getTitle() +space +"SCORE: " +publicCardClients.get(i).getValue() +"\n"
+                    +space +"DESCRIPTION PUBLIC CARD " +(i+1) +": " +publicCardClients.get(i).getDescription() +"\n");
+
+        }
+        System.out.print("\n");
+
+        //TOOL CARD
+        ArrayList<ToolCardClient> toolCardClients= boardClient.getToolCards();
+
+        for(int i=0; i<toolCardClients.size(); i++){
+
+            System.out.println(space +ANSI_YELLOW +"TOOL CARD " +(i+1) +": " +ANSI_RESET +toolCardClients.get(i).getTitle() +space +"COST: " +boardClient.getCostToolCard(i) +"\n"
+                    +space +"DESCRIPTION TOOL CARD " +(i+1) +": " +toolCardClients.get(i).getDescription() +"\n");
+
+        }
+        System.out.print("\n");
+
+
         //PERSONAL WINDOW, DICE ON DRAFT AND FAVOUR TOKEN
 
         for (int i = 0; i <boardClient.getPlayer(myNumber).getWindow().rowSize(); i++) {
 
             if (i == 0) {
 
-                System.out.print(space + "YOUR WINDOW: " + highLowEdge + bigspace +"DRAFT: ");
+                System.out.print(space + "YOUR WINDOW: " + highLowEdge + bigspace +ANSI_GREEN +"DRAFT: " +ANSI_RESET);
 
                 for(int j=0;j<boardClient.getSizeDraft();j++){
 
@@ -635,7 +663,7 @@ public class GameViewCLI implements Runnable {
 
         }
 
-        //PUBLIC CARD
+        //ANDRE FINIRE
 
 
     }

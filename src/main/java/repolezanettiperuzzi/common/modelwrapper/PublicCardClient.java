@@ -8,7 +8,7 @@ public class PublicCardClient {
 
     public PublicCardClient(String title, String description, int value){
         this.title = title;
-        this.description = title;
+        this.description = description;
         this.value = value;
     }
 

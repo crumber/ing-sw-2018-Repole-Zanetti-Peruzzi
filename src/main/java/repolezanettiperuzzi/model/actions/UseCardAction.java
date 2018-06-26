@@ -25,6 +25,7 @@ public class UseCardAction {
             //increment tool card cost if its cost is 1
             if(board.getCostToolCard(whichToolCard)==1) {
 
+                player.setUsedCardInThisTurn(true);
                 board.setCostToolCard(whichToolCard);
 
             }

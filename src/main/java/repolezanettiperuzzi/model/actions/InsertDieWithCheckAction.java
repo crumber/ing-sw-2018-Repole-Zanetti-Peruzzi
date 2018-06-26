@@ -14,7 +14,11 @@ public class InsertDieWithCheckAction{
         int whichRow=parameterForInserDie.get(1);
         int whichColumn=parameterForInserDie.get(2);
 
-        if(board.getDieDraft(posDieOnDraft)==null){
+        if(player.getInsertDieInThisTurn()){
+
+            resultOfAction=-28;
+
+        } else if(board.getDieDraft(posDieOnDraft)==null){
 
             resultOfAction=-9;
 
@@ -52,6 +56,7 @@ public class InsertDieWithCheckAction{
 
             player.getWindow().insertDie(board.getDieDraft(posDieOnDraft),whichRow,whichColumn,"both");
             board.removeDieFromDraft(posDieOnDraft);
+            player.setInsertDieInThisTurn(true);
 
         }
 

@@ -21,6 +21,7 @@ public class Player {
     private int port;
     private String lastScene;
     private boolean liveStatus;
+    private boolean usedCardInThisTurn;
 
     /**
      * Costruttore della classe
@@ -74,6 +75,19 @@ public class Player {
         score += points;
 
     }
+
+    public void setUsedCardInThisTurn(boolean trueOrFalse){
+
+        usedCardInThisTurn=trueOrFalse;
+
+    }
+
+    public boolean getUseCardInThisTurn(){
+
+        return usedCardInThisTurn;
+
+    }
+
 
     /**
      * @return punti attuali del giocatore
