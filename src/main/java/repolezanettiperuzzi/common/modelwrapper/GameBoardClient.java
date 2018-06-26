@@ -37,6 +37,25 @@ public class GameBoardClient implements Serializable {
 
     }
 
+
+    public int sizeRoundTrack(){
+
+        return roundTrack.sizeRoundTrack();
+
+    }
+
+    public boolean isEmptyRoundTrack(){
+
+        return roundTrack.isEmptyRoundTrack();
+
+    }
+
+    public int sizeDiceRoundTrack(int whichRound){
+
+        return roundTrack.sizeRound(whichRound);
+
+    }
+
     public int getNPlayers(){
         return this.nPlayers;
     }

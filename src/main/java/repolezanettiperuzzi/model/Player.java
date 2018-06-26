@@ -101,6 +101,8 @@ public class Player {
     public void setWindow(Window window) {
 
         this.window = window;
+        this.setFavorTokens(window.getFTokens());
+
 
     }
 

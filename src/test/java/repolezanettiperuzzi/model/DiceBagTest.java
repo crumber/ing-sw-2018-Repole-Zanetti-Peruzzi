@@ -37,7 +37,7 @@ public class DiceBagTest {
     }
 
     @Test
-    public void testScletDieInBag(){
+    public void testSetDieInBag(){
 
         testDiceBag=new DiceBag();
         Die chosenDie=testDiceBag.takeDie();
