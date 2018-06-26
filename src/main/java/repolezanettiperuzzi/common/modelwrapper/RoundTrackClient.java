@@ -31,4 +31,23 @@ public class RoundTrackClient implements Serializable {
         dieRoundTrack.get(whichRound).set(posDie, d);
 
     }
+
+    public boolean isEmptyRoundTrack(){
+
+        return dieRoundTrack.isEmpty();
+
+    }
+
+    public int sizeRoundTrack(){
+
+        return dieRoundTrack.size();
+
+    }
+
+    public int sizeRound(int whichRound){
+
+        return dieRoundTrack.get(whichRound).size();
+
+    }
+
 }

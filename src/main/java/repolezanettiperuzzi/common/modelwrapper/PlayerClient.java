@@ -51,6 +51,7 @@ public class PlayerClient implements Serializable {
     public void setWindow(WindowClient window){
 
         this.window = window;
+        this.setFavorTokens(window.getFTokens());
 
     }
 
