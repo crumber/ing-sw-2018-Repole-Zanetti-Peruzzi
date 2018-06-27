@@ -292,11 +292,32 @@ public class HandlerControllerSocket implements Runnable{
     }
 
 
-    public void sendUseCardMessage() {
+    public void sendActionError(String error) throws IOException {
+
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(),true);
+        out.println(error);
+        out.close();
+
+        this.socket.close();
 
     }
 
-    public void sendUpdateView() {
+    public void sendUpdateView(String update) throws IOException {
+
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(),true);
+        out.println("updateView "+update);
+        out.close();
+        this.socket.close();
+
+
+    }
+
+    public void sendNotYourTurn() throws IOException {
+
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+        out.println("notYourTurn");
+        out.close();
+        this.socket.close();
 
     }
 }

@@ -13,45 +13,40 @@ public class BeginTurn {
 
     private static int currentPlayer = 0;
 
+    private GameBoard board;
+
+    private Player player;
+
+
+
     public void doAction(Player player, GameBoard board){
 
-        //se nessuno ha ancora giocato il proprio turno allora prendo l'indice del primo giocatore di questo round
-        if(numPlayedTurn==0){
+        this.board=board;
 
-            currentPlayer=BeginRound.getIndex();
+        this.player=player;
 
-        }
+        if(currentTurn==0) {
 
-        //se l'indice del giocatore è arrivato all'ultimo elemento dell'arraylist di giocatori e non tutti i giocatori hanno giocato il loro turno inizializzo l'indice a zero
-        if(currentPlayer==board.getNPlayers()-1 && numPlayedTurn<board.getNPlayers()-1){
 
-           currentPlayer=0;
+            //se nessuno ha ancora giocato il proprio turno allora prendo l'indice del primo giocatore di questo round
+            if (numPlayedTurn == 0) {
 
-        }else{
+                currentPlayer = BeginRound.getIndex();
 
-            currentPlayer++;
+            }
 
         }
 
-        this.incrTurn(player);
-
-        numPlayedTurn++;
-
-        if(numPlayedTurn==board.getNPlayers()-1){
-
-            currentTurn++;
-
-        }
 
     }
 
-    public void incrTurn(Player player){
+    public static void incrTurn(Player player){
 
         player.incrTurn();
 
     }
 
-    public static boolean controlTurn(Player player, GameBoard board){
+    public static boolean controlTurn(Player player){
 
         return player.getTurn() == currentTurn ;
 
@@ -68,16 +63,68 @@ public class BeginTurn {
 
     }
 
+    public static void resetCurrentTurn(){
+
+        currentTurn=0;
+
+    }
+
+    public static int getNumPlayedTurn(){
+
+        return numPlayedTurn;
+
+    }
+
+    public static void nextTurnParameters(GameBoard board,Player player){
+
+        if(currentTurn==0) {
+
+            //se l'indice del giocatore è arrivato all'ultimo elemento dell'arraylist di giocatori e non tutti i giocatori hanno giocato il loro turno inizializzo l'indice a zero
+            if (currentPlayer == board.getNPlayers() - 1 && numPlayedTurn < board.getNPlayers() - 1) {
+
+                currentPlayer = 0;
+
+            } else {
+
+                currentPlayer++;
+
+            }
+
+            incrTurn(player);
+
+            numPlayedTurn++;
+
+            if (numPlayedTurn == board.getNPlayers()) {
+
+                currentTurn++;
+                resetNumPlayerTurn();
+
+            }
 
 
+        }else if(currentTurn==1){
+
+            if(currentPlayer == 0 && numPlayedTurn < board.getNPlayers()-1){
+
+                currentPlayer = board.getNPlayers() - 1;
+
+            } else {
+
+                currentPlayer--;
+
+            }
+
+            numPlayedTurn++;
 
 
+        }
+    }
 
+    public static void resetNumPlayerTurn() {
 
+        numPlayedTurn=0;
 
-
-//inserire due metodi che richiamano rispettivamente le azioni UseCard e InsertDie in modo da poterle attivare soltanto quando è il turno del giocatore passato come parametro
-
+    }
 
 
 

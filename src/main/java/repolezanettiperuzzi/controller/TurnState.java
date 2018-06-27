@@ -45,20 +45,111 @@ public class TurnState extends ControllerState {
 
     }
 
-    public void useCardRequest(Player player, int numCard) throws IOException {
+    public void insertDie(Player player, String message) throws IOException {
 
-        ParametersRequestCardAction action = new ParametersRequestCardAction();
-        String requestParameters = action.doAction(controller.board,numCard);
+        if(BeginTurn.controlTurn(player)) {
 
-        if(player.getConnection().equals("Socket")){
+            int code;
 
-            try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+            InsertDieWithCheckAction insert = new InsertDieWithCheckAction();
+            code = insert.doAction(player,controller.board,new CreateListForInsertDieAction().doAction(message));
 
-                HandlerControllerSocket handler = new HandlerControllerSocket(controller,socket);
-                handler.sendParametersForToolCard(requestParameters);
+            if(code<0){
+
+                String error = new WhichErrorAction().doAction(code);
+
+                if(player.getConnection().equals("Socket")){
+
+                    try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+
+                        HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
+                        handler.sendActionError(error);
+
+                    }
+                }else if(player.getConnection().equals("RMI")){
+
+
+                }
+
+            }else{
+
+                this.updateView(player);
 
             }
 
+
+
+
+
+
+
+        }
+
+
+    }
+
+    //da usare quando il giocatore richiede di utilizzare una carta
+    public void useCardRequest(Player player, int numCard) throws IOException {
+
+
+        if(BeginTurn.controlTurn(player)) {
+
+            CheckCostToolCardAction check = new CheckCostToolCardAction();
+            int checkCost = check.checkCostToolCard(controller.board,player,numCard);
+
+            if(checkCost>=0) {
+
+                ParametersRequestCardAction action = new ParametersRequestCardAction();
+                String requestParameters = action.doAction(controller.board, numCard);
+
+                if (player.getConnection().equals("Socket")) {
+
+                    try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+
+                        HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
+                        handler.sendParametersForToolCard(requestParameters);
+
+                    }
+
+                } else if (player.getConnection().equals("RMI")) {
+
+
+                }
+
+            }else {
+
+                String error = (new WhichErrorAction()).doAction(checkCost);
+
+                if (player.getConnection().equals("Socket")) {
+
+                    try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+
+                        HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
+                        handler.sendActionError(error);
+
+                    }
+
+                } else if (player.getConnection().equals("RMI")) {
+
+
+                }
+
+            }
+
+        }else{
+
+            if(player.getConnection().equals("Socket")){
+
+                try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+
+                    HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
+                    handler.sendNotYourTurn();
+
+                }
+            }else if(player.getConnection().equals("RMI")){
+
+
+            }
         }
 
     }
@@ -121,6 +212,7 @@ public class TurnState extends ControllerState {
 
             }else{
 
+
                 this.updateView(player);
                 return;
 
@@ -133,7 +225,7 @@ public class TurnState extends ControllerState {
             try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
 
                 HandlerControllerSocket handler = new HandlerControllerSocket(controller,socket);
-                handler.sendUseCardMessage();
+                handler.sendActionError(message);
             }
 
         }
@@ -147,7 +239,10 @@ public class TurnState extends ControllerState {
 
             Socket socket = new Socket(player.getAddress(),player.getPort());
             HandlerControllerSocket handler = new HandlerControllerSocket(controller,socket);
-            handler.sendUpdateView();
+            handler.sendUpdateView(gameToString());
+
+        }else if(player.getConnection().equals("RMI")){
+
 
         }
     }
@@ -156,7 +251,8 @@ public class TurnState extends ControllerState {
 
         StringBuilder res = new StringBuilder();
 
-        res.append(controller.board.getNPlayers()+"+");
+        res.append(controller.board.getNPlayers());
+        res.append("+");
 
         for (Player player: controller.board.getPlayers()){
 
@@ -186,6 +282,32 @@ public class TurnState extends ControllerState {
         return res.toString();
     }
 
+    public void passToNextTurn(Player player) throws IOException, ParseException {
 
+        for(int i=0; i<controller.board.getNPlayers();i++){
+
+            if(!player.getName().equals(controller.board.getPlayer(i))){
+
+                this.updateView(controller.board.getPlayer(i));
+
+            }
+        }
+
+        BeginTurn.nextTurnParameters(controller.board,player);
+
+        if(BeginTurn.getNumPlayedTurn()==controller.board.getNPlayers()){
+
+            BeginTurn.resetNumPlayerTurn();
+            controller.setState(new EndRoundState());
+
+        }else{
+
+            controller.setState(new TurnState());
+
+        }
+
+
+
+    }
 
 }
