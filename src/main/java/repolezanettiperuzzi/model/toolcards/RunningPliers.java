@@ -17,13 +17,28 @@ public class RunningPliers extends ToolCard {
     @Override
     public void effect(GameBoard board, Player player, List<Integer> parameterForCard){
 
+        player.setInsertDieInThisTurn(false);
+        player.setUsedCardInThisTurn(false);
+        player.incrTurn();
 
     }
 
     public int check(GameBoard board, Player player, List<Integer> parameterForCard){
 
-      return 0;
+        if(player.getTurn()!=0){
 
+            resultOfAction=-30;
+
+        }else if(!player.getInsertDieInThisTurn()){
+
+            resultOfAction=-31;
+
+        }else{
+
+            resultOfAction=1;
+        }
+
+      return resultOfAction;
     }
 
 }

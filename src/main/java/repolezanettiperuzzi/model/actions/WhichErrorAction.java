@@ -207,9 +207,21 @@ public class WhichErrorAction {
                 break;
             }
 
-            default:{
+            case -29:{
 
                 error="alreadyUsedToolCard"; //You already used a tool card in this turn!!
+                break;
+            }
+
+            case -30:{
+
+                error="notFirstTurn"; //Not is your first turn!
+                break;
+            }
+
+            default:{
+
+                error="notInsertDieInTurn"; //You don't insert die in this turn!!
                 break;
             }
         }
