@@ -131,7 +131,7 @@ public class ChooseWindowFXMLController extends FXMLController{
             Button b = new Button();
             b.setId(i+"");
             b.setGraphic(box);
-            xPos = 100+(300*((i%2))); //posiziono ogni gridpane creata alternando la pos X (prima *1 poi *2 poi *1 poi *2)
+            xPos = 175+(300*((i%2))); //posiziono ogni gridpane creata alternando la pos X (prima *1 poi *2 poi *1 poi *2)
             //System.out.println("xPos: "+xPos);
             b.setLayoutX(xPos);
             if(i%2==0){  //incrememnto il moltiplicatore della pos Y ogni 2 cicli

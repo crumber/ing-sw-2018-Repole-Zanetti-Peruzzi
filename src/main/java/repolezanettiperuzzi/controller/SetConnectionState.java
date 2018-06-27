@@ -291,6 +291,5 @@ public class SetConnectionState extends ControllerState{
             }
         }
 
-        //System.out.println("End send notify\n");
     }
 }

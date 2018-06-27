@@ -140,7 +140,7 @@ public class WaitingRoomFXMLController extends FXMLController{
             Group root = (Group) loader.load();
             FXMLLoader finalLoader = loader;
             Platform.runLater(() -> {
-                stage.setScene(new Scene(root, 1024, 768));
+                stage.setScene(new Scene(root, 900, 800));
                 stage.setUserData(finalLoader);
             });
             gV.chooseWindowSceneLoaded();

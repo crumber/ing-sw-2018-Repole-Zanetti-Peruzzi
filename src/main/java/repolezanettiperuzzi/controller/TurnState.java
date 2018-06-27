@@ -19,10 +19,14 @@ public class TurnState extends ControllerState {
 
         this.controller=controller;
 
-        if(BeginRound.getRound()==1 && BeginTurn.getNumPlayedTurn()==0){
-            for(int i = 0; i<controller.board.getNPlayers(); i++){
+        if(BeginRound.getRound()==0 && BeginTurn.getNumPlayedTurn()==0){
+
+            for(int i=0; i<controller.board.getNPlayers();i++){
+
                 this.updateView(controller.board.getPlayer(i));
+
             }
+
         }
 
         notifyPlayerTurn();

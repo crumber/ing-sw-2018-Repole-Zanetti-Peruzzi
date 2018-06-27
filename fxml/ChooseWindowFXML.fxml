@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.text.Font?>
 
-<?import javafx.scene.text.TextFlow?>
-<Group fx:id="group" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<Group fx:id="group" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <ImageView fx:id="bg" fitWidth="1024" preserveRatio="true" smooth="true" cache="true">
+        <ImageView fx:id="bg" cache="true" fitHeight="1010.0" fitWidth="900.0" preserveRatio="true" smooth="true">
             <image>
                 <Image url="@../assets/sagradaBg.jpg" />
             </image>
         </ImageView>
-        <Rectangle  width="1024" height="768" smooth="true" cache="true" fill="lightgray" opacity="0.95"></Rectangle>
-        <Rectangle y="-30" width="600" height="80"  arcWidth="40" arcHeight="40" fill="darkgray" opacity="0.95"></Rectangle>
-        <Text x="20" y="30" style="-fx-font-weight: bold; -fx-font-size: 20px">Choose Window Room</Text>
-        <Text fx:id="timerText" x="480" y="90" style="-fx-font-weight: bold; -fx-font-size: 20px"></Text>
-        <Text fx:id="playersText" x="20" y="120" style="-fx-font-weight: bold; -fx-font-size: 20px"></Text>
+        <Rectangle cache="true" fill="lightgray" height="800.0" opacity="0.95" smooth="true" width="900.0" />
+        <Rectangle arcHeight="40" arcWidth="40" fill="darkgray" height="80" opacity="0.95" width="600" y="-30" />
+        <Text style="-fx-font-weight: bold; -fx-font-size: 20px" x="20" y="30">Choose Window Room</Text>
+        <Text fx:id="timerText" style="-fx-font-weight: bold; -fx-font-size: 20px" x="725" y="90" />
+        <Text fx:id="playersText" style="-fx-font-weight: bold; -fx-font-size: 20px" x="20" y="120" />
 
     </children>
 </Group>
