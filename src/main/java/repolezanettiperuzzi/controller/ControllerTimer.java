@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.controller;
 
 import org.json.simple.parser.ParseException;
+import repolezanettiperuzzi.model.actions.BeginTurn;
 
 import java.io.IOException;
 import java.util.Timer;
@@ -37,6 +38,7 @@ public class ControllerTimer extends TimerTask {
                 break;
 
             case "playerTurn" :
+                this.nextState = new TurnState();
                 break;
 
             default :
@@ -62,9 +64,7 @@ public class ControllerTimer extends TimerTask {
                     try {
                         controller.setState(new SetConnectionState());
                         ((SetConnectionState) controller.getState()).notifyOnBeginChooseWindow();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (ParseException e) {
+                    } catch (IOException | ParseException e) {
                         e.printStackTrace();
                     }
                     break;
@@ -73,26 +73,25 @@ public class ControllerTimer extends TimerTask {
                     try {
                         controller.setState(new FetchState());
                         ((FetchState) controller.getState()).checkConnectedPlayers();
-                    } catch (IOException e) {
+                    } catch (IOException | ParseException e) {
                         e.printStackTrace();
-                    } catch (ParseException e) {
+                    }
+                    break;
+
+                case "playerTurn" :
+
+                    try {
+                        ((TurnState) controller.getState()).passToNextTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer()));
+                    } catch (IOException | ParseException e) {
                         e.printStackTrace();
                     }
                     break;
 
                 default :
                     break;
+
+
             }
-
-            /*try {     setto già lo stato successivo nel metodo notifyOnBeginConnection
-
-                controller.setState(this.nextState);
-
-            } catch (IOException | ParseException e) {
-
-                e.printStackTrace();
-
-            }*/
 
 
         }

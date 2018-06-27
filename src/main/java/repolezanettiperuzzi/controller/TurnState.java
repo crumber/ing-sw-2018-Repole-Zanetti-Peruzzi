@@ -286,11 +286,8 @@ public class TurnState extends ControllerState {
 
         for(int i=0; i<controller.board.getNPlayers();i++){
 
-            if(!player.getName().equals(controller.board.getPlayer(i))){
+            this.updateView(controller.board.getPlayer(i));
 
-                this.updateView(controller.board.getPlayer(i));
-
-            }
         }
 
         BeginTurn.nextTurnParameters(controller.board,player);
