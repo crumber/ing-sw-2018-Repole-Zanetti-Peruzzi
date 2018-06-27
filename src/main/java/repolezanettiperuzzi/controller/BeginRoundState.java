@@ -21,6 +21,8 @@ public class BeginRoundState extends ControllerState {
 
         beginRound.doAction(controller.board);//call action to set new round
 
+        controller.setState(new TurnState());
+
     }
 
     public void sendBeginRound(Player player) throws IOException {

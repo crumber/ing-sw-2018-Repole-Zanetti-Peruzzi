@@ -14,10 +14,6 @@
 
 <?import javafx.scene.text.TextFlow?>
 <Group fx:id="group" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
-    <fx:define>
-        <ToggleGroup fx:id="groupConn"/>
-        <ToggleGroup fx:id="groupUI"/>
-    </fx:define>
     <children>
         <ImageView fx:id="bg" fitWidth="1024" preserveRatio="true" smooth="true" cache="true">
             <image>

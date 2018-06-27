@@ -105,8 +105,12 @@ public class GameViewSocket implements Runnable{
             case "winChooseWindow":
                 gameView.showWinOnChooseWindowAlert();
                 break;
+            case "updateView":
+                updateBoard(line[1]);
+                break;
             case "exit":
                 gameView.shutdownClient();
+                break;
         }
     }
 
@@ -240,6 +244,10 @@ public class GameViewSocket implements Runnable{
             }
         }
         return boxMatrix;
+    }
+
+    public void updateBoard(String message){
+
     }
 
     public void sendChosenWindow(String username, String windowName) throws IOException {

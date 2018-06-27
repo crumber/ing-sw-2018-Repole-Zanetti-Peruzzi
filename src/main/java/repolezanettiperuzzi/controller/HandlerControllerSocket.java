@@ -317,7 +317,6 @@ public class HandlerControllerSocket implements Runnable{
         out.close();
         this.socket.close();
 
-
     }
 
     public void sendNotYourTurn() throws IOException {
