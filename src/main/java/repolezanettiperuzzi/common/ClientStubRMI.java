@@ -13,6 +13,7 @@ public interface ClientStubRMI extends Remote {
     void refreshWaitingRoom(int setTimer, String[] players) throws RemoteException;
     void enterChooseWindow() throws RemoteException;
     void viewWindows(ArrayList<WindowClient> windows, int currentTime) throws RemoteException;
+    void viewOneWindow(WindowClient window, int currentTime) throws RemoteException;
     void showWinOnChooseWindowAlert() throws RemoteException;
     void enterGame() throws RemoteException;
 }

@@ -159,7 +159,8 @@ public class GameView implements ClientStubRMI {
                 case "waitingRoom":
                     enterWaitingRoom();
                     break;
-                case "chooseWindow":
+                case "chooseWindowRoom":
+                    enterChooseWindow();
                     break;
             }
         } else if(message.equals("stealAccount")){
@@ -296,7 +297,12 @@ public class GameView implements ClientStubRMI {
 
     public void enterChooseWindow(){
         if(this.UI.equals("GUI")){
-            ((WaitingRoomFXMLController) fxmlController).setChooseWindowScene();
+            if(fxmlController instanceof WaitingRoomFXMLController) {
+                ((WaitingRoomFXMLController) fxmlController).setChooseWindowScene();
+            } else if(fxmlController instanceof LoginFXMLController){
+                if(connection.equals("RMI")) ((LoginFXMLController)fxmlController).removeProgressIndicator();
+                ((LoginFXMLController) fxmlController).setChooseWindowScene();
+            }
         }else if(this.UI.equals("CLI")){
             gvCLI.setChooseWindowScene();
         }
@@ -304,7 +310,12 @@ public class GameView implements ClientStubRMI {
 
     public void enterGame(){
         if(this.UI.equals("GUI")){
-            ((ChooseWindowFXMLController) fxmlController).setGameScene();
+            if(fxmlController instanceof ChooseWindowFXMLController) {
+                ((ChooseWindowFXMLController) fxmlController).setGameScene();
+            } else if(fxmlController instanceof LoginFXMLController){
+                if(connection.equals("RMI")) ((LoginFXMLController)fxmlController).removeProgressIndicator();
+                ((LoginFXMLController) fxmlController).setGameScene();
+            }
         }else if(this.UI.equals("CLI")){
             gvCLI.setGameScene();
         }
@@ -342,6 +353,15 @@ public class GameView implements ClientStubRMI {
             ((ChooseWindowFXMLController) fxmlController).viewWindows(windows,currentTime);
         }else if(this.UI.equals("CLI")){
             gvCLI.viewWindows(windows);
+        }
+    }
+
+    public void viewOneWindow(WindowClient window, int currentTime){
+        if(this.UI.equals("GUI")){
+            ((ChooseWindowFXMLController) fxmlController).viewOneWindow(window,currentTime);
+        }else if(this.UI.equals("CLI")){
+            ArrayList<WindowClient> windowList = new ArrayList<>();
+            gvCLI.viewWindows(windowList);
         }
     }
 

@@ -7,6 +7,7 @@ import repolezanettiperuzzi.common.modelwrapper.WindowClient;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.Window;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.rmi.RemoteException;
@@ -149,24 +150,40 @@ public class HandlerControllerRMI implements ControllerStubRMI {
 
     public synchronized void chooseWindowSceneLoaded(String playerName){
         synchronized(controller){
-            System.out.println("Scene loaded");
+            ArrayList<Window> windows = new ArrayList<>();
             try {
                 controller.setState(new FetchState());
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            ((FetchState) controller.getState()).sendWindows(controller.board.getPlayerByName(playerName));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
+                ((FetchState) controller.getState()).sendWindows(controller.board.getPlayerByName(playerName));
+                windows = ((FetchState) controller.getState()).getWindows();
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+
+            final int currentTime = controller.getCurrentTime();
+
+            ArrayList<WindowClient> windowsClient = new ArrayList<>();
+
+            for (Window w : windows) {
+                windowsClient.add(new WindowClient(w.getName(), w.getFTokens(), w.toString()));
+            }
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        if(controller.board.getPlayerByName(playerName).getWindow()==null) {
+                            clients.get(playerName).viewWindows(windowsClient, currentTime);
+                        } else {
+                            clients.get(playerName).viewOneWindow(windowsClient.get(0), currentTime);
+                        }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }).start();
         }
     }
 
@@ -175,10 +192,17 @@ public class HandlerControllerRMI implements ControllerStubRMI {
      */
     public synchronized void viewWindows(String playerName, ArrayList<Window> windows, int setTimer){
         synchronized (controller) {
+            System.out.println("dentro view");
             ArrayList<WindowClient> windowsClient = new ArrayList<>();
+            if (windows == null) {
+                System.out.println("e' null");
+            }
             for (Window w : windows) {
+                System.out.println(w.toString());
                 windowsClient.add(new WindowClient(w.getName(), w.getFTokens(), w.toString()));
             }
+
+            System.out.println("sono in viewwindows");
 
             System.out.println("Sending windows");
             new Thread(new Runnable() {

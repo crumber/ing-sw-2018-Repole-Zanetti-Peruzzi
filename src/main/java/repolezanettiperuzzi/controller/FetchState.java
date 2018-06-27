@@ -25,6 +25,7 @@ public class FetchState extends ControllerState {
 
     private GameBoard board;
     private Controller controller;
+    private ArrayList<Window> windows;
 
     @Override
     public void doAction(Controller controller) throws IOException {
@@ -43,7 +44,7 @@ public class FetchState extends ControllerState {
 
         player.setLastScene("chooseWindowRoom");
 
-        if(!controller.isTimerOn()){
+        if (!controller.isTimerOn()) {
 
             controller.setTimer("chooseWindow");
 
@@ -51,18 +52,35 @@ public class FetchState extends ControllerState {
 
         if (player.getConnection().equals("Socket")) {
 
-            board.putPlayersWindowsChoices(player, (ArrayList<Window>) new TakeTwoCardWindowAction().doAction(board.getWindowsPool()));
-            String message = this.windowsToString(board.getPlayersWindowsChoices(player));
-            Socket socket = new Socket(player.getAddress(), player.getPort());
-            HandlerControllerSocket handler = new HandlerControllerSocket(this.controller, socket);
-            //System.out.println(controller.getCurrentTime());
-            handler.askWindow(message,controller.getCurrentTime());
+            if (player.getWindow() == null) {
+                if (board.getPlayersWindowsChoices(player) == null) {
+                    board.putPlayersWindowsChoices(player, (ArrayList<Window>) new TakeTwoCardWindowAction().doAction(board.getWindowsPool()));
+                }
+                String message = this.windowsToString(board.getPlayersWindowsChoices(player));
+                Socket socket = new Socket(player.getAddress(), player.getPort());
+                HandlerControllerSocket handler = new HandlerControllerSocket(this.controller, socket);
+                handler.askWindow(message, controller.getCurrentTime());
+            } else {
+                ArrayList<Window> oneWindow = new ArrayList<>();
+                oneWindow.add(player.getWindow());
+                String message = this.windowsToString(oneWindow);
+                Socket socket = new Socket(player.getAddress(), player.getPort());
+                HandlerControllerSocket handler = new HandlerControllerSocket(this.controller, socket);
+                handler.showChosenWindow(message, controller.getCurrentTime());
+            }
 
         } else if (player.getConnection().equals("RMI")) {
-            System.out.println("Fetch state");
-            board.putPlayersWindowsChoices(player, (ArrayList<Window>) new TakeTwoCardWindowAction().doAction(board.getWindowsPool()));
-            ArrayList<Window> windows = board.getPlayersWindowsChoices(player);
-            controller.getHandlerRMI().viewWindows(player.getName(), windows, controller.getCurrentTime());
+            if (player.getWindow() == null) {
+                if (board.getPlayersWindowsChoices(player) == null) {
+                    board.putPlayersWindowsChoices(player, (ArrayList<Window>) new TakeTwoCardWindowAction().doAction(board.getWindowsPool()));
+                }
+                ArrayList<Window> windows = board.getPlayersWindowsChoices(player);
+                this.windows = windows;
+            } else {
+                ArrayList<Window> oneWindow = new ArrayList<>();
+                oneWindow.add(player.getWindow());
+                this.windows = oneWindow;
+            }
         }
 
     }
@@ -109,6 +127,10 @@ public class FetchState extends ControllerState {
             return String.valueOf(message);
         }
 
+    }
+
+    public ArrayList<Window> getWindows(){
+        return this.windows;
     }
 
     public void setChosenWindowOnTimer(Player player, String choose) throws IOException, ParseException {

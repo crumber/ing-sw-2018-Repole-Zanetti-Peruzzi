@@ -5,6 +5,7 @@ import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.Window;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -179,8 +180,8 @@ public class HandlerControllerSocket implements Runnable{
             case "waitingRoom":
                 notifyOnRegister(connection, UI);
                 break;
-            case "chooseWindow":
-                //TODO riconnessione in choose window
+            case "chooseWindowRoom":
+                notifyOnChooseWindow();
                 break;
             case "game":
                 //TODO riconnessione durante la partita
@@ -225,13 +226,19 @@ public class HandlerControllerSocket implements Runnable{
 
     }
 
+    public void showChosenWindow(String message, int currentTime) throws IOException {
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+        out.println("showWindow "+ message + currentTime);
+        out.close();
+        this.socket.close();
+    }
+
     public void askWindow(String message,int currentTime) throws IOException {
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
         out.println("chooseWindow "+ message +currentTime);
         out.close();
         this.socket.close();
-
     }
 
     public void notifyBeginRound() throws IOException {

@@ -97,6 +97,7 @@ public class SetConnectionState extends ControllerState{
                 }
                 controller.board.getPlayerByName(playerID).setLiveStatus(true);
                 playerAction = "reconnect";
+                System.out.println("reconnect");
             } else if(playerAction.equals("login") && board.isGameLocked()){ //sto tentando di fare il login a gioco iniziato
                 playerAction = "gameAlreadyStarted";
             } else if(playerAction.equals("login") && !board.isGameLocked() && board.getPlayersOnline()==4){ //sto tentando di fare il login quando ci sono gia 4 giocatori

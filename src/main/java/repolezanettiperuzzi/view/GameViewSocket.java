@@ -94,6 +94,10 @@ public class GameViewSocket implements Runnable{
                 //System.out.println("chooseWindow");
                 receivedWindows(line);
                 break;
+            case "showWindow":
+                System.out.println("showWindow");
+                receivedOneWindow(line);
+                break;
             case "startGame":
                 gameView.enterGame();
                 //TODO caricare la view per il turno e notificare il controller dopo che e' stata caricata
@@ -161,11 +165,32 @@ public class GameViewSocket implements Runnable{
             BoxClient[][] boxMatrix = arrayListToMatrix(boxesList);
             chosenWindows.add(new WindowClient(windowName, favorToken, boxMatrix));
             i++;
-
-
         }
         currentTime = Integer.parseInt(line[i]);
         gameView.viewWindows(chosenWindows,currentTime);
+    }
+
+    private void receivedOneWindow(String[] line){
+        WindowClient window;
+        String windowName = "";
+        int favorToken;
+        ArrayList<ArrayList<String>> boxesList;
+        int i = 1;
+        int currentTime = 0 ;
+        boxesList = new ArrayList<>();
+        windowName = line[i];
+        i++;
+        favorToken = Integer.parseInt(line[i]);
+        i++;
+        while(!line[i].equals("_")){
+            boxesList.add(new ArrayList<>(Arrays.asList(line[i].split("-"))));
+            i++;
+        }
+        BoxClient[][] boxMatrix = arrayListToMatrix(boxesList);
+        window = new WindowClient(windowName, favorToken, boxMatrix);
+        i++;
+        currentTime = Integer.parseInt(line[i]);
+        gameView.viewOneWindow(window,currentTime);
     }
 
     private BoxClient[][] arrayListToMatrix(ArrayList<ArrayList<String>> chosenWindows){

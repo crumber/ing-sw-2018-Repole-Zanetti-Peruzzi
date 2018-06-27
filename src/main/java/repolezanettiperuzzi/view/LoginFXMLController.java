@@ -197,6 +197,57 @@ public class LoginFXMLController extends FXMLController{
 
     }
 
+    public void setChooseWindowScene(){
+
+        ChooseWindowFXMLController controller = new ChooseWindowFXMLController();
+        controller.setGameView(gV);
+        gV.setFXMLController(controller);
+        controller.setStage(stage);
+        String currPath = System.getProperty("user.dir");
+        FXMLLoader loader = null;
+        try {
+            loader = new FXMLLoader(new URI(new DynamicPath("fxml/ChooseWindowFXML.fxml").getPath()).toURL());
+            loader.setController(controller);
+            Group root = (Group) loader.load();
+            FXMLLoader finalLoader = loader;
+            Platform.runLater(() -> {
+                stage.setScene(new Scene(root, 1024, 768));
+                stage.setUserData(finalLoader);
+            });
+            gV.chooseWindowSceneLoaded();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void setGameScene(){
+
+        GameFXMLController controller = new GameFXMLController();
+        controller.setGameView(gV);
+        gV.setFXMLController(controller);
+        controller.setStage(stage);
+        FXMLLoader loader = null;
+        try {
+            loader = new FXMLLoader(new URI(new DynamicPath("fxml/GameFXML.fxml").getPath()).toURL());
+            loader.setController(controller);
+            Group root = (Group) loader.load();
+            FXMLLoader finalLoader = loader;
+            Platform.runLater(() -> {
+                stage.setScene(new Scene(root, 1280, 720));
+                stage.setUserData(finalLoader);
+            });
+            gV.gameLoaded();
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void showProgressIndicator(){
         Platform.runLater(() -> {
             progressBg.setVisible(true);

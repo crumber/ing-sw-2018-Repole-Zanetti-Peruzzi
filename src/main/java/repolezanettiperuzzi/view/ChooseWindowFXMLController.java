@@ -35,6 +35,7 @@ public class ChooseWindowFXMLController extends FXMLController{
     private int timerCounter;
     private Timeline timerCountdown;
     private String textContent;
+    private boolean alreadyClicked = false;
 
     @FXML
     // The reference of inputText will be injected by the FXML loader
@@ -150,6 +151,33 @@ public class ChooseWindowFXMLController extends FXMLController{
 
     }
 
+    public void viewOneWindow(WindowClient window, int currentTime)  {
+
+        this.setTimer(currentTime);
+        int xPos = 0;
+        int yPos = 0;
+        WindowGenerator wGenerator = new WindowGenerator(window);
+
+        GridPane pane = wGenerator.getWindowFXObject();
+        VBox box = new VBox();
+        String windowName = window.getName().replace(" ", "-"); //questo per gestire in caso la window arrivi da RMI in cui il nome e' senza trattini
+        javafx.scene.image.ImageView windowLabel = new javafx.scene.image.ImageView(new Image(new DynamicPath("assets/Windows/"+windowName+".png").getPath()));
+        windowLabel.setFitWidth(50*window.getBoardBox()[0].length);
+        windowLabel.setPreserveRatio(true);
+        windowLabel.setSmooth(true);
+        windowLabel.setCache(true);
+        box.getChildren().addAll(pane,windowLabel);
+        xPos = 200; //posiziono ogni gridpane creata alternando la pos X (prima *1 poi *2 poi *1 poi *2)
+        //System.out.println("xPos: "+xPos);
+        box.setLayoutX(xPos);
+        yPos = 200;
+        box.setLayoutY(yPos);
+        Platform.runLater(() -> {
+            ((Group)stage.getScene().getRoot()).getChildren().add(box);
+        });
+
+    }
+
     public void sendChosenWindow(String windowName) throws IOException {
         gV.sendChosenWindow(windowName);
     }
@@ -180,36 +208,40 @@ public class ChooseWindowFXMLController extends FXMLController{
 
     public void onWindowClick (ActionEvent e, String windowName){
 
-        Button b = (Button) e.getSource();
-        b.setStyle(".button:pressed {\n" +
-                "    -fx-background-color: black;\n" +
-                "    -fx-text-fill: transparent;\n" +
-                "}");
+        if(!alreadyClicked) {
 
-        Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.NONE,"Do you want to choose this window?",ButtonType.YES,ButtonType.NO);
-            alert.setX(stage.getX()+stage.getScene().getWidth()/2 - 125);
-            alert.setY(stage.getY()+stage.getScene().getHeight()/2 - 60);
-            alert.setTitle("Confirm Window");
-            alert.setResizable(true);
-            alert.getDialogPane().setPrefSize(250, 120);
-            alert.setResizable(false);
-            alert.showAndWait();
+            Button b = (Button) e.getSource();
+            b.setStyle(".button:pressed {\n" +
+                    "    -fx-background-color: black;\n" +
+                    "    -fx-text-fill: transparent;\n" +
+                    "}");
 
-            if(alert.getResult()==ButtonType.YES){
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.NONE, "Do you want to choose this window?", ButtonType.YES, ButtonType.NO);
+                alert.setX(stage.getX() + stage.getScene().getWidth() / 2 - 125);
+                alert.setY(stage.getY() + stage.getScene().getHeight() / 2 - 60);
+                alert.setTitle("Confirm Window");
+                alert.setResizable(true);
+                alert.getDialogPane().setPrefSize(250, 120);
+                alert.setResizable(false);
+                alert.showAndWait();
 
-                try {
-                    this.sendChosenWindow(windowName);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
+                if (alert.getResult() == ButtonType.YES) {
+
+                    try {
+                        alreadyClicked = true;
+                        this.sendChosenWindow(windowName);
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+
+                } else {
+
+                    b.setStyle("-fx-background-color: transparent;" + "-fx-text-fill: transparent;");
                 }
+            });
 
-            }else{
-
-                b.setStyle("-fx-background-color: transparent;"+"-fx-text-fill: transparent;");
-            }
-        });
-
+        }
 
     }
 }
