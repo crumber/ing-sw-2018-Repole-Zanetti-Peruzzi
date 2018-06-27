@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-public class CreatedListForCardActionTest {
+public class CreateListForCardActionTest {
 
-    CreatedListForCardAction testCreatedListForCardAction=new CreatedListForCardAction();
+    CreateListForCardAction testCreatedListForCardAction=new CreateListForCardAction();
     GameBoard board= new GameBoard();
     ToolCard card1=new GrozingPliers(); //id 1
     ToolCard card3=new CopperFoilBurnisher(); //id 3

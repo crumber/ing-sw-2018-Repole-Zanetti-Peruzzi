@@ -58,4 +58,54 @@ public class Die {
         this.valueDie=value;
 
     }
+
+    public String toString(){
+
+        String res="";
+
+        switch(getColourDie()){
+
+            case YELLOW:
+                res = "Y";
+                break;
+            case RED:
+                res = "R";
+                break;
+            case BLUE:
+                res = "B";
+                break;
+            case PURPLE:
+                res = "P";
+                break;
+            case GREEN:
+                res = "G";
+                break;
+
+        }
+
+        switch(getValueDie()){
+
+            case ONE:
+                res+="1";
+                break;
+            case TWO:
+                res+="2";
+                break;
+            case THREE:
+                res+="3";
+                break;
+            case FOUR:
+                res+="4";
+                break;
+            case FIVE:
+                res+="5";
+                break;
+            case SIX:
+                res+="6";
+                break;
+
+        }
+
+        return res;
+    }
 }

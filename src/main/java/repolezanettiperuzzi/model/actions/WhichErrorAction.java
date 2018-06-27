@@ -1,10 +1,8 @@
 package repolezanettiperuzzi.model.actions;
 
-import repolezanettiperuzzi.model.GameBoard;
-
 public class WhichErrorAction {
 
-    public String doAction(GameBoard board, int numError){
+    public String doAction(int numError){
 
         String error;
         String typeMess="error ";

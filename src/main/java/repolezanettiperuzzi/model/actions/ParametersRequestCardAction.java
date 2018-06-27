@@ -6,15 +6,9 @@ public class ParametersRequestCardAction{
 
     //manca la 8 la 7 va in nothing perche non ha bisogno di niente
 
-    public String doAction(int secondQuestionForTollCard11){
+    public String doAction(){
 
-        if(secondQuestionForTollCard11==11) {
-
-            return "dieValue ";
-
-        }
-
-        return null;
+        return "dieValue ";
 
     }
 

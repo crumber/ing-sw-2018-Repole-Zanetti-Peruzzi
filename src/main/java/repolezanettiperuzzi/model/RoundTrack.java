@@ -53,4 +53,28 @@ public class RoundTrack {
         dieRoundTrack.get(whichRound).set(posDie, d);
 
     }
+
+    //+1B2_..._R3-2Y4_..._G5-....+
+    public String toString(){
+
+        StringBuilder res = new StringBuilder();
+
+        int i=1;
+
+        for(ArrayList<Die> round : dieRoundTrack ){
+
+            res.append(i);
+
+            for(Die die: round){
+
+                res.append(die.toString());
+                res.append("_");
+
+            }
+
+            res.append("-");
+        }
+
+        return res.toString();
+    }
 }

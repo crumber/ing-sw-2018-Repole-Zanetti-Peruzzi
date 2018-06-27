@@ -181,4 +181,5 @@ public abstract class ToolCard {
 
     public abstract void effect(GameBoard board, Player player, List<Integer> parameterForCard);
 
+
 }

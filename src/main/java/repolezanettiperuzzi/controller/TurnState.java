@@ -1,76 +1,191 @@
 package repolezanettiperuzzi.controller;
 
 import org.json.simple.parser.ParseException;
-import repolezanettiperuzzi.model.actions.BeginRound;
-import repolezanettiperuzzi.model.actions.BeginTurn;
+import repolezanettiperuzzi.model.Player;
+import repolezanettiperuzzi.model.actions.*;
 
 import java.io.IOException;
+import java.net.Socket;
+
 
 public class TurnState extends ControllerState {
 
-    //TODO inserire attributo currentTurn nella board
-    private int currentTurn = 0;
+    private Controller controller;
 
     @Override
     public void doAction(Controller controller) throws IOException, ParseException {
 
         BeginTurn beginTurn = new BeginTurn();
 
-        int player = BeginRound.getIndex();
+        this.controller=controller;
 
-        this.currentTurn++;
+        notifyPlayerTurn();
 
-        for (int i = 0; i < controller.board.getNPlayers(); i++) {
-
-            if (player >= controller.board.getNPlayers()){
-
-                player = 0;
-
-            }
-
-            beginTurn.doAction(controller.board.getPlayer(player));
-
-            if (controller.board.getPlayer(player).getTurn() == currentTurn) {
-
-                //TODO creo connessione col client per chiedergli quali azioni vuole fare
-                //TODO quando inserisce dado settare a true InsertDieInThisTurn
-
-            }
-
-            player++;
-
-        }
-
-        this.currentTurn++;
-
-        player = BeginRound.getIndex();
-
-        for (int i = 0; i < controller.board.getNPlayers(); i++){
-
-            if (player < 0){
-
-                player = 3;
-
-            }
-
-            beginTurn.doAction(controller.board.getPlayer(player));
-
-            if (controller.board.getPlayer(player).getTurn() == currentTurn) {
-
-                //TODO creo connessione col client per chiedergli quali azioni vuole fare
-
-            }
-
-            player--;
-
-        }
-
-        //TODO manage action from client with two methods in socket class
-
-        controller.setState(new EndRoundState());
+        beginTurn.doAction(controller.board.getPlayer(BeginTurn.getCurrentPlayer()),controller.board);
 
     }
 
-    //TODO metodi che gestiscono azioni inerisci dado e usa carta
+    public void notifyPlayerTurn() throws IOException {
+
+        Player actualPlayer = controller.board.getPlayer(BeginTurn.getCurrentPlayer());
+
+        if(actualPlayer.getConnection().equals("Socket")){
+
+            try (Socket socket = new Socket(actualPlayer.getAddress(), actualPlayer.getPort())) {
+
+                HandlerControllerSocket handler = new HandlerControllerSocket(controller,socket);
+                handler.notifyOnBeginTurn();
+
+            }
+
+        }else if(actualPlayer.getConnection().equals("RMI")){
+
+
+        }
+
+    }
+
+    public void useCardRequest(Player player, int numCard) throws IOException {
+
+        ParametersRequestCardAction action = new ParametersRequestCardAction();
+        String requestParameters = action.doAction(controller.board,numCard);
+
+        if(player.getConnection().equals("Socket")){
+
+            try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+
+                HandlerControllerSocket handler = new HandlerControllerSocket(controller,socket);
+                handler.sendParametersForToolCard(requestParameters);
+
+            }
+
+        }
+
+    }
+
+    public void useCard(Player player, int numCard, String parameters) throws IOException {
+
+        CreateListForCardAction list = new CreateListForCardAction();
+        UseCardAction action = new UseCardAction();
+        String[] mode = parameters.split(" ");
+        int code;
+
+        String message;
+
+        WhichErrorAction error = new WhichErrorAction();
+
+        if(numCard==11){
+
+            if(mode[0].equals("preEffect")) {
+
+                parameters = parameters.substring(10);
+
+                code = action.doActionPreEffect(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
+
+                if(code==11){
+
+                    ParametersRequestCardAction secondRequest = new ParametersRequestCardAction();
+                    message = secondRequest.doAction();
+
+                }else{
+
+                    message = error.doAction(code);
+
+                }
+
+
+            }else{
+
+                code = action.doAction(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
+
+                if(code<0){
+
+                    message = error.doAction(code);
+
+                }else{
+
+                    this.updateView(player);
+                    return;
+
+                }
+
+            }
+
+        }else{
+
+            code = action.doAction(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
+
+            if(code<0){
+
+                message = error.doAction(code);
+
+            }else{
+
+                this.updateView(player);
+                return;
+
+            }
+
+        }
+
+        if(player.getConnection().equals("Socket")){
+
+            try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+
+                HandlerControllerSocket handler = new HandlerControllerSocket(controller,socket);
+                handler.sendUseCardMessage();
+            }
+
+        }
+
+
+    }
+
+    public void updateView(Player player) throws IOException {
+
+        if(player.getConnection().equals("Socket")){
+
+            Socket socket = new Socket(player.getAddress(),player.getPort());
+            HandlerControllerSocket handler = new HandlerControllerSocket(controller,socket);
+            handler.sendUpdateView();
+
+        }
+    }
+
+    private String gameToString(){
+
+        StringBuilder res = new StringBuilder();
+
+        res.append(controller.board.getNPlayers()+"+");
+
+        for (Player player: controller.board.getPlayers()){
+
+            res.append(player.getName());
+            res.append("*");
+            res.append(player.getWindow().toString().replace(" ","_"));
+            res.append("*");
+            res.append(player.getFavorTokens());
+            res.append("*");
+            res.append(player.getLiveStatus());
+            res.append("+");
+
+        }
+
+        res.append(BeginRound.getRound());
+        res.append(BeginTurn.getCurrentTurn());
+        res.append("+");
+        res.append(controller.board.toStringDraft());
+        res.append("+");
+        res.append(controller.board.toStringRoundTrack());
+        res.append("+");
+        res.append(controller.board.toStringToolCards());
+        res.append("+");
+        res.append(controller.board.toStringPublicCards());
+        res.append("+");
+
+        return res.toString();
+    }
+
+
 
 }

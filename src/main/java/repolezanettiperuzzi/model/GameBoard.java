@@ -26,7 +26,6 @@ public class GameBoard {
     private int fetchPlayersToCheck;
     private int fetchReadyPlayers;
     private boolean gameLocked; //indica se possono ancora aggiungersi giocatori al gioco
-    private int round;
     private int nPlayers;
     private int[] costToolCard = new int[3];
 
@@ -41,7 +40,6 @@ public class GameBoard {
         toolCards = new ToolCard[3];
         diceBag = new DiceBag();
         roundTrack = new RoundTrack();
-        round=0;
         nPlayers=0;
         fetchReadyPlayers = 0;
         gameLocked = false;
@@ -312,22 +310,6 @@ public class GameBoard {
     }
 
     /**
-     * @return intero che rappresenta l'attuale Round di gioco
-     */
-    public int getRound() {
-
-        return round;
-
-    }
-
-    /**
-     * Incrementa il Round di 1
-     */
-    public void incrRound(){
-        this.round++;
-    }
-
-    /**
      * Restituisce il giocatore selezionato nell'ArrayList
      * @param nPlayer indice del giocatore selezionato
      * @return giocatore selezionato
@@ -461,5 +443,65 @@ public class GameBoard {
 
     public void setGameLocked(){
         this.gameLocked = true;
+    }
+
+    //B3_Y1_G6...
+    public String toStringDraft(){
+
+        StringBuilder res= new StringBuilder();
+
+        for(Die die: diceDraft){
+
+            res.append(die.toString());
+            res.append("_");
+
+        }
+
+        return res.toString();
+    }
+
+    public String toStringRoundTrack(){
+
+        return this.roundTrack.toString();
+
+    }
+
+    public String toStringToolCards(){
+
+        StringBuilder res= new StringBuilder();
+
+        for(int i=0; i<this.toolCards.length; i++){
+
+            res.append(toolCards[i].getTitle());
+            res.append("_");
+            res.append(toolCards[i].getId());
+            res.append("_");
+            res.append(toolCards[i].getDescription().replace(" ","-"));
+            res.append("_");
+            res.append(costToolCard[i]);
+            res.append("*");
+
+        }
+
+        return res.toString();
+
+    }
+
+    public String toStringPublicCards(){
+
+        StringBuilder res= new StringBuilder();
+
+        for(int i=0; i<this.publicCards.length; i++){
+
+            res.append(publicCards[i].getTitle());
+            res.append("_");
+            res.append(publicCards[i].getDescription().replace(" ","-"));
+            res.append("_");
+            res.append(publicCards[i].getValue());
+            res.append("*");
+
+        }
+
+        return res.toString();
     }
 }

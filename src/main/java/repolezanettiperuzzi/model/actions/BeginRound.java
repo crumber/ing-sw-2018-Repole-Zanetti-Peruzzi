@@ -6,9 +6,11 @@ public class BeginRound {
 
     private static int firstPlayerIndex = 0;
 
+    private static int round = 0;
+
     public void doAction(GameBoard board) {
 
-        board.incrRound(); //increase Round number
+        increaseRound();
 
         //add die to draft based on number of players
         for (int i = 0; i<((board.getNPlayers()*2)+1); i++) {
@@ -35,6 +37,18 @@ public class BeginRound {
     public static void resetIndex(){
 
         firstPlayerIndex=0;
+
+    }
+
+    public static void increaseRound(){
+
+        round++;
+
+    }
+
+    public static int getRound(){
+
+        return round;
 
     }
 

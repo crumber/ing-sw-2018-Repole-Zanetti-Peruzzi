@@ -272,4 +272,31 @@ public class HandlerControllerSocket implements Runnable{
         this.socket.close();
 
     }
+
+    public void notifyOnBeginTurn() throws IOException {
+
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(),true);
+        out.println("beginTurn");
+        out.close();
+        this.socket.close();
+
+    }
+
+    public void sendParametersForToolCard(String message) throws IOException {
+
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(),true);
+        out.println("cardParameters "+message);
+        out.close();
+        this.socket.close();
+
+    }
+
+
+    public void sendUseCardMessage() {
+
+    }
+
+    public void sendUpdateView() {
+
+    }
 }

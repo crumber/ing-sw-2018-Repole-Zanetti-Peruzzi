@@ -217,14 +217,7 @@ public class GameBoardTest {
 
     }
 
-    @Test
-    public void testGetRound() {
 
-        boardTest = new GameBoard();
-        boardTest.incrRound();
-
-        assertEquals(1,boardTest.getRound());
-    }
 
     @Test
     public void testGetPlayers() {

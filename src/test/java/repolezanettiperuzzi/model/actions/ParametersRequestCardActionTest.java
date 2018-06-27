@@ -35,8 +35,8 @@ public class ParametersRequestCardActionTest {
 
         int question=11;
 
-        assertEquals("dieValue ",testParametersRequestCardAction.doAction(question));
-        assertEquals(null,testParametersRequestCardAction.doAction(-1));
+        assertEquals("dieValue ",testParametersRequestCardAction.doAction(board,question));
+        assertEquals(null,testParametersRequestCardAction.doAction(board,-1));
 
     }
 
