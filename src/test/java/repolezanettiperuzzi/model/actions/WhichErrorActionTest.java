@@ -1,4 +1,4 @@
-/*package repolezanettiperuzzi.model.actions;
+package repolezanettiperuzzi.model.actions;
 
 import org.junit.Test;
 import repolezanettiperuzzi.model.Colour;
@@ -8,7 +8,7 @@ import repolezanettiperuzzi.model.Player;
 
 import static org.junit.Assert.*;
 
-public class WhichErrorActionTest {
+/*public class WhichErrorActionTest {
 
     GameBoard board=new GameBoard();
     int numError;
@@ -138,3 +138,5 @@ public class WhichErrorActionTest {
         assertEquals("error You can't put this die here, you need to select a boundary position!",error);
     }
 }*/
+
+//DA FINIRE
