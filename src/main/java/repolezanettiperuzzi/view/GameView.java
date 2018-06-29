@@ -352,7 +352,7 @@ public class GameView implements ClientStubRMI {
         if(this.UI.equals("GUI")){
             ((ChooseWindowFXMLController) fxmlController).viewWindows(windows,currentTime);
         }else if(this.UI.equals("CLI")){
-            gvCLI.viewWindows(windows);
+            gvCLI.viewWindows(windows, currentTime);
         }
     }
 
@@ -361,7 +361,7 @@ public class GameView implements ClientStubRMI {
             ((ChooseWindowFXMLController) fxmlController).viewOneWindow(window,currentTime);
         }else if(this.UI.equals("CLI")){
             ArrayList<WindowClient> windowList = new ArrayList<>();
-            gvCLI.viewWindows(windowList);
+            gvCLI.viewWindows(windowList, currentTime);
         }
     }
 

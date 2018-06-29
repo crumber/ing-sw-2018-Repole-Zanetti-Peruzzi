@@ -49,7 +49,6 @@ public class ControllerTimer extends TimerTask {
 
     @Override
     public void run() {
-
         currentTime--;//aggiorna il timer ad ogni esecuzione
         if (currentTime==0){
 

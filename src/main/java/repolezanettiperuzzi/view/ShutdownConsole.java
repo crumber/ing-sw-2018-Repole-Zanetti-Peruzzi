@@ -15,6 +15,10 @@ public class ShutdownConsole extends Thread{
         this.gameview = gameview;
     }
 
+    public void setScene(String lastScene){
+        this.lastScene = lastScene;
+    }
+
     public void run()
     {
         try {

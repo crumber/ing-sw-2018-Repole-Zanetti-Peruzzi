@@ -5,8 +5,10 @@ import repolezanettiperuzzi.common.modelwrapper.*;
 import java.io.Console;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.Timer;
+import java.util.concurrent.*;
 
 public class GameViewCLI implements Runnable {
 
@@ -15,6 +17,8 @@ public class GameViewCLI implements Runnable {
     private CLITimer cliTimer;
     private Timer timer;
     private String lastScene;
+    private boolean hasShutdownHook;
+    private ShutdownConsole shutdownConsole;
 
     final String ANSI_RESET = "\u001B[0m";
     final String ANSI_BLACK = "\u001B[30m";
@@ -29,6 +33,27 @@ public class GameViewCLI implements Runnable {
     public GameViewCLI(GameView gV){
         this.gV = gV;
         this.isTimerOn = false;
+        this.hasShutdownHook = false;
+    }
+
+    public String readLine(int timeout, String message, String[] actions) throws InterruptedException {
+        ExecutorService ex = Executors.newSingleThreadExecutor();
+        String input = null;
+        try {
+            Future<String> result = ex.submit(new ConsoleInputReadTask(actions, message));
+            try {
+                input = result.get(timeout, TimeUnit.SECONDS);
+            } catch (ExecutionException e) {
+                e.getCause().printStackTrace();
+            } catch (TimeoutException e) {
+                result.cancel(true);
+                System.out.println("\nTimer expired!");
+            }
+
+        } finally {
+            ex.shutdownNow();
+        }
+        return input;
     }
 
     public void loginScene(String message){
@@ -114,7 +139,11 @@ public class GameViewCLI implements Runnable {
 
     public void setWaitingRoomScene()  {
         this.lastScene = "waitingRoom";
-        Runtime.getRuntime().addShutdownHook(new ShutdownConsole(lastScene, timer, gV));
+        if(!this.hasShutdownHook) {
+            this.shutdownConsole = new ShutdownConsole(lastScene, timer, gV);
+            Runtime.getRuntime().addShutdownHook(shutdownConsole);
+            this.hasShutdownHook = true;
+        }
         System.out.println("Sala d'attesa: \n\n");
         try {
             gV.waitingRoomLoaded();
@@ -125,12 +154,21 @@ public class GameViewCLI implements Runnable {
 
     public void setChooseWindowScene(){
         this.lastScene = "chooseWindow";
+        if(!this.hasShutdownHook) {
+            this.shutdownConsole = new ShutdownConsole(lastScene, timer, gV);
+            Runtime.getRuntime().addShutdownHook(shutdownConsole);
+            this.hasShutdownHook = true;
+        } else {
+            shutdownConsole.setScene(lastScene);
+        }
         System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.println("Choose window: \n\n");
-        this.timer.cancel();
-        this.timer.purge();
-        this.isTimerOn = false;
+        if(isTimerOn) {
+            this.timer.cancel();
+            this.timer.purge();
+            this.isTimerOn = false;
+        }
         try {
             gV.chooseWindowSceneLoaded();
         } catch (IOException e) {
@@ -139,14 +177,26 @@ public class GameViewCLI implements Runnable {
     }
 
     public void setGameScene(){
-
         this.lastScene= "game";
-        //System.out.print("\033[H\033[2J");
-        //System.out.flush();
+        if(!this.hasShutdownHook) {
+            this.shutdownConsole = new ShutdownConsole(lastScene, timer, gV);
+            Runtime.getRuntime().addShutdownHook(shutdownConsole);
+            this.hasShutdownHook = true;
+        } else {
+            shutdownConsole.setScene(lastScene);
+        }
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("Game Scene");
+        try {
+            gV.gameLoaded();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    public void viewWindows(ArrayList<WindowClient> windows) {
+    public void viewWindows(ArrayList<WindowClient> windows, int currentTime) {
 
         String highLowEdge="+———";
         String space="        ";  //space ha lo stesso numero di caratteri di CARDN:
@@ -221,28 +271,34 @@ public class GameViewCLI implements Runnable {
             }
         }
 
-        System.out.println(space + "WINDOW 1:  name:" + windows.get(0).getName() + nFV + windows.get(0).getFTokens());
-        System.out.println(space + "WINDOW 2:  name:" + windows.get(1).getName() + nFV + windows.get(1).getFTokens());
-        System.out.println(space + "WINDOW 3:  name:" + windows.get(2).getName() + nFV + windows.get(2).getFTokens());
-        System.out.println(space + "WINDOW 4:  name:" + windows.get(3).getName() + nFV + windows.get(3).getFTokens() + "\n");
+        for(int i = 0; i<4; i++){
+            System.out.println(space + "WINDOW "+i+":  name:" + windows.get(i).getName().replace("-", " ") + nFV + windows.get(i).getFTokens());
+        }
+        System.out.println("");
 
-        do{
-            choose=true;
-            System.out.print(space +"Choose your window, write its number: ");
-            Scanner scanner = new Scanner(System.in);
-            int numWindow = scanner.nextInt();
-            if (numWindow >0 && numWindow<5) {
+        System.out.println(space + "You have "+currentTime+" seconds before the timeout expires.");
+        String message = space + "Choose your window, write its number (press 'q' to exit game): ";
+        String[] actions = {"1", "2", "3", "4"}; //risposte giuste che ci si aspetta dall'utente
+        Optional<String> futureInput = Optional.of("");
+        try {
+            //readLine personalizzata che sblocca il thread allo scadere del timer
+            //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
+            //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
+            futureInput = Optional.ofNullable(readLine(currentTime, message, actions));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //entra se il contenuto non e' null, cioe' il timeout non e' scaduto
+        if(futureInput.isPresent()) {
+            nameWindowChoose = windows.get(Integer.parseInt(futureInput.get()) - 1).getName();
+            System.out.println("You have chosen Window number " + (Integer.parseInt(futureInput.get()) - 1) + "!");
 
-                nameWindowChoose = windows.get(numWindow).getName();
-
-            } else {
-
-                choose=false;
+            try {
+                gV.sendChosenWindow(nameWindowChoose);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-        }while (!choose);
-
-        //ANDARE AVANTI, HO LA SCELTA DEL GIOCATORE (NOME DELLA WINDOW)
+        }
     }
 
     public String createWindowCli(WindowClient window, int x,int y){

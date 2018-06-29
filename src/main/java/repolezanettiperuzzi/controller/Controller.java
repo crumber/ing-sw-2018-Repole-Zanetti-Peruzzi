@@ -54,7 +54,6 @@ public class Controller {
 
     public synchronized void setTimer(String timerType){
 
-        //TODO creare il timer su un altro thread
         this.task = new ControllerTimer(timerType,this);
         this.timer = this.task.getTimer();
         timer.schedule(this.task,0,1000);
@@ -64,7 +63,6 @@ public class Controller {
 
     public synchronized void cancelTimer(){
 
-        //TODO cancello il timer
         this.timer.cancel();
         this.timer.purge();
         this.isTimerOn = false;
