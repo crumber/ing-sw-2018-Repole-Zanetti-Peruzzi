@@ -7,15 +7,18 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
@@ -119,7 +122,7 @@ public class ChooseWindowFXMLController extends FXMLController{
 
             WindowGenerator wGenerator = new WindowGenerator(windows.get(i));
             //Esempio con GridPane
-            GridPane pane = wGenerator.getWindowFXObject();
+            GridPane pane = wGenerator.getWindowFXObject(false);
             VBox box = new VBox();
             String windowName = windows.get(i).getName().replace(" ", "-"); //questo per gestire in caso la window arrivi da RMI in cui il nome e' senza trattini
             javafx.scene.image.ImageView windowLabel = new javafx.scene.image.ImageView(new Image(new DynamicPath("assets/Windows/"+windowName+".png").getPath()));
@@ -158,7 +161,7 @@ public class ChooseWindowFXMLController extends FXMLController{
         int yPos = 0;
         WindowGenerator wGenerator = new WindowGenerator(window);
 
-        GridPane pane = wGenerator.getWindowFXObject();
+        GridPane pane = wGenerator.getWindowFXObject(false);
         VBox box = new VBox();
         String windowName = window.getName().replace(" ", "-"); //questo per gestire in caso la window arrivi da RMI in cui il nome e' senza trattini
         javafx.scene.image.ImageView windowLabel = new javafx.scene.image.ImageView(new Image(new DynamicPath("assets/Windows/"+windowName+".png").getPath()));
@@ -193,10 +196,18 @@ public class ChooseWindowFXMLController extends FXMLController{
         try {
             loader = new FXMLLoader(new URI(new DynamicPath("fxml/GameFXML.fxml").getPath()).toURL()); //TODO imposta nuovo controller
             loader.setController(controller);
-            Group root = (Group) loader.load();
+            AnchorPane root = (AnchorPane) loader.load();
             FXMLLoader finalLoader = loader;
             Platform.runLater(() -> {
-                stage.setScene(new Scene(root, 1280, 720));
+                stage.setScene(new Scene(root, 1280, 800));
+                stage.setMaximized(true);
+                stage.setFullScreen(true);
+                Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+                System.out.println(primaryScreenBounds.getMinX()+" "+primaryScreenBounds.getMinY()+" "+primaryScreenBounds.getHeight()+" "+primaryScreenBounds.getWidth());
+                stage.setX(primaryScreenBounds.getMinX());
+                stage.setY(primaryScreenBounds.getMinY());
+                stage.setWidth(primaryScreenBounds.getWidth());
+                stage.setHeight(primaryScreenBounds.getHeight());
                 stage.setUserData(finalLoader);
             });
             gV.gameLoaded();

@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -16,9 +17,12 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
+import repolezanettiperuzzi.common.modelwrapper.GameBoardClient;
+import repolezanettiperuzzi.common.modelwrapper.PlayerClient;
 import repolezanettiperuzzi.common.modelwrapper.WindowClient;
 
 import java.io.IOException;
@@ -94,50 +98,40 @@ public class GameFXMLController extends FXMLController{
         gV.notifyOnExit("game");
     }
 
-    public void viewWindows(ArrayList<WindowClient> windows, int currentTime)  {
+    public void viewWindows(GameBoardClient board, int currentTime)  {
 
         this.setTimer(currentTime);
         int j = 0;
-        int xPos = 0;
+        int xPos ;
         int yPos = 0;
-        for(int i = 0; i<windows.size(); i++) {
 
-            WindowGenerator wGenerator = new WindowGenerator(windows.get(i));
+        for(PlayerClient player : board.getPlayers() ) {
+
+            WindowGenerator wGenerator = new WindowGenerator(player.getWindow());
             //Esempio con GridPane
-            GridPane pane = wGenerator.getWindowFXObject();
+            GridPane pane = wGenerator.getWindowFXObject(true);
             VBox box = new VBox();
-            String windowName = windows.get(i).getName().replace(" ", "-"); //questo per gestire in caso la window arrivi da RMI in cui il nome e' senza trattini
+            String windowName = player.getWindow().getName().replace(" ", "-"); //questo per gestire in caso la window arrivi da RMI in cui il nome e' senza trattini
             javafx.scene.image.ImageView windowLabel = new javafx.scene.image.ImageView(new Image(new DynamicPath("assets/Windows/"+windowName+".png").getPath()));
-            windowLabel.setFitWidth(50*windows.get(i).getBoardBox()[0].length);
+            windowLabel.setFitWidth(50*player.getWindow().getBoardBox()[0].length);
             windowLabel.setPreserveRatio(true);
             windowLabel.setSmooth(true);
             windowLabel.setCache(true);
             box.getChildren().addAll(pane,windowLabel);
             Button b = new Button();
-            b.setId(i+"");
             b.setGraphic(box);
-            xPos = 100+(300*((i%2))); //posiziono ogni gridpane creata alternando la pos X (prima *1 poi *2 poi *1 poi *2)
-            //System.out.println("xPos: "+xPos);
+            xPos = 515; //posiziono ogni gridpane creata alternando la pos X (prima *1 poi *2 poi *1 poi *2)
             b.setLayoutX(xPos);
-            if(i%2==0){  //incrememnto il moltiplicatore della pos Y ogni 2 cicli
-                yPos = 150+(300*j);
-                j++;
-
-            }
-            //System.out.println("yPos: "+yPos);
+            yPos = 275;
             b.setLayoutY(yPos);
             b.setStyle("-fx-background-color: transparent;"+"-fx-text-fill: transparent;");
-            b.setOnAction(e -> onWindowClick(e,windowName));
+            b.setOnAction(e -> onBoxClick(e,windowName));
             Platform.runLater(() -> {
                 ((Group)stage.getScene().getRoot()).getChildren().add(b);
             });
 
         }
 
-    }
-
-    public void sendChosenWindow(String windowName) throws IOException {
-        gV.sendChosenWindow(windowName);
     }
 
     public void setGameScene(){
@@ -150,12 +144,20 @@ public class GameFXMLController extends FXMLController{
         String currPath = System.getProperty("user.dir");
         FXMLLoader loader = null;
         try {
-            loader = new FXMLLoader(new URI(new DynamicPath("fxml/ChooseWindowFXML.fxml").getPath()).toURL()); //TODO imposta nuovo controller
+            loader = new FXMLLoader(new URI(new DynamicPath("fxml/GameFXML.fxml").getPath()).toURL()); //TODO imposta nuovo controller
             loader.setController(controller);
             Group root = (Group) loader.load();
             FXMLLoader finalLoader = loader;
             Platform.runLater(() -> {
-                stage.setScene(new Scene(root, 600, 600));
+                stage.setScene(new Scene(root, 1280, 800));
+                stage.setMaximized(true);
+                stage.setFullScreen(true);
+                Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+                System.out.println(primaryScreenBounds.getMinX()+" "+primaryScreenBounds.getMinY()+" "+primaryScreenBounds.getHeight()+" "+primaryScreenBounds.getWidth());
+                stage.setX(primaryScreenBounds.getMinX());
+                stage.setY(primaryScreenBounds.getMinY());
+                stage.setWidth(primaryScreenBounds.getWidth());
+                stage.setHeight(primaryScreenBounds.getHeight());
                 stage.setUserData(finalLoader);
             });
             gV.waitingRoomLoaded();
@@ -165,7 +167,7 @@ public class GameFXMLController extends FXMLController{
 
     }
 
-    public void onWindowClick (ActionEvent e, String windowName){
+    public void onBoxClick (ActionEvent e, String windowName){
 
         Button b = (Button) e.getSource();
         b.setStyle(".button:pressed {\n" +
@@ -185,15 +187,11 @@ public class GameFXMLController extends FXMLController{
 
             if(alert.getResult()==ButtonType.YES){
 
-                try {
-                    this.sendChosenWindow(windowName);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
 
             }else{
 
                 b.setStyle("-fx-background-color: transparent;"+"-fx-text-fill: transparent;");
+
             }
         });
 

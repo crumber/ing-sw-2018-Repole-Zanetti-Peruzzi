@@ -29,6 +29,13 @@ public class TurnState extends ControllerState {
 
         }
 
+        if((!BeginTurn.controlTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer())))||(!controller.board.getPlayer(BeginTurn.getCurrentPlayer()).getLiveStatus())) {
+
+            this.passToNextTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer()));
+            return;
+
+        }
+
         notifyPlayerTurn();
 
         beginTurn.doAction(controller.board.getPlayer(BeginTurn.getCurrentPlayer()),controller.board);
@@ -87,11 +94,20 @@ public class TurnState extends ControllerState {
 
             }
 
+        }else{
+
+            if(player.getConnection().equals("Socket")){
+
+                try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+
+                    HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
+                    handler.sendNotYourTurn();
+
+                }
+            }else if(player.getConnection().equals("RMI")){
 
 
-
-
-
+            }
 
         }
 

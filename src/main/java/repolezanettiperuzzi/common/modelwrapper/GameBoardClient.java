@@ -231,4 +231,20 @@ public class GameBoardClient implements Serializable {
         return (ArrayList<PlayerClient>) this.players.clone();
 
     }
+
+    public WindowClient getPlayerWindow(String playerName){
+
+        for(PlayerClient player : this.players){
+
+            if(player.getName().equals(playerName)){
+
+                return player.getWindow();
+
+            }
+
+        }
+
+        return null;
+
+    }
 }

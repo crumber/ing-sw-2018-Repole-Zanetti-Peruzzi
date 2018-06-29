@@ -87,9 +87,7 @@ public class LoginFXMLController extends FXMLController{
             Platform.runLater(() -> {
                 try {
                     gV.onLogin(textFieldName.getText(), textFieldPwd.getText(), conn.getText(), userInt.getText());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
+                } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 }
             });
@@ -187,11 +185,7 @@ public class LoginFXMLController extends FXMLController{
                 stage.setUserData(finalLoader);
             });
             gV.waitingRoomLoaded();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
         }
 

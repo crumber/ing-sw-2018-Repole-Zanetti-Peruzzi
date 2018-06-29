@@ -1,34 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<?import javafx.scene.text.TextFlow?>
-<Group fx:id="group" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
-    <fx:define>
-        <ToggleGroup fx:id="groupConn"/>
-        <ToggleGroup fx:id="groupUI"/>
-    </fx:define>
-    <children>
-        <ImageView fx:id="bg" fitWidth="1024" preserveRatio="true" smooth="true" cache="true">
-            <image>
-                <Image url="@../assets/sagradaBg.jpg" />
-            </image>
-        </ImageView>
-        <Rectangle  width="1024" height="768" smooth="true" cache="true" fill="lightgray" opacity="0.95"></Rectangle>
-        <Rectangle y="-30" width="600" height="80"  arcWidth="40" arcHeight="40" fill="darkgray" opacity="0.95"></Rectangle>
-        <Text x="20" y="30" style="-fx-font-weight: bold; -fx-font-size: 20px">Choose Window Room</Text>
-        <Text fx:id="timerText" x="480" y="90" style="-fx-font-weight: bold; -fx-font-size: 20px"></Text>
-        <Text fx:id="playersText" x="20" y="120" style="-fx-font-weight: bold; -fx-font-size: 20px"></Text>
-
-    </children>
-</Group>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="1281.0" fitWidth="1280.0" focusTraversable="true" opacity="0.11" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-481.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-17.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../assets/sagradaBg.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="295.0" fitWidth="259.0" layoutY="413.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/DRAFT.jpg" />
+         </image>
+         <effect>
+            <DropShadow height="50.0" radius="24.5" spread="0.15" width="50.0" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="543.0" layoutX="364.4" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/RoundTrack.png" />
+         </image>
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="50.0" radius="24.5" spread="0.15" width="50.0" />
+         </effect>
+      </ImageView>
+      <AnchorPane fx:id="playerWindow" layoutX="515.0" layoutY="298.0" prefHeight="250.0" prefWidth="250.0" AnchorPane.leftAnchor="504.0">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" height="50.0" radius="24.5" spread="0.15" width="50.0" />
+         </effect>
+      </AnchorPane>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c4c4c4ae" height="100.0" layoutY="700.0" stroke="#ffffff00" strokeType="INSIDE" width="1280.0">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#00000073" />
+         </effect></Rectangle>
+      <ImageView fitHeight="100.0" fitWidth="200.0" layoutX="540.0" layoutY="695.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/Timer.png" />
+         </image>
+      </ImageView>
+      <Button contentDisplay="TOP" layoutX="1180.0" layoutY="375.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #090a0c, linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%), linear-gradient(#20262b, #191d22), radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0)); -fx-background-radius: 5,4,3,5;; -fx-background-insets: 0,1,2,0;; -fx-text-fill: white;; -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.9) , 1, 0.0 , 0 , 1 );;" text="End Turn" textFill="#000000e3" textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font name="Times Bold" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
