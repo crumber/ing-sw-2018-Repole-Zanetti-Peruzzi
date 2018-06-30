@@ -8,6 +8,14 @@ public class RoundTrackClient implements Serializable {
     private static final int MAXROUNDTRACK = 10;
     private ArrayList<ArrayList<DieClient>> dieRoundTrack = new ArrayList<ArrayList<DieClient>>();
 
+    /**
+     *
+     * @param die
+     * @param round Round che parte da 1
+     */
+    public void addDie(DieClient die, int round){
+        dieRoundTrack.get(round).add(die);
+    }
 
     public void addDice(ArrayList<DieClient> remainingDice) {
 

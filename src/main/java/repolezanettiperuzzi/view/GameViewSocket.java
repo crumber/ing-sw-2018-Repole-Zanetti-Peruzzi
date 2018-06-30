@@ -1,9 +1,6 @@
 package repolezanettiperuzzi.view;
 
-import repolezanettiperuzzi.common.modelwrapper.BoxClient;
-import repolezanettiperuzzi.common.modelwrapper.ColourClient;
-import repolezanettiperuzzi.common.modelwrapper.ValueClient;
-import repolezanettiperuzzi.common.modelwrapper.WindowClient;
+import repolezanettiperuzzi.common.modelwrapper.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -100,13 +97,13 @@ public class GameViewSocket implements Runnable{
                 break;
             case "startGame":
                 gameView.enterGame();
-                //TODO caricare la view per il turno e notificare il controller dopo che e' stata caricata
                 break;
             case "winChooseWindow":
                 gameView.showWinOnChooseWindowAlert();
                 break;
             case "updateView":
-                updateBoard(line[1]);
+                //System.out.println(line[1]);
+                updateView(line[1]);
                 break;
             case "exit":
                 gameView.shutdownClient();
@@ -246,8 +243,57 @@ public class GameViewSocket implements Runnable{
         return boxMatrix;
     }
 
-    public void updateBoard(String message){
+    public void updateView(String message){
+        GameBoardClient board = new GameBoardClient();
+        String[] boardElems = message.split("\\+");
+        int numPlayers = Integer.parseInt(boardElems[0]);
+        int i;
+        for(i = 1; i<(numPlayers+1); i++){
+            String[] playerElems = boardElems[i].split("\\*");
+            String playerName = playerElems[0];
+            board.addPlayer(playerName);
+            String windowName = playerElems[1]; // nome della window con i trattini inclusi
+            int favorTokens = Integer.parseInt(playerElems[2]);
+            String window = playerElems[3].replace("_", " ");
+            board.getPlayerByName(playerName).setWindow(new WindowClient(windowName, favorTokens, window));
+            board.getPlayerByName(playerName).setFavorTokens(Integer.parseInt(playerElems[4]));
+            board.getPlayerByName(playerName).setLiveStatus(Boolean.parseBoolean(playerElems[4]));
+        }
+        int round = (int)boardElems[i].charAt(0);
+        int turn = (int)boardElems[i].charAt(1);
+        i++;
 
+        String[] dice = boardElems[i].split("_");
+        for(int j = 0; j<dice.length; j++) {
+            board.addDieToDraft(new DieClient(dice[j]));
+        }
+        i++;
+
+        //TODO gestisci roundtrack
+        i++;
+
+        String[] toolCards = boardElems[i].split("\\*");
+        for(int j = 0; j<3; j++) {
+            String[] toolCardsElems = toolCards[j].split("_");
+            String cardName = toolCardsElems[0];
+            int id = Integer.parseInt(toolCardsElems[1]);
+            String description = toolCardsElems[2].replace("-", " ");
+            int favor = Integer.parseInt(toolCardsElems[3]);
+            board.addToolCard(cardName, description, id, favor);
+        }
+        i++;
+
+        String[] publicCards = boardElems[i].split("\\*");
+        for(int j = 0; j<3; j++) {
+            String[] publicCardsElems = publicCards[j].split("_");
+            String cardName = publicCardsElems[0];
+            String description = publicCardsElems[1].replace("-", " ");
+            int value = Integer.parseInt(publicCardsElems[2]);
+            board.addPublicCard(cardName, description, value);
+        }
+        i++;
+
+        gameView.updateView(board);
     }
 
     public void sendChosenWindow(String username, String windowName) throws IOException {

@@ -19,7 +19,7 @@ public class TurnState extends ControllerState {
 
         this.controller=controller;
 
-        if(BeginRound.getRound()==0 && BeginTurn.getNumPlayedTurn()==0){
+        if(BeginRound.getRound()==1 && BeginTurn.getNumPlayedTurn()==0){
 
             for(int i=0; i<controller.board.getNPlayers();i++){
 
@@ -284,6 +284,10 @@ public class TurnState extends ControllerState {
 
             res.append(player.getName());
             res.append("*");
+            res.append(player.getWindow().getName().replace(" ", "-"));
+            res.append("*");
+            res.append(player.getWindow().getFTokens());
+            res.append("*");
             res.append(player.getWindow().toString().replace(" ","_"));
             res.append("*");
             res.append(player.getFavorTokens());
@@ -303,7 +307,6 @@ public class TurnState extends ControllerState {
         res.append(controller.board.toStringToolCards());
         res.append("+");
         res.append(controller.board.toStringPublicCards());
-        res.append("+");
 
         return res.toString();
     }

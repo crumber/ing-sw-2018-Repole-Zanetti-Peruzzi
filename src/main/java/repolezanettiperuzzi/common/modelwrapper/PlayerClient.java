@@ -11,22 +11,11 @@ public class PlayerClient implements Serializable {
     private WindowClient window;
     private int turn;
     private int score;
-    private String connection; //RMI o Socket
-    private String UI; //CLI o GUI
-    private String address;
-    private int port;
-    private String lastScene;
     private boolean liveStatus;
 
-    public PlayerClient(String name, String connection, String UI, String address, int port){
+    public PlayerClient(String name){
         this.name = name;
         this.score = 0;
-        this.connection = connection;
-        this.UI = UI;
-        this.turn = 0;
-        this.address = address;
-        this.port = port;
-        this.lastScene = "login";
         this.liveStatus = true;
     }
 
@@ -55,40 +44,12 @@ public class PlayerClient implements Serializable {
 
     }
 
-    public boolean checkLastScene(String sceneName){
-        return this.lastScene.equals(sceneName);
-    }
-
-    public String getLastScene(){
-        return this.lastScene;
-    }
-
-    public void setLastScene(String sceneName){
-        this.lastScene = sceneName;
-    }
-
     public boolean getLiveStatus(){
         return this.liveStatus;
     }
 
     public void setLiveStatus(boolean status){
         this.liveStatus = status;
-    }
-
-    public void setConnection(String connection){
-        this.connection = connection;
-    }
-
-    public void setUI(String UI){
-        this.UI = UI;
-    }
-
-    public void setAddress(String address){
-        this.address = address;
-    }
-
-    public void setPort(int port){
-        this.port = port;
     }
 
     public int getFavorTokens() {
@@ -101,18 +62,6 @@ public class PlayerClient implements Serializable {
 
         this.favorTokens=flavorTokens;
 
-    }
-
-    public String getConnection(){
-        return connection;
-    }
-
-    public String getAddress(){
-        return address;
-    }
-
-    public int getPort(){
-        return port;
     }
 
 

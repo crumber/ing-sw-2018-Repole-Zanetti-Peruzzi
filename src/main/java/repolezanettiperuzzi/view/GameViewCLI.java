@@ -291,7 +291,7 @@ public class GameViewCLI implements Runnable {
         //entra se il contenuto non e' null, cioe' il timeout non e' scaduto
         if(futureInput.isPresent()) {
             nameWindowChoose = windows.get(Integer.parseInt(futureInput.get()) - 1).getName();
-            System.out.println("You have chosen Window number " + (Integer.parseInt(futureInput.get()) - 1) + "!");
+            System.out.println("You have chosen Window number " + (Integer.parseInt(futureInput.get())) + "!");
 
             try {
                 gV.sendChosenWindow(nameWindowChoose);

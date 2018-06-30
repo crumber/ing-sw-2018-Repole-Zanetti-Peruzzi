@@ -63,14 +63,10 @@ public class GameBoardClient implements Serializable {
     /**
      * Aggiunge un giocatore alla lista di giocatori che hanno aderito alla partita
      * @param playerName nome del giocatore
-     * @param connection tipo di connessione del giocatore
-     * @param UI tipo di interfaccia
-     * @param address indirizzo ip del giocatore
-     * @param port porta del client
      */
-    public void addPlayer(String playerName, String connection, String UI, String address, int port){
+    public void addPlayer(String playerName){
 
-        players.add(new PlayerClient(playerName, connection, UI, address, port));
+        players.add(new PlayerClient(playerName));
         this.nPlayers++;
 
     }
@@ -79,8 +75,8 @@ public class GameBoardClient implements Serializable {
         publicCards.add(new PublicCardClient(title, description, value));
     }
 
-    public void addToolCard(String title, String description){
-        toolCards.add(new ToolCardClient(title, description));
+    public void addToolCard(String title, String description, int id, int favorTokens){
+        toolCards.add(new ToolCardClient(title, description, id, favorTokens));
     }
 
     public ArrayList<PublicCardClient> getPublicCards(){
@@ -170,6 +166,12 @@ public class GameBoardClient implements Serializable {
     public void setDieToRoundTrack(int whichRound, int whichDieRound, DieClient d){
 
         roundTrack.setDieOnRoundTrack(whichRound,whichDieRound,d);
+
+    }
+
+    public void addDieToRoundTrack(DieClient die){
+
+        this.roundTrack.addDie(die, round);
 
     }
 

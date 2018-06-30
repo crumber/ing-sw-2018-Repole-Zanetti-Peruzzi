@@ -450,10 +450,12 @@ public class GameBoard {
 
         StringBuilder res= new StringBuilder();
 
-        for(Die die: diceDraft){
+        for(int i = 0; i<diceDraft.size(); i++){
 
-            res.append(die.toString());
-            res.append("_");
+            res.append(diceDraft.get(i).toString());
+            if(i<(diceDraft.size()-1)) {
+                res.append("_");
+            }
 
         }
 
@@ -479,7 +481,9 @@ public class GameBoard {
             res.append(toolCards[i].getDescription().replace(" ","-"));
             res.append("_");
             res.append(costToolCard[i]);
-            res.append("*");
+            if(i<(this.toolCards.length-1)) {
+                res.append("*");
+            }
 
         }
 
@@ -498,7 +502,9 @@ public class GameBoard {
             res.append(publicCards[i].getDescription().replace(" ","-"));
             res.append("_");
             res.append(publicCards[i].getValue());
-            res.append("*");
+            if(i<(this.publicCards.length-1)){
+                res.append("*");
+            }
 
         }
 

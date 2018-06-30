@@ -14,7 +14,6 @@ public class RoundTrack {
     private static final int MAXROUNDTRACK = 10;
     private ArrayList<ArrayList<Die>> dieRoundTrack = new ArrayList<>();
 
-
     /**
      * Aggiunge alla RoundTrack  i dadi rimasti nel Draft a fine Round
      * @param remainingDice ArrayList di dadi rimasti
@@ -59,20 +58,22 @@ public class RoundTrack {
 
         StringBuilder res = new StringBuilder();
 
-        int i=1;
+        for(int i = 0; i<dieRoundTrack.size(); i++){
 
-        for(ArrayList<Die> round : dieRoundTrack ){
+            res.append((i+1));
 
-            res.append(i);
+            for(int j = 0; j<dieRoundTrack.get(i).size(); j++){
 
-            for(Die die: round){
-
-                res.append(die.toString());
-                res.append("_");
+                res.append(dieRoundTrack.get(i).get(j).toString());
+                if(j<(dieRoundTrack.get(i).size()-1)) {
+                    res.append("_");
+                }
 
             }
 
-            res.append("-");
+            if(i<(dieRoundTrack.size()-1)) {
+                res.append("-");
+            }
         }
 
         return res.toString();

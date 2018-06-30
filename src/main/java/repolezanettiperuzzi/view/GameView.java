@@ -4,6 +4,7 @@ import javafx.application.Application;
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.common.ClientStubRMI;
 import repolezanettiperuzzi.common.ControllerStubRMI;
+import repolezanettiperuzzi.common.modelwrapper.GameBoardClient;
 import repolezanettiperuzzi.common.modelwrapper.WindowClient;
 
 import java.io.*;
@@ -416,7 +417,11 @@ public class GameView implements ClientStubRMI {
         this.RMIActive = true;
     }
 
-    public void updateView() {
-        //aggiorno View
+    public void updateView(GameBoardClient board) {
+        if(this.UI.equals("GUI")){
+
+        } else if(this.UI.equals("CLI")){
+            gvCLI.updateView(board, username);
+        }
     }
 }
