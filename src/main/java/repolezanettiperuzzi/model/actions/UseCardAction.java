@@ -19,8 +19,8 @@ public class UseCardAction {
         //if check is correct, do active action, reduce player's tokens
         if(resultOfAction==1){
 
-            player.setUsedCardInThisTurn(true);
             board.getToolCard(whichToolCard).effect(board,player,parameterForCard);
+            player.setUsedCardInThisTurn(true);
             player.reduceFavorTokens(board.getCostToolCard(whichToolCard));
 
             //increment tool card cost if its cost is 1

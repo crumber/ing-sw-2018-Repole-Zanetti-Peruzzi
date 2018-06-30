@@ -7,6 +7,7 @@ public class PlayerClient implements Serializable {
     private String name;
     private ColourClient secretColour;
     private boolean insertDieInThisTurn;
+    private boolean usedCardInThisTurn;
     private int favorTokens;
     private WindowClient window;
     private int turn;
@@ -28,6 +29,18 @@ public class PlayerClient implements Serializable {
     public int getScore(){
 
         return score;
+
+    }
+
+    public void setUsedCardInThisTurn(boolean trueOrFalse){
+
+        usedCardInThisTurn=trueOrFalse;
+
+    }
+
+    public boolean getUseCardInThisTurn(){
+
+        return usedCardInThisTurn;
 
     }
 

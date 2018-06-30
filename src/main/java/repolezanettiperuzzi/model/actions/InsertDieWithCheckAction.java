@@ -7,14 +7,11 @@ import java.util.List;
 
 public class InsertDieWithCheckAction{
 
-    public int doAction(Player player, GameBoard board, List<Integer> parameterForInserDie){
+    public int checkInsert(Player player, GameBoard board,int posDieOnDraft, int whichRow, int whichColumn, boolean card8){
 
         int resultOfAction;
-        int posDieOnDraft=parameterForInserDie.get(0);
-        int whichRow=parameterForInserDie.get(1);
-        int whichColumn=parameterForInserDie.get(2);
 
-        if(player.getInsertDieInThisTurn()){
+        if(!card8 && player.getInsertDieInThisTurn()){
 
             resultOfAction=-28;
 
@@ -51,6 +48,18 @@ public class InsertDieWithCheckAction{
             resultOfAction=1;
 
         }
+
+        return resultOfAction;
+    }
+
+
+    public int doAction(Player player, GameBoard board, List<Integer> parameterForInserDie){
+
+        int resultOfAction;
+        int posDieOnDraft=parameterForInserDie.get(0);
+        int whichRow=parameterForInserDie.get(1);
+        int whichColumn=parameterForInserDie.get(2);
+        resultOfAction=checkInsert(player,board,posDieOnDraft,whichRow,whichColumn,false);
 
         if(resultOfAction==1){
 

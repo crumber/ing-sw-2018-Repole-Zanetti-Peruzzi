@@ -27,7 +27,7 @@ public class ParametersRequestCardAction{
 
             requestForToolCard=start+end;
 
-        }else if(id==9){
+        }else if(id==9 || id==8){
 
             requestForToolCard=draft+end;
 
