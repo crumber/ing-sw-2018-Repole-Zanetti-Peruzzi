@@ -37,6 +37,7 @@ public class GameView implements ClientStubRMI {
     private boolean login;
     private boolean rejectedLogin; //useful to know if login has been rejected, because server socket and RMI have been started and have to be shut down during notifyOnExit()
     private boolean win;
+    private boolean alreadyExit;
 
     public GameView(){
         this.onReceiveCallback = data -> gvSocket.handleMessage(data);
@@ -45,6 +46,7 @@ public class GameView implements ClientStubRMI {
         this.localPort = 0;
         this.RMIActive = false;
         this.win = false;
+        this.alreadyExit = false;
     }
 
     public static void main(String args[]) {
@@ -223,11 +225,11 @@ public class GameView implements ClientStubRMI {
         this.login = false;
         this.rejectedLogin = true;
         this.win = true;
-        System.out.println("show");
         if(this.UI.equals("GUI")){
             ((ChooseWindowFXMLController) fxmlController).showWinOnChooseWindowAlert();
         } else if(this.UI.equals("CLI")){
-            gvCLI.loginScene("You won! You are the only player left online!");
+            System.out.println("\n/// You won! You are the only player left online! ///");
+            //gvSocketServer.shutdownServer();
         }
     }
 
@@ -239,15 +241,18 @@ public class GameView implements ClientStubRMI {
      * @param typeView Nome dell'ultima view che è arrivato a visualizzare il client
      * @throws IOException
      */
-    public void notifyOnExit(String typeView) throws IOException {
-        if(this.login || rejectedLogin) {   //se non ho fatto il login significa che ho chiuso la GUI per chiudere il gioco
+    public synchronized void notifyOnExit(String typeView) throws IOException {
+        if((this.login || rejectedLogin) && !alreadyExit) {   //se non ho fatto il login significa che ho chiuso la GUI per chiudere il gioco
             if (connection.equals("Socket")) {
-                if(win){
+                if(win && UI.equals("GUI")){
+                    gvSocket = new GameViewSocket(this);
+                    gvSocket.notifyOnExit(username, typeView);
+                    alreadyExit = true;
                     System.exit(0);
                 } else {
                     gvSocket = new GameViewSocket(this);
                     gvSocket.notifyOnExit(username, typeView);
-                    gvSocketServer.shutdownServer();
+                    alreadyExit = true;
                 }
             } else if (connection.equals("RMI")) {
                 if(RMIActive) {
@@ -262,9 +267,12 @@ public class GameView implements ClientStubRMI {
                         }
                     }
                     gvRMIServer.unexportRMI();
+                    RMIActive = false;
+                    alreadyExit = true;
                 } else {
                     if(UI.equals("GUI")) {
                         startingRMIThread.interrupt();
+                        alreadyExit = true;
                         System.exit(0);
                     }
                 }
@@ -349,7 +357,7 @@ public class GameView implements ClientStubRMI {
         }
     }
 
-    public void viewWindows(ArrayList<WindowClient> windows, int currentTime){
+    public synchronized void viewWindows(ArrayList<WindowClient> windows, int currentTime){
         if(this.UI.equals("GUI")){
             ((ChooseWindowFXMLController) fxmlController).viewWindows(windows,currentTime);
         }else if(this.UI.equals("CLI")){
@@ -361,8 +369,7 @@ public class GameView implements ClientStubRMI {
         if(this.UI.equals("GUI")){
             ((ChooseWindowFXMLController) fxmlController).viewOneWindow(window,currentTime);
         }else if(this.UI.equals("CLI")){
-            ArrayList<WindowClient> windowList = new ArrayList<>();
-            gvCLI.viewWindows(windowList, currentTime);
+            gvCLI.viewOneWindow(window, currentTime);
         }
     }
 

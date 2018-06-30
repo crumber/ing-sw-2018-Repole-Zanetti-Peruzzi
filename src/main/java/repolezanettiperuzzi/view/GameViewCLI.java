@@ -40,7 +40,7 @@ public class GameViewCLI implements Runnable {
         ExecutorService ex = Executors.newSingleThreadExecutor();
         String input = null;
         try {
-            Future<String> result = ex.submit(new ConsoleInputReadTask(actions, message));
+            Future<String> result = ex.submit(new ConsoleInputReadTask(actions, message, gV, this.lastScene));
             try {
                 input = result.get(timeout, TimeUnit.SECONDS);
             } catch (ExecutionException e) {
@@ -207,7 +207,6 @@ public class GameViewCLI implements Runnable {
         String typeEdge3="+———|";
         String nFV="  FV: ";
         String nameWindowChoose;
-        boolean choose;
 
         if(windows.get(0).rowSize()==1){
 
@@ -272,7 +271,7 @@ public class GameViewCLI implements Runnable {
         }
 
         for(int i = 0; i<4; i++){
-            System.out.println(space + "WINDOW "+i+":  name:" + windows.get(i).getName().replace("-", " ") + nFV + windows.get(i).getFTokens());
+            System.out.println(space + "WINDOW "+(i+1)+":  name:" + windows.get(i).getName().replace("-", " ") + nFV + windows.get(i).getFTokens());
         }
         System.out.println("");
 
@@ -292,7 +291,6 @@ public class GameViewCLI implements Runnable {
         if(futureInput.isPresent()) {
             nameWindowChoose = windows.get(Integer.parseInt(futureInput.get()) - 1).getName();
             System.out.println("You have chosen Window number " + (Integer.parseInt(futureInput.get())) + "!");
-
             try {
                 gV.sendChosenWindow(nameWindowChoose);
             } catch (IOException e) {
@@ -301,7 +299,13 @@ public class GameViewCLI implements Runnable {
         }
     }
 
-    public String createWindowCli(WindowClient window, int x,int y){
+    public void viewOneWindow(WindowClient window, int currentTime){
+        System.out.println("You have chosen Window named "+window.getName().replace("-", " "));
+        //TODO stampare la window scelta qui
+        System.out.println("In "+currentTime+" seconds the game will start!");
+    }
+
+    public String createWindowCli(WindowClient window, int x, int y){
 
         String bound;
         BoxClient[][] boxes = window.getBoardBox();

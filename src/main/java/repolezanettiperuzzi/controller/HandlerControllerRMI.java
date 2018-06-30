@@ -66,7 +66,9 @@ public class HandlerControllerRMI implements ControllerStubRMI {
                     case "waitingRoom":
                         controller.setState(new SetConnectionState());
                         controller.setLiveStatusOffline(playerName);
+                        System.out.println("enscro");
                         ((SetConnectionState) controller.getState()).notifyOnUpdatedPlayer();
+                        System.out.println("escio");
                         break;
                     case "chooseWindow":
                         //TODO gestire l'uscita durante la scelta delle window

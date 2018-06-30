@@ -92,7 +92,6 @@ public class GameViewSocket implements Runnable{
                 receivedWindows(line);
                 break;
             case "showWindow":
-                System.out.println("showWindow");
                 receivedOneWindow(line);
                 break;
             case "startGame":

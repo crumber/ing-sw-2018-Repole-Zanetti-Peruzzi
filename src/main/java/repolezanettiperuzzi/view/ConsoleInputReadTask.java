@@ -9,10 +9,14 @@ public class ConsoleInputReadTask implements Callable<String> {
 
     private String[] actions;
     private String message;
+    private GameView gameView;
+    private String lastScene;
 
-    public ConsoleInputReadTask(String[] actions, String message){
+    public ConsoleInputReadTask(String[] actions, String message, GameView gameView, String lastScene){
         this.actions = actions;
         this.message = message;
+        this.gameView = gameView;
+        this.lastScene = lastScene;
     }
 
     public String call() throws IOException {
@@ -32,7 +36,17 @@ public class ConsoleInputReadTask implements Callable<String> {
                 return null;
             }
             if(input.equals("q")){
-                System.exit(0);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            gameView.notifyOnExit(lastScene);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+                return null;
             }
             for(int i = 0; i<actions.length; i++){
                 if(input.equals(actions[i])){

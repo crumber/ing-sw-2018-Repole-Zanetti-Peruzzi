@@ -266,12 +266,12 @@ public class FetchState extends ControllerState {
                         }
 
                         controller.cancelTimer();
-                        System.exit(0);//esce senza errori
+                        //System.exit(0);//esce senza errori
 
                     } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
                         controller.getHandlerRMI().showWinOnChooseWindowAlert(player.getName());
                         controller.cancelTimer();
-                        System.exit(0);//esce senza errori
+                        //System.exit(0);//esce senza errori
                     }
                 }
             }

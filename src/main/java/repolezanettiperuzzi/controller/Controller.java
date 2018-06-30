@@ -122,6 +122,9 @@ public class Controller {
                 break;
             }
         }
+        /*if(this.board.getPlayersOnline()==0){ // da problemi con RMI. Chiude il server prima che il metodo ritorni
+            System.exit(0);
+        }*/
     }
 
 
