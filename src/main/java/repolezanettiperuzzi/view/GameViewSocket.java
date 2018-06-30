@@ -101,7 +101,6 @@ public class GameViewSocket implements Runnable{
                 gameView.showWinOnChooseWindowAlert();
                 break;
             case "updateView":
-                //System.out.println(line[1]);
                 updateView(line[1]);
                 break;
             case "exit":
@@ -251,12 +250,14 @@ public class GameViewSocket implements Runnable{
             String[] playerElems = boardElems[i].split("\\*");
             String playerName = playerElems[0];
             board.addPlayer(playerName);
-            String windowName = playerElems[1]; // nome della window con i trattini inclusi
-            int favorTokens = Integer.parseInt(playerElems[2]);
-            String window = playerElems[3].replace("_", " ");
+            ColourClient secretColour = ColourClient.getColour(playerElems[1]);
+            board.getPlayerByName(playerName).setSecretColour(secretColour);
+            String windowName = playerElems[2]; // nome della window con i trattini inclusi
+            int favorTokens = Integer.parseInt(playerElems[3]);
+            String window = playerElems[4].replace("_", " ");
             board.getPlayerByName(playerName).setWindow(new WindowClient(windowName, favorTokens, window));
-            board.getPlayerByName(playerName).setFavorTokens(Integer.parseInt(playerElems[4]));
-            board.getPlayerByName(playerName).setLiveStatus(Boolean.parseBoolean(playerElems[4]));
+            board.getPlayerByName(playerName).setFavorTokens(Integer.parseInt(playerElems[5]));
+            board.getPlayerByName(playerName).setLiveStatus(Boolean.parseBoolean(playerElems[5]));
         }
         int round = (int)boardElems[i].charAt(0);
         int turn = (int)boardElems[i].charAt(1);

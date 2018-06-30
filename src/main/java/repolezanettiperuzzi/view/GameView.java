@@ -426,7 +426,7 @@ public class GameView implements ClientStubRMI {
 
     public void updateView(GameBoardClient board) {
         if(this.UI.equals("GUI")){
-
+            ((GameFXMLController) fxmlController).updateView(board, 100);
         } else if(this.UI.equals("CLI")){
             gvCLI.updateView(board, username);
         }

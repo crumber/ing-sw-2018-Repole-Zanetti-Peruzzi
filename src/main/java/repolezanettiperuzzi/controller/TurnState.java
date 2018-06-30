@@ -284,6 +284,8 @@ public class TurnState extends ControllerState {
 
             res.append(player.getName());
             res.append("*");
+            res.append(player.getSecretColour());
+            res.append("*");
             res.append(player.getWindow().getName().replace(" ", "-"));
             res.append("*");
             res.append(player.getWindow().getFTokens());

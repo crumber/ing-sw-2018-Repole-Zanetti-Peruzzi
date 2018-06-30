@@ -23,7 +23,7 @@ public class ControllerTimer extends TimerTask {
         this.timer = new Timer();
         this.controller = controller;
         this.currentState=timerType;
-        this.currentTime = 20;
+        this.currentTime = 10;
 
         //TODO apro file configurazione durata timer
 

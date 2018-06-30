@@ -14,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -53,15 +54,14 @@ public class GameFXMLController extends FXMLController{
     private URL location;
 
     @FXML
+    private AnchorPane playerWindow;
+
+    @FXML
     private ResourceBundle resources;
 
     // Add a public no-args constructor
     public GameFXMLController()
     {
-    }
-
-    public void setWaitingRoomScene(){
-
     }
 
     public void setGameView(GameView gV){
@@ -93,14 +93,17 @@ public class GameFXMLController extends FXMLController{
             timerCountdown = null;
         }
     }
-
     public void notifyOnExit() throws IOException {
         gV.notifyOnExit("game");
     }
 
-    public void viewWindows(GameBoardClient board, int currentTime)  {
+    public void updateView(GameBoardClient board, int currentTime){
+        //this.setTimer(currentTime);
+        viewWindows(board);
+    }
 
-        this.setTimer(currentTime);
+    public void viewWindows(GameBoardClient board)  {
+
         int j = 0;
         int xPos ;
         int yPos = 0;
@@ -118,17 +121,15 @@ public class GameFXMLController extends FXMLController{
             windowLabel.setSmooth(true);
             windowLabel.setCache(true);
             box.getChildren().addAll(pane,windowLabel);
-            Button b = new Button();
-            b.setGraphic(box);
             xPos = 515; //posiziono ogni gridpane creata alternando la pos X (prima *1 poi *2 poi *1 poi *2)
-            b.setLayoutX(xPos);
             yPos = 275;
-            b.setLayoutY(yPos);
-            b.setStyle("-fx-background-color: transparent;"+"-fx-text-fill: transparent;");
-            b.setOnAction(e -> onBoxClick(e,windowName));
-            Platform.runLater(() -> {
-                ((Group)stage.getScene().getRoot()).getChildren().add(b);
-            });
+            box.setLayoutX(xPos);
+            box.setLayoutY(yPos);
+            if(player.getName().equals(gV.getUsername())) {
+                Platform.runLater(() -> {
+                    playerWindow.getChildren().add(box);
+                });
+            }
 
         }
 

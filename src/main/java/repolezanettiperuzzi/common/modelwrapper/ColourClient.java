@@ -8,6 +8,22 @@ public enum ColourClient implements Serializable {
     RED,
     PURPLE,
     GREEN,
-    BLUE
+    BLUE;
+
+    public static ColourClient getColour(String colour){
+        switch(colour){
+            case "PURPLE":
+                return ColourClient.PURPLE;
+            case "GREEN":
+                return ColourClient.GREEN;
+            case "YELLOW":
+                return ColourClient.YELLOW;
+            case "RED":
+                return ColourClient.RED;
+            case "BLUE":
+                return ColourClient.BLUE;
+        }
+        return null;
+    }
 
 }
