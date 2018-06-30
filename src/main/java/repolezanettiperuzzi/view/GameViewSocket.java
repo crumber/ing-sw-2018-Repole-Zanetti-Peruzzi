@@ -250,7 +250,7 @@ public class GameViewSocket implements Runnable{
             String[] playerElems = boardElems[i].split("\\*");
             String playerName = playerElems[0];
             board.addPlayer(playerName);
-            ColourClient secretColour = ColourClient.getColour(playerElems[1]);
+            ColourClient secretColour = ColourClient.stringToColour(playerElems[1]);
             board.getPlayerByName(playerName).setSecretColour(secretColour);
             String windowName = playerElems[2]; // nome della window con i trattini inclusi
             int favorTokens = Integer.parseInt(playerElems[3]);

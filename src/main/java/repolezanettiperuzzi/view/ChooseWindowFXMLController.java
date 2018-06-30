@@ -203,7 +203,6 @@ public class ChooseWindowFXMLController extends FXMLController{
                 stage.setMaximized(true);
                 stage.setFullScreen(true);
                 Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-                System.out.println(primaryScreenBounds.getMinX()+" "+primaryScreenBounds.getMinY()+" "+primaryScreenBounds.getHeight()+" "+primaryScreenBounds.getWidth());
                 stage.setX(primaryScreenBounds.getMinX());
                 stage.setY(primaryScreenBounds.getMinY());
                 stage.setWidth(primaryScreenBounds.getWidth());

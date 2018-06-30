@@ -35,11 +35,7 @@
             <DropShadow blurType="GAUSSIAN" height="50.0" radius="24.5" spread="0.15" width="50.0" />
          </effect>
       </ImageView>
-      <AnchorPane fx:id="playerWindow" layoutX="515.0" layoutY="298.0" prefHeight="250.0" prefWidth="250.0" AnchorPane.leftAnchor="504.0">
-         <effect>
-            <DropShadow blurType="GAUSSIAN" height="50.0" radius="24.5" spread="0.15" width="50.0" />
-         </effect>
-      </AnchorPane>
+      <AnchorPane fx:id="playerWindow" layoutX="515.0" layoutY="298.0" prefHeight="250.0" prefWidth="250.0" AnchorPane.leftAnchor="504.0"></AnchorPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c4c4c4ae" height="100.0" layoutY="700.0" stroke="#ffffff00" strokeType="INSIDE" width="1280.0">
          <effect>
             <DropShadow blurType="GAUSSIAN" color="#00000073" />

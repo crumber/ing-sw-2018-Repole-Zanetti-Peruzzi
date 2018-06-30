@@ -6,6 +6,8 @@ import repolezanettiperuzzi.model.actions.*;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class TurnState extends ControllerState {
@@ -46,20 +48,29 @@ public class TurnState extends ControllerState {
 
         Player actualPlayer = controller.board.getPlayer(BeginTurn.getCurrentPlayer());
 
-        if(actualPlayer.getConnection().equals("Socket")){
+        if(!controller.isTimerOn()){
 
-            try (Socket socket = new Socket(actualPlayer.getAddress(), actualPlayer.getPort())) {
-
-                HandlerControllerSocket handler = new HandlerControllerSocket(controller,socket);
-                handler.notifyOnBeginTurn();
-
-            }
-
-        }else if(actualPlayer.getConnection().equals("RMI")){
-
+            controller.setTimer("playerTurn");
 
         }
 
+        for(Player player : controller.board.getPlayers()) {
+
+            if (player.getConnection().equals("Socket")) {
+
+                try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+
+                    HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
+                    handler.notifyOnBeginTurn(actualPlayer.getName(), controller.getCurrentTime());
+
+                }
+
+            } else if (player.getConnection().equals("RMI")) {
+
+
+            }
+
+        }
     }
 
     public void insertDie(Player player, String message) throws IOException {
@@ -117,7 +128,6 @@ public class TurnState extends ControllerState {
     //da usare quando il giocatore richiede di utilizzare una carta
     public void useCardRequest(Player player, int numCard) throws IOException {
 
-
         if(BeginTurn.controlTurn(player)) {
 
             CheckCostToolCardAction check = new CheckCostToolCardAction();
@@ -127,6 +137,16 @@ public class TurnState extends ControllerState {
 
                 ParametersRequestCardAction action = new ParametersRequestCardAction();
                 String requestParameters = action.doAction(controller.board, numCard);
+
+                //solo per la carta 7
+                if(requestParameters.equals("NOTHING")){
+
+                    UseCardAction cardAction = new UseCardAction();
+                    cardAction.doAction(player,controller.board,numCard,new ArrayList<>());
+                    this.updateView(player);
+                    return;
+
+                }
 
                 if (player.getConnection().equals("Socket")) {
 

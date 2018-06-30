@@ -93,6 +93,7 @@ public class GameFXMLController extends FXMLController{
             timerCountdown = null;
         }
     }
+
     public void notifyOnExit() throws IOException {
         gV.notifyOnExit("game");
     }
@@ -121,15 +122,18 @@ public class GameFXMLController extends FXMLController{
             windowLabel.setSmooth(true);
             windowLabel.setCache(true);
             box.getChildren().addAll(pane,windowLabel);
-            xPos = 515; //posiziono ogni gridpane creata alternando la pos X (prima *1 poi *2 poi *1 poi *2)
-            yPos = 275;
-            box.setLayoutX(xPos);
-            box.setLayoutY(yPos);
-            if(player.getName().equals(gV.getUsername())) {
-                Platform.runLater(() -> {
-                    playerWindow.getChildren().add(box);
-                });
+
+            //se la window generata non è quella del client allora viene settata trasparente
+            if(!gV.getUsername().equals(player.getName())) {
+
+                box.setVisible(false);
+
             }
+
+            Platform.runLater(() -> playerWindow.getChildren().add(box));
+
+
+            //box.setOnAction(e -> onBoxClick(e,windowName));
 
         }
 

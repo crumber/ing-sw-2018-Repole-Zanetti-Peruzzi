@@ -18,7 +18,6 @@ public class RunningPliers extends ToolCard {
     public void effect(GameBoard board, Player player, List<Integer> parameterForCard){
 
         player.setInsertDieInThisTurn(false);
-        player.setUsedCardInThisTurn(false);
         player.incrTurn();
 
     }

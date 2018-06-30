@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.controller;
 
 import org.json.simple.parser.ParseException;
+import repolezanettiperuzzi.model.Colour;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.view.ShutdownConsole;
 
@@ -24,7 +25,6 @@ public class MasterGame {
 
         Controller controller = new Controller(board.getPlayers(),board);
         controller.setState(new ResetGameState());
-
         printRMIStart();
         ControllerRMIServer rmiServer = new ControllerRMIServer(controller);
         Registry registry = rmiServer.startServer();

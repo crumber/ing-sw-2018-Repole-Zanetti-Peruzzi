@@ -281,10 +281,10 @@ public class HandlerControllerSocket implements Runnable{
 
     }
 
-    public void notifyOnBeginTurn() throws IOException {
+    public void notifyOnBeginTurn(String actualPlayer, int currentTime) throws IOException {
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(),true);
-        out.println("beginTurn");
+        out.println("turn "+actualPlayer+" "+currentTime);
         out.close();
         this.socket.close();
 
