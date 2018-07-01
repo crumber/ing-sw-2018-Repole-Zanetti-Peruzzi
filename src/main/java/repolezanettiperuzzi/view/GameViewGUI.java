@@ -55,11 +55,11 @@ public class GameViewGUI extends Application{
         menuBar.getMenus().addAll(menuFile);
 
         final String os = System.getProperty("os.name");
-        if (os != null && os.startsWith("Mac")) {
+        /*if (os != null && os.startsWith("Mac")) {
             menuBar.useSystemMenuBarProperty().set(true);
             java.awt.Image image = new ImageIcon(new URL(new DynamicPath("assets/icon.png").getPath())).getImage();
             com.apple.eawt.Application.getApplication().setDockIconImage(image);
-        }
+        }*/
 
         root.getChildren().addAll(menuBar);
 

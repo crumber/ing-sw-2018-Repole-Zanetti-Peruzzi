@@ -1,6 +1,5 @@
 package repolezanettiperuzzi.controller;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.Window;

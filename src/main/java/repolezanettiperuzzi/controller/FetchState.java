@@ -290,6 +290,9 @@ public class FetchState extends ControllerState {
         board.getPlayerByName(playerName).setLastScene("game");
 
         if(board.getFetchPlayersToCheck()==board.getFetchReadyPlayers()){
+            if(controller.isTimerOn()){
+                controller.cancelTimer();
+            }
             controller.setState(new BeginRoundState());
 
         }

@@ -79,6 +79,7 @@ public class BeginTurn {
 
         if(currentTurn==0) {
 
+            //System.out.println("aumento");
             //se l'indice del giocatore è arrivato all'ultimo elemento dell'arraylist di giocatori e non tutti i giocatori hanno giocato il loro turno inizializzo l'indice a zero
             if (currentPlayer == board.getNPlayers() - 1 && numPlayedTurn < board.getNPlayers() - 1) {
 
@@ -94,7 +95,7 @@ public class BeginTurn {
 
             numPlayedTurn++;
 
-            if (numPlayedTurn == board.getNPlayers()) {
+            if (numPlayedTurn == (board.getNPlayers()-1)) {
 
                 currentTurn++;
                 resetNumPlayerTurn();
@@ -103,6 +104,8 @@ public class BeginTurn {
 
 
         }else if(currentTurn==1){
+
+            //System.out.println("diminuisco");
 
             if(currentPlayer == 0 && numPlayedTurn < board.getNPlayers()-1){
 
