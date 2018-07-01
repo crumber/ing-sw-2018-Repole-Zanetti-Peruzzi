@@ -9,6 +9,7 @@ public class FactoryToolCardTest {
     @Test
     public void testGetToolCardTest() {
 
+
         assertEquals(CopperFoilBurnisher.class,FactoryToolCard.getToolCard("tc1").getClass());
         assertEquals(CorkbackedStraightedge.class,FactoryToolCard.getToolCard("tc2").getClass());
         assertEquals(EglomiseBrush.class,FactoryToolCard.getToolCard("tc3").getClass());
@@ -21,7 +22,8 @@ public class FactoryToolCardTest {
         assertEquals(LensCutter.class,FactoryToolCard.getToolCard("tc10").getClass());
         assertEquals(RunningPliers.class,FactoryToolCard.getToolCard("tc11").getClass());
         assertEquals(TapWheel.class,FactoryToolCard.getToolCard("tc12").getClass());
-        assertNull(FactoryToolCard.getToolCard("tc142"));
+        FactoryToolCard factoryToolCard=new FactoryToolCard();
+        assertNull(factoryToolCard.getToolCard("tc142"));
 
     }
 }

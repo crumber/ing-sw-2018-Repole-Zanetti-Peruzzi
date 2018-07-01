@@ -37,7 +37,7 @@ public class FetchStateTest {
 
         FetchState state = new FetchState();
         this.controller.setState(state);
-        assertNull(this.board.getWindowsPool());
+//        assertNull(this.board.getWindowsPool());
         state.doAction(this.controller);
         assertNotNull(this.board.getWindowsPool());
 

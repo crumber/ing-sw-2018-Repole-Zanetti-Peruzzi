@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.model.publiccards;
 
 import org.junit.Test;
+import repolezanettiperuzzi.model.toolcards.FactoryToolCard;
 
 import static org.junit.Assert.*;
 
@@ -18,7 +19,8 @@ public class FactoryPublicCardTest {
         assertEquals(ShadeVariety.class,FactoryPublicCard.getPublicCard("pc7").getClass());
         assertEquals(MediumShades.class,FactoryPublicCard.getPublicCard("pc8").getClass());
         assertEquals(LightShades.class,FactoryPublicCard.getPublicCard("pc9").getClass());
-        assertEquals(DeepShades.class,FactoryPublicCard.getPublicCard("pc10").getClass());
-        assertEquals(null,FactoryPublicCard.getPublicCard("pc23"));
+        FactoryPublicCard factoryPublicCard=new FactoryPublicCard();
+        assertEquals(DeepShades.class,factoryPublicCard.getPublicCard("pc10").getClass());
+        assertEquals(null,factoryPublicCard.getPublicCard("pc23"));
     }
 }

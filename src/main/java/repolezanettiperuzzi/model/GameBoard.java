@@ -67,6 +67,12 @@ public class GameBoard {
 
     }
 
+    public void reduceNPlayers(){
+
+        nPlayers-=1;
+
+    }
+
     /**
      * Rimuove un giocatore dall'ArrayList
      * @param playerIndex indice del giocatore all'interno dell'ArrayList
@@ -74,6 +80,7 @@ public class GameBoard {
     public void removePlayer(int playerIndex){
 
         this.players.remove(playerIndex);
+        this.reduceNPlayers();
 
     }
 
@@ -132,7 +139,7 @@ public class GameBoard {
      */
     public Die getDieDraft(int posDie) {
 
-        if(posDie>=diceDraft.size()){
+        if(posDie>=diceDraft.size() || posDie<0){
 
             return null;
 
@@ -376,7 +383,7 @@ public class GameBoard {
     }
 
     /**
-     * Ritorna la Window tra cui puo' scegliere un determinato giocatore
+     * Ritorna le Windows tra cui puo' scegliere un determinato giocatore
      * @param player Giocatore della quale si vogliono ottenere le Window
      * @return
      */

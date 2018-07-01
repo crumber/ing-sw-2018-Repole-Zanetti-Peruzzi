@@ -77,7 +77,7 @@ public class Die {
             case PURPLE:
                 res = "P";
                 break;
-            case GREEN:
+            default:
                 res = "G";
                 break;
 
@@ -100,7 +100,7 @@ public class Die {
             case FIVE:
                 res+="5";
                 break;
-            case SIX:
+            default:
                 res+="6";
                 break;
 

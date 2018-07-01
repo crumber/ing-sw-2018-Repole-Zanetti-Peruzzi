@@ -168,13 +168,13 @@ public class Box {
                     case PURPLE:
                         res = "P";
                         break;
-                    case GREEN:
+                    default:
                         res = "G";
                         break;
                 }
             } else if (getBoundValue() != null) {
                 res = getBoundValue().getNumber() + "";
-            } else if ((getBoundColour() == null) && (getBoundValue() == null)) {
+            } else {
                 res = "0";
             }
 

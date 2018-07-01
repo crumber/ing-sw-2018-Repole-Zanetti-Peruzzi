@@ -143,4 +143,28 @@ public class BoxTest {
 
     }
 
+    @Test
+    public  void testToString(){
+
+        testBox=new Box(Colour.RED);
+        Box testBox2=new Box(Colour.YELLOW);
+        Box testBox3=new Box(Colour.PURPLE);
+        Box testBox4=new Box(Colour.GREEN);
+        Box testBox5=new Box(Colour.BLUE);
+        Box testBox6=new Box(Value.FIVE);
+        Box testBox7=new Box();
+        Box testBox8=new Box();
+        testBox8.setDie(new Die(Colour.RED),"none");
+
+        assertEquals("R",testBox.toString());
+        assertEquals("Y",testBox2.toString());
+        assertEquals("P",testBox3.toString());
+        assertEquals("G",testBox4.toString());
+        assertEquals("B",testBox5.toString());
+        assertEquals("5",testBox6.toString());
+        assertEquals("0",testBox7.toString());
+        assertEquals("R1",testBox8.toString());
+
+    }
+
 }

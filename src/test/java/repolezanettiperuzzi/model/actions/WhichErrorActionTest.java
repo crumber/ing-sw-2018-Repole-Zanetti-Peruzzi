@@ -8,7 +8,7 @@ import repolezanettiperuzzi.model.Player;
 
 import static org.junit.Assert.*;
 
-/*public class WhichErrorActionTest {
+public class WhichErrorActionTest {
 
     GameBoard board=new GameBoard();
     int numError;
@@ -26,117 +26,130 @@ import static org.junit.Assert.*;
         board.addDieToDraft(d);
         board.addDieToDraft(d1);
         board.addDieToDraft(d2);
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error MANCA LA NUMERO 8 DI CARTA FORSE HA ALTRI ERRORI..",error);
 
         numError=-1;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You can't move this die because your starting/final position doesn't exist!!!!",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error startingFinalPositionNotExist",error);
 
         numError=-2;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You can't move this die because you have chosen an empty box",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notMoveChosenEmptyBox",error);
 
         numError=-3;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You can't move this die into this position because there's a die inside",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notMoveThereIsDieInside",error);
 
         numError=-4;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You can't move this die in this position because there isn't at least one dice next to it",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notMoveNotDiceNextToIt",error);
 
         numError=-5;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You can't move this die in this position because it doesn't respect the box's colour restriction",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notMoveNotRespectColourRestriction",error);
 
         numError=-6;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You can't move this die in this position because it doesn't respect box's value restriction",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notMoveNotRespectValueRestriction",error);
 
         numError=-7;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You can't move this die in this position box because it doesn't respect box's restriction",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notMoveRespectRestriction",error);
 
         numError=-8;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You don't have enough favor tokens!",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notNaveFavorTokens",error);
 
         numError=-9;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You have chosen an empty position on the draft!",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error emptyPositionDraft",error);
 
         numError=-10;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You can't move this die in this position because there is at least one die next to it!",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notMoveThereisDieNextToIt",error);
 
         numError=-11;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error Wrong number! You have to choose a value between 1 and 6!",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error wrongNumber",error);
 
         numError=-12;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You can't use this card because this is not the second turn of this round!",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notUseCardIsNotSecondTurn",error);
 
         numError=-13;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You can't use this card because you have already inserted a die!",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notUseCardHaveAlreadyInsertedDie",error);
 
         numError=-14;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error Your choice does not exist, 1 for increase 0 for decrease!!!",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error choiceNotExist",error);
 
         numError=-15;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You can't decrease this value because it has already the minimum one",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notDecreaseIsMinimum",error);
 
         numError=-16;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You can't increase value because it has already the maximum one",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notIncreaseIsMaximum",error);
 
         numError=-17;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You can't move die 2 because you have chosen an empty box!",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notMoveDie2BoxEmpty",error);
 
         numError=-18;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You can't move die 2 in this position because there's a die inside!",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notMoveDie2NotEmptyBox",error);
 
         numError=-19;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You can't move die 2 in this position because there isn't at least one dice next to it",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notMoveDie2NotDiceNextToIt",error);
 
         numError=-20;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You can't move die 2 in this position because it doesn't respect box's restriction!",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notMoveDie2NotRespectRestriction",error);
 
         numError=-21;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error There isn't die on round track in the position you have chosen!",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notDieOnRoundTrack",error);
 
         numError=-22;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You don't move dice because they don't have the same colour of die on round track!",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notMoveDiceNotSameColourRoundTrack",error);
 
         numError=-23;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You don't put this die in a final position because there is another one with the same color near this position",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notPutThereIsDieSameColorNear",error);
 
         numError=-24;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You don't put this die in a final position because there is another one with the same value next to this position",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notPutThereIsDieSameValueNear",error);
 
         numError=-25;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You don't put this die in a final position because there is another one with the same color or value next to this position!",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notPutDieThereIsDieSameColorValue",error);
 
         numError=-26;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You don't put die 2 in a final position because there is another one with the same color or value next to this position!",error);
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notPutDie2ThereIsSameColorValue",error);
 
         numError=-27;
-        error=testWhichErrorAction.doAction(board,numError);
-        assertEquals("error You can't put this die here, you need to select a boundary position!",error);
-    }
-}*/
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notPutDieHereNotBoundaryPosition",error);
 
-//DA FINIRE
+        numError=-28;
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error alreadyInsertedDie",error);
+
+        numError=-29;
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error alreadyUsedToolCard",error);
+
+        numError=-30;
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notFirstTurn",error);
+
+        numError=-31;
+        error=testWhichErrorAction.doAction(numError);
+        assertEquals("error notInsertDieInTurn",error);
+    }
+}
+

@@ -8,28 +8,6 @@ public class PlayerTest {
 
     Player player;
 
-   /*
-    @Test
-    public void useToolCard() {
-    }
-
-    @Test
-    public void takeDieFromDraft() {
-    }
-
-    @Test
-    public void takeDiceFromBag() {
-    }
-
-    @Test
-    public void rollDice() {
-    }
-
-    @Test
-    public void passTurn() {
-    }
-    */
-
     @Test
     public void getNamePortAddressConnectionScore() {
 
@@ -130,5 +108,50 @@ public class PlayerTest {
 
         assertEquals("pippo",playerCopy.getName());
         assertEquals("testWindow",playerCopy.getWindow().getName());
+    }
+
+    @Test
+    public void testCheckLastScene(){
+
+        player=new Player("naruto","RMI","CLI","127.0.0.1",8008);
+
+        player.setLastScene("faseGame");
+        assertTrue(player.checkLastScene("faseGame"));
+        assertEquals("faseGame", player.getLastScene());
+        assertFalse(player.checkLastScene("login"));
+
+    }
+
+    @Test
+    public void testLiveStatus(){
+
+        player=new Player("naruto","RMI","CLI","127.0.0.1",8008);
+
+        player.setLiveStatus(true);
+        assertTrue(player.getLiveStatus());
+        player.setLiveStatus(false);
+        assertFalse(player.getLiveStatus());
+        assertTrue(!player.getLiveStatus());
+
+    }
+
+    @Test
+    public void testSetTypeConnection(){
+
+        player=new Player("Sasuke","","","",0);
+        assertNotEquals("RMI",player.getConnection());
+        assertNotEquals("CLI",player.getUI());
+        assertNotEquals("127.0.0.1",player.getAddress());
+        assertNotEquals(8008,player.getPort());
+
+        player.setConnection("RMI");
+        player.setUI("CLI");
+        player.setAddress("127.0.0.1");
+        player.setPort(8008);
+
+        assertEquals("RMI",player.getConnection());
+        assertEquals("CLI",player.getUI());
+        assertEquals("127.0.0.1",player.getAddress());
+        assertEquals(8008,player.getPort());
     }
 }

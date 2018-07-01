@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.model;
 
 import org.junit.Test;
+import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.model.publiccards.PublicCard;
 import repolezanettiperuzzi.model.toolcards.Lathekin;
 import repolezanettiperuzzi.model.toolcards.ToolCard;
@@ -9,6 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class DeckTest {
 
@@ -45,5 +48,16 @@ public class DeckTest {
         }
 
         assertEquals(12,nToolCard);
+    }
+
+    @Test
+    public void testDeck() throws IOException{
+
+        DynamicPath dP = mock(DynamicPath.class);
+        when(dP.isJar()).thenReturn(true);
+
+        testDeck= new Deck("cards/publiccards","cards/toolcards");
+
+
     }
 }

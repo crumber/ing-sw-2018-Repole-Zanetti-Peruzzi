@@ -27,17 +27,15 @@ public class ParametersRequestCardActionTest {
     ToolCard card2=new EglomiseBrush(); //id 2
     ToolCard card6=new FluxBrush(); //id 6
     ToolCard card11=new FluxRemover(); //id 11
+    ToolCard card8=new RunningPliers(); //id 8
 
 
 
     @Test
-    public void testDoActionForToolCard11() {
+    public void testDoActionForSecondStepToolCard11() {
 
         int question=11;
-
-        //assertEquals("dieValue ",testParametersRequestCardAction.doAction(board,question));  fallisce
-        assertEquals(null,testParametersRequestCardAction.doAction(board,-1));
-
+        assertEquals("dieValue ",testParametersRequestCardAction.doAction());
     }
 
     //testo che esca la stringa di codici delle richieste in modo corretto per ogni id
@@ -66,9 +64,13 @@ public class ParametersRequestCardActionTest {
 
         board.setToolCards(card12,0);
         board.setToolCards(card7,1);
+        board.setToolCards(card8,2);
+
 
         assertEquals("requestCard startPos endPos startPos endPos dieRoundTrack ",testParametersRequestCardAction.doAction(board,0));
         assertEquals("requestCard NOTHING",testParametersRequestCardAction.doAction(board,1));
+        assertEquals("requestCard dieDraft endPos ",testParametersRequestCardAction.doAction(board,2));
+
 
 
         board.setToolCards(card2,0);

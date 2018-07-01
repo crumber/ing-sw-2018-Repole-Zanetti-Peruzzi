@@ -22,6 +22,7 @@ public class CreateListForCardActionTest {
     ToolCard card6=new FluxBrush(); //id 6
     ToolCard card11=new FluxRemover(); //id 11
     ToolCard card9=new CorkbackedStraightedge(); //id 9
+    ToolCard card8=new RunningPliers();
 
     String stringFromClient;
     ArrayList<Integer> intParameter=new ArrayList<>();
@@ -113,5 +114,14 @@ public class CreateListForCardActionTest {
         intParameter=(ArrayList<Integer>)testCreatedListForCardAction.doAction(stringFromClient,board,2);
 
         assertEquals(1,intParameter.size());
+
+        board.setToolCards(card8,2);
+
+        stringFromClient="1 2 3 4";
+        intParameter.clear();
+        intParameter=(ArrayList<Integer>)testCreatedListForCardAction.doAction(stringFromClient,board,2);
+
+        assertEquals(3,intParameter.size());
+
     }
 }

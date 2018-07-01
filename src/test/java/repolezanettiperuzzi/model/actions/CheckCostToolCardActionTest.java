@@ -39,5 +39,8 @@ public class CheckCostToolCardActionTest {
         board.getPlayer(0).setFavorTokens(123);
 
         assertEquals(1,testCheckCostToolCardAction.checkCostToolCard(board,board.getPlayer(0),whichToolCard));
+
+        board.getPlayer(0).setUsedCardInThisTurn(true);
+        assertEquals(-29,testCheckCostToolCardAction.checkCostToolCard(board,board.getPlayer(0),whichToolCard));
     }
 }

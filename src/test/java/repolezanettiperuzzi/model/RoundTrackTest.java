@@ -64,4 +64,41 @@ public class RoundTrackTest {
 
     }
 
+    @Test
+    public void testToString(){
+
+
+        RoundTrack testRoundTrack=new RoundTrack();
+        Die d1= new Die(Colour.PURPLE);
+        Die d2= new Die(Colour.GREEN);
+        Die d3= new Die(Colour.RED);
+        Die d4= new Die(Colour.BLUE);
+
+        Die d5= new Die(Colour.YELLOW);
+        d5.setValue(Value.FIVE);
+        Die d6= new Die(Colour.YELLOW);
+        d6.setValue(Value.FOUR);
+        Die d7= new Die(Colour.RED);
+        d7.setValue(Value.THREE);
+        Die d8= new Die(Colour.PURPLE);
+        d8.setValue(Value.TWO);
+
+        ArrayList<Die> diceDraft1= new ArrayList<>();
+        ArrayList<Die> diceDraft2= new ArrayList<>();
+
+
+        diceDraft1.add(d1);
+        diceDraft1.add(d2);
+        diceDraft1.add(d3);
+        diceDraft1.add(d4);
+        testRoundTrack.addDice(diceDraft1);
+
+        diceDraft2.add(d5);
+        diceDraft2.add(d6);
+        diceDraft2.add(d7);
+        diceDraft2.add(d8);
+        testRoundTrack.addDice(diceDraft2);
+
+        assertEquals("1P1_G1_R1_B1-2Y5_Y4_R3_P2",testRoundTrack.toString());
+    }
 }

@@ -1,11 +1,11 @@
 package repolezanettiperuzzi.model;
 
 import org.junit.Test;
+import repolezanettiperuzzi.model.publiccards.DeepShades;
+import repolezanettiperuzzi.model.publiccards.LightShades;
 import repolezanettiperuzzi.model.publiccards.PublicCard;
 import repolezanettiperuzzi.model.publiccards.RowShadeVariety;
-import repolezanettiperuzzi.model.toolcards.GlazingHammer;
-import repolezanettiperuzzi.model.toolcards.Lathekin;
-import repolezanettiperuzzi.model.toolcards.ToolCard;
+import repolezanettiperuzzi.model.toolcards.*;
 
 import java.util.ArrayList;
 
@@ -75,6 +75,9 @@ public class GameBoardTest {
         boardTest.setDieDraft(0,dieTest);
 
         assertEquals(dieTest,boardTest.getDieDraft(0));
+        assertNull(boardTest.getDieDraft(-1));
+        assertNull(boardTest.getDieDraft(boardTest.getSizeDraft()+1));
+
     }
 
     @Test
@@ -276,4 +279,210 @@ public class GameBoardTest {
         assertEquals("tom",players.get(0).getName());
 
     }
+
+    @Test
+    public void testRemovePlayer(){
+
+        boardTest=new GameBoard();
+
+        boardTest.addPlayer("tom","RMI","CLI","127.0.0.1",8008);
+        boardTest.addPlayer("jerry","RMI","CLI","127.0.0.1",8008);
+        assertEquals(2,boardTest.getNPlayers());
+        boardTest.removePlayer(0);
+        assertEquals(1,boardTest.getNPlayers());
+        assertEquals("jerry",boardTest.getPlayer(0).getName());
+
+    }
+
+    @Test
+    public void testPlayersOnLine(){
+
+        boardTest=new GameBoard();
+        boardTest.addPlayer("tom","RMI","CLI","127.0.0.1",8008);
+        boardTest.getPlayer(0).setLiveStatus(true);
+        assertEquals(1,boardTest.getPlayersOnline());
+        boardTest.getPlayer(0).setLiveStatus(false);
+        assertEquals(0,boardTest.getPlayersOnline());
+
+
+        assertEquals("tom",boardTest.getPlayerByName("tom").getName());
+        assertNull(boardTest.getPlayerByName("lode"));
+
+
+    }
+
+   @Test
+   public void testWindowPool(){
+
+       boardTest=new GameBoard();
+       Box[][] testBoxes = new Box[4][5];
+
+       for ( int i = 0; i < 4; i++){
+
+           for ( int j = 0; j < 5; j++){
+
+               testBoxes[i][j]= new Box(Colour.RED);
+
+           }
+       }
+
+       String name = "testWindow";
+       Window tempWindow = new Window(name,5, testBoxes,"test");
+
+       boardTest.addPlayer("jerry","RMI","CLI","127.0.0.1",8008);
+       Box[][] testBoxes2 = new Box[4][5];
+
+       for ( int i = 0; i < 4; i++){
+
+           for ( int j = 0; j < 5; j++){
+
+               testBoxes2[i][j]= new Box(Colour.BLUE);
+
+           }
+       }
+
+       String name2 = "testWindow2";
+       Window tempWindow2 = new Window(name2,5, testBoxes2,"test2");
+
+       ArrayList<Window> windows=new ArrayList<>();
+       windows.add(tempWindow);
+       windows.add(tempWindow2);
+
+       boardTest.setWindowsPool(windows);
+       assertEquals("testWindow",boardTest.getWindowsPool().get(0).getName());
+   }
+
+   @Test
+    public void testPlayerWindowChoices(){
+
+        boardTest=new GameBoard();
+        boardTest.initPlayersWindowsChoices();
+
+        Player player1=new Player("jerry","RMI","CLI","127.0.0.1",8008);
+       Box[][] testBoxes = new Box[4][5];
+
+       for ( int i = 0; i < 4; i++){
+
+           for ( int j = 0; j < 5; j++){
+
+               testBoxes[i][j]= new Box(Colour.RED);
+
+           }
+       }
+
+       String name = "testWindow";
+       Window tempWindow = new Window(name,5, testBoxes,"test");
+
+       Box[][] testBoxes2 = new Box[4][5];
+
+       for ( int i = 0; i < 4; i++){
+
+           for ( int j = 0; j < 5; j++){
+
+               testBoxes2[i][j]= new Box(Colour.BLUE);
+
+           }
+       }
+
+       String name2 = "testWindow2";
+       Window tempWindow2 = new Window(name2,5, testBoxes2,"test2");
+
+       ArrayList<Window> windows=new ArrayList<>();
+       windows.add(tempWindow);
+       windows.add(tempWindow2);
+
+       boardTest.putPlayersWindowsChoices(player1,windows);
+       assertEquals("testWindow",boardTest.getPlayersWindowsChoices(player1).get(0).getName());
+       assertEquals("testWindow2",boardTest.getPlayersWindowsChoices(player1).get(1).getName());
+
+   }
+
+   @Test
+    public void testFetchPlayer(){
+
+        boardTest=new GameBoard();
+        boardTest.setFetchPlayersToCheck(3);
+        assertEquals(3,boardTest.getFetchPlayersToCheck());
+        boardTest.incrFetchReadyPlayers();
+        assertEquals(1,boardTest.getFetchReadyPlayers());
+
+   }
+
+   @Test
+    public void testGameLocked(){
+
+        boardTest=new GameBoard();
+        boardTest.setGameLocked();
+        assertTrue(boardTest.isGameLocked());
+
+   }
+
+   @Test
+    public void testToString(){
+
+        boardTest=new GameBoard();
+
+        Die d1=new Die(Colour.RED);
+        Die d2=new Die(Colour.RED);
+        Die d3=new Die(Colour.YELLOW);
+        Die d4=new Die(Colour.GREEN);
+        Die d5=new Die(Colour.GREEN);
+        Die d6=new Die(Colour.PURPLE);
+        Die d7=new Die(Colour.YELLOW);
+        Die d8=new Die(Colour.BLUE);
+
+        boardTest.addDieToDraft(d1);
+        boardTest.addDieToDraft(d2);
+        boardTest.addDiceToRoundTrack();
+
+        boardTest.addDieToDraft(d3);
+        boardTest.addDieToDraft(d4);
+        boardTest.addDiceToRoundTrack();
+
+        boardTest.addDieToDraft(d5);
+        boardTest.addDieToDraft(d6);
+        boardTest.addDiceToRoundTrack();
+
+        boardTest.addDieToDraft(d7);
+        boardTest.addDieToDraft(d8);
+
+        assertEquals("Y1_B1",boardTest.toStringDraft());
+        assertEquals("1R1_R1-2Y1_G1-3G1_P1",boardTest.toStringRoundTrack());
+
+        CopperFoilBurnisher cardTool1=new CopperFoilBurnisher();
+        cardTool1.setDescription("ciao");
+        cardTool1.setTitle("CIAO");
+        EglomiseBrush cardTool2=new EglomiseBrush();
+        cardTool2.setDescription("mondo");
+        cardTool2.setTitle("MONDO");
+        GlazingHammer cardTool3=new GlazingHammer();
+        cardTool3.setDescription("Terra");
+        cardTool3.setTitle("TERRA");
+
+        RowShadeVariety cardPublic1=new RowShadeVariety();
+        DeepShades cardPublic2=new DeepShades();
+        LightShades cardPublic3=new LightShades();
+
+        cardPublic1.setDescription("fortissimo");
+        cardPublic1.setTitle("FORTISSIMO");
+        cardPublic1.setValue(10);
+        cardPublic2.setDescription("pump it");
+        cardPublic2.setTitle("PUMP IT");
+        cardPublic2.setValue(1000);
+        cardPublic3.setDescription("it");
+        cardPublic3.setTitle("IT");
+        cardPublic3.setValue(1);
+
+        boardTest.setToolCards(cardTool1,0);
+        boardTest.setToolCards(cardTool2,1);
+        boardTest.setToolCards(cardTool3,2);
+        boardTest.setPublicCards(cardPublic1,0);
+        boardTest.setPublicCards(cardPublic2,1);
+        boardTest.setPublicCards(cardPublic3,2);
+
+        assertEquals("FORTISSIMO_fortissimo_10*PUMP IT_pump-it_1000*IT_it_1",boardTest.toStringPublicCards());
+        assertEquals("CIAO_3_ciao_1*MONDO_2_mondo_1*TERRA_7_Terra_1",boardTest.toStringToolCards());
+
+   }
+
 }

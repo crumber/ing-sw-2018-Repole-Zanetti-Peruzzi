@@ -12,7 +12,7 @@ public class SetWindowAction{
 
     }
 
-    private void  assignFavorToken(Player player){
+    private void assignFavorToken(Player player){
 
         player.setFavorTokens(player.getWindow().getFTokens());
 

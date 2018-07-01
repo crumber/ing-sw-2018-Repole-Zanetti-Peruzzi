@@ -187,7 +187,7 @@ public class GameViewCLI implements Runnable {
         }
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\nGame Scene");
+        System.out.println("\n\nGame Scene");
         try {
             gV.gameLoaded();
         } catch (IOException e) {
@@ -335,7 +335,7 @@ public class GameViewCLI implements Runnable {
             middleEdge+=typeEdge3;
         }
 
-        System.out.println("You have chosen Window named " + window.getName().replace("-", " "));
+        System.out.println(space +"You have chosen Window named " + window.getName().replace("-", " "));
 
         for (int i = 0; i < window.rowSize(); i++) {
 
@@ -597,7 +597,7 @@ public class GameViewCLI implements Runnable {
 
 
         //WINDOWS
-        System.out.print("\n");
+        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
         for (int i = 0; i <boardClient.getPlayer(0).getWindow().rowSize(); i++) {
 
@@ -927,9 +927,7 @@ public class GameViewCLI implements Runnable {
 
                             //TODO ANDRE PARTE SOTTO
                          /*   try {
-
                                 //CHIAMATA METODO INSERISCI DADO DELLA VIEW
-
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -961,9 +959,7 @@ public class GameViewCLI implements Runnable {
                     //TODO ANDRE PARTE SOTTO
 
                          /*   try {
-
                                 //CHIAMATA METODO RICHIESTA ATTIVA CARTA
-
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -975,13 +971,9 @@ public class GameViewCLI implements Runnable {
                 //TODO ANDRE PARTE SOTTO
 
                 /*   try {
-
                 //CHIAMATA METODO PASSA TURNO
-
                 } catch (IOException e) {
-
                     e.printStackTrace();
-
                 }
                 */
 
@@ -1134,7 +1126,7 @@ public class GameViewCLI implements Runnable {
 
                     }
 
-                        break;
+                    break;
                 }
 
                 case "dieRoundTrack":{
@@ -1216,7 +1208,7 @@ public class GameViewCLI implements Runnable {
                         }
                     }
 
-                     break;
+                    break;
                 }
                 case "dieValue": {
 
@@ -1252,32 +1244,20 @@ public class GameViewCLI implements Runnable {
             }
         }
 
-       // TODO  ANDRE VAI AVANTI PARTE SOTTO ANSWER CONTIENE LE RISPOSTE COME INTERI RICORD DI FARE LA ROBA DEL TIMER
+        // TODO  ANDRE VAI AVANTI PARTE SOTTO ANSWER CONTIENE LE RISPOSTE COME INTERI RICORDA DI FARE LA ROBA DEL TIMER
       /*  if (answer.isEmpty()) {
-
             try {
-
                 //CHIAMATA AGGIORNA VIEW CHE L'EFFECT è GIA STATO FATTO
-
             } catch (IOException e) {
-
                 e.printStackTrace();
-
             }
-
         }
         else{
-
             try {
-
                 //CHIAMATA METODO CHE INCVIA ANSWER AL CONTROLLER IN MODO DA FARE L'EFFECT DELLA CARTA
-
             } catch (IOException e) {
-
                 e.printStackTrace();
-
             }
-
         }*/
     }
 
@@ -1407,7 +1387,7 @@ public class GameViewCLI implements Runnable {
                 System.out.println("You can't move die 2 in this position because there isn't at least one dice next to it");
                 break;
             }
-            case "notMoveDie2NotRespectRestriction!":{
+            case "notMoveDie2NotRespectRestriction":{
 
                 System.out.println("You can't move die 2 in this position because it doesn't respect box's restriction!");
                 break;
@@ -1471,4 +1451,3 @@ public class GameViewCLI implements Runnable {
     }
 
 }
-

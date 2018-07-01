@@ -132,7 +132,7 @@ public class WhichErrorAction {
 
             case -18:{
 
-                error="notMoveDie2NotEmptyBox!"; //You can't move die 2 in this position because there's a die inside!
+                error="notMoveDie2NotEmptyBox"; //You can't move die 2 in this position because there's a die inside!
 
                 break;
             }
@@ -146,7 +146,7 @@ public class WhichErrorAction {
 
             case -20:{
 
-                error="notMoveDie2NotRespectRestriction!"; //You can't move die 2 in this position because it doesn't respect box's restriction!
+                error="notMoveDie2NotRespectRestriction"; //You can't move die 2 in this position because it doesn't respect box's restriction!
 
                 break;
             }
@@ -160,7 +160,7 @@ public class WhichErrorAction {
 
             case -22:{
 
-                error="notMoveDiceNotSameColourRoundTrack!"; //You don't move dice because they don't have the same colour of die on round track!
+                error="notMoveDiceNotSameColourRoundTrack"; //You don't move dice because they don't have the same colour of die on round track!
 
                 break;
             }

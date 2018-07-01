@@ -44,8 +44,8 @@ public class CreateListForCardAction {
         }
 
 
-        //for card 9: pos die on draft and final position (x,y),  card 5: pos die on draft and pos die on round track (which round and which die on round)
-        if(idToolCard==5 || idToolCard==9){
+        //for card 9 and 8: pos die on draft and final position (x,y),  card 5: pos die on draft and pos die on round track (which round and which die on round)
+        if(idToolCard==5 || idToolCard==9 || idToolCard==8){
 
             for(int i=0; i<3;i++){
 

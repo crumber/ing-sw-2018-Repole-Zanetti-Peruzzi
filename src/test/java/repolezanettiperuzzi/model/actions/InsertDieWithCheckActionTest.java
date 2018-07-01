@@ -53,7 +53,8 @@ public class InsertDieWithCheckActionTest {
         parameter.add(2);
         parameter.add(4);
 
-        //assertEquals(1,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter)); fallisce
+        board.getPlayer(0).setInsertDieInThisTurn(false);
+        assertEquals(1,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter));
         board.getPlayer(0).getWindow().removeDie(2,4);
 
         board.addDieToDraft(d1);
@@ -61,6 +62,8 @@ public class InsertDieWithCheckActionTest {
         parameter.add(0);
         parameter.add(3);
         parameter.add(2);
+
+        board.getPlayer(0).setInsertDieInThisTurn(false);
 
         assertEquals(1,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter));
         board.getPlayer(0).getWindow().removeDie(3,2);
@@ -71,6 +74,8 @@ public class InsertDieWithCheckActionTest {
         parameter.add(2);
         parameter.add(0);
 
+        board.getPlayer(0).setInsertDieInThisTurn(false);
+
         assertEquals(1,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter));
         board.getPlayer(0).getWindow().removeDie(2,0);
 
@@ -80,6 +85,8 @@ public class InsertDieWithCheckActionTest {
         parameter.add(11);
         parameter.add(1);
 
+        assertEquals(-28,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter));
+        board.getPlayer(0).setInsertDieInThisTurn(false);
         assertEquals(-9,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter));
 
 

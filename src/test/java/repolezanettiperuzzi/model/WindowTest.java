@@ -74,6 +74,30 @@ public class WindowTest {
 
     }
 
+    @Test
+    public void  testThereIsDie(){
+
+        testBoxes = new Box[10][10];
+
+        for ( int i = 0; i < 10; i++){
+
+            for ( int j = 0; j < 10; j++){
+
+                testBoxes[i][j]= new Box();
+
+            }
+        }
+
+        name = "testThereIsDie";
+        testWindow = new Window(name,5, testBoxes,"test");
+        assertFalse(testWindow.thereIsDie(0,0));
+        assertFalse(testWindow.thereIsDie(-1,0));
+        assertFalse(testWindow.thereIsDie(0,-1));
+        assertFalse(testWindow.thereIsDie(100,0));
+        assertFalse(testWindow.thereIsDie(0,100));
+
+    }
+
 
     @Test
     public void testGetNameFToken() {
@@ -418,6 +442,40 @@ public class WindowTest {
         testWindow=new Window(tempWindow.copy());
 
         assertTrue(testWindow.thereIsDie(3,3));
+    }
+
+    @Test
+    public void testToString(){
+
+        testBoxes = new Box[4][5];
+
+        for ( int i = 0; i < 4; i++){
+
+            for ( int j = 0; j < 5; j++){
+
+                if(i==0)
+                {
+
+                  testBoxes[i][j]= new Box(Colour.RED);
+
+                }else if(j<3){
+
+                    testBoxes[i][j]= new Box(Colour.BLUE);
+
+                }else{
+
+                    testBoxes[i][j]= new Box(Value.SIX);
+
+                }
+
+            }
+        }
+
+        name = "testWindow";
+        Window tempWindow = new Window(name,5, testBoxes,"test");
+
+        assertEquals("R-R-R-R-R B-B-B-6-6 B-B-B-6-6 B-B-B-6-6",tempWindow.toString());
+
     }
 
 }
