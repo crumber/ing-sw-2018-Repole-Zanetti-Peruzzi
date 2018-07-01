@@ -394,7 +394,7 @@ public class GameBoard {
 
     /**
      * Ritorna il numero di giocatori da controllare che siano online allo scadere del timer del FetchState
-     * @return Numero di iogcaori da controllare
+     * @return Numero di giogcaori da controllare
      */
     public int getFetchPlayersToCheck(){
         return this.fetchPlayersToCheck;

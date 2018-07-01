@@ -12,12 +12,10 @@ import repolezanettiperuzzi.model.actions.TakeTwoCardWindowAction;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 
@@ -32,11 +30,14 @@ public class FetchState extends ControllerState {
 
         this.controller = controller;
         this.board=controller.board;
+
         if(board.getWindowsPool()==null){
+
             board.initPlayersWindowsChoices();
             InitializeGame init = new InitializeGame();
             init.doAction(board);
             board.setWindowsPool((ArrayList<Window>) init.getWindows());
+
         }
     }
 

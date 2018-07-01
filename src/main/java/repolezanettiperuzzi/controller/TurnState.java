@@ -7,8 +7,6 @@ import repolezanettiperuzzi.model.actions.*;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
-
 
 public class TurnState extends ControllerState {
 
@@ -20,6 +18,12 @@ public class TurnState extends ControllerState {
         BeginTurn beginTurn = new BeginTurn();
 
         this.controller=controller;
+
+        if(BeginTurn.getCurrentTurn()==0 && BeginTurn.getNumPlayedTurn()==0){
+
+            BeginTurn.resetCurrentPlayer();
+
+        }
 
         if(BeginRound.getRound()==1 && BeginTurn.getNumPlayedTurn()==0){
 
@@ -33,6 +37,7 @@ public class TurnState extends ControllerState {
 
         if((!BeginTurn.controlTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer())))||(!controller.board.getPlayer(BeginTurn.getCurrentPlayer()).getLiveStatus())) {
 
+            System.out.println(true);
             this.passToNextTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer()));
             return;
 
@@ -139,7 +144,7 @@ public class TurnState extends ControllerState {
                 String requestParameters = action.doAction(controller.board, numCard);
 
                 //solo per la carta 7
-                if(requestParameters.equals("NOTHING")){
+                if(requestParameters.equals("requestCard NOTHING")){
 
                     UseCardAction cardAction = new UseCardAction();
                     cardAction.doAction(player,controller.board,numCard,new ArrayList<>());
@@ -343,9 +348,12 @@ public class TurnState extends ControllerState {
 
         BeginTurn.nextTurnParameters(controller.board,player);
 
+        System.out.println(BeginTurn.getCurrentTurn()+" "+BeginTurn.getNumPlayedTurn());
+
         if(BeginTurn.getNumPlayedTurn()==controller.board.getNPlayers()){
 
-            BeginTurn.resetNumPlayerTurn();
+            System.out.println("entrato");
+            BeginTurn.resetNumPlayedTurn();
             controller.setState(new EndRoundState());
 
         }else{

@@ -3,6 +3,7 @@ package repolezanettiperuzzi.controller;
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.actions.BeginRound;
+import repolezanettiperuzzi.model.actions.BeginTurn;
 import repolezanettiperuzzi.model.actions.EndRound;
 
 import java.io.IOException;
@@ -43,7 +44,12 @@ public class EndRoundState extends ControllerState {
 
         }else{
 
+
+            BeginTurn.resetCurrentTurn();
+            System.out.println(BeginTurn.getCurrentTurn()+" "+BeginTurn.getNumPlayedTurn()+" "+BeginTurn.getCurrentPlayer());
             controller.setState(new BeginRoundState());
+
+
         }
 
     }

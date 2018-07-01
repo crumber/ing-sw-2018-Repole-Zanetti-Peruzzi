@@ -107,8 +107,6 @@ public class InitializeGame{
 
         Stream<Path> walk = Files.walk(myPath, 1);
 
-        //System.out.println("NUMERO WINDOWS "+nWindows);
-
         Iterator<Path> it = walk.iterator();
         it.next(); //Salto il primo elemento nella cartella che rappresenta la cartella stessa
         ArrayList<String> sortedPaths = sortPaths(it);
@@ -135,7 +133,6 @@ public class InitializeGame{
             } else {
                 ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(sortedPaths.get(i)));
                 name = lines.get(0);
-                System.out.println("name "+name);
                 tokens = Integer.parseInt(lines.get(1));
                 createWindowsDebug(lines);
             }

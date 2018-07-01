@@ -25,7 +25,7 @@ public class BeginTurn {
 
         this.player=player;
 
-        if(currentTurn==0) {
+        /*if(currentTurn==0) {
 
 
             //se nessuno ha ancora giocato il proprio turno allora prendo l'indice del primo giocatore di questo round
@@ -35,7 +35,7 @@ public class BeginTurn {
 
             }
 
-        }
+        }*/
 
 
     }
@@ -81,7 +81,7 @@ public class BeginTurn {
 
             //System.out.println("aumento");
             //se l'indice del giocatore è arrivato all'ultimo elemento dell'arraylist di giocatori e non tutti i giocatori hanno giocato il loro turno inizializzo l'indice a zero
-            if (currentPlayer == board.getNPlayers() - 1 && numPlayedTurn < board.getNPlayers() - 1) {
+            if ((currentPlayer == board.getNPlayers() - 1) && numPlayedTurn < board.getNPlayers() - 1) {
 
                 currentPlayer = 0;
 
@@ -95,10 +95,11 @@ public class BeginTurn {
 
             numPlayedTurn++;
 
-            if (numPlayedTurn == (board.getNPlayers()-1)) {
+            if (numPlayedTurn == board.getNPlayers()) {
 
                 currentTurn++;
-                resetNumPlayerTurn();
+                resetNumPlayedTurn();
+                currentPlayer--;
 
             }
 
@@ -123,10 +124,15 @@ public class BeginTurn {
         }
     }
 
-    public static void resetNumPlayerTurn() {
+    public static void resetNumPlayedTurn() {
 
         numPlayedTurn=0;
 
+    }
+
+    public static void resetCurrentPlayer(){
+
+        currentPlayer=BeginRound.getIndex();
     }
 
 
