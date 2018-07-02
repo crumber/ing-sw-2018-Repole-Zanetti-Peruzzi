@@ -83,4 +83,54 @@ public class DieClient implements Serializable {
         this.valueDie=value;
 
     }
+
+    public String toString() {
+
+        String res = "";
+
+        switch (getColourDie()) {
+
+            case YELLOW:
+                res = "Y";
+                break;
+            case RED:
+                res = "R";
+                break;
+            case BLUE:
+                res = "B";
+                break;
+            case PURPLE:
+                res = "P";
+                break;
+            default:
+                res = "G";
+                break;
+
+        }
+
+        switch (getValueDie()) {
+
+            case ONE:
+                res += "1";
+                break;
+            case TWO:
+                res += "2";
+                break;
+            case THREE:
+                res += "3";
+                break;
+            case FOUR:
+                res += "4";
+                break;
+            case FIVE:
+                res += "5";
+                break;
+            default:
+                res += "6";
+                break;
+
+        }
+
+        return res;
+    }
 }

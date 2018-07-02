@@ -25,7 +25,7 @@ public class TurnState extends ControllerState {
 
         }
 
-        if(BeginRound.getRound()==1 && BeginTurn.getNumPlayedTurn()==0){
+        if(BeginRound.getRound()==1 && BeginTurn.getNumPlayedTurn()==0 && BeginTurn.getCurrentTurn()==0){
 
             for(int i=0; i<controller.board.getNPlayers();i++){
 

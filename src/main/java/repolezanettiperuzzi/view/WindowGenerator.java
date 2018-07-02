@@ -359,10 +359,10 @@ public class WindowGenerator {
             }
         });
         rect.setOnMousePressed(e -> {synchronized (clickLock){rect.setOpacity(0.7);}});
-        rect.setOnMouseReleased(e -> onClickBoxes(grid, box, rect, i, j));
+        rect.setOnMouseReleased(e -> onClickBoxes(grid, rect, i, j));
     }
 
-    public void onClickBoxes(GridPane grid, Canvas box, Rectangle rect, int i, int j){
+    public void onClickBoxes(GridPane grid, Rectangle rect, int i, int j){
         synchronized (clickLock) {
             if (!mouseOut) {
                 ObservableList<Node> childrens = grid.getChildren();

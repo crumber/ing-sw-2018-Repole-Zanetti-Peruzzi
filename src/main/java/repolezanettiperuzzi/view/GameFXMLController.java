@@ -20,20 +20,26 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
+import repolezanettiperuzzi.common.modelwrapper.DieClient;
 import repolezanettiperuzzi.common.modelwrapper.GameBoardClient;
 import repolezanettiperuzzi.common.modelwrapper.PlayerClient;
 import repolezanettiperuzzi.common.modelwrapper.WindowClient;
 import repolezanettiperuzzi.model.Player;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -51,6 +57,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
     private boolean alreadyUpdated;
     private Object clickLock;
     private WindowGenerator.Coordinates lastWindowCell;
+    private int lastDieDraft;
 
     @FXML
     // The reference of inputText will be injected by the FXML loader
@@ -66,6 +73,9 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     @FXML
     private AnchorPane playerWindow;
+
+    @FXML
+    private GridPane draftPane;
 
     @FXML
     private Button insertDieButton;
@@ -119,6 +129,10 @@ public class GameFXMLController extends FXMLController implements Initializable{
         this.lastWindowCell = coordinates;
     }
 
+    public void setLastDieDraft(int lastDieDraft){
+        this.lastDieDraft = lastDieDraft;
+    }
+
     public void updateView(GameBoardClient board, int currentTime){
         synchronized (clickLock) {
             //this.setTimer(currentTime);
@@ -132,13 +146,66 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 }
             }
             viewWindows(board);
-            //viewDraft();
+            viewDraft(board);
             alreadyUpdated = true;
 
             for (Node n : nodesToDelete) {
                 Platform.runLater(() -> playerWindow.getChildren().remove(n));
             }
         }
+    }
+
+    public void viewDraft(GameBoardClient board){
+        int j = 0;
+        for(int i = 0; i<board.getSizeDraft(); i++){
+            DieClient die = board.getDieDraft(i);
+            Image dieImage = new Image(new DynamicPath("assets/dice/"+die.toString()+".png").getPath());
+            ImageView dieView = new ImageView(dieImage);
+            dieView.setFitWidth(40);
+            dieView.setFitHeight(40);
+            Integer I = new Integer(i);
+            Integer J = new Integer(j);
+            Platform.runLater(() -> draftPane.add(dieView, (I%3), J));
+            setDraftEvents(i, j, draftPane, dieView);
+            if(i==2 || i==5 || i==8){
+                j++;
+            }
+
+        }
+    }
+
+    public void onClickDieDraft(GridPane grid, int i, Rectangle rect){
+        ObservableList<Node> childrens = grid.getChildren();
+        for (Node node : childrens) {
+            if ((node.getId() != null) && (node.getId().equals("dieDraft"+lastDieDraft))) {
+                //System.out.println(node.getId());
+                Rectangle r = (Rectangle) node;
+                r.setVisible(false);
+                r.setStrokeWidth(0);
+                r.setOpacity(0.5);
+            }
+        }
+        this.lastDieDraft = i;
+        rect.setFill(Color.TRANSPARENT);
+        rect.setOpacity(1);
+        rect.setStroke(Color.PINK);
+        rect.setStrokeType(StrokeType.INSIDE);
+        rect.setStrokeWidth(4.0);
+    }
+
+    public void setDraftEvents(int i, int j, GridPane pane, ImageView dieView){
+
+        Rectangle rect = new Rectangle(40 ,40);
+        rect.setArcWidth(10);
+        rect.setArcHeight(10);
+        rect.setId("dieDraft"+i);
+        rect.setFill(Color.LIGHTGRAY);
+        rect.setOpacity(0.5);
+        rect.setVisible(false);
+        Platform.runLater(() -> pane.add(rect, i%3, j));
+        dieView.setOnMouseEntered(e -> rect.setVisible(true));
+        rect.setOnMouseExited(e -> rect.setVisible(false));
+        rect.setOnMouseReleased(e -> onClickDieDraft(pane, i, rect));
     }
 
     public void viewWindows(GameBoardClient board)  {
@@ -292,6 +359,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         alreadyUpdated = false;
         clickLock = new Object();
+        lastDieDraft = -1;
         setButtonEvents(insertDieButton, "insertDieButton","#1895d7", "#084c8a", "#00c0ff");
         setButtonEvents(endTurnButton, "endTurnButton","#1895d7", "#084c8a", "#00c0ff");
     }

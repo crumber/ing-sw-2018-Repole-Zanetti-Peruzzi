@@ -40,7 +40,8 @@ public class WindowClient implements Serializable{
         for(int i = 0; i<rows; i++){
             String[] box = boxRows[i].split("-");
             for(int j = 0; j<cols; j++){
-                switch (box[j]){
+                String bound = box[j].charAt(0)+"";
+                switch (bound){
                     case "Y":
                         boardBox[i][j] = new BoxClient(ColourClient.YELLOW);
                         break;
@@ -77,6 +78,10 @@ public class WindowClient implements Serializable{
                     case "6":
                         boardBox[i][j] = new BoxClient(ValueClient.SIX);
                         break;
+                }
+                if(box[j].length()==3){
+                    DieClient die = new DieClient(box[j].substring(1));
+                    boardBox[i][j].setDieNoRestricion(die);
                 }
             }
         }

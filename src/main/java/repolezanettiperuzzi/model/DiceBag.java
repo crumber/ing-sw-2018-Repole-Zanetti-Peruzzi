@@ -47,6 +47,7 @@ public class DiceBag {
             Random random= new Random();
             int choose= random.nextInt(max); //return int between 0 and size
             Die chosenDie= bag.get(choose);
+            chosenDie.rollDie();
             diceTaken.add(chosenDie);
             bag.remove(choose);
             max--;
@@ -65,12 +66,11 @@ public class DiceBag {
 
         int max=bag.size();
         Random random= new Random();
-
         int choose = random.nextInt(max); //return int between 0 and size
         Die chosenDie= bag.get(choose);
         bag.remove(choose);
         this.size--;
-
+        chosenDie.rollDie();
         return chosenDie;
 
     }

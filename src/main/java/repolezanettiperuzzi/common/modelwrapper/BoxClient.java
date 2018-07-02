@@ -45,6 +45,10 @@ public class BoxClient implements Serializable {
         }
     }
 
+    public void setDieNoRestricion(DieClient die){
+        this.die = die;
+    }
+
     public boolean setDie(DieClient dice,String restriction){
 
         if(restriction.compareTo("both")==0){
