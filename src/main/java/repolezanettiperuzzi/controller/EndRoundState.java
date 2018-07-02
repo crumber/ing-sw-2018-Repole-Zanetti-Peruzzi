@@ -46,7 +46,6 @@ public class EndRoundState extends ControllerState {
 
 
             BeginTurn.resetCurrentTurn();
-            System.out.println(BeginTurn.getCurrentTurn()+" "+BeginTurn.getNumPlayedTurn()+" "+BeginTurn.getCurrentPlayer());
             controller.setState(new BeginRoundState());
 
 

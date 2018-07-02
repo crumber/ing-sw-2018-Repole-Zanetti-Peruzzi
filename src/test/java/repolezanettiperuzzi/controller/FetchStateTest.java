@@ -26,6 +26,7 @@ public class FetchStateTest {
         }
         this.controller = new Controller(board.getPlayers(),board);
 
+
     }
 
     @After
@@ -36,9 +37,8 @@ public class FetchStateTest {
     public void doActionTest() throws IOException, ParseException {
 
         FetchState state = new FetchState();
+        assertNull(this.board.getWindowsPool());
         this.controller.setState(state);
-//        assertNull(this.board.getWindowsPool());
-        state.doAction(this.controller);
         assertNotNull(this.board.getWindowsPool());
 
     }

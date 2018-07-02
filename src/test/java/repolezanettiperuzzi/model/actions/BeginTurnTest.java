@@ -13,9 +13,11 @@ public class BeginTurnTest {
     @Test
     public void doAction() {
 
+        BeginRound.resetIndex();
         BeginTurn.resetCurrentTurn();
         BeginTurn.resetNumPlayedTurn();
         BeginTurn.resetCurrentPlayer();
+
 
         GameBoard gameBoard=new GameBoard();
         gameBoard.addPlayer("ale","sda","rere","13521.122",12421);
@@ -24,7 +26,7 @@ public class BeginTurnTest {
         assertEquals(0,BeginTurn.getCurrentTurn());
         assertEquals(0,BeginTurn.getNumPlayedTurn());
 
-        testBeginTurn.doAction(gameBoard.getPlayer(0),gameBoard);
+        testBeginTurn.doAction(gameBoard.getPlayer(BeginTurn.getCurrentPlayer()),gameBoard);
 
         assertEquals(0,BeginTurn.getCurrentPlayer());
         assertEquals(0,BeginTurn.getCurrentTurn());
@@ -45,37 +47,48 @@ public class BeginTurnTest {
         gameBoard.addPlayer("lele","sda","rere","13521.122",12421);
         gameBoard.addPlayer("ywyw","assa","rerereff","65.21.8788",5335);
 
+        BeginRound.increaseIndex();
+        BeginTurn.resetCurrentPlayer();
+
         //faccio un'andata e un ritorno
-        BeginTurn.nextTurnParameters(gameBoard,gameBoard.getPlayer(0));
-        assertEquals(1,gameBoard.getPlayer(0).getTurn());
-        assertEquals(0,BeginTurn.getCurrentTurn());
-
-        BeginTurn.nextTurnParameters(gameBoard,gameBoard.getPlayer(1));
+        assertTrue(BeginTurn.controlTurn(gameBoard.getPlayer(1)));
+        BeginTurn.nextTurnParameters(gameBoard,gameBoard.getPlayer(BeginTurn.getCurrentPlayer()));
         assertEquals(1,gameBoard.getPlayer(1).getTurn());
         assertEquals(0,BeginTurn.getCurrentTurn());
 
-        BeginTurn.nextTurnParameters(gameBoard,gameBoard.getPlayer(2));
+        assertTrue(BeginTurn.controlTurn(gameBoard.getPlayer(2)));
+        BeginTurn.nextTurnParameters(gameBoard,gameBoard.getPlayer(BeginTurn.getCurrentPlayer()));
         assertEquals(1,gameBoard.getPlayer(2).getTurn());
         assertEquals(0,BeginTurn.getCurrentTurn());
 
-        BeginTurn.nextTurnParameters(gameBoard,gameBoard.getPlayer(3));
+        assertTrue(BeginTurn.controlTurn(gameBoard.getPlayer(3)));
+        BeginTurn.nextTurnParameters(gameBoard,gameBoard.getPlayer(BeginTurn.getCurrentPlayer()));
         assertEquals(1,gameBoard.getPlayer(3).getTurn());
-        assertEquals(1,BeginTurn.getCurrentTurn());
+        assertEquals(0,BeginTurn.getCurrentTurn());
 
-        BeginTurn.nextTurnParameters(gameBoard,gameBoard.getPlayer(0));
+        assertTrue(BeginTurn.controlTurn(gameBoard.getPlayer(0)));
+        BeginTurn.nextTurnParameters(gameBoard,gameBoard.getPlayer(BeginTurn.getCurrentPlayer()));
         assertEquals(1,gameBoard.getPlayer(0).getTurn());
         assertEquals(1,BeginTurn.getCurrentTurn());
 
-        BeginTurn.nextTurnParameters(gameBoard,gameBoard.getPlayer(1));
-        assertEquals(1,gameBoard.getPlayer(1).getTurn());
+        assertTrue(BeginTurn.controlTurn(gameBoard.getPlayer(0)));
+        BeginTurn.nextTurnParameters(gameBoard,gameBoard.getPlayer(BeginTurn.getCurrentPlayer()));
+        assertEquals(1,gameBoard.getPlayer(0).getTurn());
         assertEquals(1,BeginTurn.getCurrentTurn());
 
-        BeginTurn.nextTurnParameters(gameBoard,gameBoard.getPlayer(2));
+        assertTrue(BeginTurn.controlTurn(gameBoard.getPlayer(3)));
+        BeginTurn.nextTurnParameters(gameBoard,gameBoard.getPlayer(BeginTurn.getCurrentPlayer()));
+        assertEquals(1,gameBoard.getPlayer(3).getTurn());
+        assertEquals(1,BeginTurn.getCurrentTurn());
+
+        assertTrue(BeginTurn.controlTurn(gameBoard.getPlayer(2)));
+        BeginTurn.nextTurnParameters(gameBoard,gameBoard.getPlayer(BeginTurn.getCurrentPlayer()));
         assertEquals(1,gameBoard.getPlayer(2).getTurn());
         assertEquals(1,BeginTurn.getCurrentTurn());
 
-        BeginTurn.nextTurnParameters(gameBoard,gameBoard.getPlayer(3));
-        assertEquals(1,gameBoard.getPlayer(3).getTurn());
+        assertTrue(BeginTurn.controlTurn(gameBoard.getPlayer(1)));
+        BeginTurn.nextTurnParameters(gameBoard,gameBoard.getPlayer(BeginTurn.getCurrentPlayer()));
+        assertEquals(1,gameBoard.getPlayer(1).getTurn());
         assertEquals(1,BeginTurn.getCurrentTurn());
 
 

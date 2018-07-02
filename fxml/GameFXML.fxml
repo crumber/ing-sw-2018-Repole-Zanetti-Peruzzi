@@ -6,11 +6,16 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="1281.0" fitWidth="1280.0" focusTraversable="true" opacity="0.11" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-481.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-17.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -43,17 +48,17 @@
          </image>
       </ImageView>
       <AnchorPane fx:id="playerWindow" layoutX="515.0" layoutY="300.0" prefHeight="250.0" prefWidth="250.0" />
-      <Button fx:id="R1" ellipsisString="" layoutX="382.5" layoutY="83.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" />
-      <Button fx:id="R2" ellipsisString="" layoutX="434.5" layoutY="83.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" />
-      <Button fx:id="R3" ellipsisString="" layoutX="486.5" layoutY="83.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" />
-      <Button fx:id="R4" ellipsisString="" layoutX="538.5" layoutY="83.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" />
-      <Button fx:id="R5" ellipsisString="" layoutX="590.5" layoutY="83.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" />
-      <Button fx:id="R6" ellipsisString="" layoutX="642.5" layoutY="83.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" />
-      <Button fx:id="R7" ellipsisString="" layoutX="694.5" layoutY="83.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" />
-      <Button fx:id="R8" ellipsisString="" layoutX="746.5" layoutY="83.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" />
-      <Button fx:id="R9" ellipsisString="" layoutX="798.5" layoutY="83.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" />
-      <Button fx:id="R10" ellipsisString="" layoutX="850.5" layoutY="83.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#43c9ee" height="40.0" layoutX="1103.0" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" style="-fx-arc-height: 30; -fx-arc-width: 30;" width="110.0" />
+      <Rectangle fx:id="R1" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="382.5" layoutY="83.0" strokeLineCap="ROUND" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
+      <Rectangle fx:id="R2" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="434.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
+      <Rectangle fx:id="R3" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="486.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
+      <Rectangle fx:id="R4" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="538.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
+      <Rectangle fx:id="R5" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="590.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
+      <Rectangle fx:id="R6" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="642.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
+      <Rectangle fx:id="R7" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="694.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
+      <Rectangle fx:id="R8" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="746.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
+      <Rectangle fx:id="R9" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="798.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
+      <Rectangle fx:id="R10" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="850.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#56c8f5" height="40.0" layoutX="1103.0" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" style="-fx-arc-height: 30; -fx-arc-width: 30;" width="110.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c0c9c9" height="39.0" layoutX="1103.0" layoutY="430.0" stroke="BLACK" strokeType="INSIDE" style="-fx-arc-height: 30; -fx-arc-width: 30;" width="110.0" />
       <ImageView fitHeight="200.0" fitWidth="143.27" layoutX="1086.73" layoutY="450.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -77,5 +82,96 @@
       </Label>
       <Button fx:id="ToolCards" ellipsisString="" layoutX="1086.73" layoutY="450.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="143.27" style="-fx-background-color: transparent;" />
       <Button fx:id="PublicCards" ellipsisString="" layoutX="1086.73" layoutY="200.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="143.27" style="-fx-background-color: transparent;" />
+      <GridPane layoutX="55.0" layoutY="530.0" prefHeight="150.0" prefWidth="150.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <Pane layoutX="800.19" layoutY="450.0" maxWidth="429.81" prefHeight="230.0" prefWidth="429.81" style="-fx-background-color: grey;" visible="false">
+         <children>
+            <HBox prefHeight="230.0" prefWidth="430.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="143.27">
+                     <children>
+                        <ImageView fitHeight="200.0" fitWidth="143.27" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/ToolCards/tc9.jpg" />
+                           </image></ImageView>
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="143.27" text="Button" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="143.27">
+                     <children>
+                        <ImageView fitHeight="200.0" fitWidth="143.27" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/ToolCards/tc10.jpg" />
+                           </image></ImageView>
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="143.27" text="Button" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="143.27">
+                     <children>
+                        <ImageView fitHeight="200.0" fitWidth="143.27" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/ToolCards/tc3.jpg" />
+                           </image></ImageView>
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="143.27" text="Button" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+      <Pane layoutX="800.19" layoutY="200.0" prefHeight="200.0" prefWidth="430.0" style="-fx-background-color: grey;" visible="false">
+         <children>
+            <HBox prefHeight="200.0" prefWidth="430.0">
+               <children>
+                  <ImageView fitHeight="200.0" fitWidth="143.27" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/PublicCards/pc1.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="200.0" fitWidth="143.27" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/PublicCards/pc3.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="200.0" fitWidth="143.27" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/PublicCards/pc10.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </Pane>
+      <Button cancelButton="true" ellipsisString="x" layoutX="802.0" layoutY="202.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00)linear-gradient(#ff5400, #be1d00); -fx-background-radius: 30; -fx-background-insets: 0;" text="x" textFill="WHITE" visible="false">
+         <font>
+            <Font size="7.0" />
+         </font>
+      </Button>
+      <Button cancelButton="true" ellipsisString="x" layoutX="802.0" layoutY="452.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="15.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00)linear-gradient(#ff5400, #be1d00); -fx-background-radius: 30; -fx-background-insets: 0;" text="x" textFill="WHITE" visible="false">
+         <font>
+            <Font size="7.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

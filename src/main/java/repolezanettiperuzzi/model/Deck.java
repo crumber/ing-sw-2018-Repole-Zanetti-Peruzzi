@@ -129,7 +129,7 @@ public class Deck {
             publicCardsDeck = new ArrayList<>(nPublicCards);
 
             String addZero;
-            System.out.println("nPublicCards "+nPublicCards);
+
             for (int i = 0; i < nPublicCards; i++) {
                 addZero = i<9 ? "0" : "";
                 ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(new DynamicPath(publicCardsFolder + "/pc" + addZero+(i + 1) + ".txt").getPathNoFile()));
@@ -142,7 +142,6 @@ public class Deck {
             nToolCards = new File(new DynamicPath(toolCardsFolder).getPathNoFile()).list().length;
             toolCardsDeck = new ArrayList<>(nToolCards);
 
-            System.out.println("nToolCards "+nToolCards);
             for (int i = 0; i < nToolCards; i++) {
                 addZero = i<9 ? "0" : "";
                 ArrayList<String> lines = (ArrayList<String>) Files.readAllLines(Paths.get(new DynamicPath(toolCardsFolder + "/tc" + addZero+(i + 1) + ".txt").getPathNoFile()));
