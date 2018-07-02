@@ -150,37 +150,43 @@ public class Box {
 
     @Override
     public String toString(){
-        String res = "";
 
-        if(this.die==null) {
+        String res;
 
-            if (getBoundColour() != null) {
-                switch (getBoundColour()) {
-                    case YELLOW:
-                        res = "Y";
-                        break;
-                    case RED:
-                        res = "R";
-                        break;
-                    case BLUE:
-                        res = "B";
-                        break;
-                    case PURPLE:
-                        res = "P";
-                        break;
-                    default:
-                        res = "G";
-                        break;
-                }
-            } else if (getBoundValue() != null) {
-                res = getBoundValue().getNumber() + "";
-            } else {
-                res = "0";
+        if (getBoundColour() != null) {
+
+            switch (getBoundColour()) {
+
+                case YELLOW:
+                    res = "Y";
+                    break;
+
+                case RED:
+                    res = "R";
+                    break;
+                case BLUE:
+                    res = "B";
+                    break;
+                case PURPLE:
+                    res = "P";
+                    break;
+                default:
+                    res = "G";
+                    break;
             }
 
-        }else{
+        } else if (getBoundValue() != null) {
 
-           res = die.toString();
+            res = getBoundValue().getNumber() + "";
+
+        } else {
+            res = "0";
+        }
+
+        if(this.die!=null) {
+
+
+           res += die.toString();
 
         }
 

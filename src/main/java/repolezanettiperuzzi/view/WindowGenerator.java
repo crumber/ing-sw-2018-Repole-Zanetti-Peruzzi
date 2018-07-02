@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
@@ -49,10 +50,8 @@ public class WindowGenerator {
         Color purple = Color.rgb(142, 67, 129);
         Color green = Color.rgb(36, 157, 107);
         Color yellow = Color.rgb(228, 209, 68);
-        Canvas box;
-        Button button;
-
-        String buttonStyle = "-fx-background-color: transparent;"+"-fx-text-fill: transparent;";
+        Canvas box = null;
+        ImageView dice;
 
         for (int i=0; i<copyBoard.length; i++){
 
@@ -69,18 +68,7 @@ public class WindowGenerator {
                             gc.setFill(Color.BLACK);
                             gc.fillRect(0,0,50,50);
                             gc.drawImage(new Image(new DynamicPath("assets/boxes/BOX-01.png").getPath()),1,1,49,49);
-
-                            if(clickableBox){
-
-                                gridWindow.add(box,j,i);
-                                setEventsOnBoxes(gridWindow, box, i, j);
-
-                            }else {
-
-                                gridWindow.add(box, j, i);
-
-                            }
-
+                            gridWindow.add(box,j,i);
                             break;
 
                         case TWO:
@@ -90,18 +78,7 @@ public class WindowGenerator {
                             gc.setFill(Color.BLACK);
                             gc.fillRect(0,0,50,50);
                             gc.drawImage(new Image(new DynamicPath("assets/boxes/BOX-02.png").getPath()),1,1,49,49);
-
-                            if(clickableBox){
-
-                                gridWindow.add(box,j,i);
-                                setEventsOnBoxes(gridWindow, box, i, j);
-
-                            }else {
-
-                                gridWindow.add(box, j, i);
-
-                            }
-
+                            gridWindow.add(box,j,i);
                             break;
 
                         case THREE:
@@ -111,18 +88,7 @@ public class WindowGenerator {
                             gc.setFill(Color.BLACK);
                             gc.fillRect(0,0,50,50);
                             gc.drawImage(new Image(new DynamicPath("assets/boxes/BOX-03.png").getPath()),1,1,49,49);
-
-                            if(clickableBox){
-
-                                gridWindow.add(box,j,i);
-                                setEventsOnBoxes(gridWindow, box, i, j);
-                            }else {
-
-                                gridWindow.add(box, j, i);
-
-                            }
-
-
+                            gridWindow.add(box,j,i);
                             break;
 
                         case FOUR:
@@ -132,19 +98,7 @@ public class WindowGenerator {
                             gc.setFill(Color.BLACK);
                             gc.fillRect(0,0,50,50);
                             gc.drawImage(new Image(new DynamicPath("assets/boxes/BOX-04.png").getPath()),1,1,49,49);
-
-                            if(clickableBox){
-
-                                gridWindow.add(box,j,i);
-                                setEventsOnBoxes(gridWindow, box, i, j);
-
-                            }else {
-
-                                gridWindow.add(box, j, i);
-
-                            }
-
-
+                            gridWindow.add(box,j,i);
                             break;
 
                         case FIVE:
@@ -154,19 +108,7 @@ public class WindowGenerator {
                             gc.setFill(Color.BLACK);
                             gc.fillRect(0,0,50,50);
                             gc.drawImage(new Image(new DynamicPath("assets/boxes/BOX-05.png").getPath()),1,1,49,49);
-
-                            if(clickableBox){
-
-                                gridWindow.add(box,j,i);
-                                setEventsOnBoxes(gridWindow, box, i, j);
-
-                            }else {
-
-                                gridWindow.add(box, j, i);
-
-                            }
-
-
+                            gridWindow.add(box,j,i);
                             break;
 
                         case SIX:
@@ -176,22 +118,9 @@ public class WindowGenerator {
                             gc.setFill(Color.BLACK);
                             gc.fillRect(0,0,50,50);
                             gc.drawImage(new Image(new DynamicPath("assets/boxes/BOX-06.png").getPath()),1,1,49,49);
-
-                            if(clickableBox){
-
-                                gridWindow.add(box,j,i);
-                                setEventsOnBoxes(gridWindow, box, i, j);
-
-                            }else {
-
-                                gridWindow.add(box, j, i);
-
-                            }
-
-
+                            gridWindow.add(box,j,i);
                             break;
-
-
+                            
                     }
                 }else if(copyBoard[i][j].getBoundColour()!=null){
 
@@ -204,20 +133,9 @@ public class WindowGenerator {
                             gc.fillRect(0,0,50,50);
                             gc.setFill(red);
                             gc.fillRect(1,1,49,49);
-
-                            if(clickableBox){
-
-                                gridWindow.add(box,j,i);
-                                setEventsOnBoxes(gridWindow, box, i, j);
-
-                            }else {
-
-                                gridWindow.add(box, j, i);
-
-                            }
-
-
+                            gridWindow.add(box,j,i);
                             break;
+                            
                         case BLUE:
                             box = new Canvas(50,50);
                             gc = box.getGraphicsContext2D();
@@ -225,84 +143,44 @@ public class WindowGenerator {
                             gc.fillRect(0,0,50,50);
                             gc.setFill(blue);
                             gc.fillRect(1,1,49,49);
-
-                            if(clickableBox){
-
-                                gridWindow.add(box,j,i);
-                                setEventsOnBoxes(gridWindow, box, i, j);
-
-                            }else {
-
-                                gridWindow.add(box, j, i);
-
-                            }
-
+                            gridWindow.add(box,j,i);
                             break;
+                            
                         case GREEN:
+                            
                             box = new Canvas(50,50);
                             gc = box.getGraphicsContext2D();
                             gc.setFill(Color.BLACK);
                             gc.fillRect(0,0,50,50);
                             gc.setFill(green);
                             gc.fillRect(1,1,49,49);
-
-                            if(clickableBox){
-
-                                gridWindow.add(box,j,i);
-                                setEventsOnBoxes(gridWindow, box, i, j);
-
-                            }else {
-
-                                gridWindow.add(box, j, i);
-
-                            }
-
-
+                            gridWindow.add(box,j,i);
                             break;
+                            
                         case PURPLE:
+                            
                             box = new Canvas(50,50);
                             gc = box.getGraphicsContext2D();
                             gc.setFill(Color.BLACK);
                             gc.fillRect(0,0,50,50);
                             gc.setFill(purple);
                             gc.fillRect(1,1,49,49);
-
-                            if(clickableBox){
-
-                                gridWindow.add(box,j,i);
-                                setEventsOnBoxes(gridWindow, box, i, j);
-
-                            }else {
-
-                                gridWindow.add(box, j, i);
-
-                            }
-
-
+                            gridWindow.add(box,j,i);
                             break;
+                            
                         case YELLOW:
+                            
                             box = new Canvas(50,50);
                             gc = box.getGraphicsContext2D();
                             gc.setFill(Color.BLACK);
                             gc.fillRect(0,0,50,50);
                             gc.setFill(yellow);
                             gc.fillRect(1,1,49,49);
-
-                            if(clickableBox){
-
-                                gridWindow.add(box,j,i);
-                                setEventsOnBoxes(gridWindow, box, i, j);
-
-                            }else {
-
-                                gridWindow.add(box, j, i);
-
-                            }
-
-
+                            gridWindow.add(box,j,i);
                             break;
 
                     }
+                    
                 }else{
 
                     box = new Canvas(50,50);
@@ -312,19 +190,21 @@ public class WindowGenerator {
                     gc.setFill(Color.WHITE);
                     gc.fillRect(1,1,49,49);
 
-                    if(clickableBox){
+                    gridWindow.add(box,j,i);
+                    
+                }
 
-                        gridWindow.add(box,j,i);
-                        setEventsOnBoxes(gridWindow, box, i, j);
+                if(copyBoard[i][j].thereIsDie()){
 
-                    }else {
+                   dice = new ImageView(new Image(new DynamicPath("assets/dice/"+copyBoard[i][j].getDie().toString()+".png").getPath()));
+                   gridWindow.add(dice,j,i);
+                   
+                }
+                
+                if(clickableBox){
 
-                        gridWindow.add(box, j, i);
-
-                    }
-
-
-
+                    setEventsOnBoxes(gridWindow, box, i, j);
+                    
                 }
             }
         }
@@ -350,9 +230,8 @@ public class WindowGenerator {
         rect.setOnMouseExited(e -> {
             synchronized (clickLock) {
                 mouseOut = true;
-                System.out.println("entro");
                 if ((coordinates.xPos != i) || (coordinates.yPos != j)) {
-                    System.out.println("ancora");
+                    
                     rect.setVisible(false);
                     rect.setOpacity(0.5);
                 }

@@ -118,4 +118,15 @@ public class BoxClient implements Serializable {
 
     }
 
+    public boolean thereIsDie(){
+
+        return this.die != null;
+
+    }
+
+    public DieClient getDie(){
+
+        return this.die;
+    }
+
 }

@@ -3,15 +3,12 @@ package repolezanettiperuzzi.view;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -38,8 +35,8 @@ import repolezanettiperuzzi.common.modelwrapper.GameBoardClient;
 import repolezanettiperuzzi.common.modelwrapper.PlayerClient;
 import repolezanettiperuzzi.common.modelwrapper.WindowClient;
 import repolezanettiperuzzi.model.Player;
+import repolezanettiperuzzi.common.modelwrapper.*;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -85,6 +82,19 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     @FXML
     private ResourceBundle resources;
+
+    @FXML
+    private AnchorPane favorTokensPane;
+
+    @FXML
+    private ImageView tc1,tc2,tc3,pc1,pc2,pc3,secretColor;
+
+    @FXML
+    private VBox pcWindow, tcWindow;
+
+    @FXML
+    private Button ToolCards, PublicCards, tcClose, pcClose;
+
 
     // Add a public no-args constructor
     public GameFXMLController()
@@ -136,22 +146,61 @@ public class GameFXMLController extends FXMLController implements Initializable{
     public void updateView(GameBoardClient board, int currentTime){
         synchronized (clickLock) {
             //this.setTimer(currentTime);
-            ArrayList<Node> nodesToDelete = new ArrayList<>();
+            ArrayList<Node> nodesToDeleteWindow = new ArrayList<>();
+            ArrayList<Node> nodesToDeleteDraft = new ArrayList<>();
+            ArrayList<Node> nodesToDeleteFT = new ArrayList<>();
+
             if (alreadyUpdated) {
-                ObservableList<Node> children = playerWindow.getChildren();
-                for (Node node : children) {
+                ObservableList<Node> childrenWindow = playerWindow.getChildren();
+                ObservableList<Node> draftChildren = draftPane.getChildren();
+                ObservableList<Node> fvChildren = favorTokensPane.getChildren();
+
+                for (Node node : childrenWindow) {
                     if ((node.getId() != null) && node.getId().contains("gridWindow")) {
-                        nodesToDelete.add(node);
+                        nodesToDeleteWindow.add(node);
                     }
                 }
+
+                for (Node node :draftChildren) {
+                    if (node.getId() != null) {
+                        nodesToDeleteDraft.add(node);
+                    }
+                }
+
+                for (Node node :fvChildren) {
+                    if (node.getId() != null) {
+                        nodesToDeleteFT.add(node);
+                    }
+                }
+
+
             }
+
             viewWindows(board);
             viewDraft(board);
+            viewCards(board);
+            viewSecretColor(board);
+            //viewDraft();
             alreadyUpdated = true;
 
-            for (Node n : nodesToDelete) {
+            for (Node n : nodesToDeleteWindow) {
+
                 Platform.runLater(() -> playerWindow.getChildren().remove(n));
+
             }
+
+            for (Node n : nodesToDeleteDraft) {
+
+                Platform.runLater(() -> draftPane.getChildren().remove(n));
+
+            }
+
+            for (Node n : nodesToDeleteFT) {
+
+                Platform.runLater(() -> favorTokensPane.getChildren().remove(n));
+
+            }
+
         }
     }
 
@@ -325,6 +374,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 case "endTurnButton":
                     System.out.println("pressed end turn");
                     break;
+
             }
         }
     }
@@ -359,8 +409,81 @@ public class GameFXMLController extends FXMLController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         alreadyUpdated = false;
         clickLock = new Object();
+
+        ToolCards.setOnMouseReleased((e) -> tcWindow.setVisible(true));
+        PublicCards.setOnMouseReleased((e) -> pcWindow.setVisible(true));
+        tcClose.setOnMouseReleased((e) -> tcWindow.setVisible(false));
+        pcClose.setOnMouseReleased((e) -> pcWindow.setVisible(false));
+
+
         lastDieDraft = -1;
         setButtonEvents(insertDieButton, "insertDieButton","#1895d7", "#084c8a", "#00c0ff");
         setButtonEvents(endTurnButton, "endTurnButton","#1895d7", "#084c8a", "#00c0ff");
     }
+
+    public void viewCards(GameBoardClient board){
+
+        int i = 0;
+
+        for(ToolCardClient cardClient: board.getToolCards()){
+
+            if(i==0){
+
+                Platform.runLater(() -> tc1.setImage(new Image(new DynamicPath("assets/ToolCards/"+cardClient.getTitle()+".jpg").getPath())));
+
+
+            }
+
+            if(i==1){
+
+                Platform.runLater(() ->tc2.setImage(new Image(new DynamicPath("assets/ToolCards/"+cardClient.getTitle()+".jpg").getPath())));
+
+
+            }
+
+            if(i==2){
+
+                Platform.runLater(() ->tc3.setImage(new Image(new DynamicPath("assets/ToolCards/"+cardClient.getTitle()+".jpg").getPath())));
+
+            }
+
+            i++;
+
+        }
+
+        i=0;
+
+        for(PublicCardClient cardClient: board.getPublicCards()){
+
+            if(i==0){
+
+                Platform.runLater(() -> pc1.setImage(new Image(new DynamicPath("assets/PublicCards/"+cardClient.getTitle()+".jpg").getPath())));
+
+
+            }
+
+            if(i==1){
+
+                Platform.runLater(() ->pc2.setImage(new Image(new DynamicPath("assets/PublicCards/"+cardClient.getTitle()+".jpg").getPath())));
+
+
+            }
+
+            if(i==2){
+
+                Platform.runLater(() ->pc3.setImage(new Image(new DynamicPath("assets/PublicCards/"+cardClient.getTitle()+".jpg").getPath())));
+
+            }
+
+            i++;
+        }
+
+    }
+
+    public void viewSecretColor(GameBoardClient board){
+
+        Platform.runLater(() -> secretColor.setImage(new Image(new DynamicPath("assets/SecretColors/"+board.getPlayerByName(gV.getUsername()).getSecretColour().toString()+".png").getPath())));
+
+    }
+
 }
