@@ -1,25 +1,42 @@
 package repolezanettiperuzzi.view;
 
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.common.modelwrapper.BoxClient;
 import repolezanettiperuzzi.common.modelwrapper.WindowClient;
 
 import javafx.scene.input.MouseEvent;
 
+import java.awt.*;
+
 
 public class WindowGenerator {
 
     private WindowClient window;
+    private boolean mouseOut;
+    private Coordinates coordinates;
+    private Object clickLock;
+    private GameFXMLController controller;
 
     public WindowGenerator(WindowClient window){
         this.window = window;
+    }
+
+    public WindowGenerator(WindowClient window, Object clickLock, GameFXMLController controller){
+        this.window = window;
+        this.coordinates = new Coordinates(-1, -1);
+        this.clickLock = clickLock;
+        this.controller = controller;
     }
 
     public GridPane getWindowFXObject(boolean clickableBox)  {
@@ -55,13 +72,8 @@ public class WindowGenerator {
 
                             if(clickableBox){
 
-                                box.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                                    @Override
-                                    public void handle(MouseEvent event) {
-                                        event.consume();
-                                    }
-                                });
                                 gridWindow.add(box,j,i);
+                                setEventsOnBoxes(gridWindow, box, i, j);
 
                             }else {
 
@@ -81,13 +93,8 @@ public class WindowGenerator {
 
                             if(clickableBox){
 
-                                box.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                                    @Override
-                                    public void handle(MouseEvent event) {
-                                        event.consume();
-                                    }
-                                });
                                 gridWindow.add(box,j,i);
+                                setEventsOnBoxes(gridWindow, box, i, j);
 
                             }else {
 
@@ -107,14 +114,8 @@ public class WindowGenerator {
 
                             if(clickableBox){
 
-                                box.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                                    @Override
-                                    public void handle(MouseEvent event) {
-                                        event.consume();
-                                    }
-                                });
                                 gridWindow.add(box,j,i);
-
+                                setEventsOnBoxes(gridWindow, box, i, j);
                             }else {
 
                                 gridWindow.add(box, j, i);
@@ -134,13 +135,8 @@ public class WindowGenerator {
 
                             if(clickableBox){
 
-                                box.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                                    @Override
-                                    public void handle(MouseEvent event) {
-                                        event.consume();
-                                    }
-                                });
                                 gridWindow.add(box,j,i);
+                                setEventsOnBoxes(gridWindow, box, i, j);
 
                             }else {
 
@@ -161,13 +157,8 @@ public class WindowGenerator {
 
                             if(clickableBox){
 
-                                box.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                                    @Override
-                                    public void handle(MouseEvent event) {
-                                        event.consume();
-                                    }
-                                });
                                 gridWindow.add(box,j,i);
+                                setEventsOnBoxes(gridWindow, box, i, j);
 
                             }else {
 
@@ -188,13 +179,8 @@ public class WindowGenerator {
 
                             if(clickableBox){
 
-                                box.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                                    @Override
-                                    public void handle(MouseEvent event) {
-                                        event.consume();
-                                    }
-                                });
                                 gridWindow.add(box,j,i);
+                                setEventsOnBoxes(gridWindow, box, i, j);
 
                             }else {
 
@@ -221,13 +207,8 @@ public class WindowGenerator {
 
                             if(clickableBox){
 
-                                box.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                                    @Override
-                                    public void handle(MouseEvent event) {
-                                        event.consume();
-                                    }
-                                });
                                 gridWindow.add(box,j,i);
+                                setEventsOnBoxes(gridWindow, box, i, j);
 
                             }else {
 
@@ -247,13 +228,8 @@ public class WindowGenerator {
 
                             if(clickableBox){
 
-                                box.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                                    @Override
-                                    public void handle(MouseEvent event) {
-                                        event.consume();
-                                    }
-                                });
                                 gridWindow.add(box,j,i);
+                                setEventsOnBoxes(gridWindow, box, i, j);
 
                             }else {
 
@@ -272,13 +248,8 @@ public class WindowGenerator {
 
                             if(clickableBox){
 
-                                box.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                                    @Override
-                                    public void handle(MouseEvent event) {
-                                        event.consume();
-                                    }
-                                });
                                 gridWindow.add(box,j,i);
+                                setEventsOnBoxes(gridWindow, box, i, j);
 
                             }else {
 
@@ -298,13 +269,8 @@ public class WindowGenerator {
 
                             if(clickableBox){
 
-                                box.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                                    @Override
-                                    public void handle(MouseEvent event) {
-                                        event.consume();
-                                    }
-                                });
                                 gridWindow.add(box,j,i);
+                                setEventsOnBoxes(gridWindow, box, i, j);
 
                             }else {
 
@@ -324,13 +290,8 @@ public class WindowGenerator {
 
                             if(clickableBox){
 
-                                box.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                                    @Override
-                                    public void handle(MouseEvent event) {
-                                        event.consume();
-                                    }
-                                });
                                 gridWindow.add(box,j,i);
+                                setEventsOnBoxes(gridWindow, box, i, j);
 
                             }else {
 
@@ -353,14 +314,8 @@ public class WindowGenerator {
 
                     if(clickableBox){
 
-                        box.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                            @Override
-                            public void handle(MouseEvent event) {
-
-                                event.consume();
-                            }
-                        });
                         gridWindow.add(box,j,i);
+                        setEventsOnBoxes(gridWindow, box, i, j);
 
                     }else {
 
@@ -377,5 +332,67 @@ public class WindowGenerator {
         gridWindow.setGridLinesVisible(true);
 
         return gridWindow;
+    }
+
+    public void setEventsOnBoxes(GridPane grid, Canvas box, int i, int j){
+        Rectangle rect = new Rectangle(50 ,50);
+        rect.setFill(Color.LIGHTGRAY);
+        rect.setOpacity(0.5);
+        rect.setVisible(false);
+        rect.setId("Rect"+j+i);
+        grid.add(rect, j, i);
+        box.setOnMouseEntered(e -> {
+            synchronized (clickLock) {
+                mouseOut = false;
+                rect.setVisible(true);
+            }
+        });
+        rect.setOnMouseExited(e -> {
+            synchronized (clickLock) {
+                mouseOut = true;
+                System.out.println("entro");
+                if ((coordinates.xPos != i) || (coordinates.yPos != j)) {
+                    System.out.println("ancora");
+                    rect.setVisible(false);
+                    rect.setOpacity(0.5);
+                }
+            }
+        });
+        rect.setOnMousePressed(e -> {synchronized (clickLock){rect.setOpacity(0.7);}});
+        rect.setOnMouseReleased(e -> onClickBoxes(grid, box, rect, i, j));
+    }
+
+    public void onClickBoxes(GridPane grid, Canvas box, Rectangle rect, int i, int j){
+        synchronized (clickLock) {
+            if (!mouseOut) {
+                ObservableList<Node> childrens = grid.getChildren();
+                for (Node node : childrens) {
+                    if ((node.getId() != null) && (node.getId().equals("Rect" + coordinates.yPos + coordinates.xPos))) {
+                        //System.out.println(node.getId());
+                        Rectangle r = (Rectangle) node;
+                        r.setVisible(false);
+                        r.setStrokeWidth(0);
+                        r.setOpacity(0.5);
+                    }
+                }
+                this.coordinates = new Coordinates(i, j);
+                controller.setLastWindowCell(coordinates);
+                rect.setFill(Color.TRANSPARENT);
+                rect.setOpacity(1);
+                rect.setStroke(Color.PINK);
+                rect.setStrokeType(StrokeType.INSIDE);
+                rect.setStrokeWidth(4.0);
+            }
+        }
+    }
+
+    class Coordinates{
+        public int xPos;
+        public int yPos;
+
+        public Coordinates(int xPos, int yPos){
+            this.xPos = xPos;
+            this.yPos = yPos;
+        }
     }
 }

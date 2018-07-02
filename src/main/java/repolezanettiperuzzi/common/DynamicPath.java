@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 public class DynamicPath {
 
     private String path;
+    private static String OS = System.getProperty("os.name");
 
     public DynamicPath(String path){
         this.path = path;
@@ -17,12 +18,14 @@ public class DynamicPath {
     public String getJarPath(){
         String currPath = System.getProperty("user.dir");
         String jarName = new File(GameViewGUI.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getName();
-        return "jar:file:"+currPath+"/"+jarName+"!/"+path;
+        String result = "jar:file:"+currPath+"/"+jarName+"!/"+path;
+        return OS.startsWith("Windows") ? result.replace("/", "\\") : result;
     }
 
     public String getDebugPath(){
         String currPath = System.getProperty("user.dir");
-        return "file:"+currPath+"/"+path;
+        String result = "file:"+currPath+"/"+path;
+        return OS.startsWith("Windows") ? result.replace("/", "\\") : result;
     }
 
     public String getPath(){
@@ -38,18 +41,22 @@ public class DynamicPath {
             System.out.println(path);
             //System.out.println(getJarPath());
             //System.out.println(DynamicPath.class.getResourceAsStream("/"+path));
-            return getClass().getResource("/"+path).toExternalForm();
+            String result = getClass().getResource("/"+path).toExternalForm();
+            return OS.startsWith("Windows") ? result.replace("/", "\\") : result;
         } else {
-            return getDebugPath().substring(5);
+            String result = getDebugPath().substring(5);
+            return OS.startsWith("Windows") ? result.replace("/", "\\") : result;
         }
     }
 
     public String getPathJsonFile(){
         String currPath = System.getProperty("user.dir");
         if(isJar()){
-            return currPath+"/playersinfo.json";
+            String result = currPath+"/playersinfo.json";
+            return OS.startsWith("Windows") ? result.replace("/", "\\") : result;
         } else {
-            return getDebugPath().substring(5);
+            String result = getDebugPath().substring(5);
+            return result;
         }
     }
 

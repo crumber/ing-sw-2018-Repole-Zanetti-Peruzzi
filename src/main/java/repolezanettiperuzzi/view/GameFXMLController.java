@@ -3,6 +3,9 @@ package repolezanettiperuzzi.view;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -28,13 +32,13 @@ import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.common.modelwrapper.GameBoardClient;
 import repolezanettiperuzzi.common.modelwrapper.PlayerClient;
 import repolezanettiperuzzi.common.modelwrapper.WindowClient;
+import repolezanettiperuzzi.model.Player;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class GameFXMLController extends FXMLController implements Initializable{
 
@@ -44,9 +48,9 @@ public class GameFXMLController extends FXMLController implements Initializable{
     private Timeline timerCountdown;
     private String textContent;
     private boolean mouseOut;
-    private static final String CLICKED_BUTTON_STYLE = "-fx-padding: 6 6 6 6; -fx-background-radius: 8; -fx-background-color: #1895d7; -fx-font-weight: bold; -fx-font-size: 1.1em; -fx-font-family: \"Arial\";";
-    private static final String IDLE_BUTTON_STYLE = "-fx-padding: 8 15 15 15; -fx-background-insets: 0 0 7 0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: 8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #084c8a 0%, #084c8a 100%),        #084c8a,        #084c8a,        radial-gradient(center 50% 50%, radius 100%, #1895d7, #1895d7); -fx-font-weight: bold; -fx-font-size: 1.1em; -fx-font-family: \"Arial\";";
-    private static final String HOVER_BUTTON_STYLE = "-fx-padding: 8 15 15 15; -fx-background-insets: 0 0 7 0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: 8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #084c8a 0%, #084c8a 100%),        #084c8a,        #084c8a,        radial-gradient(center 50% 50%, radius 100%, #00c0ff, #00c0ff); -fx-font-weight: bold; -fx-font-size: 1.1em; -fx-font-family: \"Arial\";";
+    private boolean alreadyUpdated;
+    private Object clickLock;
+    private WindowGenerator.Coordinates lastWindowCell;
 
     @FXML
     // The reference of inputText will be injected by the FXML loader
@@ -111,23 +115,43 @@ public class GameFXMLController extends FXMLController implements Initializable{
         gV.notifyOnExit("game");
     }
 
+    public void setLastWindowCell(WindowGenerator.Coordinates coordinates){
+        this.lastWindowCell = coordinates;
+    }
+
     public void updateView(GameBoardClient board, int currentTime){
-        //this.setTimer(currentTime);
-        viewWindows(board);
+        synchronized (clickLock) {
+            //this.setTimer(currentTime);
+            ArrayList<Node> nodesToDelete = new ArrayList<>();
+            if (alreadyUpdated) {
+                ObservableList<Node> children = playerWindow.getChildren();
+                for (Node node : children) {
+                    if ((node.getId() != null) && node.getId().contains("gridWindow")) {
+                        nodesToDelete.add(node);
+                    }
+                }
+            }
+            viewWindows(board);
+            alreadyUpdated = true;
+
+            for (Node n : nodesToDelete) {
+                Platform.runLater(() -> playerWindow.getChildren().remove(n));
+            }
+        }
     }
 
     public void viewWindows(GameBoardClient board)  {
 
-        int j = 0;
-        int xPos ;
-        int yPos = 0;
+        int i = 0;
 
         for(PlayerClient player : board.getPlayers() ) {
 
-            WindowGenerator wGenerator = new WindowGenerator(player.getWindow());
+            WindowGenerator wGenerator = new WindowGenerator(player.getWindow(), clickLock, this);
             //Esempio con GridPane
-            GridPane pane = wGenerator.getWindowFXObject(true);
+            boolean clickableBox = gV.getUsername().equals(player.getName());
+            GridPane pane = wGenerator.getWindowFXObject(clickableBox);
             VBox box = new VBox();
+            box.setId("gridWindow"+i);
             String windowName = player.getWindow().getName().replace(" ", "-"); //questo per gestire in caso la window arrivi da RMI in cui il nome e' senza trattini
             javafx.scene.image.ImageView windowLabel = new javafx.scene.image.ImageView(new Image(new DynamicPath("assets/Windows/"+windowName+".png").getPath()));
             windowLabel.setFitWidth(50*player.getWindow().getBoardBox()[0].length);
@@ -144,7 +168,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
             }
 
             Platform.runLater(() -> playerWindow.getChildren().add(box));
-
+            i++;
 
             //box.setOnAction(e -> onBoxClick(e,windowName));
 
@@ -265,6 +289,8 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        alreadyUpdated = false;
+        clickLock = new Object();
         setButtonEvents(insertDieButton, "insertDieButton","#1895d7", "#084c8a", "#00c0ff");
         setButtonEvents(endTurnButton, "endTurnButton","#1895d7", "#084c8a", "#00c0ff");
     }
