@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -93,7 +94,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
     private VBox pcWindow, tcWindow;
 
     @FXML
-    private Button ToolCards, PublicCards, tcClose, pcClose;
+    private Button ToolCards, PublicCards, tcClose, pcClose, currentPlayerButton;
 
 
     // Add a public no-args constructor
@@ -180,6 +181,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
             viewDraft(board);
             viewCards(board);
             viewSecretColor(board);
+            viewFavorTokens(board);
             //viewDraft();
             alreadyUpdated = true;
 
@@ -414,11 +416,12 @@ public class GameFXMLController extends FXMLController implements Initializable{
         PublicCards.setOnMouseReleased((e) -> pcWindow.setVisible(true));
         tcClose.setOnMouseReleased((e) -> tcWindow.setVisible(false));
         pcClose.setOnMouseReleased((e) -> pcWindow.setVisible(false));
-
-
         lastDieDraft = -1;
+
+        currentPlayerButton.setText(gV.getUsername());
         setButtonEvents(insertDieButton, "insertDieButton","#1895d7", "#084c8a", "#00c0ff");
         setButtonEvents(endTurnButton, "endTurnButton","#1895d7", "#084c8a", "#00c0ff");
+        setButtonEvents(currentPlayerButton, "currentPlayerButton","#1895d7","#084c8a", "#00c0ff");
     }
 
     public void viewCards(GameBoardClient board){
@@ -484,6 +487,37 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
         Platform.runLater(() -> secretColor.setImage(new Image(new DynamicPath("assets/SecretColors/"+board.getPlayerByName(gV.getUsername()).getSecretColour().toString()+".png").getPath())));
 
+    }
+
+    public void viewFavorTokens(GameBoardClient board){
+
+        for(PlayerClient player: board.getPlayers()) {
+
+            HBox favorTokens = new HBox();
+            ImageView fT;
+
+
+            for (int i = 0; i < player.getFavorTokens(); i++) {
+
+                fT = new ImageView(new Image(new DynamicPath("assets/FavorToken.png").getPath()));
+                fT.setFitWidth(40);
+                fT.setPreserveRatio(true);
+                favorTokens.getChildren().add(fT);
+
+            }
+
+            favorTokens.setSpacing(5);
+            favorTokens.setId(player.getName()+"FavorTokens");
+
+            if (!player.getName().equals(gV.getUsername())){
+
+                favorTokens.setVisible(false);
+
+            }
+
+            Platform.runLater(() -> favorTokensPane.getChildren().add(favorTokens));
+
+        }
     }
 
 }
