@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.HorizontalDirection;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -14,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -33,13 +36,17 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class GameFXMLController extends FXMLController{
+public class GameFXMLController extends FXMLController implements Initializable{
 
     private Stage stage;
     private GameView gV;
     private int timerCounter;
     private Timeline timerCountdown;
     private String textContent;
+    private boolean mouseOut;
+    private static final String CLICKED_BUTTON_STYLE = "-fx-padding: 6 6 6 6; -fx-background-radius: 8; -fx-background-color: #1895d7; -fx-font-weight: bold; -fx-font-size: 1.1em; -fx-font-family: \"Arial\";";
+    private static final String IDLE_BUTTON_STYLE = "-fx-padding: 8 15 15 15; -fx-background-insets: 0 0 7 0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: 8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #084c8a 0%, #084c8a 100%),        #084c8a,        #084c8a,        radial-gradient(center 50% 50%, radius 100%, #1895d7, #1895d7); -fx-font-weight: bold; -fx-font-size: 1.1em; -fx-font-family: \"Arial\";";
+    private static final String HOVER_BUTTON_STYLE = "-fx-padding: 8 15 15 15; -fx-background-insets: 0 0 7 0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: 8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #084c8a 0%, #084c8a 100%),        #084c8a,        #084c8a,        radial-gradient(center 50% 50%, radius 100%, #00c0ff, #00c0ff); -fx-font-weight: bold; -fx-font-size: 1.1em; -fx-font-family: \"Arial\";";
 
     @FXML
     // The reference of inputText will be injected by the FXML loader
@@ -55,6 +62,12 @@ public class GameFXMLController extends FXMLController{
 
     @FXML
     private AnchorPane playerWindow;
+
+    @FXML
+    private Button insertDieButton;
+
+    @FXML
+    private Button endTurnButton;
 
     @FXML
     private ResourceBundle resources;
@@ -201,5 +214,58 @@ public class GameFXMLController extends FXMLController{
         });
 
 
+    }
+
+    public void mousePressed(MouseEvent e, Button b, String backgroundColor){
+        b.setPrefHeight(35);
+        b.setStyle(getPressedButtonStyle(backgroundColor));
+        mouseOut = false;
+    }
+
+    public void mouseReleased(MouseEvent e, Button b, String id, String backgroundColor, String shadowColor){
+        b.setPrefHeight(41);
+        b.setStyle(getIdleButtonStyle(backgroundColor, shadowColor));
+        if(!mouseOut) {
+            switch(id){
+                case "insertDieButton":
+                    System.out.println("pressed insert die");
+                    break;
+                case "endTurnButton":
+                    System.out.println("pressed end turn");
+                    break;
+            }
+        }
+    }
+
+    public String getIdleButtonStyle(String backgroundColor, String shadowColor){
+        final String IDLE_BUTTON_STYLE = "-fx-padding: 8 15 15 15; -fx-background-insets: 0 0 7 0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: 8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, "+shadowColor+" 0%, "+shadowColor+" 100%),        "+shadowColor+",        "+shadowColor+",        radial-gradient(center 50% 50%, radius 100%, "+backgroundColor+", "+backgroundColor+"); -fx-font-weight: bold; -fx-font-size: 1.1em; -fx-font-family: \"Arial\";";
+        return IDLE_BUTTON_STYLE;
+    }
+
+    public String getHoverButtonStyle(String backgroundColor, String shadowColor){
+        String HOVER_BUTTON_STYLE = "-fx-padding: 8 15 15 15; -fx-background-insets: 0 0 7 0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: 8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, "+shadowColor+" 0%, "+shadowColor+" 100%),        "+shadowColor+",        "+shadowColor+",        radial-gradient(center 50% 50%, radius 100%, "+backgroundColor+", "+backgroundColor+"); -fx-font-weight: bold; -fx-font-size: 1.1em; -fx-font-family: \"Arial\";";
+        return HOVER_BUTTON_STYLE;
+    }
+
+    public String getPressedButtonStyle(String backgroundColor){
+        final String PRESSED_BUTTON_STYLE = "-fx-padding: 6 6 6 6; -fx-background-radius: 8; -fx-background-color: "+backgroundColor+"; -fx-font-weight: bold; -fx-font-size: 1.1em; -fx-font-family: \"Arial\";";
+        return PRESSED_BUTTON_STYLE;
+    }
+
+    public void setButtonEvents(Button b, String id, String backgroundColor, String shadowColor, String hoverColor){
+        b.setId(id);
+        b.setOnMouseExited(e -> {
+            mouseOut = true;
+            b.setPrefHeight(41);
+            b.setStyle(getIdleButtonStyle(backgroundColor, shadowColor));});
+        b.setOnMousePressed(e -> mousePressed(e, b, backgroundColor));
+        b.setOnMouseReleased(e -> mouseReleased(e, b, id, backgroundColor, shadowColor));
+        b.setOnMouseEntered(e -> b.setStyle(getHoverButtonStyle(hoverColor, shadowColor)));
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setButtonEvents(insertDieButton, "insertDieButton","#1895d7", "#084c8a", "#00c0ff");
+        setButtonEvents(endTurnButton, "endTurnButton","#1895d7", "#084c8a", "#00c0ff");
     }
 }

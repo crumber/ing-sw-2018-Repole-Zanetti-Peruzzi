@@ -173,5 +173,15 @@
             <Font size="7.0" />
          </font>
       </Button>
+       <Button fx:id="endTurnButton" contentDisplay="TOP" layoutX="1122.0" layoutY="729.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="109.0" style="-fx-padding: 8 15 15 15; -fx-background-insets: 0 0 7 0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: 8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #084c8a 0%, #084c8a 100%),        #084c8a,        #084c8a,        radial-gradient(center 50% 50%, radius 100%, #1895d7, #1895d7); -fx-font-weight: bold; -fx-font-size: 1.1em; -fx-font-family: &quot;Arial&quot;;" text="END TURN" textAlignment="CENTER" textFill="#ffffffe3" textOverrun="WORD_ELLIPSIS">
+           <font>
+               <Font name="Futura Medium" size="14.0" />
+           </font>
+       </Button>
+       <Button fx:id="insertDieButton" contentDisplay="TOP" layoutX="47.0" layoutY="729.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="116.0" style="-fx-padding: 8 15 15 15; -fx-background-insets: 0 0 7 0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: 8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #084c8a 0%, #084c8a 100%),        #084c8a,        #084c8a,        radial-gradient(center 50% 50%, radius 100%, #1895d7, #1895d7); -fx-font-weight: bold; -fx-font-size: 1.1em; -fx-font-family: &quot;Arial&quot;;" text="INSERT DIE" textAlignment="CENTER" textFill="#ffffffe3" textOverrun="WORD_ELLIPSIS">
+           <font>
+               <Font name="Futura Medium" size="14.0" />
+           </font>
+       </Button>
    </children>
 </AnchorPane>

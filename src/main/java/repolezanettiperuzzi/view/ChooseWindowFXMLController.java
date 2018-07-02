@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.common.modelwrapper.WindowClient;
@@ -200,13 +201,13 @@ public class ChooseWindowFXMLController extends FXMLController{
             FXMLLoader finalLoader = loader;
             Platform.runLater(() -> {
                 stage.setScene(new Scene(root, 1280, 800));
-                stage.setMaximized(true);
+                //stage.setMaximized(true);
                 stage.setFullScreen(true);
-                Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-                stage.setX(primaryScreenBounds.getMinX());
-                stage.setY(primaryScreenBounds.getMinY());
-                stage.setWidth(primaryScreenBounds.getWidth());
-                stage.setHeight(primaryScreenBounds.getHeight());
+                //Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+                //stage.setX(primaryScreenBounds.getMinX());
+                //stage.setY(primaryScreenBounds.getMinY());
+                stage.setWidth(stage.getWidth());
+                stage.setHeight(stage.getHeight()-22);
                 stage.setUserData(finalLoader);
             });
             gV.gameLoaded();
