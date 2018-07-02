@@ -187,7 +187,7 @@ public class GameViewCLI implements Runnable {
         }
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.println("\n\nGame Scene");
+        System.out.println("Game Scene");
         try {
             gV.gameLoaded();
         } catch (IOException e) {

@@ -19,13 +19,13 @@ public class DynamicPath {
         String currPath = System.getProperty("user.dir");
         String jarName = new File(GameViewGUI.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getName();
         String result = "jar:file:"+currPath+"/"+jarName+"!/"+path;
-        return OS.startsWith("Windows") ? result.replace("/", "\\") : result;
+        return OS.startsWith("Windows") ? result.replace("\\", "/") : result;
     }
 
     public String getDebugPath(){
         String currPath = System.getProperty("user.dir");
         String result = "file:"+currPath+"/"+path;
-        return OS.startsWith("Windows") ? result.replace("/", "\\") : result;
+        return OS.startsWith("Windows") ? result.replace("\\", "/") : result;
     }
 
     public String getPath(){
@@ -42,10 +42,10 @@ public class DynamicPath {
             //System.out.println(getJarPath());
             //System.out.println(DynamicPath.class.getResourceAsStream("/"+path));
             String result = getClass().getResource("/"+path).toExternalForm();
-            return OS.startsWith("Windows") ? result.replace("/", "\\") : result;
+            return OS.startsWith("Windows") ? result.replace("\\", "/") : result;
         } else {
             String result = getDebugPath().substring(5);
-            return OS.startsWith("Windows") ? result.replace("/", "\\") : result;
+            return OS.startsWith("Windows") ? result.replace("\\", "/") : result;
         }
     }
 
@@ -53,7 +53,7 @@ public class DynamicPath {
         String currPath = System.getProperty("user.dir");
         if(isJar()){
             String result = currPath+"/playersinfo.json";
-            return OS.startsWith("Windows") ? result.replace("/", "\\") : result;
+            return OS.startsWith("Windows") ? result.replace("\\", "/") : result;
         } else {
             String result = getDebugPath().substring(5);
             return result;

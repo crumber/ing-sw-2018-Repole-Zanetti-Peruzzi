@@ -132,6 +132,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 }
             }
             viewWindows(board);
+            //viewDraft();
             alreadyUpdated = true;
 
             for (Node n : nodesToDelete) {
