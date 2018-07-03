@@ -117,7 +117,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
             @Override
             public void handle(ActionEvent event) {
-                timerText.setText("Timer: "+timerCounter);
+                timerText.setText(""+timerCounter);
                 timerCounter--;
             }
         }));
@@ -237,6 +237,11 @@ public class GameFXMLController extends FXMLController implements Initializable{
             }
 
         }
+    }
+
+    public void notifyTurn(String actualPlayer, int currentTime){
+        cancelTimer();
+        setTimer(currentTime);
     }
 
     public void viewDraft(GameBoardClient board){

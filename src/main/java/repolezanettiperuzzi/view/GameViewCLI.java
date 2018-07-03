@@ -35,7 +35,7 @@ public class GameViewCLI implements Runnable {
         this.gV = gV;
         this.isTimerOn = false;
         this.hasShutdownHook = false;
-        if(OS.startsWith("Windows")){
+        /*if(OS.startsWith("Windows")){
             ANSI_RESET = "";
             ANSI_BLACK = "";
             ANSI_RED = "";
@@ -45,7 +45,7 @@ public class GameViewCLI implements Runnable {
             ANSI_PURPLE = "";
             ANSI_CYAN = "";
             ANSI_WHITE = "";
-        }
+        }*/
     }
 
     public void clearScreen(){
@@ -53,8 +53,15 @@ public class GameViewCLI implements Runnable {
             System.out.print("\033[H\033[2J");
             System.out.flush();
         } else {
-            System.out.print("\f");
-            /* PROVA QUESTA ALTRIMENTI
+            try {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            /*System.out.print("\f");
+             PROVA QUESTA ALTRIMENTI
             for(int i = 0; i<25; i++){
                 System.out.println("");
             }

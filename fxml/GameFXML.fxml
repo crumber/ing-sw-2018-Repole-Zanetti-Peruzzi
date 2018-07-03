@@ -187,7 +187,7 @@
             </Pane>
          </children>
       </VBox>
-      <Text fx:id="timerText" fill="WHITE" layoutX="638.0" layoutY="763.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-stroke: black; -fx-stroke-width: 3px;" text="Text" textAlignment="CENTER" wrappingWidth="87.00000643730164">
+      <Text fx:id="timerText" fill="WHITE" layoutX="638.0" layoutY="763.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-stroke: black; -fx-stroke-width: 3px;" textAlignment="CENTER" wrappingWidth="87.00000643730164">
          <font>
             <Font size="35.0" />
          </font>

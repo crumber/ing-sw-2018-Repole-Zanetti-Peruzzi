@@ -104,7 +104,10 @@ public class GameViewSocket implements Runnable{
                 gameView.notYourTurn();
                 break;
             case "error":
-                gameView.viewError(line[0]);
+                gameView.viewError(line[1]);
+                break;
+            case "turn":
+                gameView.notifyTurn(line[1], Integer.parseInt(line[2]));
                 break;
             case "updateView":
                 //System.out.println(line[1]);

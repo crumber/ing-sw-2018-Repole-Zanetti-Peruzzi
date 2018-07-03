@@ -383,6 +383,14 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    public void notifyTurn(String actualPlayer, int currentTime){
+        if(this.UI.equals("GUI")){
+            ((GameFXMLController) fxmlController).notifyTurn(actualPlayer, currentTime);
+        }else if(this.UI.equals("CLI")){
+
+        }
+    }
+
     public synchronized void viewWindows(ArrayList<WindowClient> windows, int currentTime){
         if(this.UI.equals("GUI")){
             ((ChooseWindowFXMLController) fxmlController).viewWindows(windows,currentTime);
