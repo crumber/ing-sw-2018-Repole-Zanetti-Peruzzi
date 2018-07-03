@@ -110,7 +110,7 @@ public class GameViewSocket implements Runnable{
                 gameView.notifyTurn(line[1], Integer.parseInt(line[2]));
                 break;
             case "updateView":
-                //System.out.println(line[1]);
+                System.out.println(line[1]);
                 updateView(line[1]);
                 break;
             case "exit":
@@ -280,14 +280,25 @@ public class GameViewSocket implements Runnable{
         int turn = (int)boardElems[i].charAt(1);
         i++;
 
-        String[] dice = boardElems[i].split("_");
-        //TODO gestire caso in cui il draft non contiene dadi
-        for(int j = 0; j<dice.length; j++) {
-            board.addDieToDraft(new DieClient(dice[j]));
+        if(!boardElems[i].equals("")) {
+            String[] dice = boardElems[i].split("_");
+            for (int j = 0; j < dice.length; j++) {
+                board.addDieToDraft(new DieClient(dice[j]));
+            }
         }
         i++;
 
-        //TODO gestisci roundtrack
+        if(!boardElems[i].equals("")) {
+            String[] roundAndDice = boardElems[i].split("-");
+            for(int j = 0; j<roundAndDice.length; j++){
+                int roundOnTrack = (int)roundAndDice[j].charAt(0);
+                String dice = roundAndDice[j].substring(1);
+                String[] die = dice.split("_");
+                for(int k = 0; k<die.length; k++){
+                    board.setDieToRoundTrack(roundOnTrack, k, new DieClient(die[k]));
+                }
+            }
+        }
         i++;
 
         String[] toolCards = boardElems[i].split("\\*");

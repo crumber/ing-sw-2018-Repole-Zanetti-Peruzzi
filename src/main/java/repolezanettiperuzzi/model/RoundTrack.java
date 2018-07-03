@@ -53,7 +53,7 @@ public class RoundTrack {
 
     }
 
-    //+1B2_..._R3-2Y4_..._G5-....+
+    //1B2_..._R3-2Y4_..._G5-....
     public String toString(){
 
         StringBuilder res = new StringBuilder();

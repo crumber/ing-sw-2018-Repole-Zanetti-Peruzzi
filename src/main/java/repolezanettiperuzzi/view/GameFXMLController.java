@@ -56,6 +56,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
     private Object clickLock;
     private Coordinates lastWindowCell;
     private int lastDieDraft;
+    private boolean myTurn;
 
     @FXML
     // The reference of inputText will be injected by the FXML loader
@@ -242,6 +243,11 @@ public class GameFXMLController extends FXMLController implements Initializable{
     public void notifyTurn(String actualPlayer, int currentTime){
         cancelTimer();
         setTimer(currentTime);
+        if(actualPlayer.equals(gV.getUsername())){
+            myTurn = true;
+        } else {
+            myTurn = false;
+        }
     }
 
     public void viewDraft(GameBoardClient board){
@@ -435,19 +441,23 @@ public class GameFXMLController extends FXMLController implements Initializable{
     }
 
     public void checkInsertDieParameters(){
-        if(this.lastDieDraft>=0 && lastWindowCell.xPos>=0 && lastWindowCell.yPos>=0){
-            try {
-                gV.sendInsertDie(lastDieDraft, lastWindowCell.xPos, lastWindowCell.yPos);
-            } catch (IOException e) {
-                e.printStackTrace();
+        if(myTurn) {
+            if (this.lastDieDraft >= 0 && lastWindowCell.xPos >= 0 && lastWindowCell.yPos >= 0) {
+                try {
+                    gV.sendInsertDie(lastDieDraft, lastWindowCell.xPos, lastWindowCell.yPos);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                //showAlert("Inviato", "Invio "+lastDieDraft+" "+lastWindowCell.xPos+" "+lastWindowCell.yPos);
+            } else if (lastWindowCell.xPos < 0 && lastWindowCell.yPos < 0 && this.lastDieDraft < 0) {
+                showAlert("Inserisci dati", "Scegli un dado e una cella!");
+            } else if (lastWindowCell.xPos < 0 && lastWindowCell.yPos < 0) {
+                showAlert("Scegli cella", "Scegli una cella!");
+            } else if (this.lastDieDraft < 0) {
+                showAlert("Scegli dado", "Scegli un dado!");
             }
-            //showAlert("Inviato", "Invio "+lastDieDraft+" "+lastWindowCell.xPos+" "+lastWindowCell.yPos);
-        } else if(lastWindowCell.xPos<0 && lastWindowCell.yPos<0 && this.lastDieDraft<0){
-            showAlert("Inserisci dati", "Scegli un dado e una cella!");
-        } else if(lastWindowCell.xPos<0 && lastWindowCell.yPos<0){
-            showAlert("Scegli cella", "Scegli una cella!");
-        } else if(this.lastDieDraft<0){
-            showAlert("Scegli dado", "Scegli un dado!");
+        } else {
+            showAlert("Not your turn", "This is not your turn!");
         }
     }
 
@@ -511,6 +521,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
         pcClose.setOnMouseReleased(e -> pcWindow.setVisible(false));
         lastDieDraft = -1;
         lastWindowCell = new Coordinates(-1, -1);
+        myTurn = false;
 
         currentPlayerButton.setText(gV.getUsername());
         setButtonEvents(insertDieButton, "insertDieButton","#1895d7", "#084c8a", "#00c0ff");
