@@ -155,7 +155,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
             ArrayList<Node> nodesToDeleteWindow = new ArrayList<>();
             ArrayList<Node> nodesToDeleteDraft = new ArrayList<>();
             ArrayList<Node> nodesToDeleteFT = new ArrayList<>();
-            ArrayList<Node> nodesToDeleteRT = new ArrayList<>();
+            ArrayList<ArrayList<Node>> nodesToDeleteRT = new ArrayList<>();
             lastDieDraft = -1;
             lastWindowCell.xPos = -1;
             lastWindowCell.yPos = -1;
@@ -196,7 +196,11 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
                 for (Node node : RTChildren){
 
-                    nodesToDeleteRT.add(node);
+                    ArrayList<Node> gridChild = new ArrayList<>();
+
+                    gridChild.addAll(((GridPane) node).getChildren());
+
+                    nodesToDeleteRT.add(gridChild);
 
                 }
 
@@ -251,9 +255,15 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
             }
 
-            for (Node n : nodesToDeleteRT) {
+            for (int i = 0; i<nodesToDeleteRT.size(); i++) {
 
-                Platform.runLater(() -> RTGrids.getChildren().remove(n));
+                Integer I = new Integer(i);
+
+                for(Node node: nodesToDeleteRT.get(i)) {
+
+                    Platform.runLater(() -> ((GridPane)(RTGrids.getChildren()).get(I)).getChildren().remove(node));
+
+                }
             }
 
         }
