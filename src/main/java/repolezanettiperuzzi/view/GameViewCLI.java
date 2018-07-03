@@ -53,13 +53,12 @@ public class GameViewCLI implements Runnable {
             System.out.print("\033[H\033[2J");
             System.out.flush();
         } else {
-            try {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            System.out.print("\f");
+            /* PROVA QUESTA ALTRIMENTI
+            for(int i = 0; i<25; i++){
+                System.out.println("");
             }
+             */
         }
     }
 
