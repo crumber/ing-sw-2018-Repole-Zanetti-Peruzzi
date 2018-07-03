@@ -54,7 +54,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
     private boolean mouseOut;
     private boolean alreadyUpdated;
     private Object clickLock;
-    private WindowGenerator.Coordinates lastWindowCell;
+    private Coordinates lastWindowCell;
     private int lastDieDraft;
 
     @FXML
@@ -136,7 +136,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
         gV.notifyOnExit("game");
     }
 
-    public void setLastWindowCell(WindowGenerator.Coordinates coordinates){
+    public void setLastWindowCell(Coordinates coordinates){
         this.lastWindowCell = coordinates;
     }
 
@@ -150,6 +150,9 @@ public class GameFXMLController extends FXMLController implements Initializable{
             ArrayList<Node> nodesToDeleteWindow = new ArrayList<>();
             ArrayList<Node> nodesToDeleteDraft = new ArrayList<>();
             ArrayList<Node> nodesToDeleteFT = new ArrayList<>();
+            lastDieDraft = -1;
+            lastWindowCell.xPos = -1;
+            lastWindowCell.yPos = -1;
 
             if (alreadyUpdated) {
                 ObservableList<Node> childrenWindow = playerWindow.getChildren();
@@ -162,16 +165,12 @@ public class GameFXMLController extends FXMLController implements Initializable{
                     }
                 }
 
-                for (Node node :draftChildren) {
-                    if (node.getId() != null) {
-                        nodesToDeleteDraft.add(node);
-                    }
+                for (Node node : draftChildren) {
+                    nodesToDeleteDraft.add(node);
                 }
 
-                for (Node node :fvChildren) {
-                    if (node.getId() != null) {
-                        nodesToDeleteFT.add(node);
-                    }
+                for (Node node : fvChildren) {
+                    nodesToDeleteFT.add(node);
                 }
 
 
@@ -226,22 +225,24 @@ public class GameFXMLController extends FXMLController implements Initializable{
     }
 
     public void onClickDieDraft(GridPane grid, int i, Rectangle rect){
-        ObservableList<Node> childrens = grid.getChildren();
-        for (Node node : childrens) {
-            if ((node.getId() != null) && (node.getId().equals("dieDraft"+lastDieDraft))) {
-                //System.out.println(node.getId());
-                Rectangle r = (Rectangle) node;
-                r.setVisible(false);
-                r.setStrokeWidth(0);
-                r.setOpacity(0.5);
+        synchronized (clickLock) {
+            ObservableList<Node> childrens = grid.getChildren();
+            for (Node node : childrens) {
+                if ((node.getId() != null) && (node.getId().equals("dieDraft" + lastDieDraft))) {
+                    //System.out.println(node.getId());
+                    Rectangle r = (Rectangle) node;
+                    r.setVisible(false);
+                    r.setStrokeWidth(0);
+                    r.setOpacity(0.5);
+                }
             }
+            setLastDieDraft(i);
+            rect.setFill(Color.TRANSPARENT);
+            rect.setOpacity(1);
+            rect.setStroke(Color.BLACK);
+            rect.setStrokeType(StrokeType.INSIDE);
+            rect.setStrokeWidth(4.0);
         }
-        this.lastDieDraft = i;
-        rect.setFill(Color.TRANSPARENT);
-        rect.setOpacity(1);
-        rect.setStroke(Color.PINK);
-        rect.setStrokeType(StrokeType.INSIDE);
-        rect.setStrokeWidth(4.0);
     }
 
     public void setDraftEvents(int i, int j, GridPane pane, ImageView dieView){
@@ -254,9 +255,15 @@ public class GameFXMLController extends FXMLController implements Initializable{
         rect.setOpacity(0.5);
         rect.setVisible(false);
         Platform.runLater(() -> pane.add(rect, i%3, j));
-        dieView.setOnMouseEntered(e -> rect.setVisible(true));
-        rect.setOnMouseExited(e -> rect.setVisible(false));
-        rect.setOnMouseReleased(e -> onClickDieDraft(pane, i, rect));
+        dieView.setOnMouseEntered(e -> {synchronized (clickLock){rect.setVisible(true);}});
+        rect.setOnMouseExited(e -> {
+            synchronized (clickLock){
+                if(i!=lastDieDraft) {
+                    rect.setVisible(false);
+                }
+            }
+        });
+        rect.setOnMouseReleased(e -> {synchronized(clickLock){onClickDieDraft(pane, i, rect);}});
     }
 
     public void viewWindows(GameBoardClient board)  {
@@ -365,13 +372,45 @@ public class GameFXMLController extends FXMLController implements Initializable{
         mouseOut = false;
     }
 
+    public void showAlert(String title, String text){
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.NONE, text, ButtonType.OK);
+            alert.initOwner(stage);
+            alert.setX(stage.getX()+stage.getScene().getWidth()/2 - 125);
+            alert.setY(stage.getY()+stage.getScene().getHeight()/2 - 60);
+            alert.setTitle(title);
+            alert.setResizable(true);
+            alert.getDialogPane().setPrefSize(250, 120);
+            alert.setResizable(false);
+
+            alert.showAndWait();
+        });
+    }
+
+    public void checkInsertDieParameters(){
+        if(this.lastDieDraft>=0 && lastWindowCell.xPos>=0 && lastWindowCell.yPos>=0){
+            try {
+                gV.sendInsertDie(lastDieDraft, lastWindowCell.xPos, lastWindowCell.yPos);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //showAlert("Inviato", "Invio "+lastDieDraft+" "+lastWindowCell.xPos+" "+lastWindowCell.yPos);
+        } else if(lastWindowCell.xPos<0 && lastWindowCell.yPos<0 && this.lastDieDraft<0){
+            showAlert("Inserisci dati", "Scegli un dado e una cella!");
+        } else if(lastWindowCell.xPos<0 && lastWindowCell.yPos<0){
+            showAlert("Scegli cella", "Scegli una cella!");
+        } else if(this.lastDieDraft<0){
+            showAlert("Scegli dado", "Scegli un dado!");
+        }
+    }
+
     public void mouseReleased(MouseEvent e, Button b, String id, String backgroundColor, String shadowColor){
         b.setPrefHeight(41);
         b.setStyle(getIdleButtonStyle(backgroundColor, shadowColor));
         if(!mouseOut) {
             switch(id){
                 case "insertDieButton":
-                    System.out.println("pressed insert die");
+                    checkInsertDieParameters();
                     break;
                 case "endTurnButton":
                     System.out.println("pressed end turn");
@@ -417,6 +456,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
         tcClose.setOnMouseReleased((e) -> tcWindow.setVisible(false));
         pcClose.setOnMouseReleased((e) -> pcWindow.setVisible(false));
         lastDieDraft = -1;
+        lastWindowCell = new Coordinates(-1, -1);
 
         currentPlayerButton.setText(gV.getUsername());
         setButtonEvents(insertDieButton, "insertDieButton","#1895d7", "#084c8a", "#00c0ff");

@@ -357,6 +357,15 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    public void sendInsertDie(int draftPos, int xWindowPos, int yWindowPos) throws IOException {
+        if(connection.equals("Socket")){
+            gvSocket = new GameViewSocket(this);
+            gvSocket.sendInsertDie(username, draftPos, xWindowPos, yWindowPos);
+        } else if(connection.equals("RMI")){
+
+        }
+    }
+
     public synchronized void viewWindows(ArrayList<WindowClient> windows, int currentTime){
         if(this.UI.equals("GUI")){
             ((ChooseWindowFXMLController) fxmlController).viewWindows(windows,currentTime);

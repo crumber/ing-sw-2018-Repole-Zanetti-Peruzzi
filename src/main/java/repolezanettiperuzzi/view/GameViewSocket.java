@@ -145,6 +145,13 @@ public class GameViewSocket implements Runnable{
         socket.close();
     }
 
+    public void sendInsertDie(String username, int draftPos, int xWindowPos, int yWindowPos) throws IOException {
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        out.println(username + " insertDie "+draftPos+" "+xWindowPos+" "+yWindowPos );
+        out.close();
+        socket.close();
+    }
+
     private void receivedWindows(String[] line){
         ArrayList<WindowClient> chosenWindows = new ArrayList<>();
         String windowName = "";

@@ -51,7 +51,7 @@ public class WindowGenerator {
         Color green = Color.rgb(36, 157, 107);
         Color yellow = Color.rgb(228, 209, 68);
         Canvas box = null;
-        ImageView dice;
+        ImageView dice = null;
 
         for (int i=0; i<copyBoard.length; i++){
 
@@ -120,7 +120,7 @@ public class WindowGenerator {
                             gc.drawImage(new Image(new DynamicPath("assets/boxes/BOX-06.png").getPath()),1,1,49,49);
                             gridWindow.add(box,j,i);
                             break;
-                            
+
                     }
                 }else if(copyBoard[i][j].getBoundColour()!=null){
 
@@ -135,7 +135,7 @@ public class WindowGenerator {
                             gc.fillRect(1,1,49,49);
                             gridWindow.add(box,j,i);
                             break;
-                            
+
                         case BLUE:
                             box = new Canvas(50,50);
                             gc = box.getGraphicsContext2D();
@@ -145,9 +145,9 @@ public class WindowGenerator {
                             gc.fillRect(1,1,49,49);
                             gridWindow.add(box,j,i);
                             break;
-                            
+
                         case GREEN:
-                            
+
                             box = new Canvas(50,50);
                             gc = box.getGraphicsContext2D();
                             gc.setFill(Color.BLACK);
@@ -156,9 +156,9 @@ public class WindowGenerator {
                             gc.fillRect(1,1,49,49);
                             gridWindow.add(box,j,i);
                             break;
-                            
+
                         case PURPLE:
-                            
+
                             box = new Canvas(50,50);
                             gc = box.getGraphicsContext2D();
                             gc.setFill(Color.BLACK);
@@ -167,9 +167,9 @@ public class WindowGenerator {
                             gc.fillRect(1,1,49,49);
                             gridWindow.add(box,j,i);
                             break;
-                            
+
                         case YELLOW:
-                            
+
                             box = new Canvas(50,50);
                             gc = box.getGraphicsContext2D();
                             gc.setFill(Color.BLACK);
@@ -180,7 +180,7 @@ public class WindowGenerator {
                             break;
 
                     }
-                    
+
                 }else{
 
                     box = new Canvas(50,50);
@@ -191,20 +191,28 @@ public class WindowGenerator {
                     gc.fillRect(1,1,49,49);
 
                     gridWindow.add(box,j,i);
-                    
+
                 }
 
                 if(copyBoard[i][j].thereIsDie()){
 
                    dice = new ImageView(new Image(new DynamicPath("assets/dice/"+copyBoard[i][j].getDie().toString()+".png").getPath()));
+                   dice.setFitWidth(50);
+                   dice.setFitHeight(50);
                    gridWindow.add(dice,j,i);
-                   
+
                 }
-                
+
                 if(clickableBox){
 
-                    setEventsOnBoxes(gridWindow, box, i, j);
-                    
+                    Node n;
+                    if(copyBoard[i][j].thereIsDie()){
+                        n = dice;
+                    } else {
+                        n = box;
+                    }
+                    setEventsOnBoxes(gridWindow, n, i, j);
+
                 }
             }
         }
@@ -214,14 +222,14 @@ public class WindowGenerator {
         return gridWindow;
     }
 
-    public void setEventsOnBoxes(GridPane grid, Canvas box, int i, int j){
+    public void setEventsOnBoxes(GridPane grid, Node node, int i, int j){
         Rectangle rect = new Rectangle(50 ,50);
         rect.setFill(Color.LIGHTGRAY);
         rect.setOpacity(0.5);
         rect.setVisible(false);
         rect.setId("Rect"+j+i);
         grid.add(rect, j, i);
-        box.setOnMouseEntered(e -> {
+        node.setOnMouseEntered(e -> {
             synchronized (clickLock) {
                 mouseOut = false;
                 rect.setVisible(true);
@@ -231,7 +239,7 @@ public class WindowGenerator {
             synchronized (clickLock) {
                 mouseOut = true;
                 if ((coordinates.xPos != i) || (coordinates.yPos != j)) {
-                    
+
                     rect.setVisible(false);
                     rect.setOpacity(0.5);
                 }
@@ -262,16 +270,6 @@ public class WindowGenerator {
                 rect.setStrokeType(StrokeType.INSIDE);
                 rect.setStrokeWidth(4.0);
             }
-        }
-    }
-
-    class Coordinates{
-        public int xPos;
-        public int yPos;
-
-        public Coordinates(int xPos, int yPos){
-            this.xPos = xPos;
-            this.yPos = yPos;
         }
     }
 }

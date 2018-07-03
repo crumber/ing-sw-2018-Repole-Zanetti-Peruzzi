@@ -117,6 +117,10 @@ public class HandlerControllerSocket implements Runnable{
                 controller.setState(new FetchState());
                 ((FetchState)controller.getState()).readyToPlay(playerID);
                 break;
+            case "insertDie":
+                controller.setState(new TurnState());
+                ((TurnState)controller.getState()).insertDie(controller.board.getPlayerByName(playerID) , param[0]+" "+param[1]+" "+param[2]);
+                break;
             case "exit":
                 controller.notifyExitToClient(playerID);
                 switch(param[0]){
