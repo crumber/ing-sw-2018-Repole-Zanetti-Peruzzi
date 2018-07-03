@@ -358,7 +358,6 @@ public class GameFXMLController extends FXMLController implements Initializable{
         ObservableList<Node> childrens = gridPane.getChildren();
 
         for (Node node : childrens) {
-            System.out.println("faccio");
             if((GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) != null) && GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
                 result = node;
                 break;
@@ -397,17 +396,20 @@ public class GameFXMLController extends FXMLController implements Initializable{
         }
     }
 
-    public void onClickDieRT(GridPane grid, String i, Rectangle rect){
+    public void onClickDieRT(String i, Rectangle rect){
 
         synchronized (clickLock) {
-            ObservableList<Node> childrens = grid.getChildren();
-            for (Node node : childrens) {
-                if ((node.getId() != null) && (node.getId().equals("dieRT" +(Integer.parseInt(grid.getId().substring(2))-1) + lastDieDraft))) {
-                    //System.out.println(node.getId());
-                    Rectangle r = (Rectangle) node;
-                    r.setVisible(false);
-                    r.setStrokeWidth(0);
-                    r.setOpacity(0.5);
+            ObservableList<Node> grids = RTGrids.getChildren();
+            for(Node grid : grids) {
+                ObservableList<Node> cells = ((GridPane)grid).getChildren();
+                for (Node node : cells) {
+                    if ((node.getId() != null) && (node.getId().equals("dieRT" + lastDieRT))) {
+                        //System.out.println(node.getId());
+                        Rectangle r = (Rectangle) node;
+                        r.setVisible(false);
+                        r.setStrokeWidth(0);
+                        r.setOpacity(0.5);
+                    }
                 }
             }
             setLastDieRT(i);
@@ -430,12 +432,10 @@ public class GameFXMLController extends FXMLController implements Initializable{
         rect.setOpacity(0.5);
         rect.setVisible(false);
         Platform.runLater(() -> pane.add(rect, i%3, j));
-        dieView.setOnMouseEntered(e -> {synchronized (clickLock){rect.setVisible(true);}});
+        dieView.setOnMouseEntered(e -> rect.setVisible(true));
         rect.setOnMouseExited(e -> {
-            synchronized (clickLock){
-                if(i!=lastDieDraft) {
+            if(i!=lastDieDraft) {
                     rect.setVisible(false);
-                }
             }
         });
         rect.setOnMouseReleased(e -> {synchronized(clickLock){onClickDieDraft(pane, i, rect);}});
@@ -451,15 +451,13 @@ public class GameFXMLController extends FXMLController implements Initializable{
         rect.setOpacity(0.5);
         rect.setVisible(false);
         Platform.runLater(() -> pane.add(rect, i%3, j));
-        dieView.setOnMouseEntered(e -> {synchronized (clickLock){rect.setVisible(true);}});
+        dieView.setOnMouseEntered(e -> rect.setVisible(true));
         rect.setOnMouseExited(e -> {
-            synchronized (clickLock){
-                if(rect.getId().replace("dieRT","").equals(lastDieRT)) {
+            if(!rect.getId().replace("dieRT","").equals(lastDieRT)) {
                     rect.setVisible(false);
-                }
             }
         });
-        rect.setOnMouseReleased(e -> {synchronized(clickLock){onClickDieRT(pane, rect.getId().replace("dieRT",""), rect);}});
+        rect.setOnMouseReleased(e -> {synchronized(clickLock){onClickDieRT(rect.getId().replace("dieRT",""), rect);}});
 
     }
 
