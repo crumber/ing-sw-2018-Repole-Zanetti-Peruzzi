@@ -20,20 +20,47 @@ public class GameViewCLI implements Runnable {
     private boolean hasShutdownHook;
     private ShutdownConsole shutdownConsole;
 
-    final String ANSI_RESET = "\u001B[0m";
-    final String ANSI_BLACK = "\u001B[30m";
-    final String ANSI_RED = "\u001B[31m";
-    final String ANSI_GREEN = "\u001B[32m";
-    final String ANSI_YELLOW = "\u001B[33m";
-    final String ANSI_BLUE = "\u001B[34m";
-    final String ANSI_PURPLE = "\u001B[35m";
-    final String ANSI_CYAN = "\u001B[36m";
-    final String ANSI_WHITE = "\u001B[37m";
+    String ANSI_RESET = "\u001B[0m";
+    String ANSI_BLACK = "\u001B[30m";
+    String ANSI_RED = "\u001B[31m";
+    String ANSI_GREEN = "\u001B[32m";
+    String ANSI_YELLOW = "\u001B[33m";
+    String ANSI_BLUE = "\u001B[34m";
+    String ANSI_PURPLE = "\u001B[35m";
+    String ANSI_CYAN = "\u001B[36m";
+    String ANSI_WHITE = "\u001B[37m";
+    private static String OS = System.getProperty("os.name");
 
     public GameViewCLI(GameView gV){
         this.gV = gV;
         this.isTimerOn = false;
         this.hasShutdownHook = false;
+        if(OS.startsWith("Windows")){
+            ANSI_RESET = "";
+            ANSI_BLACK = "";
+            ANSI_RED = "";
+            ANSI_GREEN = "";
+            ANSI_YELLOW = "";
+            ANSI_BLUE = "";
+            ANSI_PURPLE = "";
+            ANSI_CYAN = "";
+            ANSI_WHITE = "";
+        }
+    }
+
+    public void clearScreen(){
+        if(!OS.startsWith("Windows")){
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+        } else {
+            try {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public String readLine(int timeout, String message, String[] actions) throws InterruptedException {
@@ -58,8 +85,7 @@ public class GameViewCLI implements Runnable {
 
     public void loginScene(String message){
         Console console = System.console();
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        clearScreen();
         if (console == null) {
             System.out.println("\nCLI non disponibile su Intellij. Fai partire il jar.");
             System.exit(0);
@@ -116,8 +142,7 @@ public class GameViewCLI implements Runnable {
             timer.cancel();
             timer.purge();
             isTimerOn = false;
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            clearScreen();
             System.out.println("Giocatori in attesa: \n");
             i = 0;
             while(i<players.length){
@@ -125,8 +150,7 @@ public class GameViewCLI implements Runnable {
                 i++;
             }
         } else if(!isTimerOn && setTimer==0){
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            clearScreen();
             System.out.println("Giocatori in attesa: \n");
             i = 0;
             while(i<players.length){
@@ -161,8 +185,7 @@ public class GameViewCLI implements Runnable {
         } else {
             shutdownConsole.setScene(lastScene);
         }
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        clearScreen();
         System.out.println("Choose window: \n\n");
         if(isTimerOn) {
             this.timer.cancel();
@@ -185,8 +208,7 @@ public class GameViewCLI implements Runnable {
         } else {
             shutdownConsole.setScene(lastScene);
         }
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        clearScreen();
         System.out.println("Game Scene");
         try {
             gV.gameLoaded();

@@ -358,11 +358,27 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    public void viewError(String error){
+        if(this.UI.equals("GUI")){
+            ((GameFXMLController) fxmlController).viewError(error);
+        }else if(this.UI.equals("CLI")){
+
+        }
+    }
+
     public void sendInsertDie(int draftPos, int xWindowPos, int yWindowPos) throws IOException {
         if(connection.equals("Socket")){
             gvSocket = new GameViewSocket(this);
             gvSocket.sendInsertDie(username, draftPos, xWindowPos, yWindowPos);
         } else if(connection.equals("RMI")){
+
+        }
+    }
+
+    public void notYourTurn(){
+        if(this.UI.equals("GUI")){
+            ((GameFXMLController) fxmlController).notYourTurn();
+        }else if(this.UI.equals("CLI")){
 
         }
     }

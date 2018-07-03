@@ -258,6 +258,14 @@ public class GameFXMLController extends FXMLController implements Initializable{
         }
     }
 
+    public void viewError(String error){
+        showAlert("Illegal Action", error);
+    }
+
+    public void notYourTurn(){
+        showAlert("Not your turn", "Not your turn!");
+    }
+
     public void onClickDieDraft(GridPane grid, int i, Rectangle rect){
         synchronized (clickLock) {
             ObservableList<Node> childrens = grid.getChildren();

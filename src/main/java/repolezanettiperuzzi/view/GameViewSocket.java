@@ -100,8 +100,14 @@ public class GameViewSocket implements Runnable{
             case "winChooseWindow":
                 gameView.showWinOnChooseWindowAlert();
                 break;
+            case "notYourTurn":
+                gameView.notYourTurn();
+                break;
+            case "error":
+                gameView.viewError(line[0]);
+                break;
             case "updateView":
-                System.out.println(line[1]);
+                //System.out.println(line[1]);
                 updateView(line[1]);
                 break;
             case "exit":
