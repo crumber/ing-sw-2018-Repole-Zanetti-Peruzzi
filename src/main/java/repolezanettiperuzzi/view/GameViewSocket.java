@@ -265,7 +265,7 @@ public class GameViewSocket implements Runnable{
             String window = playerElems[4].replace("_", " ");
             board.getPlayerByName(playerName).setWindow(new WindowClient(windowName, favorTokens, window));
             board.getPlayerByName(playerName).setFavorTokens(Integer.parseInt(playerElems[5]));
-            board.getPlayerByName(playerName).setLiveStatus(Boolean.parseBoolean(playerElems[5]));
+            board.getPlayerByName(playerName).setLiveStatus(Boolean.parseBoolean(playerElems[6]));
         }
         int round = (int)boardElems[i].charAt(0);
         int turn = (int)boardElems[i].charAt(1);

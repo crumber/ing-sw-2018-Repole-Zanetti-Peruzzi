@@ -73,7 +73,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
     private AnchorPane playerWindow;
 
     @FXML
-    private GridPane draftPane;
+    private GridPane draftPane, playersButtons;
 
     @FXML
     private Button insertDieButton;
@@ -155,6 +155,20 @@ public class GameFXMLController extends FXMLController implements Initializable{
             lastWindowCell.yPos = -1;
 
             if (alreadyUpdated) {
+
+                for(Node node: playersButtons.getChildren()){
+
+                    if(board.getPlayerByName(node.getId()).getLiveStatus()){
+
+                        setButtonEvents((Button) node, node.getId(), "#3cd83f", "#06a008", "#09ea0d");
+
+                    }else{
+
+                        setButtonEvents((Button) node, node.getId(), "#e81e1e","#c10303","#ff0707");
+
+                    }
+                }
+
                 ObservableList<Node> childrenWindow = playerWindow.getChildren();
                 ObservableList<Node> draftChildren = draftPane.getChildren();
                 ObservableList<Node> fvChildren = favorTokensPane.getChildren();
@@ -174,6 +188,26 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 }
 
 
+            }else{
+
+                int i=0;
+
+                for (PlayerClient player : board.getPlayers()) {
+
+                    if(!player.getName().equals(gV.getUsername())) {
+
+                        Button button = new Button();
+                        button.setText(player.getName());
+                        button.setPrefSize(116, 41);
+                        setButtonEvents(button, player.getName(), "#3cd83f", "#06a008", "#09ea0d");
+                        Integer I = new Integer(i);
+                        Platform.runLater(() -> playersButtons.add(button, 0, I));
+                        i++;
+
+                    }
+
+
+                }
             }
 
             viewWindows(board);
@@ -277,7 +311,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
             boolean clickableBox = gV.getUsername().equals(player.getName());
             GridPane pane = wGenerator.getWindowFXObject(clickableBox);
             VBox box = new VBox();
-            box.setId("gridWindow"+i);
+            box.setId("gridWindow"+board.getPlayer(i).getName());
             String windowName = player.getWindow().getName().replace(" ", "-"); //questo per gestire in caso la window arrivi da RMI in cui il nome e' senza trattini
             javafx.scene.image.ImageView windowLabel = new javafx.scene.image.ImageView(new Image(new DynamicPath("assets/Windows/"+windowName+".png").getPath()));
             windowLabel.setFitWidth(50*player.getWindow().getBoardBox()[0].length);
@@ -415,6 +449,9 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 case "endTurnButton":
                     System.out.println("pressed end turn");
                     break;
+                case "currentPlayerButton":
+                    setVisibleWindow("gridWindow"+ gV.getUsername());
+                    break;
 
             }
         }
@@ -437,6 +474,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     public void setButtonEvents(Button b, String id, String backgroundColor, String shadowColor, String hoverColor){
         b.setId(id);
+        b.setStyle(getIdleButtonStyle(backgroundColor, shadowColor));
         b.setOnMouseExited(e -> {
             mouseOut = true;
             b.setPrefHeight(41);
@@ -451,10 +489,10 @@ public class GameFXMLController extends FXMLController implements Initializable{
         alreadyUpdated = false;
         clickLock = new Object();
 
-        ToolCards.setOnMouseReleased((e) -> tcWindow.setVisible(true));
-        PublicCards.setOnMouseReleased((e) -> pcWindow.setVisible(true));
-        tcClose.setOnMouseReleased((e) -> tcWindow.setVisible(false));
-        pcClose.setOnMouseReleased((e) -> pcWindow.setVisible(false));
+        ToolCards.setOnMouseReleased(e -> tcWindow.setVisible(true));
+        PublicCards.setOnMouseReleased(e -> pcWindow.setVisible(true));
+        tcClose.setOnMouseReleased(e -> tcWindow.setVisible(false));
+        pcClose.setOnMouseReleased(e -> pcWindow.setVisible(false));
         lastDieDraft = -1;
         lastWindowCell = new Coordinates(-1, -1);
 
@@ -556,6 +594,25 @@ public class GameFXMLController extends FXMLController implements Initializable{
             }
 
             Platform.runLater(() -> favorTokensPane.getChildren().add(favorTokens));
+
+        }
+
+
+    }
+
+    public void setVisibleWindow(String idWindow){
+
+        for (Node node: playerWindow.getChildren()) {
+
+            if(node.getId()!=null && node.getId().equals(idWindow)){
+
+                node.setVisible(true);
+
+            }else{
+
+                node.setVisible(false);
+
+            }
 
         }
     }

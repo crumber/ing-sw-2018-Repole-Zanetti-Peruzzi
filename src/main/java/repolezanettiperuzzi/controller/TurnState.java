@@ -25,6 +25,12 @@ public class TurnState extends ControllerState {
 
         }
 
+        if(!controller.board.getPlayer(BeginTurn.getCurrentPlayer()).getLiveStatus()){
+
+            this.passToNextTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer()));
+        }
+
+
         if(BeginRound.getRound()==1 && BeginTurn.getNumPlayedTurn()==0 && BeginTurn.getCurrentTurn()==0){
 
             for(int i=0; i<controller.board.getNPlayers();i++){
@@ -61,7 +67,7 @@ public class TurnState extends ControllerState {
 
         for(Player player : controller.board.getPlayers()) {
 
-            if (player.getConnection().equals("Socket")) {
+            if (player.getConnection().equals("Socket")&&player.getLiveStatus()) {
 
                 try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
 
@@ -70,7 +76,7 @@ public class TurnState extends ControllerState {
 
                 }
 
-            } else if (player.getConnection().equals("RMI")) {
+            } else if (player.getConnection().equals("RMI")&&player.getLiveStatus()) {
 
 
             }
@@ -286,13 +292,13 @@ public class TurnState extends ControllerState {
 
     public void updateView(Player player) throws IOException {
 
-        if(player.getConnection().equals("Socket")){
+        if(player.getConnection().equals("Socket")&&(player.getLiveStatus())){
 
             Socket socket = new Socket(player.getAddress(),player.getPort());
             HandlerControllerSocket handler = new HandlerControllerSocket(controller,socket);
             handler.sendUpdateView(gameToString());
 
-        }else if(player.getConnection().equals("RMI")){
+        }else if(player.getConnection().equals("RMI")&&(player.getLiveStatus())){
 
 
         }
@@ -348,7 +354,7 @@ public class TurnState extends ControllerState {
 
         BeginTurn.nextTurnParameters(controller.board,player);
 
-        System.out.println(BeginTurn.getCurrentTurn()+" "+BeginTurn.getNumPlayedTurn());
+        System.out.println(BeginTurn.getCurrentTurn()+" "+BeginTurn.getNumPlayedTurn()+" "+BeginTurn.getCurrentPlayer());
 
         if(BeginTurn.getNumPlayedTurn()==controller.board.getNPlayers()){
 
