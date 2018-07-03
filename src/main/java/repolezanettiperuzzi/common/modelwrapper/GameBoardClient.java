@@ -255,4 +255,10 @@ public class GameBoardClient implements Serializable {
         return this.roundTrack;
 
     }
+
+    public void setRound(int round){
+
+        this.round=round;
+
+    }
 }

@@ -363,11 +363,8 @@ public class TurnState extends ControllerState {
 
         BeginTurn.nextTurnParameters(controller.board,player);
 
-        System.out.println(BeginTurn.getCurrentTurn()+" "+BeginTurn.getNumPlayedTurn()+" "+BeginTurn.getCurrentPlayer());
-
         if(BeginTurn.getNumPlayedTurn()==controller.board.getNPlayers()){
 
-            System.out.println("entrato");
             BeginTurn.resetNumPlayedTurn();
             controller.setState(new EndRoundState());
 

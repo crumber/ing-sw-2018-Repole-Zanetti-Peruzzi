@@ -34,9 +34,6 @@ import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.common.modelwrapper.DieClient;
 import repolezanettiperuzzi.common.modelwrapper.GameBoardClient;
 import repolezanettiperuzzi.common.modelwrapper.PlayerClient;
-import repolezanettiperuzzi.common.modelwrapper.WindowClient;
-import repolezanettiperuzzi.model.GameBoard;
-import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.common.modelwrapper.*;
 
 import java.io.IOException;
@@ -57,6 +54,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
     private Object clickLock;
     private Coordinates lastWindowCell;
     private int lastDieDraft;
+    private String lastDieRT;
     private boolean myTurn;
 
     @FXML
@@ -103,6 +101,9 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     @FXML
     private ImageView myTurnMarker;
+    @FXML
+    private Rectangle R1, R2, R3, R4, R5, R6, R7, R8, R9, R10;
+
 
     // Add a public no-args constructor
     public GameFXMLController()
@@ -148,7 +149,15 @@ public class GameFXMLController extends FXMLController implements Initializable{
     }
 
     public void setLastDieDraft(int lastDieDraft){
+
         this.lastDieDraft = lastDieDraft;
+
+    }
+
+    public void setLastDieRT(String lastDieRT){
+
+        this.lastDieRT=lastDieRT;
+
     }
 
     public void updateView(GameBoardClient board, int currentTime){
@@ -159,6 +168,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
             ArrayList<Node> nodesToDeleteFT = new ArrayList<>();
             ArrayList<ArrayList<Node>> nodesToDeleteRT = new ArrayList<>();
             lastDieDraft = -1;
+            lastDieRT = "";
             lastWindowCell.xPos = -1;
             lastWindowCell.yPos = -1;
 
@@ -237,6 +247,8 @@ public class GameFXMLController extends FXMLController implements Initializable{
             viewCards(board);
             viewSecretColor(board);
             viewFavorTokens(board);
+            setRoundRectangle(board);
+            //viewDraft();
             alreadyUpdated = true;
 
             for (Node n : nodesToDeleteWindow) {
@@ -306,7 +318,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
             Integer I = new Integer(i);
             Integer J = new Integer(j);
             Platform.runLater(() -> draftPane.add(dieView, (I%3), J));
-            setDraftEvents(i, j, draftPane, dieView);
+            setDraftEvents(i, j, draftPane, dieView,40,40);
             if(i==2 || i==5 || i==8){
                 j++;
             }
@@ -332,6 +344,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 Integer J = new Integer(j);
                 Integer K = new Integer(k);
                 Platform.runLater(() -> ((GridPane)childrenRoundTrack.get(I)).add(dieView,(J%3),K));
+                setRoundTrackEvents(J,K, (GridPane)childrenRoundTrack.get(i), dieView, 30,30);
                 if(j==2 || j==5 || j==8){
                     k++;
                 }
@@ -384,9 +397,32 @@ public class GameFXMLController extends FXMLController implements Initializable{
         }
     }
 
-    public void setDraftEvents(int i, int j, GridPane pane, ImageView dieView){
+    public void onClickDieRT(GridPane grid, String i, Rectangle rect){
 
-        Rectangle rect = new Rectangle(40 ,40);
+        synchronized (clickLock) {
+            ObservableList<Node> childrens = grid.getChildren();
+            for (Node node : childrens) {
+                if ((node.getId() != null) && (node.getId().equals("dieRT" +(Integer.parseInt(grid.getId().substring(2))-1) + lastDieDraft))) {
+                    //System.out.println(node.getId());
+                    Rectangle r = (Rectangle) node;
+                    r.setVisible(false);
+                    r.setStrokeWidth(0);
+                    r.setOpacity(0.5);
+                }
+            }
+            setLastDieRT(i);
+            System.out.println(i);
+            rect.setFill(Color.TRANSPARENT);
+            rect.setOpacity(1);
+            rect.setStroke(Color.BLACK);
+            rect.setStrokeType(StrokeType.INSIDE);
+            rect.setStrokeWidth(4.0);
+        }
+    }
+
+    public void setDraftEvents(int i, int j, GridPane pane, ImageView dieView, double width, double height){
+
+        Rectangle rect = new Rectangle(width, height);
         rect.setArcWidth(10);
         rect.setArcHeight(10);
         rect.setId("dieDraft"+i);
@@ -403,6 +439,28 @@ public class GameFXMLController extends FXMLController implements Initializable{
             }
         });
         rect.setOnMouseReleased(e -> {synchronized(clickLock){onClickDieDraft(pane, i, rect);}});
+    }
+
+    public void setRoundTrackEvents(int i, int j, GridPane pane, ImageView dieView, double width, double height){
+
+        Rectangle rect = new Rectangle(width, height);
+        rect.setArcWidth(10);
+        rect.setArcHeight(10);
+        rect.setId("dieRT"+""+(Integer.parseInt(pane.getId().substring(2))-1)+""+i);
+        rect.setFill(Color.LIGHTGRAY);
+        rect.setOpacity(0.5);
+        rect.setVisible(false);
+        Platform.runLater(() -> pane.add(rect, i%3, j));
+        dieView.setOnMouseEntered(e -> {synchronized (clickLock){rect.setVisible(true);}});
+        rect.setOnMouseExited(e -> {
+            synchronized (clickLock){
+                if(rect.getId().replace("dieRT","").equals(lastDieRT)) {
+                    rect.setVisible(false);
+                }
+            }
+        });
+        rect.setOnMouseReleased(e -> {synchronized(clickLock){onClickDieRT(pane, rect.getId().replace("dieRT",""), rect);}});
+
     }
 
     public void viewWindows(GameBoardClient board)  {
@@ -609,6 +667,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
         closeRoundTrack.setOnMouseReleased(e -> RTWindow.setVisible(false));
 
         lastDieDraft = -1;
+        lastDieRT = "";
         lastWindowCell = new Coordinates(-1, -1);
         myTurn = false;
 
@@ -747,6 +806,155 @@ public class GameFXMLController extends FXMLController implements Initializable{
             }
 
         }
+
+    }
+
+    public void setRoundRectangle(GameBoardClient board) {
+
+        switch(board.getRound()){
+
+            case 1:
+
+                R1.setVisible(true);
+                R2.setVisible(false);
+                R3.setVisible(false);
+                R4.setVisible(false);
+                R5.setVisible(false);
+                R6.setVisible(false);
+                R7.setVisible(false);
+                R8.setVisible(false);
+                R9.setVisible(false);
+                R10.setVisible(false);
+                break;
+
+            case 2:
+
+                R1.setVisible(false);
+                R2.setVisible(true);
+                R3.setVisible(false);
+                R4.setVisible(false);
+                R5.setVisible(false);
+                R6.setVisible(false);
+                R7.setVisible(false);
+                R8.setVisible(false);
+                R9.setVisible(false);
+                R10.setVisible(false);
+                break;
+
+            case 3:
+
+                R1.setVisible(false);
+                R2.setVisible(false);
+                R3.setVisible(true);
+                R4.setVisible(false);
+                R5.setVisible(false);
+                R6.setVisible(false);
+                R7.setVisible(false);
+                R8.setVisible(false);
+                R9.setVisible(false);
+                R10.setVisible(false);
+                break;
+
+            case 4:
+
+                R1.setVisible(false);
+                R2.setVisible(false);
+                R3.setVisible(false);
+                R4.setVisible(true);
+                R5.setVisible(false);
+                R6.setVisible(false);
+                R7.setVisible(false);
+                R8.setVisible(false);
+                R9.setVisible(false);
+                R10.setVisible(false);
+                break;
+
+            case 5:
+
+                R1.setVisible(false);
+                R2.setVisible(false);
+                R3.setVisible(false);
+                R4.setVisible(false);
+                R5.setVisible(true);
+                R6.setVisible(false);
+                R7.setVisible(false);
+                R8.setVisible(false);
+                R9.setVisible(false);
+                R10.setVisible(false);
+                break;
+
+            case 6:
+
+                R1.setVisible(false);
+                R2.setVisible(false);
+                R3.setVisible(false);
+                R4.setVisible(false);
+                R5.setVisible(false);
+                R6.setVisible(true);
+                R7.setVisible(false);
+                R8.setVisible(false);
+                R9.setVisible(false);
+                R10.setVisible(false);
+                break;
+
+            case 7:
+
+                R1.setVisible(false);
+                R2.setVisible(false);
+                R3.setVisible(false);
+                R4.setVisible(false);
+                R5.setVisible(false);
+                R6.setVisible(false);
+                R7.setVisible(true);
+                R8.setVisible(false);
+                R9.setVisible(false);
+                R10.setVisible(false);
+                break;
+
+            case 8:
+
+                R1.setVisible(false);
+                R2.setVisible(false);
+                R3.setVisible(false);
+                R4.setVisible(false);
+                R5.setVisible(false);
+                R6.setVisible(false);
+                R7.setVisible(false);
+                R8.setVisible(true);
+                R9.setVisible(false);
+                R10.setVisible(false);
+                break;
+
+            case 9:
+
+                R1.setVisible(false);
+                R2.setVisible(false);
+                R3.setVisible(false);
+                R4.setVisible(false);
+                R5.setVisible(false);
+                R6.setVisible(false);
+                R7.setVisible(false);
+                R8.setVisible(false);
+                R9.setVisible(true);
+                R10.setVisible(false);
+                break;
+
+            case 10:
+
+                R1.setVisible(false);
+                R2.setVisible(false);
+                R3.setVisible(false);
+                R4.setVisible(false);
+                R5.setVisible(false);
+                R6.setVisible(false);
+                R7.setVisible(false);
+                R8.setVisible(false);
+                R9.setVisible(false);
+                R10.setVisible(true);
+                break;
+
+        }
+
     }
 
 }

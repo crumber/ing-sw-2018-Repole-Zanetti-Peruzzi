@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="1281.0" fitWidth="1280.0" focusTraversable="true" opacity="0.11" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-481.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-17.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -50,16 +50,46 @@
          </image>
       </ImageView>
       <AnchorPane fx:id="playerWindow" layoutX="515.0" layoutY="300.0" prefHeight="250.0" prefWidth="250.0" />
-      <Rectangle fx:id="R1" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="382.5" layoutY="83.0" strokeLineCap="ROUND" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
-      <Rectangle fx:id="R2" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="434.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
-      <Rectangle fx:id="R3" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="486.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
-      <Rectangle fx:id="R4" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="538.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
-      <Rectangle fx:id="R5" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="590.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
-      <Rectangle fx:id="R6" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="642.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
-      <Rectangle fx:id="R7" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="694.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
-      <Rectangle fx:id="R8" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="746.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
-      <Rectangle fx:id="R9" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="798.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
-      <Rectangle fx:id="R10" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="850.5" layoutY="83.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" width="40.0" />
+      <Rectangle fx:id="R1" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="382.5" layoutY="83.0" stroke="#f6ff00" strokeLineCap="ROUND" strokeWidth="3.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" visible="false" width="40.0">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#fcffc0" spread="0.44" />
+         </effect></Rectangle>
+      <Rectangle fx:id="R2" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="434.5" layoutY="83.0" stroke="#f6ff00" strokeWidth="3.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" visible="false" width="40.0">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#fcffc0" spread="0.44" />
+         </effect></Rectangle>
+      <Rectangle fx:id="R3" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="486.5" layoutY="83.0" stroke="#f6ff00" strokeWidth="3.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" visible="false" width="40.0">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#fcffc0" spread="0.44" />
+         </effect></Rectangle>
+      <Rectangle fx:id="R4" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="538.5" layoutY="83.0" stroke="#f6ff00" strokeWidth="3.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" visible="false" width="40.0">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#fcffc0" spread="0.44" />
+         </effect></Rectangle>
+      <Rectangle fx:id="R5" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="590.5" layoutY="83.0" stroke="#f6ff00" strokeWidth="3.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" visible="false" width="40.0">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#fcffc0" spread="0.44" />
+         </effect></Rectangle>
+      <Rectangle fx:id="R6" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="642.5" layoutY="83.0" stroke="#f6ff00" strokeWidth="3.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" visible="false" width="40.0">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#fcffc0" spread="0.44" />
+         </effect></Rectangle>
+      <Rectangle fx:id="R7" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="694.5" layoutY="83.0" stroke="#f6ff00" strokeWidth="3.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" visible="false" width="40.0">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#fcffc0" spread="0.44" />
+         </effect></Rectangle>
+      <Rectangle fx:id="R8" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="746.5" layoutY="83.0" stroke="#f6ff00" strokeWidth="3.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" visible="false" width="40.0">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#fcffc0" spread="0.44" />
+         </effect></Rectangle>
+      <Rectangle fx:id="R9" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="798.5" layoutY="83.0" stroke="#f6ff00" strokeWidth="3.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" visible="false" width="40.0">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#fcffc0" spread="0.44" />
+         </effect></Rectangle>
+      <Rectangle fx:id="R10" arcHeight="10.0" arcWidth="10.0" fill="TRANSPARENT" height="40.0" layoutX="850.5" layoutY="83.0" stroke="#f6ff00" strokeWidth="3.0" style="-fx-border-radius: 3 3 3 3; -fx-background-radius: 4 4 4 4; -fx-background-color: transparent;" visible="false" width="40.0">
+         <effect>
+            <DropShadow blurType="GAUSSIAN" color="#fcffc0" spread="0.44" />
+         </effect></Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#56c8f5" height="40.0" layoutX="1103.0" layoutY="180.0" stroke="BLACK" strokeType="INSIDE" style="-fx-arc-height: 30; -fx-arc-width: 30;" width="110.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c0c9c9" height="39.0" layoutX="1103.0" layoutY="430.0" stroke="BLACK" strokeType="INSIDE" style="-fx-arc-height: 30; -fx-arc-width: 30;" width="110.0" />
       <ImageView fitHeight="200.0" fitWidth="143.27" layoutX="1086.73" layoutY="450.0" pickOnBounds="true" preserveRatio="true">

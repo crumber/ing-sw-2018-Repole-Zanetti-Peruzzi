@@ -65,6 +65,7 @@ public class RoundTrack {
             for(int j = 0; j<dieRoundTrack.get(i).size(); j++){
 
                 res.append(dieRoundTrack.get(i).get(j).toString());
+
                 if(j<(dieRoundTrack.get(i).size()-1)) {
                     res.append("_");
                 }

@@ -276,8 +276,16 @@ public class GameViewSocket implements Runnable{
             board.getPlayerByName(playerName).setFavorTokens(Integer.parseInt(playerElems[5]));
             board.getPlayerByName(playerName).setLiveStatus(Boolean.parseBoolean(playerElems[6]));
         }
-        int round = (int)boardElems[i].charAt(0);
-        int turn = (int)boardElems[i].charAt(1);
+        if(boardElems[i].length()==2) {
+
+            board.setRound(Character.getNumericValue(boardElems[i].charAt(0)));
+            int turn = Character.getNumericValue(boardElems[i].charAt(1));
+
+        }else{
+
+            board.setRound(Integer.parseInt(boardElems[i].substring(0,2)));
+            int turn = Character.getNumericValue(boardElems[i].charAt(2));
+        }
         i++;
 
         if(!boardElems[i].equals("")) {
@@ -291,7 +299,7 @@ public class GameViewSocket implements Runnable{
         if(!boardElems[i].equals("")) {
             String[] roundAndDice = boardElems[i].split("-");
             for(int j = 0; j<roundAndDice.length; j++){
-                //int roundOnTrack = Character.getNumericValue(roundAndDice[j].charAt(0));
+                //board.setRound(Character.getNumericValue(roundAndDice[j].charAt(0)));
                 String dice = roundAndDice[j].substring(1);
                 String[] die = dice.split("_");
                 ArrayList<DieClient> dieRound = new ArrayList<>();
