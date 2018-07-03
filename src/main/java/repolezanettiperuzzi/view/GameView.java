@@ -250,6 +250,7 @@ public class GameView implements ClientStubRMI {
                     alreadyExit = true;
                     System.exit(0);
                 } else {
+                    System.out.println("ci sono");
                     gvSocket = new GameViewSocket(this);
                     gvSocket.notifyOnExit(username, typeView);
                     alreadyExit = true;

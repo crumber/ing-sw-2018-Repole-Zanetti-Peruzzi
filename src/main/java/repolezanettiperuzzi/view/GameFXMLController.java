@@ -452,6 +452,9 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 case "currentPlayerButton":
                     setVisibleWindow("gridWindow"+ gV.getUsername());
                     break;
+                default :
+                    setVisibleWindow("gridWindow"+b.getId());
+                    break;
 
             }
         }
@@ -605,6 +608,22 @@ public class GameFXMLController extends FXMLController implements Initializable{
         for (Node node: playerWindow.getChildren()) {
 
             if(node.getId()!=null && node.getId().equals(idWindow)){
+
+                node.setVisible(true);
+
+            }else{
+
+                node.setVisible(false);
+
+            }
+
+        }
+
+        for (Node node: favorTokensPane.getChildren()) {
+
+            System.out.println(node.getId());
+
+            if(node.getId()!=null && node.getId().equals(idWindow.substring(10)+"FavorTokens")){
 
                 node.setVisible(true);
 

@@ -25,6 +25,8 @@ public class TurnState extends ControllerState {
 
         }
 
+        System.out.println(controller.board.getPlayer(BeginTurn.getCurrentPlayer()).getName());
+
         if(!controller.board.getPlayer(BeginTurn.getCurrentPlayer()).getLiveStatus()){
 
             this.passToNextTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer()));
