@@ -291,12 +291,18 @@ public class GameViewSocket implements Runnable{
         if(!boardElems[i].equals("")) {
             String[] roundAndDice = boardElems[i].split("-");
             for(int j = 0; j<roundAndDice.length; j++){
-                int roundOnTrack = (int)roundAndDice[j].charAt(0);
+                //int roundOnTrack = Character.getNumericValue(roundAndDice[j].charAt(0));
                 String dice = roundAndDice[j].substring(1);
                 String[] die = dice.split("_");
+                ArrayList<DieClient> dieRound = new ArrayList<>();
+
                 for(int k = 0; k<die.length; k++){
-                    board.setDieToRoundTrack(roundOnTrack, k, new DieClient(die[k]));
+
+                    dieRound.add(new DieClient(die[k]));
+
                 }
+
+                board.getRoundTrack().addDice(dieRound);
             }
         }
         i++;

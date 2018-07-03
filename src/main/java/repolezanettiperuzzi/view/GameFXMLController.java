@@ -35,6 +35,7 @@ import repolezanettiperuzzi.common.modelwrapper.DieClient;
 import repolezanettiperuzzi.common.modelwrapper.GameBoardClient;
 import repolezanettiperuzzi.common.modelwrapper.PlayerClient;
 import repolezanettiperuzzi.common.modelwrapper.WindowClient;
+import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.common.modelwrapper.*;
 
@@ -92,10 +93,13 @@ public class GameFXMLController extends FXMLController implements Initializable{
     private ImageView tc1,tc2,tc3,pc1,pc2,pc3,secretColor;
 
     @FXML
-    private VBox pcWindow, tcWindow;
+    private VBox pcWindow, tcWindow,RTWindow;
 
     @FXML
-    private Button ToolCards, PublicCards, tcClose, pcClose, currentPlayerButton;
+    private Button ToolCards, PublicCards, tcClose, pcClose, currentPlayerButton, roundTrackButton, closeRoundTrack;
+
+    @FXML
+    private HBox RTGrids;
 
 
     // Add a public no-args constructor
@@ -151,6 +155,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
             ArrayList<Node> nodesToDeleteWindow = new ArrayList<>();
             ArrayList<Node> nodesToDeleteDraft = new ArrayList<>();
             ArrayList<Node> nodesToDeleteFT = new ArrayList<>();
+            ArrayList<Node> nodesToDeleteRT = new ArrayList<>();
             lastDieDraft = -1;
             lastWindowCell.xPos = -1;
             lastWindowCell.yPos = -1;
@@ -173,6 +178,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 ObservableList<Node> childrenWindow = playerWindow.getChildren();
                 ObservableList<Node> draftChildren = draftPane.getChildren();
                 ObservableList<Node> fvChildren = favorTokensPane.getChildren();
+                ObservableList<Node> RTChildren = RTGrids.getChildren();
 
                 for (Node node : childrenWindow) {
                     if ((node.getId() != null) && node.getId().contains("gridWindow")) {
@@ -186,6 +192,12 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
                 for (Node node : fvChildren) {
                     nodesToDeleteFT.add(node);
+                }
+
+                for (Node node : RTChildren){
+
+                    nodesToDeleteRT.add(node);
+
                 }
 
 
@@ -211,8 +223,10 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 }
             }
 
+
             viewWindows(board);
             viewDraft(board);
+            viewRoundTrack(board);
             viewCards(board);
             viewSecretColor(board);
             viewFavorTokens(board);
@@ -235,6 +249,11 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
                 Platform.runLater(() -> favorTokensPane.getChildren().remove(n));
 
+            }
+
+            for (Node n : nodesToDeleteRT) {
+
+                Platform.runLater(() -> RTGrids.getChildren().remove(n));
             }
 
         }
@@ -267,6 +286,32 @@ public class GameFXMLController extends FXMLController implements Initializable{
             }
 
         }
+    }
+
+    public void viewRoundTrack(GameBoardClient board){
+
+        ObservableList<Node> childrenRoundTrack = RTGrids.getChildren();
+
+        for(int i = 0; i<board.sizeRoundTrack(); i++){
+
+            int k = 0;
+            for(int j=0; j<board.sizeDiceRoundTrack(i); j++){
+
+                DieClient die = board.getDieFromRoundTrack(i,j);
+                Image dieImage = new Image(new DynamicPath("assets/dice/"+die.toString()+".png").getPath());
+                ImageView dieView = new ImageView(dieImage);
+                dieView.setFitWidth(30);
+                dieView.setFitHeight(30);
+                Integer I = new Integer(i);
+                Integer J = new Integer(j);
+                Integer K = new Integer(k);
+                Platform.runLater(() -> ((GridPane)childrenRoundTrack.get(I)).add(dieView,(J%3),K));
+                if(j==2 || j==5 || j==8){
+                    k++;
+                }
+            }
+        }
+
     }
 
     public void viewError(String error){
@@ -517,8 +562,11 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
         ToolCards.setOnMouseReleased(e -> tcWindow.setVisible(true));
         PublicCards.setOnMouseReleased(e -> pcWindow.setVisible(true));
+        roundTrackButton.setOnMouseReleased(e -> RTWindow.setVisible(true));
         tcClose.setOnMouseReleased(e -> tcWindow.setVisible(false));
         pcClose.setOnMouseReleased(e -> pcWindow.setVisible(false));
+        closeRoundTrack.setOnMouseReleased(e -> RTWindow.setVisible(false));
+
         lastDieDraft = -1;
         lastWindowCell = new Coordinates(-1, -1);
         myTurn = false;

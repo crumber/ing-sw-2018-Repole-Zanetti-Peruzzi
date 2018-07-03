@@ -19,14 +19,15 @@ public class TurnState extends ControllerState {
 
         this.controller=controller;
 
+        System.out.println("doAction");
+
         if(BeginTurn.getCurrentTurn()==0 && BeginTurn.getNumPlayedTurn()==0){
 
             BeginTurn.resetCurrentPlayer();
 
         }
 
-        controller.board.getPlayer(BeginTurn.getCurrentPlayer()).setInsertDieInThisTurn(false);
-        controller.board.getPlayer(BeginTurn.getCurrentPlayer()).setUsedCardInThisTurn(false);
+
 
         System.out.println(controller.board.getPlayer(BeginTurn.getCurrentPlayer()).getName());
 
@@ -351,6 +352,8 @@ public class TurnState extends ControllerState {
 
     public void passToNextTurn(Player player) throws IOException, ParseException {
 
+        controller.board.getPlayer(BeginTurn.getCurrentPlayer()).setInsertDieInThisTurn(false);
+        controller.board.getPlayer(BeginTurn.getCurrentPlayer()).setUsedCardInThisTurn(false);
 
         for(int i=0; i<controller.board.getNPlayers();i++){
 

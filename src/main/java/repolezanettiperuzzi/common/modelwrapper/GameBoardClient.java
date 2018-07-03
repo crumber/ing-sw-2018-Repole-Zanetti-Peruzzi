@@ -249,4 +249,10 @@ public class GameBoardClient implements Serializable {
         return null;
 
     }
+
+    public RoundTrackClient getRoundTrack(){
+
+        return this.roundTrack;
+
+    }
 }
