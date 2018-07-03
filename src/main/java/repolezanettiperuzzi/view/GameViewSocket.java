@@ -272,6 +272,7 @@ public class GameViewSocket implements Runnable{
         i++;
 
         String[] dice = boardElems[i].split("_");
+        //TODO gestire caso in cui il draft non contiene dadi
         for(int j = 0; j<dice.length; j++) {
             board.addDieToDraft(new DieClient(dice[j]));
         }

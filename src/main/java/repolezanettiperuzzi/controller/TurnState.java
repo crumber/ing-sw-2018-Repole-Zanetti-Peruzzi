@@ -25,6 +25,9 @@ public class TurnState extends ControllerState {
 
         }
 
+        controller.board.getPlayer(BeginTurn.getCurrentPlayer()).setInsertDieInThisTurn(false);
+        controller.board.getPlayer(BeginTurn.getCurrentPlayer()).setUsedCardInThisTurn(false);
+
         System.out.println(controller.board.getPlayer(BeginTurn.getCurrentPlayer()).getName());
 
         if(!controller.board.getPlayer(BeginTurn.getCurrentPlayer()).getLiveStatus()){
@@ -102,7 +105,7 @@ public class TurnState extends ControllerState {
                 if(player.getConnection().equals("Socket")){
 
                     try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
-
+                        System.out.println(error);
                         HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
                         handler.sendActionError(error);
 
@@ -123,7 +126,7 @@ public class TurnState extends ControllerState {
             if(player.getConnection().equals("Socket")){
 
                 try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
-
+                    System.out.println("notYourTurn");
                     HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
                     handler.sendNotYourTurn();
 
@@ -347,6 +350,7 @@ public class TurnState extends ControllerState {
     }
 
     public void passToNextTurn(Player player) throws IOException, ParseException {
+
 
         for(int i=0; i<controller.board.getNPlayers();i++){
 
