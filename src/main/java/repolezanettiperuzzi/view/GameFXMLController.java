@@ -101,6 +101,8 @@ public class GameFXMLController extends FXMLController implements Initializable{
     @FXML
     private HBox RTGrids;
 
+    @FXML
+    private ImageView myTurnMarker;
 
     // Add a public no-args constructor
     public GameFXMLController()
@@ -117,7 +119,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     public void setTimer(int timerDuration){
 
-        timerCounter = timerDuration;
+        timerCounter = timerDuration-1;
         timerCountdown = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
 
             @Override
@@ -164,11 +166,11 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
                 for(Node node: playersButtons.getChildren()){
 
-                    if(board.getPlayerByName(node.getId()).getLiveStatus()){
+                    if((node.getId()!=null) && !node.getId().contains("turnMarker") && board.getPlayerByName(node.getId()).getLiveStatus()){
 
                         setButtonEvents((Button) node, node.getId(), "#3cd83f", "#06a008", "#09ea0d");
 
-                    }else{
+                    }else if((node.getId()!=null) && !node.getId().contains("turnMarker") && !board.getPlayerByName(node.getId()).getLiveStatus()){
 
                         setButtonEvents((Button) node, node.getId(), "#e81e1e","#c10303","#ff0707");
 
@@ -218,6 +220,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
                         button.setPrefSize(116, 41);
                         setButtonEvents(button, player.getName(), "#3cd83f", "#06a008", "#09ea0d");
                         Integer I = new Integer(i);
+                        getNodeByRowColumnIndex(i, 1, playersButtons).setId("turnMarker"+player.getName());
                         Platform.runLater(() -> playersButtons.add(button, 0, I));
                         i++;
 
@@ -234,7 +237,6 @@ public class GameFXMLController extends FXMLController implements Initializable{
             viewCards(board);
             viewSecretColor(board);
             viewFavorTokens(board);
-            //viewDraft();
             alreadyUpdated = true;
 
             for (Node n : nodesToDeleteWindow) {
@@ -274,8 +276,22 @@ public class GameFXMLController extends FXMLController implements Initializable{
         setTimer(currentTime);
         if(actualPlayer.equals(gV.getUsername())){
             myTurn = true;
+            for (Node node : playersButtons.getChildren()) {
+                if ((node.getId() != null) && node.getId().contains("turnMarker")) {
+                    node.setVisible(false);
+                }
+            }
+            myTurnMarker.setVisible(true);
         } else {
             myTurn = false;
+            for (Node node : playersButtons.getChildren()) {
+                if ((node.getId() != null) && node.getId().contains("turnMarker"+actualPlayer)) {
+                    node.setVisible(true);
+                } else if ((node.getId() != null) && node.getId().contains("turnMarker")) {
+                    node.setVisible(false);
+                }
+            }
+            myTurnMarker.setVisible(false);
         }
     }
 
@@ -322,6 +338,21 @@ public class GameFXMLController extends FXMLController implements Initializable{
             }
         }
 
+    }
+
+    public Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
+        Node result = null;
+        ObservableList<Node> childrens = gridPane.getChildren();
+
+        for (Node node : childrens) {
+            System.out.println("faccio");
+            if((GridPane.getRowIndex(node) != null && GridPane.getColumnIndex(node) != null) && GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+                result = node;
+                break;
+            }
+        }
+
+        return result;
     }
 
     public void viewError(String error){

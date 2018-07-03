@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
@@ -16,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="1281.0" fitWidth="1280.0" focusTraversable="true" opacity="0.11" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-481.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-17.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -114,13 +115,39 @@
       <GridPane fx:id="playersButtons" layoutX="33.0" layoutY="103.0" prefHeight="97.0" prefWidth="162.0" vgap="20.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="116.0" prefWidth="116.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="41.0" prefWidth="41.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="41.0" minHeight="41.0" prefHeight="41.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="41.0" minHeight="41.0" prefHeight="41.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="41.0" minHeight="41.0" prefHeight="41.0" vgrow="SOMETIMES" />
         </rowConstraints>
+         <children>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../assets/turn.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets bottom="5.0" />
+               </GridPane.margin>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../assets/turn.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets bottom="5.0" />
+               </GridPane.margin>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../assets/turn.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets bottom="5.0" />
+               </GridPane.margin>
+            </ImageView>
+         </children>
       </GridPane>
       <Button fx:id="roundTrackButton" layoutX="364.4" layoutY="54.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="545.0" style="-fx-background-color: transparent; -fx-text-fill: transparent;" />
       <AnchorPane fx:id="favorTokensPane" layoutX="515.0" layoutY="582.0" prefHeight="50.0" prefWidth="250.0" />
@@ -333,5 +360,10 @@
             </Pane>
          </children>
       </VBox>
+      <ImageView fx:id="myTurnMarker" fitHeight="30.0" fitWidth="30.0" layoutX="909.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/turn.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
