@@ -4,8 +4,6 @@ import repolezanettiperuzzi.model.GameBoard;
 
 public class ParametersRequestCardAction{
 
-    //manca la 8 la 7 va in nothing perche non ha bisogno di niente
-
     public String doAction(){
 
         return "dieValue ";

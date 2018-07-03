@@ -56,8 +56,8 @@ public class Window {
     /**
      * Inserisce un dado nella casella desiderata
      * @param d dado da inserire
-     * @param x colonna della casella
-     * @param y riga della casella
+     * @param x riga della casella
+     * @param y colonna della casella
      * @param restriction restrizioni della casella da verificare
      */
     public void insertDie(Die d, int x, int y, String restriction){
@@ -81,6 +81,12 @@ public class Window {
 
     }
 
+    /**
+     * dice la box contiene un dado
+     * @param x riga della casella
+     * @param y colonna della casella
+     * @return true se c'è un dado nella box sennò false
+     */
     public boolean thereIsDie(int x, int y){
 
         if(x>=0 && y>=0 && x<boardBox.length && y<boardBox[0].length && boardBox[x][y].die!=null){
@@ -92,6 +98,12 @@ public class Window {
         return false;
     }
 
+    /**
+     * rimuove il dado nella box, se non presente restituisce null
+     * @param x riga della casella
+     * @param y colonna della casella
+     * @return rimuove il dado e lo restituisce ma se non presente ritorna null
+     */
      public Die removeDie(int x, int y){
 
         if((boardBox[x][y].die!=null)){
@@ -101,35 +113,61 @@ public class Window {
         else return null;
     }
 
+    /**
+     * @return nome della window
+     */
     public String getName(){
 
         return this.NAME;
 
     }
 
+    /**
+     * @return numero FV
+     */
     public int getFTokens(){
 
         return this.FAVORTOKENS;
 
     }
 
+    /**
+     * @param x riga della casella
+     * @param y colonna della casella
+     * @return restituisce dado della box
+     */
     public Die getDieFromBoardBox(int x, int y)
     {
         return this.boardBox[x][y].die;
     }
 
+    /**
+     * @param x riga della casella
+     * @param y colonna della casella
+     * @return restituisce valore dado nella box
+     */
     public Value getDieValue(int x, int y){
 
         return this.boardBox[x][y].die.getValueDie();
 
     }
 
+    /**
+     * @param x riga della casella
+     * @param y colonna della casella
+     * @return restituisce colore dado della box
+     */
     public Colour getDieColour(int x, int y){
 
         return this.boardBox[x][y].die.getColourDie();
 
     }
 
+    /**
+     * @param x riga della casella
+     * @param y colonna della casella
+     * @return vero se c'è un dado vicino alla posizione inserita sennò false
+     */
     public boolean controlAdjacencies(int x, int y){
 
         boolean thereIsDieNextTo;
@@ -175,6 +213,12 @@ public class Window {
         return thereIsDieNextTo;
     }
 
+    /**
+     * @param d dado da controllare
+     * @param x riga della casella
+     * @param y colonna della casella
+     * @return vero se c'è un dado vicino alla posizione inserita con lo stesso colore del dado passato sennò false
+     */
     public boolean controlColourBoundAdjacencies(Die d, int x, int y){
 
         if (x - 1 >= 0 && boardBox[x - 1][y].die !=null && boardBox[x - 1][y].die.getColourDie().equals(d.getColourDie())) {
@@ -200,6 +244,12 @@ public class Window {
         }
     }
 
+    /**
+     * @param d dado da controllare
+     * @param x riga della casella
+     * @param y colonna della casella
+     * @return vero se c'è un dado vicino alla posizione inserita con lo stesso valore del dado passato sennò false
+     */
     public boolean controlValueBoundAdjacencies(Die d, int x, int y){
 
         if (x - 1 >= 0 && boardBox[x - 1][y].die != null && boardBox[x - 1][y].die.getValueDie().equals(d.getValueDie())) {
@@ -225,6 +275,12 @@ public class Window {
         }
     }
 
+    /**
+     * @param d dado da controllare
+     * @param x riga della casella
+     * @param y colonna della casella
+     * @return vero se c'è un dado vicino alla posizione inserita con lo stesso colore e/o valore del dado passato sennò false
+     */
     public boolean controlAllBoundAdjacencies(Die d, int x, int y){
 
         if(controlColourBoundAdjacencies(d,x,y)){
@@ -242,6 +298,9 @@ public class Window {
         }
     }
 
+    /**
+     * @return vero se la window non contiene dadi senno ritorna false
+     */
     public boolean isEmpty(){
 
         for (Box[] aBoardBox : boardBox) {
@@ -255,6 +314,9 @@ public class Window {
         return true;
     }
 
+    /**
+     * @return numero di box vuote
+     */
     public int numBoxEmpty(){
 
         int nEmpty=0;
@@ -274,7 +336,10 @@ public class Window {
         return nEmpty;
     }
 
-
+    /**
+     * @param whichSecretColour colore segreto
+     * @return la somma dei valori dei dadi presenti nella window con il colore passato
+     */
     public int calculateSecretScore(Colour whichSecretColour){
 
         int secretScore=0;
@@ -294,41 +359,72 @@ public class Window {
         return secretScore;
     }
 
+    /**
+     * @param x riga della casella
+     * @param y colonna della casella
+     * @param d dado da controllare
+     * @return vero se il dado passato rispetta i vincoli di colore e valore della box, falso altrimenti
+     */
     public boolean controlAllBoundBox(int x, int y, Die d){
 
         return boardBox[x][y].controlBounds(d);
 
     }
 
+    /**
+     * @param x riga della casella
+     * @param y colonna della casella
+     * @param d dado da controllare
+     * @return vero se il dado passato rispetta i vincoli di colore della box, falso altrimenti
+     */
     public boolean controlColourBoundBox(int x, int y, Die d){
 
         return boardBox[x][y].controlColour(d);
 
     }
 
+    /**
+     * @param x riga della casella
+     * @param y colonna della casella
+     * @param d dado da controllare
+     * @return vero se il dado passato rispetta i vincoli di valore della box, falso altrimenti
+     */
     public boolean controlValueBoundBox(int x, int y, Die d){
 
         return boardBox[x][y].controlValue(d);
 
     }
 
+    /**
+     * @return clone della Window
+     */
     //deep clone method
     public Window copy(){
         return new Window(this);
     }
 
+    /**
+     * @return numero righe della Window
+     */
     public int numRow(){
 
         return boardBox.length;
 
     }
 
+    /**
+     * @return numero colonne della Window
+     */
     public int numColumn(){
 
         return boardBox[0].length;
 
     }
 
+    /**
+     * @return Stringa rappresentante la "schacchiera" della window, richiama la tostring dela box per rappresentare la singola box,
+     * ogni colonna separata da - mentre ogni righa separata da uno spazio
+     */
     @Override
     public String toString(){
         String windowToString = "";

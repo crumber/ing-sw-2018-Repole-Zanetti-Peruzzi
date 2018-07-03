@@ -1,6 +1,16 @@
 package repolezanettiperuzzi.model.toolcards;
 
+/**
+ * Classe factory che svolge la costruzione corretta della tool card
+ * @author Andrea Zanetti
+ */
 public class FactoryToolCard {
+
+    /**
+     *
+     * @param criteria stringa che identifica una tool card
+     * @return costruttore della tool card associata alla stringa passata
+     */
     public static ToolCard getToolCard(String criteria)
     {
         if ( criteria.equals("tc1") )

@@ -11,7 +11,7 @@ public class InsertDieWithCheckAction{
 
         int resultOfAction;
 
-        if(!card8 && player.getInsertDieInThisTurn()){
+        if(!(card8) && (player.getInsertDieInThisTurn())){
 
             resultOfAction=-28;
 

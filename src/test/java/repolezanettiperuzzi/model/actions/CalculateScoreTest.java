@@ -99,7 +99,7 @@ public class CalculateScoreTest {
 
         ranking=testCalculateScore.doAction(board);
         int score=ranking.get("jerry");
-        assertEquals(34,score);
+        assertEquals(38,score);
 
 
         board.setPublicCards(card4,0);

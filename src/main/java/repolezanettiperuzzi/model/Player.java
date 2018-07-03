@@ -76,12 +76,20 @@ public class Player {
 
     }
 
+
+    /**
+     * imposta a vero o falso l'attributo che indica se il giocatore ha usato o meno una carta in questo turno
+     * @param trueOrFalse true se ha gia usato una carta false se non ha ancora usato una carta
+     */
     public void setUsedCardInThisTurn(boolean trueOrFalse){
 
         usedCardInThisTurn=trueOrFalse;
 
     }
 
+    /**
+     * @return vero se il giocatore ha gia usato una carta in questo turno
+     */
     public boolean getUseCardInThisTurn(){
 
         return usedCardInThisTurn;
@@ -108,7 +116,7 @@ public class Player {
     }
 
     /**
-     * Setta la Window scelta dal giocatore per la partita attuale
+     * imposta la Window scelta dal giocatore per la partita attuale
      *
      * @param window Window scelta
      */
@@ -138,7 +146,7 @@ public class Player {
     }
 
     /**
-     * Setta l'ultima scena giocata dal Player
+     * imposta l'ultima scena giocata dal Player
      *
      * @param sceneName scena giocata
      */
@@ -154,7 +162,7 @@ public class Player {
     }
 
     /**
-     * Setta lo stato di connessione del giocatore
+     * imposta lo stato di connessione del giocatore
      *
      * @param status vero se Online, falso se OffLine
      */

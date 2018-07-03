@@ -3,8 +3,17 @@ package repolezanettiperuzzi.model.publiccards;
 import repolezanettiperuzzi.model.Value;
 import repolezanettiperuzzi.model.Window;
 
+/**
+ * Classe che rappresenta la public card Column Shade Variety
+ * @author Alessandro Peruzzi
+ */
 public class ColumnShadeVariety extends PublicCard {
 
+    /**
+     *
+     * @param finalWindow window su cui calcolare il punteggio
+     * @return numero colonne senza valori ripetuti
+     */
     @Override
     public int effect(Window finalWindow){
 

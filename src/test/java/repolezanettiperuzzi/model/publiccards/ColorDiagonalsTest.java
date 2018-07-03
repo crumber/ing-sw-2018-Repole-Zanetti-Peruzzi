@@ -2,7 +2,6 @@ package repolezanettiperuzzi.model.publiccards;
 
 import org.junit.Test;
 import repolezanettiperuzzi.model.Colour;
-import repolezanettiperuzzi.model.Value;
 import repolezanettiperuzzi.model.Window;
 
 import static org.junit.Assert.*;
@@ -27,7 +26,7 @@ public class ColorDiagonalsTest {
 
             }
         }
-        assertEquals(24, cardColourDiagonals.effect(finalWindow));
+        assertEquals(36, cardColourDiagonals.effect(finalWindow));
 
 
         Window finalWindow2 = mock(Window.class);
@@ -147,7 +146,7 @@ public class ColorDiagonalsTest {
                 }
             }
         }
-        assertEquals(8, cardColourDiagonals.effect(finalWindow5));
+        assertEquals(16, cardColourDiagonals.effect(finalWindow5));
 
 
         Window finalWindow6 = mock(Window.class);
@@ -171,17 +170,17 @@ public class ColorDiagonalsTest {
                 }
                 if (i == 2) {
 
-                    when(finalWindow6.getDieColour(i, j)).thenReturn(Colour.BLUE);
+                    when(finalWindow6.getDieColour(i, j)).thenReturn(Colour.GREEN);
 
                 }
                 if (i == 3) {
 
-                    when(finalWindow6.getDieColour(i, j)).thenReturn(Colour.BLUE);
+                    when(finalWindow6.getDieColour(i, j)).thenReturn(Colour.GREEN);
 
                 }
             }
         }
-        assertEquals(16, cardColourDiagonals.effect(finalWindow6));
+        assertEquals(32, cardColourDiagonals.effect(finalWindow6));
 
 
         Window finalWindow7 = mock(Window.class);
@@ -220,7 +219,7 @@ public class ColorDiagonalsTest {
                 }
             }
         }
-        assertEquals(12, cardColourDiagonals.effect(finalWindow7));
+        assertEquals(24, cardColourDiagonals.effect(finalWindow7));
 
 
         Window finalWindow8 = mock(Window.class);
@@ -269,7 +268,8 @@ public class ColorDiagonalsTest {
 
             }
         }
-        assertEquals(140, cardColourDiagonals.effect(finalWindow9));
+        assertEquals(172, cardColourDiagonals.effect(finalWindow9));
 
     }
+
 }

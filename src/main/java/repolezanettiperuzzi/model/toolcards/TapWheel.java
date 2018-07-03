@@ -5,6 +5,10 @@ import repolezanettiperuzzi.model.Player;
 
 import java.util.List;
 
+/**
+ * Classe che rappresenta la tool card 12
+ * @author Alessandro Peruzzi
+ */
 public class TapWheel extends ToolCard {
 
     private int x1Start;
@@ -18,12 +22,22 @@ public class TapWheel extends ToolCard {
     private int whichRound;
     private int whichDieOnRoundTrack;
 
+    /**
+     * Costruttore della classe, imposta l'id
+     */
     public TapWheel(){
 
         id=12;
 
     }
 
+    /**
+     * svolge i controlli sui parametri e la situazione per l'attivazione della carta
+     * @param board è la game board
+     * @param player indica il player che vuole attivare la carta
+     * @param parameterForCard è una lista di interi che rappresentano i vari valori dei parametri per l'attivazione della carta scelti dal client
+     * @return ritorna 1 se i controlli sono andati bene sennò un valore negativo che indica l'errore
+     */
     //control for all dice (two) that exist start/end position,that each dice have same colour , that there is die in start position, that there isn't die in end position, control that die respects all bound(colour value and there is die near end position)
     @Override
     public int check(GameBoard board, Player player, List<Integer> parameterForCard) {
@@ -60,6 +74,12 @@ public class TapWheel extends ToolCard {
         return resultOfAction;
     }
 
+    /**
+     * attiva l'effetto della carta
+     * @param board è la game board
+     * @param player indica il player che vuole attivare la carta
+     * @param parameterForCard è una lista di interi che rappresentano i vari valori dei parametri per l'attivazione della carta scelti dal client
+     */
     //move both dice (with all bound)
     @Override
     public void effect(GameBoard board, Player player, List<Integer> parameterForCard){

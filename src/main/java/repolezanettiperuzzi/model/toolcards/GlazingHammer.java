@@ -5,14 +5,28 @@ import repolezanettiperuzzi.model.Player;
 
 import java.util.List;
 
+/**
+ * Classe che rappresenta la tool card 7
+ * @author Alessandro Peruzzi
+ */
 public class GlazingHammer extends ToolCard {
 
+    /**
+     * Costruttore della classe, imposta l'id
+     */
     public GlazingHammer(){
 
         id=7;
 
     }
 
+    /**
+     * svolge i controlli sui parametri e la situazione per l'attivazione della carta
+     * @param board è la game board
+     * @param player indica il player che vuole attivare la carta
+     * @param parameterForCard è una lista di interi che rappresentano i vari valori dei parametri per l'attivazione della carta scelti dal client
+     * @return ritorna 1 se i controlli sono andati bene sennò un valore negativo che indica l'errore
+     */
     //control that is second turn of round and that player don't insert die in this turn
     @Override
     public int check(GameBoard board, Player player, List<Integer> parameterForCard) {
@@ -34,6 +48,12 @@ public class GlazingHammer extends ToolCard {
         return resultOfAction;
     }
 
+    /**
+     * attiva l'effetto della carta
+     * @param board è la game board
+     * @param player indica il player che vuole attivare la carta
+     * @param parameterForCard è una lista di interi che rappresentano i vari valori dei parametri per l'attivazione della carta scelti dal client
+     */
     //roll all dice on draft
     @Override
     public void effect(GameBoard board, Player player, List<Integer> parameterForCard){

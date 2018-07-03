@@ -3,8 +3,17 @@ package repolezanettiperuzzi.model.publiccards;
 import repolezanettiperuzzi.model.Value;
 import repolezanettiperuzzi.model.Window;
 
+/**
+ * Classe che rappresenta la public card Light Shades
+ * @author Alessandro Peruzzi
+ */
 public class LightShades extends PublicCard {
 
+    /**
+     *
+     * @param finalWindow window su cui calcolare il punteggio
+     * @return numero di set 1 e 2 ripetuti
+     */
     @Override
     public int effect(Window finalWindow){
 

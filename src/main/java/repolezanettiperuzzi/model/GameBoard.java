@@ -67,6 +67,9 @@ public class GameBoard {
 
     }
 
+    /**
+     * riduce di 1 il numero di player
+     */
     public void reduceNPlayers(){
 
         nPlayers-=1;
@@ -114,23 +117,6 @@ public class GameBoard {
         }
         return nPlayersOnline;
     }
-
-    /*
-    PER ORA NON USATO E NEMMENO FINITO
-
-    public void shuffleCards() throws IOException {
-        Deck deck = new Deck("cards/publiccards", "cards/toolcards");
-
-        //il metodo draw non pesca ancora una carta casuale ma ne crea na sempre dello stesso tipo
-        for(int i = 0; i < 3; i++){
-            publicCards[i] = deck.drawPublicCard();
-        }
-
-        for(int i = 0; i < 3; i++){
-            toolCards[i] = deck.drawToolCard();
-        }
-    }
-    */
 
     /**
      * Restituisce un dado dalla posizione desiderata del draft
@@ -274,7 +260,7 @@ public class GameBoard {
     }
 
     /**
-     * Setta il costo di una ToolCard a 2 dopo che è stata utilizzata una volta
+     * imposta il costo di una ToolCard a 2 dopo che è stata utilizzata una volta
      * @param whichToolCard intero che indica la ToolCard di cui si vuole modificare il costo
      */
     public void setCostToolCard(int whichToolCard) {
@@ -444,14 +430,24 @@ public class GameBoard {
 
     }
 
+    /**
+     * @return ritorna se il è game locked o no
+     */
     public boolean isGameLocked(){
         return this.gameLocked;
     }
 
+
+    /**
+     * imposta il valore a true del game locked
+     */
     public void setGameLocked(){
         this.gameLocked = true;
     }
 
+    /**
+     * @return ritorna la stringa che rappresenta il draft: ogni dado formato da una lettera che rappresenta il colore e un numero per il valore e ogni dado è separato dall'altro da _
+     */
     //B3_Y1_G6...
     public String toStringDraft(){
 
@@ -469,12 +465,19 @@ public class GameBoard {
         return res.toString();
     }
 
+    /**
+     * richiama il metodo toString della round track
+     * @return ritorna la stringa che rappresenta il round track
+     */
     public String toStringRoundTrack(){
 
         return this.roundTrack.toString();
 
     }
 
+    /**
+     * @return ritorna una stringa che rappresenta le tool card:titolo_id_descrizione e ogni carta separata da *
+     */
     public String toStringToolCards(){
 
         StringBuilder res= new StringBuilder();
@@ -498,6 +501,9 @@ public class GameBoard {
 
     }
 
+    /**
+     * @return ritorna una stringa che rappresenta le public card: titolo_descrizione_punti e ogni carta separata da *
+     */
     public String toStringPublicCards(){
 
         StringBuilder res= new StringBuilder();

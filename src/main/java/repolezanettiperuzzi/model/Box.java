@@ -148,6 +148,11 @@ public class Box {
 
     }
 
+
+    /**
+     * Crea la stringa contenente il vincolo della box, 0 se non ha vincolo
+     * @return la stringa che rappresenta com'è la box
+     */
     @Override
     public String toString(){
 

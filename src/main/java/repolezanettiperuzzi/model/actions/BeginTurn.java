@@ -17,7 +17,11 @@ public class BeginTurn {
 
     private Player player;
 
-
+    /**
+     *
+     * @param player
+     * @param board
+     */
 
     public void doAction(Player player, GameBoard board){
 
@@ -40,6 +44,10 @@ public class BeginTurn {
 
     }
 
+    /**
+     *
+     * @param player
+     */
     public static void incrTurn(Player player){
 
         player.incrTurn();
