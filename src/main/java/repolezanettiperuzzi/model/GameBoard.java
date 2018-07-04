@@ -371,7 +371,7 @@ public class GameBoard {
     /**
      * Ritorna le Windows tra cui puo' scegliere un determinato giocatore
      * @param player Giocatore della quale si vogliono ottenere le Window
-     * @return
+     * @return windows tra cui può scegliere il player
      */
     public ArrayList<Window> getPlayersWindowsChoices(Player player){
         return this.playersWindowsChoices.get(player);

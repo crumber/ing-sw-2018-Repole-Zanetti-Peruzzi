@@ -187,7 +187,7 @@ public class Deck {
     /**
      * serve un metodo per ordinare perche' i file che leggo dalla cartella sono in ordine decrescente
      * @param it iteratore sui path
-     * @return ArrayList<String> lista di percorsi ordinati in ordine crescente
+     * @return lista di percorsi ordinati in ordine crescente
      */
     public ArrayList<String> sortPaths(Iterator<Path> it){
         ArrayList<String> pathsList = new ArrayList<>();

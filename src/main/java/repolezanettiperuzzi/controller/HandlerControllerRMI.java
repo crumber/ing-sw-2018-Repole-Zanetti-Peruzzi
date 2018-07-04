@@ -191,6 +191,9 @@ public class HandlerControllerRMI implements ControllerStubRMI {
 
     /**
      * Sends the windows to view to the client
+     * @param playerName nome player
+     * @param windows arraylist di windows
+     * @param setTimer valore timer
      */
     public synchronized void viewWindows(String playerName, ArrayList<Window> windows, int setTimer){
         synchronized (controller) {

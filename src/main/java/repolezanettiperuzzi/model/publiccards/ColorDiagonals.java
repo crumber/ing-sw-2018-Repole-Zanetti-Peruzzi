@@ -115,8 +115,17 @@ public class ColorDiagonals extends PublicCard {
         return score;
     }
 
-
-    public ArrayList<Object> incrementScore(Window finalWindow, int posRowControl, int posColumnControl, int posRowControlNext, int posColumnControlNext, boolean firstCouple){
+    /**
+     *
+     * @param finalWindow window su cui calcolare i punti
+     * @param posRowControl posizione riga box 1
+     * @param posColumnControl posizione colonna box 1
+     * @param posRowControlNext posizione riga box 2
+     * @param posColumnControlNext posizione colonna box 2
+     * @param firstCouple booleano che indica se è la prima coppia di quel colore su quella diagonale
+     * @return ritorna nella posizione 0 lo score da sommare al totale e in posizione 1 l'aggiornamento di firstCouple
+     */
+    private ArrayList<Object> incrementScore(Window finalWindow, int posRowControl, int posColumnControl, int posRowControlNext, int posColumnControlNext, boolean firstCouple){
 
         ArrayList<Object> result=new ArrayList<>();
         int score=0;

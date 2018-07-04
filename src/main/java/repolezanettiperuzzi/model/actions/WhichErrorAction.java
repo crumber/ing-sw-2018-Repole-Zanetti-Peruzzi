@@ -1,7 +1,16 @@
 package repolezanettiperuzzi.model.actions;
 
+/**
+ * Classe che modellizza i codici degli errori
+ * @author Alessandro Peruzzi
+ */
 public class WhichErrorAction {
 
+    /**
+     *
+     * @param numError intero che rappresenta l'errore ( sempre negativo)
+     * @return ritorna la Stringa che rappresenta l'errore in codice
+     */
     public String doAction(int numError){
 
         String error;

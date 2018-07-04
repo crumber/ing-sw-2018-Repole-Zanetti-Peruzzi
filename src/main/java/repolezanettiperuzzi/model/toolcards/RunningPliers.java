@@ -31,7 +31,6 @@ public class RunningPliers extends ToolCard {
      * @param board è la game board
      * @param player indica il player che vuole attivare la carta
      * @param parameterForCard è una lista di interi che rappresentano i vari valori dei parametri per l'attivazione della carta scelti dal client
-     * @return ritorna 1 se i controlli sono andati bene sennò un valore negativo che indica l'errore
      */
     @Override
     public void effect(GameBoard board, Player player, List<Integer> parameterForCard){

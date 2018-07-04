@@ -5,8 +5,22 @@ import repolezanettiperuzzi.model.Player;
 
 import java.util.List;
 
+/**
+ * Classe che rappresenta l'inserimento di un dado
+ * @author Alessandro Peruzzi
+ */
 public class InsertDieWithCheckAction{
 
+    /**
+     * esegue il controllo per inserire il dado
+     * @param player player che vuole inserire il dado
+     * @param board game board
+     * @param posDieOnDraft int che indica il dado del draft
+     * @param whichRow int che indica in che riga vuole mettere il dado
+     * @param whichColumn int che indica in che colonna vuole mettere il dado
+     * @param card8 booleano che indica se è la carta numero 8 (true se lo è)
+     * @return ritorna 1 se il controllo è andato a buon fine sennò ritorna un numero negativo che indica l'errore
+     */
     public int checkInsert(Player player, GameBoard board,int posDieOnDraft, int whichRow, int whichColumn, boolean card8){
 
         int resultOfAction;
@@ -52,7 +66,13 @@ public class InsertDieWithCheckAction{
         return resultOfAction;
     }
 
-
+    /**
+     * inserisce il dado nella window del player e toglie il dado dal draft
+     * @param player player che vuole inserire il dado
+     * @param board Game board
+     * @param parameterForInserDie lista di interi che indicano i parametri per inserire il dado
+     * @return 1 effetto attivato
+     */
     public int doAction(Player player, GameBoard board, List<Integer> parameterForInserDie){
 
         int resultOfAction;

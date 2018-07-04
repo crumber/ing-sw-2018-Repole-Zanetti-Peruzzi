@@ -5,8 +5,19 @@ import repolezanettiperuzzi.model.GameBoard;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe che rappresenta la creazione dei parametri per l'utilizzo di una tool card
+ * @author Alessandro Peruzzi
+ */
 public class CreateListForCardAction {
 
+    /**
+     * converte la stringa in una lista di interi
+     * @param clientAnswers stringa di risposta del client
+     * @param board game board
+     * @param whichToolCard intero che indica quale tool card presente nella game board
+     * @return ritorna una lista di interi che rappresentano i vari parametri per la carta
+     */
     public List<Integer> doAction (String clientAnswers, GameBoard board, int whichToolCard){
 
         ArrayList<Integer> parameterForCard=new ArrayList<>();
@@ -74,7 +85,7 @@ public class CreateListForCardAction {
             }
         }
 
-        //carta numero 7 non ha bisogno di qualcosa oltre board e player mentre carta numero 8 da fare
+        //carta numero 7 non ha bisogno di qualcosa oltre board e player
 
         return parameterForCard;
     }

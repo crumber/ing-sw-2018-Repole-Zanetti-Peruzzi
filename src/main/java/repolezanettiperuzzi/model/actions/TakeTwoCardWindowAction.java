@@ -6,8 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Classe che rappresenta l'assegnamento delle 4 window tra cui scegliere (al client)
+ * @author Alessandro Peruzzi
+ */
 public class TakeTwoCardWindowAction {
 
+    /**
+     *
+     * @param windows lista di tutte le window presenti nel gioco
+     * @return ritorna 4 window adiacenti a coppie
+     */
     public List<Window> doAction(List<Window> windows){
 
         ArrayList<Window> clientWindows=new ArrayList<>();

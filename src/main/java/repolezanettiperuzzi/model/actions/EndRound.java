@@ -2,8 +2,16 @@ package repolezanettiperuzzi.model.actions;
 
 import repolezanettiperuzzi.model.GameBoard;
 
+/**
+ * Classe che rappresenta la fine del round
+ * @author Giampiero Repole
+ */
 public class EndRound{
 
+    /**
+     * azzera i turni di tutti i player, sposta i dadi rimasti sul draft nel roundtrack e imposta i parametri per il turno successivo
+     * @param board Game board
+     */
     public void doAction(GameBoard board){
 
         //reset turn of all players

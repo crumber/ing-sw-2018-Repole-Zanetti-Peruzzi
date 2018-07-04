@@ -69,11 +69,11 @@ public class Window {
 
     /**
      * Muove un dado da una casella ad un'altra
-     * @param xIn
-     * @param yIn
-     * @param xEnd
-     * @param yEnd
-     * @param restriction
+     * @param xIn riga da cui muovere il dado
+     * @param yIn colonna da cui muovere il dado
+     * @param xEnd riga in cui muovere il dado
+     * @param yEnd colonna in cui muovere il dado
+     * @param restriction stringa che indica la restriziona
      */
     public void moveDie(int xIn,int yIn, int xEnd, int yEnd, String restriction) {
 

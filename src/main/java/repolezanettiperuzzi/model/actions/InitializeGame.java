@@ -1,6 +1,5 @@
 package repolezanettiperuzzi.model.actions;
 
-
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.model.*;
 
@@ -14,6 +13,10 @@ import java.util.jar.JarFile;
 import java.util.logging.*;
 import java.util.stream.Stream;
 
+/**
+ * Classe che rappresenta l'inizializzazione del gioco
+ * @author Giampiero Repole
+ */
 public class InitializeGame{
 
     private ArrayList<Colour> privateObjective;
@@ -21,7 +24,9 @@ public class InitializeGame{
     private Box[][] board;
     private final Logger LOGGER = Logger.getLogger(InitializeGame.class.getName());
 
-
+    /**
+     * costruttore
+     */
     public InitializeGame(){
 
         this.privateObjective = new ArrayList<>(5);
@@ -35,7 +40,11 @@ public class InitializeGame{
 
     }
 
-
+    /**
+     * inizializza il deck delle public e delle tool cards
+     * @param board game board
+     * @throws IOException sintassi errata nella creazione delle windows da file dinamico
+     */
     public void doAction(GameBoard board) throws IOException {
 
         //assign private objective for each Player
@@ -75,7 +84,10 @@ public class InitializeGame{
     }
 
 
-
+    /**
+     * assegna i colori segreti ai vari giocatori
+     * @param board game board
+     */
     private void assignPrivateObjective(GameBoard board){
 
         Collections.shuffle(this.privateObjective);
@@ -89,7 +101,11 @@ public class InitializeGame{
 
     }
 
-
+    /**
+     * crea le windows usando i metodi createWindowsDebug e createdWindowsJar
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     private void createWindows() throws IOException, URISyntaxException {
 
         DynamicPath dP = new DynamicPath("");
@@ -147,6 +163,10 @@ public class InitializeGame{
 
     }
 
+    /**
+     * crea le windows
+     * @param lines ArrayList di string
+     */
     public void createWindowsDebug(ArrayList<String> lines){
         for (int j = 2; j<lines.size(); j++) {
 
@@ -200,6 +220,11 @@ public class InitializeGame{
         }
     }
 
+    /**
+     * crea le windows da jar
+     * @param bR parametro per leggere da file
+     * @throws IOException e
+     */
     public void createdWindowsJar(BufferedReader bR) throws IOException {
         String line;
         int j = 0;
@@ -260,7 +285,7 @@ public class InitializeGame{
     /**
      * serve un metodo per ordinare perche' i file che leggo dalla cartella sono in ordine decrescente
      * @param it iteratore sui path
-     * @return ArrayList<String> lista di percorsi ordinati in ordine crescente
+     * @return lista di percorsi ordinati in ordine crescente
      */
     public ArrayList<String> sortPaths(Iterator<Path> it){
         ArrayList<String> pathsList = new ArrayList<>();
@@ -271,6 +296,10 @@ public class InitializeGame{
         return pathsList;
     }
 
+    /**
+     *
+     * @return lista delle window
+     */
     public List<Window> getWindows(){
 
         return this.windows;
