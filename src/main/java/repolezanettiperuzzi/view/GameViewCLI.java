@@ -906,7 +906,6 @@ public class GameViewCLI implements Runnable {
             //readLine personalizzata che sblocca il thread allo scadere del timer
             //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
             //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
-            System.out.println(globalGameTime);
             futureInput = Optional.ofNullable(readLine(globalGameTime, message, actions, TimeUnit.MILLISECONDS));
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -1343,167 +1342,10 @@ public class GameViewCLI implements Runnable {
         return messActionCompleted;
     }
 
-    //stampa errori prendendo il codice errore
-    public void errorAction(String error){
+    public void viewError(String errorMessage){
 
-        switch (error){
-
-            case "startingFinalPositionNotExist":{
-
-                System.out.println("You can't move this die because your starting/final position not exist!!!!");
-                break;
-            }
-            case "notMoveChosenEmptyBox":{
-
-                System.out.println("You can't move this die because you have chosen an empty box!!!");
-                break;
-            }
-            case "notMoveThereIsDieInside":{
-
-                System.out.println("You can't move this die into this position because there's a die inside!!");
-                break;
-            }
-            case "notMoveNotDiceNextToIt":{
-
-                System.out.println("You can't move this die in this position because there isn't at least one dice next to it!!");
-                break;
-            }
-            case "notMoveNotRespectColourRestriction":{
-
-                System.out.println("You can't move this die in this position because it doesn't respect the box's colour restriction!!");
-                break;
-            }
-            case "notMoveNotRespectValueRestriction":{
-
-                System.out.println("You can't move this die in this position because it doesn't respect the box's value restriction!!");
-                break;
-            }
-            case "notMoveRespectRestriction":{
-
-                System.out.println("You can't move this die in this position box because it doesn't respect box's restriction!!");
-                break;
-            }
-            case "notNaveFavorTokens":{
-
-                System.out.println("You don't have enough favor tokens!");
-                break;
-            }
-            case "emptyPositionDraft":{
-
-                System.out.println("You have chosen an empty position on the draft!");
-                break;
-            }
-            case "notMoveThereisDieNextToIt":{
-
-                System.out.println("You can't move this die in this position because there is at least one die next to it!");
-                break;
-            }
-            case "wrongNumber":{
-
-                System.out.println("Wrong number! You have to choose a value between 1 and 6!");
-                break;
-            }
-            case "notUseCardIsNotSecondTurn":{
-
-                System.out.println("You can't use this card because this is not the second turn of this round!");
-                break;
-            }
-            case "notUseCardHaveAlreadyInsertedDie":{
-
-                System.out.println("You can't use this card because you have already inserted a die!");
-                break;
-            }
-            case "choiceNotExist":{
-
-                System.out.println("Your choice does not exist, 1 for increase 0 for decrease!!!");
-                break;
-            }
-            case "notDecreaseIsMinimum":{
-
-                System.out.println("You can't decrease this value because it has already the minimum one!!");
-                break;
-            }
-            case "notIncreaseIsMaximum":{
-
-                System.out.println("You can't increase value because it has already the maximum one!!");
-                break;
-            }
-            case "notMoveDie2BoxEmpty":{
-
-                System.out.println("You can't move die 2 because you have chosen an empty box!");
-                break;
-            }
-            case "notMoveDie2NotEmptyBox":{
-
-                System.out.println("You can't move die 2 in this position because there's a die inside!");
-                break;
-            }
-            case "notMoveDie2NotDiceNextToIt":{
-
-                System.out.println("You can't move die 2 in this position because there isn't at least one dice next to it");
-                break;
-            }
-            case "notMoveDie2NotRespectRestriction":{
-
-                System.out.println("You can't move die 2 in this position because it doesn't respect box's restriction!");
-                break;
-            }
-            case "notDieOnRoundTrack":{
-
-                System.out.println("There isn't die on round track in the position you have chosen!");
-                break;
-            }
-            case "notMoveDiceNotSameColourRoundTrack":{
-
-                System.out.println("You don't move dice because they don't have the same colour of die on round track!");
-                break;
-            }
-            case "notPutThereIsDieSameColorNear":{
-
-                System.out.println("You don't put this die in a final position because there is another one with the same color near this position");
-                break;
-            }
-            case "notPutThereIsDieSameValueNear":{
-
-                System.out.println("You don't put this die in a final position because there is another one with the same value next to this position");
-                break;
-            }
-            case "notPutDieThereIsDieSameColorValue":{
-
-                System.out.println("You don't put this die in a final position because there is another one with the same color or value next to this position!");
-                break;
-            }
-            case "notPutDie2ThereIsSameColorValue":{
-
-                System.out.println("You don't put die 2 in a final position because there is another one with the same color or value next to this position!");
-                break;
-            }
-            case "notPutDieHereNotBoundaryPosition":{
-
-                System.out.println("You can't put this die here, you need to select a boundary position!");
-                break;
-            }
-            case "alreadyInsertedDie":{
-
-                System.out.println("You already inserted a die in this turn!");
-                break;
-            }
-            case "alreadyUsedToolCard":{
-
-                System.out.println("You already used a tool card in this turn!!");
-                break;
-            }
-            case "notFirstTurn":{
-
-                System.out.println("Not is your first turn!");
-                break;
-            }
-            default:{
-
-                System.out.println("You don't insert die in this turn!!");
-                break;
-            }
-        }
+        System.out.println("\n///Illegal Action\n///"+errorMessage+"\n");
+        showQuestion(globalGameTime/1000);
     }
 
 }
