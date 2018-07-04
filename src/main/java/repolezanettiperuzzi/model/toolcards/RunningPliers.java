@@ -7,8 +7,15 @@ import repolezanettiperuzzi.model.actions.InsertDieWithCheckAction;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe che rappresenta la tool card 8
+ * @author Alessandro Peruzzi
+ */
 public class RunningPliers extends ToolCard {
 
+    /**
+     * Costruttore della classe, imposta l'id
+     */
     public RunningPliers(){
 
         id=8;
@@ -19,6 +26,12 @@ public class RunningPliers extends ToolCard {
     int whichRow;
     int whichColumn;
 
+    /**
+     * svolge i controlli sui parametri e la situazione per l'attivazione della carta
+     * @param board è la game board
+     * @param player indica il player che vuole attivare la carta
+     * @param parameterForCard è una lista di interi che rappresentano i vari valori dei parametri per l'attivazione della carta scelti dal client
+     */
     @Override
     public void effect(GameBoard board, Player player, List<Integer> parameterForCard){
 
@@ -33,6 +46,12 @@ public class RunningPliers extends ToolCard {
 
     }
 
+    /**
+     * attiva l'effetto della carta
+     * @param board è la game board
+     * @param player indica il player che vuole attivare la carta
+     * @param parameterForCard è una lista di interi che rappresentano i vari valori dei parametri per l'attivazione della carta scelti dal client
+     */
     public int check(GameBoard board, Player player, List<Integer> parameterForCard){
 
         posDieOnDraft=parameterForCard.get(0);

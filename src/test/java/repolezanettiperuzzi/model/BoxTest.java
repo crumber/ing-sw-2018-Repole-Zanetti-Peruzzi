@@ -163,7 +163,7 @@ public class BoxTest {
         assertEquals("B",testBox5.toString());
         assertEquals("5",testBox6.toString());
         assertEquals("0",testBox7.toString());
-        assertEquals("R1",testBox8.toString());
+        assertEquals("0R1",testBox8.toString());
 
     }
 

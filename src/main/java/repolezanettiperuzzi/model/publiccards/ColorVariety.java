@@ -2,8 +2,17 @@ package repolezanettiperuzzi.model.publiccards;
 import repolezanettiperuzzi.model.Colour;
 import repolezanettiperuzzi.model.Window;
 
+/**
+ * Classe che rappresenta la public card Color Variety
+ * @author Alessandro Peruzzi
+ */
 public class ColorVariety extends PublicCard {
 
+    /**
+     *
+     * @param finalWindow window su cui calcolare il punteggio
+     * @return numero di set di dadi di ogni colore
+     */
     @Override
     public int effect(Window finalWindow){
 

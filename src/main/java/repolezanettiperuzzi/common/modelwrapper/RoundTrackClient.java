@@ -10,7 +10,7 @@ public class RoundTrackClient implements Serializable {
 
     /**
      *
-     * @param die
+     * @param die dado da aggiungere
      * @param round Round che parte da 1
      */
     public void addDie(DieClient die, int round){

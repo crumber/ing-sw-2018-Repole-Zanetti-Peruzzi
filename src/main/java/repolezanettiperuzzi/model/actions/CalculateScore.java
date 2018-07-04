@@ -4,8 +4,17 @@ import repolezanettiperuzzi.model.GameBoard;
 
 import java.util.HashMap;
 
+/**
+ * Classe che rappresenta il calcolo dei punteggi finali dei client
+ * @author Alessandro Peruzzi
+ */
 public class CalculateScore {
 
+    /**
+     * calcola il punteggio finale di tutti i player
+     * @param board game board
+     * @return ritorna un hashMap con chiave il nome del player e il suo punteggio finale
+     */
     public HashMap<String,Integer> doAction(GameBoard board){
 
         HashMap<String,Integer> ranking=new HashMap<>();

@@ -1,8 +1,8 @@
 repolezanettiperuzzi.common
+repolezanettiperuzzi.common.modelwrapper
 repolezanettiperuzzi.controller
 repolezanettiperuzzi.model
 repolezanettiperuzzi.model.actions
 repolezanettiperuzzi.model.publiccards
 repolezanettiperuzzi.model.toolcards
 repolezanettiperuzzi.view
-repolezanettiperuzzi.common.modelwrapper

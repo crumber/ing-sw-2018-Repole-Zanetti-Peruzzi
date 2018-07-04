@@ -2,16 +2,28 @@ package repolezanettiperuzzi.model.actions;
 
 import repolezanettiperuzzi.model.GameBoard;
 
+/**
+ * Classe che rappresenta la generazione dei codici per le domande delle tool card
+ * @author Alessandro Peruzzi
+ */
 public class ParametersRequestCardAction{
 
-    //manca la 8 la 7 va in nothing perche non ha bisogno di niente
-
+    /**
+     *
+     * @return ritorna una stringa con il codice per la seconda richiesta da fare al client (vale solo per la carta 11)
+     */
     public String doAction(){
 
         return "dieValue ";
 
     }
 
+    /**
+     *
+     * @param board game board
+     * @param whichToolCard intero che indica quale tool card presente nella game board
+     * @return ritorna una stringa che contiene i codici per le domande da fare al client relativi alla tool cart scelta
+     */
     public String doAction(GameBoard board, int whichToolCard){
 
         String requestForToolCard;

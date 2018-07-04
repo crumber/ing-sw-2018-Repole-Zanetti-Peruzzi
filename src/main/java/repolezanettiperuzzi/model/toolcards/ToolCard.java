@@ -4,30 +4,53 @@ import repolezanettiperuzzi.model.*;
 
 import java.util.List;
 
+/**
+ * Classe astratta che rappresenta la generica tool card
+ * @author Alessandro Peruzzi
+ */
 public abstract class ToolCard {
 
     protected int id;
     protected int resultOfAction;
     private String title;
     private String description;
-    private int value;
 
+    /**
+     * imposta la descrizione
+     * @param description descrizione
+     */
     public void setDescription(String description){
         this.description = description;
     }
 
+    /**
+     * imposta il titolo
+     * @param title titolo
+     */
     public void setTitle(String title){
         this.title = title;
     }
 
+    /**
+     *
+     * @return ritorna una stringa: la descrizione della carta
+     */
     public String getDescription(){
         return this.description;
     }
 
+    /**
+     *
+     * @return ritorna una stringa: il titolo
+     */
     public String getTitle(){
         return this.title;
     }
 
+    /**
+     *
+     * @return ritorna l'id
+     */
     public int getId() {
 
         return this.id;
@@ -36,6 +59,16 @@ public abstract class ToolCard {
 
     public abstract int check(GameBoard board, Player player, List<Integer> parameterForCard);
 
+    /**
+     *
+     * @param board game board
+     * @param player player che attiva la carta
+     * @param xStart riga da cui muovere il dado
+     * @param yStart colonna da cui muovere il dado
+     * @param xEnd riga in cui muovere il dado
+     * @param yEnd colonna in cui muovere il dado
+     * @return 1 se i controlli sono andati a buon fine sennò un valore negativo che indica l'errore
+     */
     public int checkMoveOneDie(GameBoard board, Player player, int xStart, int yStart, int xEnd, int yEnd){
 
         int numProblem;
@@ -71,6 +104,20 @@ public abstract class ToolCard {
         return numProblem;
     }
 
+    /**
+     * svolge i controlli sul movimento di due dadi
+     * @param board è la game board
+     * @param player indica il player che vuole attivare la carta
+     * @param x1Start indica da quale riga muovere il dado 1
+     * @param y1Start indica da quale colonna muovere il dado 1
+     * @param x1End indica in quale riga muovere il dado 1
+     * @param y1End indica in quale colonna muovere il dado 1
+     * @param x2Start indica da quale riga muovere il dado 2
+     * @param y2Start indica da quale colonna muovere il dado 2
+     * @param x2End indica in quale riga muovere il dado 2
+     * @param y2End indica in quale colonna muovere il dado 2
+     * @return ritorna 1 se i controlli sono andati bene sennò un valore negativo che indica l'errore
+     */
     public int checkMoveTwoDice(GameBoard board, Player player, int x1Start, int y1Start, int x1End, int y1End, int x2Start, int y2Start, int x2End, int y2End){
 
         int numProblem;
@@ -145,6 +192,13 @@ public abstract class ToolCard {
         return numProblem;
     }
 
+    /**
+     * svolge i controlli sulla selezione del dado del draft
+     * @param board è la game board
+     * @param player indica il player che vuole attivare la carta
+     * @param posDieOnDraft indica quale dado del draft
+     * @return ritorna 1 se i controlli sono andati bene sennò un valore negativo che indica l'errore
+     */
     public int checkDieOnDraft(GameBoard board, Player player, int posDieOnDraft){
 
         int numProblem;
@@ -162,6 +216,14 @@ public abstract class ToolCard {
         return numProblem;
     }
 
+    /**
+     * svolge i controlli sulla selezione del dado del roundtrack
+     * @param board è la game board
+     * @param player indica il player che vuole attivare la carta
+     * @param whichRound indica quale round del roundtrack
+     * @param whichDieRound quale dado tra quelli del round scelto
+     * @return ritorna 1 se i controlli sono andati bene sennò un valore negativo che indica l'errore
+     */
     public int checkDieOnRoundTrack(GameBoard board, Player player, int whichRound, int whichDieRound){
 
         int numProblem;
@@ -179,6 +241,12 @@ public abstract class ToolCard {
         return numProblem;
     }
 
+    /**
+     * attiva l'effetto della carta
+     * @param board è la game board
+     * @param player indica il player che vuole attivare la carta
+     * @param parameterForCard è una lista di interi che rappresentano i vari valori dei parametri per l'attivazione della carta scelti dal client
+     */
     public abstract void effect(GameBoard board, Player player, List<Integer> parameterForCard);
 
 

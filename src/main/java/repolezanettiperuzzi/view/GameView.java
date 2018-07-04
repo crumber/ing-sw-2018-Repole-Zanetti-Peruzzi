@@ -239,7 +239,7 @@ public class GameView implements ClientStubRMI {
      * In caso il client venga chiuso durante la connesione al server RMI, il metodo interrompe il thread che si
      * sta occupando di questa operazione e successivamente chiude il programma.
      * @param typeView Nome dell'ultima view che è arrivato a visualizzare il client
-     * @throws IOException
+     * @throws IOException interruzione thread o interruzione json
      */
     public synchronized void notifyOnExit(String typeView) throws IOException {
         if((this.login || rejectedLogin) && !alreadyExit) {   //se non ho fatto il login significa che ho chiuso la GUI per chiudere il gioco
@@ -387,7 +387,7 @@ public class GameView implements ClientStubRMI {
         if(this.UI.equals("GUI")){
             ((GameFXMLController) fxmlController).notifyTurn(actualPlayer, currentTime);
         }else if(this.UI.equals("CLI")){
-
+            gvCLI.notifyTurn(actualPlayer, currentTime);
         }
     }
 

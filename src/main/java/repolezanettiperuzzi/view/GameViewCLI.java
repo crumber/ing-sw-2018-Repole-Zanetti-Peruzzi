@@ -19,6 +19,8 @@ public class GameViewCLI implements Runnable {
     private String lastScene;
     private boolean hasShutdownHook;
     private ShutdownConsole shutdownConsole;
+    private GameBoardClient boardClient;
+    public static int globalGameTime = 0;
 
     String ANSI_RESET = "\u001B[0m";
     String ANSI_BLACK = "\u001B[30m";
@@ -69,13 +71,13 @@ public class GameViewCLI implements Runnable {
         }
     }
 
-    public String readLine(int timeout, String message, String[] actions) throws InterruptedException {
+    public String readLine(int timeout, String message, String[] actions, TimeUnit unit) throws InterruptedException {
         ExecutorService ex = Executors.newSingleThreadExecutor();
         String input = null;
         try {
             Future<String> result = ex.submit(new ConsoleInputReadTask(actions, message, gV, this.lastScene));
             try {
-                input = result.get(timeout, TimeUnit.SECONDS);
+                input = result.get(timeout, unit);
             } catch (ExecutionException e) {
                 e.getCause().printStackTrace();
             } catch (TimeoutException e) {
@@ -311,7 +313,7 @@ public class GameViewCLI implements Runnable {
             //readLine personalizzata che sblocca il thread allo scadere del timer
             //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
             //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
-            futureInput = Optional.ofNullable(readLine(currentTime, message, actions));
+            futureInput = Optional.ofNullable(readLine(currentTime, message, actions, TimeUnit.SECONDS));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -577,6 +579,7 @@ public class GameViewCLI implements Runnable {
 
     public void updateView(GameBoardClient boardClient, String myName) {
 
+        this.boardClient = boardClient;
         String highLowEdge="+———";
         String typeEdge1="+———+";
         String typeEdge2="+———";
@@ -836,20 +839,30 @@ public class GameViewCLI implements Runnable {
         System.out.println("ciaoIO");
     }
 
+    public void notifyTurn(String currentPlayer, int currentTime){
+        if(currentPlayer.equals(gV.getUsername())){
+            showQuestion(currentTime);
+        } else {
+            System.out.println("It's "+currentPlayer+"'s turn!");
+        }
+    }
+
     //la prima domanda è relativa a che azione voglio fare cioè i=inserire dado, u=usare carta e p=passare turno
     // dopo vengono poste le domande relative alla scelta fatta e tutto questo mentre si controlla lo scadere del timer
     // una volta finite le domande e aver creato l'array list elle risposte si chiama il metodo
     // sucessivo di quella determinata azione
 
     //TODO DA TESTARE I DUE METODI QUI SOTTO, SPERO SIANO GIUSTI
-    public void showQuestion(GameBoardClient boardClient, String myName){
+    public void showQuestion(int currentTime){
 
+        globalGameTime = currentTime*1000;
+        String myName = gV.getUsername();
         String space = "   ";
         ArrayList<Integer> answer = new ArrayList<>();
         ArrayList<Object> questions;
         int myNumber=0;
 
-        // System.out.println(space + "You have "+currentTime+" seconds before the timeout expires.");
+        System.out.println(space + "You have "+(globalGameTime/1000)+" seconds before the timeout expires.");
         String messInsertDie = "press i to insert a die ";
         String messUsedCard = "press u to use a tool card ";
         String messagefine = "press p to pass the turn (press 'q' to exit game): ";
@@ -882,7 +895,8 @@ public class GameViewCLI implements Runnable {
             //readLine personalizzata che sblocca il thread allo scadere del timer
             //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
             //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
-            futureInput = Optional.ofNullable(readLine(10000000, message, actions));
+            System.out.println(globalGameTime);
+            futureInput = Optional.ofNullable(readLine(globalGameTime, message, actions, TimeUnit.MILLISECONDS));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -902,7 +916,7 @@ public class GameViewCLI implements Runnable {
                     //readLine personalizzata che sblocca il thread allo scadere del timer
                     //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
                     //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
-                    futureInput = Optional.ofNullable(readLine(10000000, messDraft, actionDraft));
+                    futureInput = Optional.ofNullable(readLine(globalGameTime, messDraft, actionDraft, TimeUnit.MILLISECONDS));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -923,7 +937,7 @@ public class GameViewCLI implements Runnable {
                         //readLine personalizzata che sblocca il thread allo scadere del timer
                         //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
                         //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
-                        futureInput = Optional.ofNullable(readLine(10000000, messRow, actionRow));
+                        futureInput = Optional.ofNullable(readLine(globalGameTime, messRow, actionRow, TimeUnit.MILLISECONDS));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -942,7 +956,7 @@ public class GameViewCLI implements Runnable {
                             //readLine personalizzata che sblocca il thread allo scadere del timer
                             //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
                             //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
-                            futureInput = Optional.ofNullable(readLine(10000000, messColumn, actionColumn));
+                            futureInput = Optional.ofNullable(readLine(globalGameTime, messColumn, actionColumn, TimeUnit.MILLISECONDS));
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -954,12 +968,11 @@ public class GameViewCLI implements Runnable {
                             System.out.println("\nYou choose position row:" + answer.get(1) + " column: " + answer.get(2) + "!");
 
                             //TODO ANDRE PARTE SOTTO
-                         /*   try {
-                                //CHIAMATA METODO INSERISCI DADO DELLA VIEW
+                            try {
+                                gV.sendInsertDie(answer.get(0), answer.get(1), answer.get(2));
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            */
                         }
                     }
                 }
@@ -973,7 +986,7 @@ public class GameViewCLI implements Runnable {
                     //readLine personalizzata che sblocca il thread allo scadere del timer
                     //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
                     //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
-                    futureInput = Optional.ofNullable(readLine(10000000, messCard, actionCards));
+                    futureInput = Optional.ofNullable(readLine(globalGameTime, messCard, actionCards, TimeUnit.MILLISECONDS));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -1044,7 +1057,7 @@ public class GameViewCLI implements Runnable {
                         //readLine personalizzata che sblocca il thread allo scadere del timer
                         //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
                         //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
-                        futureInput = Optional.ofNullable(readLine(10000000, messRow, actionRow));
+                        futureInput = Optional.ofNullable(readLine(globalGameTime, messRow, actionRow, TimeUnit.MILLISECONDS));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -1063,7 +1076,7 @@ public class GameViewCLI implements Runnable {
                             //readLine personalizzata che sblocca il thread allo scadere del timer
                             //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
                             //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
-                            futureInput = Optional.ofNullable(readLine(10000000, messColumn, actionColumn));
+                            futureInput = Optional.ofNullable(readLine(globalGameTime, messColumn, actionColumn, TimeUnit.MILLISECONDS));
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -1093,7 +1106,7 @@ public class GameViewCLI implements Runnable {
                         //readLine personalizzata che sblocca il thread allo scadere del timer
                         //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
                         //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
-                        futureInput = Optional.ofNullable(readLine(10000000, messRow, actionRow));
+                        futureInput = Optional.ofNullable(readLine(globalGameTime, messRow, actionRow, TimeUnit.MILLISECONDS));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -1112,7 +1125,7 @@ public class GameViewCLI implements Runnable {
                             //readLine personalizzata che sblocca il thread allo scadere del timer
                             //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
                             //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
-                            futureInput = Optional.ofNullable(readLine(10000000, messColumn, actionColumn));
+                            futureInput = Optional.ofNullable(readLine(globalGameTime, messColumn, actionColumn, TimeUnit.MILLISECONDS));
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -1142,7 +1155,7 @@ public class GameViewCLI implements Runnable {
                         //readLine personalizzata che sblocca il thread allo scadere del timer
                         //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
                         //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
-                        futureInput = Optional.ofNullable(readLine(10000000, messDraft, actionDraft));
+                        futureInput = Optional.ofNullable(readLine(globalGameTime, messDraft, actionDraft, TimeUnit.MILLISECONDS));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -1170,7 +1183,7 @@ public class GameViewCLI implements Runnable {
                         //readLine personalizzata che sblocca il thread allo scadere del timer
                         //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
                         //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
-                        futureInput = Optional.ofNullable(readLine(10000000, messRound, actionRound));
+                        futureInput = Optional.ofNullable(readLine(globalGameTime, messRound, actionRound, TimeUnit.MILLISECONDS));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -1191,7 +1204,7 @@ public class GameViewCLI implements Runnable {
                             //readLine personalizzata che sblocca il thread allo scadere del timer
                             //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
                             //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
-                            futureInput = Optional.ofNullable(readLine(10000000, messDieRound, actionDieRound));
+                            futureInput = Optional.ofNullable(readLine(globalGameTime, messDieRound, actionDieRound, TimeUnit.MILLISECONDS));
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -1217,7 +1230,7 @@ public class GameViewCLI implements Runnable {
                         //readLine personalizzata che sblocca il thread allo scadere del timer
                         //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
                         //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
-                        futureInput = Optional.ofNullable(readLine(10000000, messIncrDecr, actionIncrDecr));
+                        futureInput = Optional.ofNullable(readLine(globalGameTime, messIncrDecr, actionIncrDecr, TimeUnit.MILLISECONDS));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -1247,7 +1260,7 @@ public class GameViewCLI implements Runnable {
                         //readLine personalizzata che sblocca il thread allo scadere del timer
                         //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
                         //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
-                        futureInput = Optional.ofNullable(readLine(10000000, messValueDie, actionValueDie));
+                        futureInput = Optional.ofNullable(readLine(globalGameTime, messValueDie, actionValueDie, TimeUnit.MILLISECONDS));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

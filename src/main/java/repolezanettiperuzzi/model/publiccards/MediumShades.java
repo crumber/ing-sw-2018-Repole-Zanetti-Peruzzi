@@ -3,8 +3,17 @@ package repolezanettiperuzzi.model.publiccards;
 import repolezanettiperuzzi.model.Value;
 import repolezanettiperuzzi.model.Window;
 
+/**
+ * Classe che rappresenta la public card Medium Shades
+ * @author Alessandro Peruzzi
+ */
 public class MediumShades extends PublicCard {
 
+    /**
+     *
+     * @param finalWindow window su cui calcolare il punteggio
+     * @return numero di set 3 e 4 ripetuti
+     */
     @Override
     public int effect(Window finalWindow){
 

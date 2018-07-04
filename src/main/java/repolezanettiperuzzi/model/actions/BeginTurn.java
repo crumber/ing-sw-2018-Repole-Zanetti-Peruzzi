@@ -1,10 +1,12 @@
 package repolezanettiperuzzi.model.actions;
 
-
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 
-
+/**
+ * Classe che rappresenta l'inizio del turno
+ * @author Giampiero Repole
+ */
 public class BeginTurn {
 
     private static int currentTurn = 0;
@@ -17,7 +19,11 @@ public class BeginTurn {
 
     private Player player;
 
-
+    /**
+     * inizializza i parametri
+     * @param player player
+     * @param board game board
+     */
 
     public void doAction(Player player, GameBoard board){
 
@@ -40,41 +46,71 @@ public class BeginTurn {
 
     }
 
+    /**
+     * incrementa il turno del player passato
+     * @param player player a cui bisogna incrementare il turno
+     */
     public static void incrTurn(Player player){
 
         player.incrTurn();
 
     }
 
+    /**
+     * controlla che il turno del player sia uguale al turno corrente
+     * @param player player a cui bisogna controllare il turno con il turno corrente
+     * @return vero se turno corrente uguale a quello del player passato
+     */
     public static boolean controlTurn(Player player){
 
         return player.getTurn() == currentTurn ;
 
     }
 
+    /**
+     *
+     * @return il turno corrente del player
+     */
+
     public static int getCurrentPlayer(){
 
         return currentPlayer;
     }
 
+    /**
+     *
+     * @return il turno corrente di gioco
+     */
     public static int getCurrentTurn(){
 
         return currentTurn;
 
     }
 
+    /**
+     * azzera il turno corrente
+     */
     public static void resetCurrentTurn(){
 
         currentTurn=0;
 
     }
 
+    /**
+     *
+     * @return il numero di player che hanno giocato il proprio turno
+     */
     public static int getNumPlayedTurn(){
 
         return numPlayedTurn;
 
     }
 
+    /**
+     * aggiorna i parametri per il turno successivo del player passato
+     * @param board game board
+     * @param player player a cui aggiornare i parametri per il turno successivo
+     */
     public static void nextTurnParameters(GameBoard board,Player player){
 
         if(currentTurn==0) {
@@ -124,12 +160,18 @@ public class BeginTurn {
         }
     }
 
+    /**
+     * azzera il numero di player che ha giocato il proprio turno
+     */
     public static void resetNumPlayedTurn() {
 
         numPlayedTurn=0;
 
     }
 
+    /**
+     * azzera l'indice che indica il player corrente
+     */
     public static void resetCurrentPlayer(){
 
         currentPlayer=BeginRound.getIndex();

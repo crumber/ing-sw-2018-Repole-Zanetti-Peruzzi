@@ -50,7 +50,7 @@ public class Die {
     }
 
     /**
-     * Setta il valore del dado
+     * imposta il valore del dado
      * @param value valore che si vuole assegnare al dado
      */
     public void setValue(Value value) {
@@ -59,6 +59,10 @@ public class Die {
 
     }
 
+    /**
+     *
+     * @return restituisce una stringa che rapprenseta il dado prima una lettera che indica il colore e poi un numero per il valore
+     */
     public String toString(){
 
         String res="";

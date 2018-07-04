@@ -3,8 +3,17 @@ package repolezanettiperuzzi.model.publiccards;
 import repolezanettiperuzzi.model.Value;
 import repolezanettiperuzzi.model.Window;
 
+/**
+ * Classe che rappresenta la public card Shade Variety
+ * @author Alessandro Peruzzi
+ */
 public class ShadeVariety extends PublicCard {
 
+    /**
+     *
+     * @param finalWindow window su cui calcolare il punteggio
+     * @return numero di set di dadi con valori ovunque
+     */
     @Override
     public int effect(Window finalWindow){
 
