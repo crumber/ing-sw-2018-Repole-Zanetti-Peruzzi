@@ -1,11 +1,21 @@
 package repolezanettiperuzzi.controller;
 
 import org.json.simple.parser.ParseException;
+import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.model.actions.BeginTurn;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Classe che rappresenta il controller del timer
@@ -24,33 +34,85 @@ public class ControllerTimer extends TimerTask {
      * @param timerType Tipo di timer
      * @param controller Controller
      */
-    public ControllerTimer(String timerType, Controller controller){
+    public ControllerTimer(String timerType, Controller controller) throws IOException {
 
         this.timer = new Timer();
         this.controller = controller;
         this.currentState=timerType;
-        this.currentTime = 40;
+        //this.currentTime = 40;
 
-        //TODO apro file configurazione durata timer
+        DynamicPath dp = new DynamicPath("");
 
-        switch(timerType){
+        if(dp.isJar()){
 
-            case "setConnection" :
-                this.nextState = new FetchState();
-                break;
+            URI timerUri= null;
 
-            case "chooseWindow" :
-                this.nextState = new BeginRoundState();
-                break;
+            try{
 
-            case "playerTurn" :
-                this.nextState = new TurnState();
-                break;
+                timerUri = ControllerTimer.class.getResource("/gamedata/timer.txt").toURI();
 
-            default :
-                break;
+            }catch(URISyntaxException e){
+
+                e.printStackTrace();
+            }
+
+            BufferedReader bR = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/gamedata/timer.txt")));
+
+            switch(timerType) {
+
+                case "setConnection":
+                    this.nextState = new FetchState();
+                    this.currentTime = Integer.parseInt(bR.readLine());
+                    break;
+
+                case "chooseWindow":
+                    this.nextState = new BeginRoundState();
+                    bR.readLine();
+                    this.currentTime = Integer.parseInt(bR.readLine());
+                    break;
+
+                case "playerTurn":
+                    this.nextState = new TurnState();
+                    bR.readLine();
+                    bR.readLine();
+                    this.currentTime = Integer.parseInt(bR.readLine());
+                    break;
+
+            }
+            bR.close();
+
+        }else{
+
+            BufferedReader file = new BufferedReader(new FileReader("gamedata/timer.txt"));
+
+
+
+            switch(timerType) {
+
+                case "setConnection":
+                    this.nextState = new FetchState();
+                    this.currentTime = Integer.parseInt(file.readLine());
+                    break;
+
+                case "chooseWindow":
+                    this.nextState = new BeginRoundState();
+                    file.readLine();
+                    this.currentTime = Integer.parseInt(file.readLine());
+                    break;
+
+                case "playerTurn":
+                    this.nextState = new TurnState();
+                    file.readLine();
+                    file.readLine();
+                    this.currentTime = Integer.parseInt(file.readLine());
+                    break;
+
+            }
+
+            file.close();
 
         }
+
     }
 
     /**

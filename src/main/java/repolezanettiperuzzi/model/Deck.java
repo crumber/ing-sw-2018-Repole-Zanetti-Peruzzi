@@ -3,9 +3,7 @@ package repolezanettiperuzzi.model;
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.model.actions.InitializeGame;
 import repolezanettiperuzzi.model.publiccards.FactoryPublicCard;
-import repolezanettiperuzzi.model.publiccards.MediumShades;
 import repolezanettiperuzzi.model.publiccards.PublicCard;
-import repolezanettiperuzzi.model.toolcards.CopperFoilBurnisher;
 import repolezanettiperuzzi.model.toolcards.FactoryToolCard;
 import repolezanettiperuzzi.model.toolcards.ToolCard;
 

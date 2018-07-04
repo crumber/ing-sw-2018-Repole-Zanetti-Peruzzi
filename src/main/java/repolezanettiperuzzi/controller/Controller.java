@@ -79,7 +79,7 @@ public class Controller {
      * Inizializza il timer
      * @param timerType Tipo di timer
      */
-    public synchronized void setTimer(String timerType){
+    public synchronized void setTimer(String timerType) throws IOException {
 
         this.task = new ControllerTimer(timerType,this);
         this.timer = this.task.getTimer();

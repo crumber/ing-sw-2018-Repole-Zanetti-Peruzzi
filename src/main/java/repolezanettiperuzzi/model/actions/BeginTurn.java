@@ -31,19 +31,6 @@ public class BeginTurn {
 
         this.player=player;
 
-        /*if(currentTurn==0) {
-
-
-            //se nessuno ha ancora giocato il proprio turno allora prendo l'indice del primo giocatore di questo round
-            if (numPlayedTurn == 0) {
-
-                currentPlayer = BeginRound.getIndex();
-
-            }
-
-        }*/
-
-
     }
 
     /**
