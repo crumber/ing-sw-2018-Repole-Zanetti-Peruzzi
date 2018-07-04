@@ -224,7 +224,7 @@
                         <VBox prefHeight="200.0" prefWidth="143.27">
                            <children>
                               <ImageView fx:id="tc1" fitHeight="200.0" fitWidth="143.27" pickOnBounds="true" preserveRatio="true" />
-                              <Button fx:id="tc1Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="143.27" style="-fx-background-color: #e2952f;" text="Pay 1 FT">
+                              <Button fx:id="tc1Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="143.27" style="-fx-background-color: #e2952f;" >
                                  <effect>
                                     <InnerShadow />
                                  </effect>
@@ -236,7 +236,7 @@
                         <VBox prefHeight="200.0" prefWidth="143.27">
                            <children>
                               <ImageView fx:id="tc2" fitHeight="200.0" fitWidth="143.27" pickOnBounds="true" preserveRatio="true" />
-                              <Button fx:id="tc2Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="143.27" style="-fx-background-color: #e2952f#e2952f;" text="Pay 1 FT">
+                              <Button fx:id="tc2Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="143.27" style="-fx-background-color: #e2952f#e2952f;" >
                                  <effect>
                                     <InnerShadow />
                                  </effect>
@@ -248,7 +248,7 @@
                         <VBox prefHeight="200.0" prefWidth="143.27">
                            <children>
                               <ImageView fx:id="tc3" fitHeight="200.0" fitWidth="143.27" pickOnBounds="true" preserveRatio="true" />
-                              <Button fx:id="tc3Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="143.27" style="-fx-background-color: #e2952f#e2952f;" text="Pay 1 FT">
+                              <Button fx:id="tc3Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="143.27" style="-fx-background-color: #e2952f#e2952f;" >
                                  <effect>
                                     <InnerShadow />
                                  </effect>

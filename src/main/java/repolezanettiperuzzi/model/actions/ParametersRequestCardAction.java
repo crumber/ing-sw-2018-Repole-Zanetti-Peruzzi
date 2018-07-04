@@ -69,6 +69,7 @@ public class ParametersRequestCardAction{
 
         }
 
+        requestForToolCard = requestForToolCard.replace(" ","-");
         return typeMess+requestForToolCard;
     }
 }

@@ -250,7 +250,7 @@ public class GameView implements ClientStubRMI {
                     alreadyExit = true;
                     System.exit(0);
                 } else {
-                    System.out.println("ci sono");
+                    //System.out.println("ci sono");
                     gvSocket = new GameViewSocket(this);
                     gvSocket.notifyOnExit(username, typeView);
                     alreadyExit = true;
@@ -283,7 +283,7 @@ public class GameView implements ClientStubRMI {
 
     public void shutdownClient(){
         if(this.login) {
-            System.out.println("logout");
+            //System.out.println("logout");
             System.exit(0);
         }
     }
@@ -371,6 +371,32 @@ public class GameView implements ClientStubRMI {
             gvSocket = new GameViewSocket(this);
             gvSocket.sendInsertDie(username, draftPos, xWindowPos, yWindowPos);
         } else if(connection.equals("RMI")){
+
+        }
+    }
+
+    public void sendChooseCard(int numCard) throws IOException {
+
+        if(connection.equals("Socket")){
+
+            gvSocket = new GameViewSocket(this);
+            gvSocket.sendChooseCard(username, numCard);
+
+        }else if(connection.equals("RMI")){
+
+        }
+    }
+
+    public void receiveCardParameter(String parameters){
+
+        //System.out.println(parameters);
+        String[] separatedParameters = parameters.split("-");
+
+        if(UI.equals("GUI")){
+
+            ((GameFXMLController) fxmlController).showCardParameters(separatedParameters);
+
+        }else if(UI.equals("CLI")){
 
         }
     }

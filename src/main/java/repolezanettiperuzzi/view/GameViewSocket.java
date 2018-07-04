@@ -113,6 +113,10 @@ public class GameViewSocket implements Runnable{
                 //System.out.println(line[1]);
                 updateView(line[1]);
                 break;
+            case "requestCard":
+                System.out.println(line[1]);
+                gameView.receiveCardParameter(line[1]);
+                break;
             case "exit":
                 gameView.shutdownClient();
                 break;
@@ -159,6 +163,16 @@ public class GameViewSocket implements Runnable{
         out.println(username + " insertDie "+draftPos+" "+xWindowPos+" "+yWindowPos );
         out.close();
         socket.close();
+    }
+
+    public void sendChooseCard(String username, int numCard) throws IOException {
+
+        System.out.println("carta scelta"+numCard);
+        PrintWriter out= new PrintWriter(socket.getOutputStream(),true);
+        out.println(username+" chooseCard "+numCard);
+        out.close();
+        socket.close();
+
     }
 
     private void receivedWindows(String[] line){
@@ -281,13 +295,13 @@ public class GameViewSocket implements Runnable{
 
             board.setRound(Character.getNumericValue(boardElems[i].charAt(0)));
             board.setTurn(Character.getNumericValue(boardElems[i].charAt(1)));
-            System.out.println(board.getRound()+" "+board.getTurn());
+            //System.out.println(board.getRound()+" "+board.getTurn());
 
         }else{
 
             board.setRound(Integer.parseInt(boardElems[i].substring(0,2)));
             board.setTurn(Character.getNumericValue(boardElems[i].charAt(2)));
-            System.out.println(board.getRound()+" "+board.getTurn());
+            //System.out.println(board.getRound()+" "+board.getTurn());
 
         }
         i++;

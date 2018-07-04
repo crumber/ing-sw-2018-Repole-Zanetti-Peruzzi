@@ -121,6 +121,10 @@ public class HandlerControllerSocket implements Runnable{
                 controller.setState(new TurnState());
                 ((TurnState)controller.getState()).insertDie(controller.board.getPlayerByName(playerID) , param[0]+" "+param[1]+" "+param[2]);
                 break;
+            case "chooseCard":
+                controller.setState(new TurnState());
+                ((TurnState)controller.getState()).useCardRequest(controller.board.getPlayerByName(playerID), Integer.parseInt(param[0]));
+                break;
             case "exit":
                 controller.notifyExitToClient(playerID);
                 switch(param[0]){
@@ -295,8 +299,9 @@ public class HandlerControllerSocket implements Runnable{
 
     public void sendParametersForToolCard(String message) throws IOException {
 
+        System.out.println(controller.board.getToolCard(0).getTitle()+" "+controller.board.getToolCard(0).getId()+" "+controller.board.getToolCard(1).getTitle()+" "+controller.board.getToolCard(1).getId()+" "+controller.board.getToolCard(2).getTitle()+" "+controller.board.getToolCard(2).getId());
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(),true);
-        out.println("cardParameters "+message);
+        out.println(message);
         out.close();
         this.socket.close();
 

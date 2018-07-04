@@ -104,7 +104,7 @@ public class TurnState extends ControllerState {
                 if(player.getConnection().equals("Socket")){
 
                     try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
-                        System.out.println(error);
+                        //System.out.println(error);
                         HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
                         handler.sendActionError(error);
 
@@ -125,7 +125,7 @@ public class TurnState extends ControllerState {
             if(player.getConnection().equals("Socket")){
 
                 try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
-                    System.out.println("notYourTurn");
+                    //System.out.println("notYourTurn");
                     HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
                     handler.sendNotYourTurn();
 

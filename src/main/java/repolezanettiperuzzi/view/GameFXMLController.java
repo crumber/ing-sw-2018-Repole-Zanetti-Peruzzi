@@ -101,8 +101,12 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     @FXML
     private ImageView myTurnMarker;
+
     @FXML
     private Rectangle R1, R2, R3, R4, R5, R6, R7, R8, R9, R10;
+
+    @FXML
+    private Button tc1Button, tc2Button, tc3Button;
 
 
     // Add a public no-args constructor
@@ -219,6 +223,9 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
             }else{
 
+                tc1Button.setId("tc1Button");
+                tc2Button.setId("tc2Button");
+                tc3Button.setId("tc3Button");
                 int i=0;
 
                 for (PlayerClient player : board.getPlayers()) {
@@ -236,10 +243,15 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
                     }
 
-
                 }
             }
 
+
+            Platform.runLater(() -> {
+                tc1Button.setText("Pay "+board.getToolCards().get(0).getFavorTokens()+" FT");
+                tc2Button.setText("Pay "+board.getToolCards().get(1).getFavorTokens()+" FT");
+                tc3Button.setText("Pay "+board.getToolCards().get(2).getFavorTokens()+" FT");
+            });
 
             viewWindows(board);
             viewDraft(board);
@@ -373,7 +385,8 @@ public class GameFXMLController extends FXMLController implements Initializable{
     }
 
     public void notYourTurn(){
-        showAlert("Not your turn", "Not your turn!");
+        String notYourTurn = "Not your turn";
+        showAlert(notYourTurn, notYourTurn+"!");
     }
 
     public void onClickDieDraft(GridPane grid, int i, Rectangle rect){
@@ -516,7 +529,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 stage.setMaximized(true);
                 stage.setFullScreen(true);
                 Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-                System.out.println(primaryScreenBounds.getMinX()+" "+primaryScreenBounds.getMinY()+" "+primaryScreenBounds.getHeight()+" "+primaryScreenBounds.getWidth());
+                //System.out.println(primaryScreenBounds.getMinX()+" "+primaryScreenBounds.getMinY()+" "+primaryScreenBounds.getHeight()+" "+primaryScreenBounds.getWidth());
                 stage.setX(primaryScreenBounds.getMinX());
                 stage.setY(primaryScreenBounds.getMinY());
                 stage.setWidth(primaryScreenBounds.getWidth());
@@ -579,7 +592,39 @@ public class GameFXMLController extends FXMLController implements Initializable{
             alert.setResizable(false);
 
             alert.showAndWait();
+
         });
+    }
+
+    public void showCardAlert (String idButton, String title, String text){
+
+        if(myTurn) {
+
+            Platform.runLater(() -> {
+
+                Alert alert = new Alert(Alert.AlertType.NONE, text, ButtonType.YES, ButtonType.NO);
+                alert.initOwner(stage);
+                alert.setX(stage.getX() + stage.getScene().getWidth() / 2 - 125);
+                alert.setY(stage.getY() + stage.getScene().getHeight() / 2 - 60);
+                alert.setTitle(title);
+                alert.setResizable(true);
+                alert.getDialogPane().setPrefSize(250, 120);
+                alert.setResizable(false);
+                alert.showAndWait();
+
+                if (alert.getResult() == ButtonType.YES) {
+
+                    this.chooseCard(Character.getNumericValue(idButton.charAt(2))-1);
+
+                }
+
+            });
+        }else{
+
+            showAlert("Not your turn", "This is not your turn!");
+
+        }
+
     }
 
     public void checkInsertDieParameters(){
@@ -601,6 +646,20 @@ public class GameFXMLController extends FXMLController implements Initializable{
         } else {
             showAlert("Not your turn", "This is not your turn!");
         }
+    }
+
+    public void chooseCard(int numCard){
+
+        try {
+
+                gV.sendChooseCard(numCard);
+
+        } catch (IOException e) {
+
+                e.printStackTrace();
+
+        }
+
     }
 
     public void mouseReleased(MouseEvent e, Button b, String id, String backgroundColor, String shadowColor){
@@ -663,6 +722,10 @@ public class GameFXMLController extends FXMLController implements Initializable{
         tcClose.setOnMouseReleased(e -> tcWindow.setVisible(false));
         pcClose.setOnMouseReleased(e -> pcWindow.setVisible(false));
         closeRoundTrack.setOnMouseReleased(e -> RTWindow.setVisible(false));
+
+        tc1Button.setOnMouseReleased(e -> showCardAlert(tc1Button.getId(),"Choose card 1","Do you want to "+tc1Button.getText().toLowerCase().replace("ft","favor tokens")+"?"));
+        tc2Button.setOnMouseReleased(e -> showCardAlert(tc2Button.getId(),"Choose card 2","Do you want to "+tc2Button.getText().toLowerCase().replace("ft","favor tokens")+"?"));
+        tc3Button.setOnMouseReleased(e -> showCardAlert(tc3Button.getId(),"Choose card 3","Do you want to "+tc3Button.getText().toLowerCase().replace("ft","favor tokens")+"?"));
 
         lastDieDraft = -1;
         lastDieRT = "";
@@ -955,9 +1018,75 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     public void setCurrentTurn(GameBoardClient board){
 
-        System.out.println(board.getTurn());
+        //System.out.println(board.getTurn());
         Platform.runLater(() -> currentTurn.setText(": "+(board.getTurn()+1)));
 
     }
+
+    public void showCardParameters(String[] parameters){
+
+        int j=0;
+
+        StringBuilder showedParameters = new StringBuilder();
+
+        for(int i=0; i<parameters.length; i++){
+
+            switch(parameters[i]) {
+
+                case "startPos":
+
+                    showedParameters.append("Seleziona dado ").append(j + 1).append(" dalla window.\n");
+                    break;
+
+                case "endPos":
+
+                    showedParameters.append("Seleziona dove vuoi inserire il dado ").append(j + 1).append(" sulla window.\n");
+                    j++;
+                    break;
+
+                case "dieDraft":
+
+                    showedParameters.append("Seleziona un dado dal draft.\n");
+                    break;
+
+                case "dieRoundTrack":
+
+                    showedParameters.append("Selezionare un dado dalla Round Track.\n");
+                    break;
+
+                case "incrDecrDie":
+
+                    showedParameters.append("Scegliere un dado da inrementare o decrementare.\n");
+                    break;
+
+                case "dieValue":
+
+                    showedParameters.append("Scegliere il valore dell'ultimo dado del draft\n");
+                    break;
+
+            }
+
+        }
+
+        showedParameters.append("\nRispettare quest'ordine di selezione.");
+
+        //showAlert("Scegli parametri carta",showedParameters.toString());
+
+        Platform.runLater(() -> {
+
+            Alert alert = new Alert(Alert.AlertType.NONE, showedParameters.toString(), ButtonType.OK);
+            alert.initOwner(stage);
+            alert.setX(stage.getX() + stage.getScene().getWidth() / 2 - 125);
+            alert.setY(stage.getY() + stage.getScene().getHeight() / 2 - 60);
+            alert.setTitle("Scegli parametri carta");
+            alert.setResizable(true);
+            alert.getDialogPane().setPrefSize(350, 200);
+            alert.setResizable(false);
+            alert.showAndWait();
+
+        });
+
+    }
+
 
 }
