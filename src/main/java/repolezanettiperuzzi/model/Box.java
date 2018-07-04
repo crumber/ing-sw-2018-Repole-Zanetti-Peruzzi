@@ -22,7 +22,7 @@ public class Box {
 
     /**
      * Costruttore della classe per creare una casella con vincolo di colore
-     * @param c vincolo di colore
+     * @param c Vincolo di colore
      */
     public Box(Colour c) {
         this.BOUNDCOLOUR = c;
@@ -31,7 +31,7 @@ public class Box {
 
     /**
      * Costruttore della classe per creare una casella con vincolo di valore
-     * @param v vincolo di valore
+     * @param v Vincolo di valore
      */
     public Box(Value v){
         this.BOUNDVALUE=v;
@@ -39,7 +39,7 @@ public class Box {
     }
 
     /**
-     * @return vincolo di colore della casella
+     * @return Vincolo di colore della casella
      */
     public Colour getBoundColour(){
 
@@ -48,7 +48,7 @@ public class Box {
     }
 
     /**
-     * @return vincolo di valore della casella
+     * @return Vincolo di valore della casella
      */
     public Value getBoundValue(){
 
@@ -58,9 +58,9 @@ public class Box {
 
     /**
      * Inserisce un dado nella casella
-     * @param dice dado da inserire
-     * @param restriction tipo di restrizione
-     * @return vero se il dado viene inserito correttamente, falso altrimenti
+     * @param dice Dado da inserire
+     * @param restriction Tipo di restrizione
+     * @return Vero se il dado viene inserito correttamente, falso altrimenti
      */
     public boolean setDie(Die dice,String restriction){
 
@@ -103,7 +103,7 @@ public class Box {
 
     /**
      * Rimuove il dado dalla casella
-     * @return dado rimosso dalla casella
+     * @return Dado rimosso dalla casella
      */
     public Die removeDie() {
 
@@ -115,8 +115,8 @@ public class Box {
 
     /**
      * Controlla che il dado da inserire rispetti i vincoli della casella
-     * @param dice dado da verificare
-     * @return vero se rispetta i vincoli, falso altrimenti
+     * @param dice Dado da verificare
+     * @return Vero se rispetta i vincoli, falso altrimenti
      */
     public boolean controlBounds(Die dice){
 
@@ -128,8 +128,8 @@ public class Box {
 
     /**
      * Controlla soltanto il vincolo di valore
-     * @param dice dado da verificare
-     * @return vero se la casella non ha vincoli o se il dado ne rispetta i vincoli, falso altrimenti
+     * @param dice Dado da verificare
+     * @return Vero se la casella non ha vincoli o se il dado ne rispetta i vincoli, falso altrimenti
      */
     public boolean controlValue(Die dice){
 
@@ -139,8 +139,8 @@ public class Box {
 
     /**
      * Controlla soltanto il vincolo di colore
-     * @param dice dado da verificare
-     * @return vero se la casella non ha vincoli o se il dado ne rispetta i vincoli, falso altrimenti
+     * @param dice Dado da verificare
+     * @return Vero se la casella non ha vincoli o se il dado ne rispetta i vincoli, falso altrimenti
      */
     public boolean controlColour(Die dice){
 
@@ -151,7 +151,7 @@ public class Box {
 
     /**
      * Crea la stringa contenente il vincolo della box, 0 se non ha vincolo
-     * @return la stringa che rappresenta com'è la box
+     * @return La stringa che rappresenta com'è la box
      */
     @Override
     public String toString(){

@@ -26,11 +26,11 @@ public class Player {
     /**
      * Costruttore della classe
      *
-     * @param name       nome del giocatore
-     * @param connection connessione del giocatore (socket o RMI)
-     * @param UI         interfaccia
-     * @param address    indirizzo ip del client
-     * @param port       porta del client
+     * @param name       Nome del giocatore
+     * @param connection Connessione del giocatore (socket o RMI)
+     * @param UI         Interfaccia
+     * @param address    Indirizzo ip del client
+     * @param port       Porta del client
      */
     public Player(String name, String connection, String UI, String address, int port) {
         this.name = name;
@@ -47,7 +47,7 @@ public class Player {
     /**
      * Costruttore della classe che crea una copia di un altro giocatore
      *
-     * @param p giocatore da copiare
+     * @param p Giocatore da copiare
      */
     public Player(Player p) {
         this.name = p.name;
@@ -68,7 +68,7 @@ public class Player {
     /**
      * Aggiorna il punteggio del giocatore
      *
-     * @param points punti del giocatore
+     * @param points Punti del giocatore
      */
     public void updateScore(int points) {
 
@@ -78,8 +78,8 @@ public class Player {
 
 
     /**
-     * imposta a vero o falso l'attributo che indica se il giocatore ha usato o meno una carta in questo turno
-     * @param trueOrFalse true se ha gia usato una carta false se non ha ancora usato una carta
+     * Imposta a vero o falso l'attributo che indica se il giocatore ha usato o meno una carta in questo turno
+     * @param trueOrFalse True se ha gia usato una carta false se non ha ancora usato una carta
      */
     public void setUsedCardInThisTurn(boolean trueOrFalse){
 
@@ -88,7 +88,7 @@ public class Player {
     }
 
     /**
-     * @return vero se il giocatore ha gia usato una carta in questo turno
+     * @return Vero se il giocatore ha gia usato una carta in questo turno
      */
     public boolean getUseCardInThisTurn(){
 
@@ -98,7 +98,7 @@ public class Player {
 
 
     /**
-     * @return punti attuali del giocatore
+     * @return Punti attuali del giocatore
      */
     public int getScore() {
 
@@ -116,7 +116,7 @@ public class Player {
     }
 
     /**
-     * imposta la Window scelta dal giocatore per la partita attuale
+     * Imposta la Window scelta dal giocatore per la partita attuale
      *
      * @param window Window scelta
      */
@@ -131,8 +131,8 @@ public class Player {
     /**
      * Controlla che il giocatore abbia già giocato la scena attuale
      *
-     * @param sceneName scena attuale
-     * @return vero se l'ha gia giocata, falso altrimenti
+     * @param sceneName Scena attuale
+     * @return Vero se l'ha gia giocata, falso altrimenti
      */
     public boolean checkLastScene(String sceneName) {
         return this.lastScene.equals(sceneName);
@@ -146,25 +146,25 @@ public class Player {
     }
 
     /**
-     * imposta l'ultima scena giocata dal Player
+     * Imposta l'ultima scena giocata dal Player
      *
-     * @param sceneName scena giocata
+     * @param sceneName Scena giocata
      */
     public void setLastScene(String sceneName) {
         this.lastScene = sceneName;
     }
 
     /**
-     * @return vero se il giocatore è online, falso altrimenti
+     * @return Vero se il giocatore è online, falso altrimenti
      */
     public boolean getLiveStatus() {
         return this.liveStatus;
     }
 
     /**
-     * imposta lo stato di connessione del giocatore
+     * Imposta lo stato di connessione del giocatore
      *
-     * @param status vero se Online, falso se OffLine
+     * @param status Vero se Online, falso se OffLine
      */
     public void setLiveStatus(boolean status) {
         this.liveStatus = status;
@@ -173,7 +173,7 @@ public class Player {
     /**
      * Imposta il tipo di connessione scelta dal giocatore
      *
-     * @param connection connessione scelta
+     * @param connection Connessione scelta
      */
     public void setConnection(String connection) {
         this.connection = connection;
@@ -182,7 +182,7 @@ public class Player {
     /**
      * Imposta il tipo di interfaccia scelta dal giocatore
      *
-     * @param UI interfaccia scelta
+     * @param UI Interfaccia scelta
      */
     public void setUI(String UI) {
         this.UI = UI;
@@ -191,7 +191,7 @@ public class Player {
     /**
      * Imposta l'indirizzo IP del client
      *
-     * @param address indirizzo IP
+     * @param address Indirizzo IP
      */
     public void setAddress(String address) {
         this.address = address;
@@ -200,7 +200,7 @@ public class Player {
     /**
      * Imposta la porta per comunicare col client
      *
-     * @param port porta dle client
+     * @param port Porta dle client
      */
     public void setPort(int port) {
         this.port = port;
@@ -227,35 +227,35 @@ public class Player {
     }
 
     /**
-     * @return connessione del giocatore
+     * @return Connessione del giocatore
      */
     public String getConnection() {
         return connection;
     }
 
     /**
-     * @return user interface del giocatore
+     * @return User interface del giocatore
      */
     public String getUI(){
             return UI;
     }
 
     /**
-     * @return indirizzo IP del client
+     * @return Indirizzo IP del client
      */
     public String getAddress(){
         return address;
     }
 
     /**
-     * @return porta del client
+     * @return Porta del client
      */
     public int getPort(){
         return port;
     }
 
     /**
-     * @return nome del giocatore
+     * @return Nome del giocatore
      */
     public String getName() {
 
@@ -265,7 +265,7 @@ public class Player {
 
     /**
      * Indica se il giocatore ha inserito o meno un dado nel turno di gioco attuale
-     * @param trueOrFalse vero se ha inserito un dado, falso altrimenti
+     * @param trueOrFalse Vero se ha inserito un dado, falso altrimenti
      */
     public void setInsertDieInThisTurn(boolean trueOrFalse) {
 
@@ -274,7 +274,7 @@ public class Player {
     }
 
     /**
-     * @return boolean che indica se il giocatore ha inserito o meno un dado nel turno di gioco attuale
+     * @return Boolean che indica se il giocatore ha inserito o meno un dado nel turno di gioco attuale
      */
     public boolean getInsertDieInThisTurn(){
 
@@ -283,7 +283,7 @@ public class Player {
     }
 
     /**
-     * @return colore che rappresenta l'obitettivo privato del giocatore
+     * @return Colore che rappresenta l'obitettivo privato del giocatore
      */
     public Colour getSecretColour() {
 
@@ -293,7 +293,7 @@ public class Player {
 
     /**
      * Imposta l'obiettivo privato del giocatore
-     * @param colour obiettivo privato
+     * @param colour Obiettivo privato
      */
     public void setSecretColour(Colour colour){
 
@@ -302,7 +302,7 @@ public class Player {
     }
 
     /**
-     * @return il turno attuale del giocatore
+     * @return Il turno attuale del giocatore
      */
     public int getTurn() {
 
@@ -321,7 +321,7 @@ public class Player {
     }
 
     /**
-     * incrementa il turno del giocatore
+     * Incrementa il turno del giocatore
      */
     public void incrTurn(){
         this.turn++;
@@ -341,7 +341,7 @@ public class Player {
     }
 
     /**
-     * @return copia del giocatore
+     * @return Copia del giocatore
      */
     public Player copy(){
         return new Player(this);

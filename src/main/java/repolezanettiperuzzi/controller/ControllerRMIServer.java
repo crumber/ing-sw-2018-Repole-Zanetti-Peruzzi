@@ -9,14 +9,27 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+/**
+ * Classe che rappresenta il controller di RMI (server)
+ * @author Andrea Zanetti
+ */
 public class ControllerRMIServer {
 
     private Controller controller;
 
+    /**
+     * Costruttore
+     * @param controller Controller
+     */
     public ControllerRMIServer(Controller controller){
         this.controller = controller;
     }
 
+    /**
+     *
+     * @return Il registro di RMI
+     * @throws RemoteException Eccezione RMI
+     */
     public Registry startServer() throws RemoteException {
 
         int port = 1099;

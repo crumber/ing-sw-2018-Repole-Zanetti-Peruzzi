@@ -14,11 +14,21 @@ import java.rmi.registry.Registry;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
+/**
+ * Classe d'inizio e avvio del server
+ * @author Giampiero Repole
+ */
 public class MasterGame {
     private int nPlayer;
     private static GameBoard board;
 
+    /**
+     * Avvio server
+     * @param args parametro del main
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws ParseException Errore durante l'analisi
+     * @throws InterruptedException Interruzione thread
+     */
     public static void main(String[] args) throws IOException, ParseException, InterruptedException {
 
         board = new GameBoard();
@@ -52,6 +62,10 @@ public class MasterGame {
         }
     }
 
+    /**
+     * Stampa il messaggio di caricamneto di RMI
+     * @throws InterruptedException Interruzione thread
+     */
     public static void printRMIStart() throws InterruptedException {
         System.out.print("Starting RMI Server (this may take up to 40 seconds)");
         Thread.sleep(500);
@@ -62,6 +76,10 @@ public class MasterGame {
         System.out.print(".\n");
     }
 
+    /**
+     * Stampa il messaggio di caricamento di socket
+     * @throws InterruptedException Interruzione thread
+     */
     public static void printSocketStart() throws InterruptedException {
         System.out.print("Starting Socket Server (this may take up to 15 seconds)");
         Thread.sleep(500);

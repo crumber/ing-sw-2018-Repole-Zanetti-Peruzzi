@@ -17,14 +17,21 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-
-
+/**
+ * Classe che rappresenta lo stato di inizializzazione del gioco
+ * @author Giampiero Repole
+ */
 public class FetchState extends ControllerState {
 
     private GameBoard board;
     private Controller controller;
     private ArrayList<Window> windows;
 
+    /**
+     * Esegue la inizialize game
+     * @param controller Controller
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     @Override
     public void doAction(Controller controller) throws IOException {
 
@@ -41,6 +48,11 @@ public class FetchState extends ControllerState {
         }
     }
 
+    /**
+     * Invia le windows
+     * @param player Player
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void sendWindows(Player player) throws IOException {
 
         player.setLastScene("chooseWindowRoom");
@@ -86,6 +98,12 @@ public class FetchState extends ControllerState {
 
     }
 
+    /**
+     * Crea e ritorna una stringa che rappresenta le window selezionabili dal player
+     * @param windows ArrayList di window
+     * @return Stringa che rappresenta le window selezionabili dal player
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     //create a string that contains the windows selectable from the player
     private String windowsToString(ArrayList<Window> windows) throws IOException {
 
@@ -130,10 +148,21 @@ public class FetchState extends ControllerState {
 
     }
 
+    /**
+     *
+     * @return ArrayList delle window
+     */
     public ArrayList<Window> getWindows(){
         return this.windows;
     }
 
+    /**
+     * Assegna la window scelta al player se entro il il timer
+     * @param player Player
+     * @param choose Window scelta dal player (nome della window)
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws ParseException Errore durante l'analisi
+     */
     public void setChosenWindowOnTimer(Player player, String choose) throws IOException, ParseException {
 
         for (Window window : board.getPlayersWindowsChoices(player)) {
@@ -148,7 +177,13 @@ public class FetchState extends ControllerState {
         }
     }
 
-
+    /**
+     * Assegna la window al player se non l'ha scelta in tempo
+     * @param player Player
+     * @param choose Nome della window
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws ParseException Errore durante l'analisi
+     */
     public void setChosenWindow(Player player, String choose) throws IOException, ParseException {
 
         for (Window window : board.getPlayersWindowsChoices(player) ) {
@@ -177,6 +212,11 @@ public class FetchState extends ControllerState {
 
     }
 
+    /**
+     * Controlla la connessione dei player
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws ParseException Errore durante l'analisi
+     */
     public void checkConnectedPlayers() throws IOException, ParseException {
 
         if(controller.board.getPlayersOnline()>=2){
@@ -285,6 +325,12 @@ public class FetchState extends ControllerState {
         }
     }
 
+    /**
+     * Inizializza il controller al begin round state per iniziare il round se i player sono pronti
+     * @param playerName Nome del player
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws ParseException Errore durante l'analisi
+     */
     public void readyToPlay(String playerName) throws IOException, ParseException {
 
         board.incrFetchReadyPlayers();

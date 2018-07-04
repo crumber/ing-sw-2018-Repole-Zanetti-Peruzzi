@@ -26,9 +26,9 @@ public class RoundTrack {
 
     /**
      * Prende un dado dalla RoundTrack
-     * @param whichRound round attuale
-     * @param whichDieRound dado che si vuole prendere
-     * @return dado selezionato
+     * @param whichRound Round attuale
+     * @param whichDieRound Dado che si vuole prendere
+     * @return Dado selezionato
      */
     public Die getDieRoundTrack(int whichRound, int whichDieRound) {
 
@@ -43,9 +43,9 @@ public class RoundTrack {
 
     /**
      * Inserisce un dado nella RoundTrack
-     * @param whichRound round attualr
-     * @param posDie posizione in cui si vuole inserire il dado
-     * @param d dado che si vuole inserire
+     * @param whichRound Round attualr
+     * @param posDie Posizione in cui si vuole inserire il dado
+     * @param d Dado che si vuole inserire
      */
     public void setDieOnRoundTrack(int whichRound , int posDie, Die d) {
 
@@ -54,7 +54,7 @@ public class RoundTrack {
     }
 
     /**
-     * @return restituisce la stringa che rappresenta il roundtrack: intero che rappresenta turno segiuto dalettera che rappresenta colore dado
+     * @return Restituisce la stringa che rappresenta il roundtrack: intero che rappresenta turno segiuto dalettera che rappresenta colore dado
      * seguito da numero che rapprenta valore dado e ogni dado del turno separato da _ mentre ogni turno separato da -
      */
     //1B2_..._R3-2Y4_..._G5-....

@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 
+/**
+ * Classe che rappresenta il controller all'inizio del round
+ * @author Giampiero Repole
+ */
 public class Controller {
 
     //view
@@ -26,6 +30,11 @@ public class Controller {
 
     private HandlerControllerRMI handlerRMI;
 
+    /**
+     * Costruttore
+     * @param view Lista di player
+     * @param board Game board
+     */
     public Controller(List<Player> view, GameBoard board){
 
        this.currentState = null;
@@ -36,6 +45,12 @@ public class Controller {
 
     }
 
+    /**
+     * Inizializza al nuovo stato del controller
+     * @param nextState Nuovo stato del controller
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws ParseException Errore durante l'analisi
+     */
     public synchronized void setState(ControllerState nextState) throws IOException, ParseException {
 
         this.currentState=nextState;
@@ -43,15 +58,27 @@ public class Controller {
 
     }
 
+    /**
+     *
+     * @return Lo stato corrente del controller
+     */
     public synchronized ControllerState getState(){
         return this.currentState;
 
     }
 
+    /**
+     *
+     * @return True se il timer è attivo sennò false
+     */
     public boolean isTimerOn(){
         return this.isTimerOn;
     }
 
+    /**
+     * Inizializza il timer
+     * @param timerType Tipo di timer
+     */
     public synchronized void setTimer(String timerType){
 
         this.task = new ControllerTimer(timerType,this);
@@ -61,6 +88,9 @@ public class Controller {
 
     }
 
+    /**
+     * Cancella il Timer
+     */
     public synchronized void cancelTimer(){
 
         this.timer.cancel();
@@ -69,12 +99,20 @@ public class Controller {
         
     }
 
+    /**
+     * Inizializza se il timer è on (true) oppure no (false)
+     * @param condition True o false
+     */
     public void setIsTimerOn(boolean condition){
 
         this.isTimerOn=condition;
 
     }
 
+    /**
+     *
+     * @return Il timer corrente
+     */
     public synchronized int getCurrentTime(){
         if(isTimerOn){
             return this.task.getCurrentTime();
@@ -83,6 +121,11 @@ public class Controller {
         }
     }
 
+    /**
+     * Fa l'azione dello stato corrente
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws ParseException Errore durante l'analisi
+     */
     //this method do the action of the current state
     private void currentAction() throws IOException, ParseException {
 
@@ -90,14 +133,27 @@ public class Controller {
 
     }
 
+    /**
+     * inizializza l'handler RMI
+     * @param handlerRMI Controller handler RMI
+     */
     public void setHandlerRMI(HandlerControllerRMI handlerRMI){
         this.handlerRMI = handlerRMI;
     }
 
+    /**
+     *
+     * @return L'handler controller RMI
+     */
     public HandlerControllerRMI getHandlerRMI(){
         return this.handlerRMI;
     }
 
+    /**
+     * Comunicazione della disconnessione
+     * @param playerID Stringa che rappresenta il nome del player
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyExitToClient(String playerID) throws IOException {
         Player player = board.getPlayerByName(playerID);
         if(player.getConnection().equals("Socket")){
@@ -114,6 +170,10 @@ public class Controller {
         }
     }
 
+    /**
+     * inizializza a offline lo stato del player passato
+     * @param playerName Stringa che rappresnta il nome del player
+     */
     public void setLiveStatusOffline(String playerName){
         System.out.println("exit game "+playerName);
         for(int i = 0; i<this.board.getNPlayers(); i++){

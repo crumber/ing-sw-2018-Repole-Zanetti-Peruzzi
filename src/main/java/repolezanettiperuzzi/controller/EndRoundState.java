@@ -9,8 +9,18 @@ import repolezanettiperuzzi.model.actions.EndRound;
 import java.io.IOException;
 import java.net.Socket;
 
+/**
+ * Classe che rappresenta lo stato finale del round
+ * @author Giampiero Repole
+ */
 public class EndRoundState extends ControllerState {
 
+    /**
+     * Svolge le azioni di fine round
+     * @param controller Controller
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws ParseException Errore durante l'analisi
+     */
     @Override
     public void doAction(Controller controller) throws IOException, ParseException {
 

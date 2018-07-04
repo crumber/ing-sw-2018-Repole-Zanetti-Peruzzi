@@ -2,6 +2,12 @@ package repolezanettiperuzzi.common.modelwrapper;
 
 import java.io.Serializable;
 
+/**
+ * Classe che modellizza i colori dei dadi lato client
+ * @author Alessandro Peruzzi
+ * @author Andrea Zanetti
+ * @author Giampiero Repole
+ */
 public enum ColourClient implements Serializable {
 
     YELLOW,
@@ -10,6 +16,11 @@ public enum ColourClient implements Serializable {
     GREEN,
     BLUE;
 
+    /**
+     * Converte la stringa in colourClient
+     * @param colour Stringa con scritto il colore in inglese tutto in maiuscolo
+     * @return ColourClient associato alla stringa passata
+     */
     public static ColourClient stringToColour(String colour){
 
         switch(colour) {

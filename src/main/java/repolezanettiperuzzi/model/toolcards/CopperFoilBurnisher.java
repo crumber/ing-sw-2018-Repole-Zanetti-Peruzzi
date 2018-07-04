@@ -25,7 +25,7 @@ public class CopperFoilBurnisher extends ToolCard{
     }
 
     /**
-     * svolge i controlli sui parametri e la situazione per l'attivazione della carta
+     * Svolge i controlli sui parametri e la situazione per l'attivazione della carta
      * @param board è la game board
      * @param player indica il player che vuole attivare la carta
      * @param parameterForCard è una lista di interi che rappresentano i vari valori dei parametri per l'attivazione della carta scelti dal client

@@ -7,11 +7,20 @@ import repolezanettiperuzzi.model.actions.BeginRound;
 import java.io.IOException;
 import java.net.Socket;
 
-
+/**
+ * Classe che rappresenta il controller all'inizio del round
+ * @author Giampiero Repole
+ */
 public class BeginRoundState extends ControllerState {
 
     private Controller controller;
 
+    /**
+     * Crea l'azione e chiama l'azione che inizializza il nuovo round
+     * @param controller Controller
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws ParseException Errore durante l'analisi
+     */
     @Override
     public void doAction(Controller controller) throws IOException, ParseException {
 
@@ -25,6 +34,11 @@ public class BeginRoundState extends ControllerState {
 
     }
 
+    /**
+     *
+     * @param player Player
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void sendBeginRound(Player player) throws IOException {
 
         if(player.getConnection().equals("Socket")){

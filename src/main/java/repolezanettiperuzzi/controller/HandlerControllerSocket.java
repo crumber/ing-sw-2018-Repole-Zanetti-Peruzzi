@@ -18,6 +18,11 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Classe che rappresenta il server socket che risiede sul server
+ * @author Giampiero Repole
+ * @author Andrea Zanetti
+ */
 //questo e' il nostro server socket che risiede sul server
 public class HandlerControllerSocket implements Runnable{
     private Socket socket;
@@ -29,6 +34,12 @@ public class HandlerControllerSocket implements Runnable{
     private String action;
     private String[] param;
 
+    /**
+     * Costruttore
+     * @param controller Controller
+     * @param socket Socket
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     //struttura messaggo: playerID action parameters
     public HandlerControllerSocket(Controller controller, Socket socket) throws IOException {
         this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -37,6 +48,9 @@ public class HandlerControllerSocket implements Runnable{
         this.controller = controller;
     }
 
+    /**
+     * Invoca il costruttore della classe
+     */
     @Override
     public void run() {
         try {
@@ -50,6 +64,12 @@ public class HandlerControllerSocket implements Runnable{
         }
     }
 
+    /**
+     * Prende messaggio in arrivo e chiama il metodo giusto
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws ParseException Errore durante l'analisi
+     * @throws InterruptedException Interruzione thread
+     */
     public void handleMessage() throws IOException, ParseException, InterruptedException {
 
         String[] line = in.readLine().split(" ");
@@ -148,6 +168,12 @@ public class HandlerControllerSocket implements Runnable{
         }
     }
 
+    /**
+     * Notica la registrazione
+     * @param connection Connessione
+     * @param UI Rappresenta l'interfaccia grafica
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnRegister(String connection, String UI) throws IOException {
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
         out.println("registered "+connection+" "+UI);
@@ -155,6 +181,11 @@ public class HandlerControllerSocket implements Runnable{
         this.socket.close();
     }
 
+    /**
+     * Notifica l'update del player
+     * @param timer Timer
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnUpdatedPlayer(int timer) throws IOException {
         String playersID = "";
 
@@ -175,6 +206,10 @@ public class HandlerControllerSocket implements Runnable{
 
     }
 
+    /**
+     * Notifica l'uscita del client
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyExitToClient() throws IOException {
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
         out.println("exit");
@@ -182,6 +217,13 @@ public class HandlerControllerSocket implements Runnable{
         this.socket.close();
     }
 
+    /**
+     * Notifica la riconnessione
+     * @param playerID Nome player
+     * @param connection Connessione
+     * @param UI Interfaccia grafica
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnReconnect(String playerID, String connection, String UI) throws IOException {
         switch(controller.board.getPlayerByName(playerID).getLastScene()){
             case "waitingRoom":
@@ -196,6 +238,10 @@ public class HandlerControllerSocket implements Runnable{
         }
     }
 
+    /**
+     * Notifica che hai sbagliato i parametri per riconnessione
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnStealAccount() throws IOException {
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
         out.println("notregistered alreadyonline");
@@ -203,6 +249,10 @@ public class HandlerControllerSocket implements Runnable{
         this.socket.close();
     }
 
+    /**
+     * Notifica che hai sbagliato password per la riconnessione
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnWrongPassword() throws IOException {
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
         out.println("notregistered wrongpwd");
@@ -210,6 +260,10 @@ public class HandlerControllerSocket implements Runnable{
         this.socket.close();
     }
 
+    /**
+     * Notifica che il gioco è gia iniziato
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnGameAlreadyStarted() throws IOException {
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
         out.println("notregistered gameAlreadyStarted");
@@ -217,6 +271,10 @@ public class HandlerControllerSocket implements Runnable{
         this.socket.close();
     }
 
+    /**
+     * Notifica che il numero massimo di giocatori è stato raggiunto
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnAlready4Players() throws IOException {
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
         out.println("notregistered already4Players");
@@ -224,6 +282,10 @@ public class HandlerControllerSocket implements Runnable{
         this.socket.close();
     }
 
+    /**
+     * Notifica il cambio di scelta della window
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnChooseWindow() throws IOException {
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
@@ -233,6 +295,12 @@ public class HandlerControllerSocket implements Runnable{
 
     }
 
+    /**
+     * Mostra la window scelta
+     * @param message Messaggio da mostrare
+     * @param currentTime Timer corrente
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void showChosenWindow(String message, int currentTime) throws IOException {
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
         out.println("showWindow "+ message + currentTime);
@@ -240,6 +308,12 @@ public class HandlerControllerSocket implements Runnable{
         this.socket.close();
     }
 
+    /**
+     * Invia le finestre da chiedere al client
+     * @param message Messaggio da ritornare
+     * @param currentTime Timer corrente
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void askWindow(String message,int currentTime) throws IOException {
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
@@ -248,6 +322,10 @@ public class HandlerControllerSocket implements Runnable{
         this.socket.close();
     }
 
+    /**
+     * Notifica l'inizio del round
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyBeginRound() throws IOException {
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
@@ -257,6 +335,11 @@ public class HandlerControllerSocket implements Runnable{
 
     }
 
+    /**
+     *
+     * @return Stringa che pone una domanda su cosa vuole fare al client
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public String askAction() throws IOException {
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
@@ -269,7 +352,10 @@ public class HandlerControllerSocket implements Runnable{
 
     }
 
-
+    /**
+     * Notifica che è iniziato il gioco
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnStartGame() throws IOException {
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
@@ -279,6 +365,10 @@ public class HandlerControllerSocket implements Runnable{
 
     }
 
+    /**
+     * Notifica che hai vinto nella scelta delle window
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyWinOnChooseWindow() throws IOException {
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
@@ -288,6 +378,12 @@ public class HandlerControllerSocket implements Runnable{
 
     }
 
+    /**
+     * Notifica l'inizio del turno
+     * @param actualPlayer Player attuale
+     * @param currentTime Timer corrente
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnBeginTurn(String actualPlayer, int currentTime) throws IOException {
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(),true);
@@ -297,6 +393,11 @@ public class HandlerControllerSocket implements Runnable{
 
     }
 
+    /**
+     * Invio messaggio per parametri carte
+     * @param message Messaggio per i parametri delle carte
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void sendParametersForToolCard(String message) throws IOException {
 
         System.out.println(controller.board.getToolCard(0).getTitle()+" "+controller.board.getToolCard(0).getId()+" "+controller.board.getToolCard(1).getTitle()+" "+controller.board.getToolCard(1).getId()+" "+controller.board.getToolCard(2).getTitle()+" "+controller.board.getToolCard(2).getId());
@@ -307,7 +408,11 @@ public class HandlerControllerSocket implements Runnable{
 
     }
 
-
+    /**
+     * Invia codice d'errore
+     * @param error Codice d'errore
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void sendActionError(String error) throws IOException {
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(),true);
@@ -318,6 +423,11 @@ public class HandlerControllerSocket implements Runnable{
 
     }
 
+    /**
+     * Invia l'aggiornamento della view
+     * @param update Aggiornamento
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void sendUpdateView(String update) throws IOException {
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(),true);
@@ -327,6 +437,10 @@ public class HandlerControllerSocket implements Runnable{
 
     }
 
+    /**
+     * Invia che non è il tuo turno
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void sendNotYourTurn() throws IOException {
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
@@ -336,6 +450,10 @@ public class HandlerControllerSocket implements Runnable{
 
     }
 
+    /**
+     * Invia che è finito il gioco
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnEndGame() throws IOException {
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(),true);

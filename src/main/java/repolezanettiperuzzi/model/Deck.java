@@ -38,11 +38,11 @@ public class Deck {
 
     /**
      * Costruttore della classe
-     * @param publicCardsFolder percorso della cartella in cui si trovano i file che contengono
+     * @param publicCardsFolder Percorso della cartella in cui si trovano i file che contengono
      *                          le informazioni sulle PublicCards
-     * @param toolCardsFolder percorso della cartella in cui si trovano i file che contengono
+     * @param toolCardsFolder Percorso della cartella in cui si trovano i file che contengono
      *                        le informazioni sulle ToolCards
-     * @throws IOException se il file non viene correttamente aperto
+     * @throws IOException Se il file non viene correttamente aperto
      */
     public Deck(String publicCardsFolder, String toolCardsFolder) throws IOException{
 
@@ -154,7 +154,7 @@ public class Deck {
     }
 
     /**
-     * @return mazzo di PublicCards
+     * @return Mazzo di PublicCards
      */
     public List<PublicCard> getPublicCardsDeck(){
 
@@ -185,9 +185,9 @@ public class Deck {
     }
 
     /**
-     * serve un metodo per ordinare perche' i file che leggo dalla cartella sono in ordine decrescente
-     * @param it iteratore sui path
-     * @return lista di percorsi ordinati in ordine crescente
+     * Serve un metodo per ordinare perche' i file che leggo dalla cartella sono in ordine decrescente
+     * @param it Iteratore sui path
+     * @return Lista di percorsi ordinati in ordine crescente
      */
     public ArrayList<String> sortPaths(Iterator<Path> it){
         ArrayList<String> pathsList = new ArrayList<>();

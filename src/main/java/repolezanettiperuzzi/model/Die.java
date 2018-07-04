@@ -13,7 +13,7 @@ public class Die {
 
     /**
      * Costruttore della classe
-     * @param c colore del dado
+     * @param c Colore del dado
      */
     public Die (Colour c){
 
@@ -32,7 +32,7 @@ public class Die {
     }
 
     /**
-     * @return colore del dado
+     * @return Colore del dado
      */
     public Colour getColourDie() {
 
@@ -41,7 +41,7 @@ public class Die {
     }
 
     /**
-     * @return valore del dado
+     * @return Valore del dado
      */
     public Value getValueDie() {
 
@@ -50,8 +50,8 @@ public class Die {
     }
 
     /**
-     * imposta il valore del dado
-     * @param value valore che si vuole assegnare al dado
+     * Imposta il valore del dado
+     * @param value Valore che si vuole assegnare al dado
      */
     public void setValue(Value value) {
 
@@ -61,7 +61,7 @@ public class Die {
 
     /**
      *
-     * @return restituisce una stringa che rapprenseta il dado prima una lettera che indica il colore e poi un numero per il valore
+     * @return Restituisce una stringa che rapprenseta il dado prima una lettera che indica il colore e poi un numero per il valore
      */
     public String toString(){
 

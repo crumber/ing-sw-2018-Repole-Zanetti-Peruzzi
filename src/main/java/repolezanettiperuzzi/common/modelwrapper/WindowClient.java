@@ -2,12 +2,24 @@ package repolezanettiperuzzi.common.modelwrapper;
 
 import java.io.Serializable;
 
+/**
+ * Classe che modellizza le Windows nel client
+ * @author Giampiero Repole
+ * @author Alessandro Peruzzi
+ * @author Andrea Zanetti
+ */
 public class WindowClient implements Serializable{
 
     private final String NAME;
     private BoxClient[][] boardBox;
     private final int FAVORTOKENS;
 
+    /**
+     * Costruttore
+     * @param name Nome della window
+     * @param ft Favor token
+     * @param board Game board
+     */
     public WindowClient(String name, int ft, BoxClient[][] board) {
 
         this.NAME = name;
@@ -27,6 +39,12 @@ public class WindowClient implements Serializable{
         //System.out.println("\n");
     }
 
+    /**
+     * Costruttore
+     * @param name Nome della window
+     * @param ft Favor token
+     * @param board Game board
+     */
     public WindowClient(String name, int ft, String board){
         this.NAME = name;
         this.FAVORTOKENS = ft;
@@ -87,23 +105,49 @@ public class WindowClient implements Serializable{
         }
     }
 
+    /**
+     *
+     * @return Clone della "schacchiera"
+     */
     public BoxClient[][] getBoardBox(){
 
         return this.boardBox.clone();
 
     }
+
+    /**
+     *
+     * @param d Dado da inserire
+     * @param x Indica la riga in cui inserire
+     * @param y Indica la colonna in cui inserire
+     * @param restriction Tipo di controllo da fare nel muovere il dado
+     */
     public void insertDie(DieClient d, int x, int y, String restriction){
 
         this.boardBox[x][y].setDie(d,restriction);
 
     }
 
+    /**
+     *
+     * @param xIn Indica la riga da cui muovere
+     * @param yIn Indica la colonna da cui muovere
+     * @param xEnd Indica la riga in cui muovere
+     * @param yEnd Indica la colonna in cui muovere
+     * @param restriction Tipo di controllo da fare nel muovere il dado
+     */
     public void moveDie(int xIn,int yIn, int xEnd, int yEnd, String restriction) {
 
             this.boardBox[xEnd][yEnd].setDie(this.boardBox[xIn][yIn].removeDie(), restriction);
 
     }
 
+    /**
+     *
+     * @param x Indica la righa
+     * @param y Indica la colonna
+     * @return True se è presente il dado nella posizione passata sennò false
+     */
     public boolean thereIsDie(int x, int y){
 
         if(boardBox[x][y].die!=null){
@@ -115,6 +159,12 @@ public class WindowClient implements Serializable{
         return false;
     }
 
+    /**
+     * Rimuove il dado della posizione passata e lo ritorna
+     * @param x Indica la righa
+     * @param y Indica la colonna
+     * @return Il dado rimosso
+     */
      public DieClient removeDie(int x, int y){
 
         if((boardBox[x][y].die!=null)){
@@ -124,222 +174,74 @@ public class WindowClient implements Serializable{
         else return null;
     }
 
+    /**
+     *
+     * @return Nome della window
+     */
     public String getName(){
 
         return this.NAME;
 
     }
 
+    /**
+     *
+     * @return Numero favor token
+     */
     public int getFTokens(){
 
         return this.FAVORTOKENS;
 
     }
 
+    /**
+     *
+     * @param x Indica la righa
+     * @param y Indica la colonna
+     * @return Dado presente in quella box
+     */
     public DieClient getDieFromBoardBox(int x, int y)
     {
         return this.boardBox[x][y].die;
     }
 
+    /**
+     *
+     * @param x Indica la righa
+     * @param y Indica la colonna
+     * @return Valore del dado presente in quella box
+     */
     public ValueClient getDieValue(int x, int y){
 
         return this.boardBox[x][y].die.getValueDie();
 
     }
 
+    /**
+     *
+     * @param x Indica la righa
+     * @param y Indica la colonna
+     * @return Colore del dado presente in quella box
+     */
     public ColourClient getDieColour(int x, int y){
 
         return this.boardBox[x][y].die.getColourDie();
 
     }
 
-    public boolean controlAdjacencies(int x, int y){
-
-        boolean thereIsDieNextTo;
-
-        if(x-1>=0 && boardBox[x-1][y].die!=null) {
-
-            thereIsDieNextTo=true;
-
-        }else if(x-1>=0 && (y-1>=0)&&(boardBox[x-1][y-1].die!=null)){
-
-            thereIsDieNextTo=true;
-
-        }else if(x-1>=0 && (y+1<boardBox[0].length)&&(boardBox[x-1][y+1].die!=null)){
-
-            thereIsDieNextTo=true;
-
-        }else if(x+1<boardBox.length && boardBox[x+1][y].die!=null){
-
-            thereIsDieNextTo=true;
-
-        }else if(x+1<boardBox.length && (y-1>=0)&&(boardBox[x+1][y-1].die!=null)){
-
-            thereIsDieNextTo=true;
-
-        }else if(x+1<boardBox.length && (y+1<boardBox[0].length)&&(boardBox[x+1][y+1].die!=null)){
-
-            thereIsDieNextTo=true;
-
-        }else if((y-1>=0)&&(boardBox[x][y-1].die!=null)){
-
-            thereIsDieNextTo=true;
-
-        }else if((y+1<boardBox[0].length)&&(boardBox[x][y+1].die!=null)){
-
-            thereIsDieNextTo=true;
-
-        }else{
-
-            thereIsDieNextTo=false;
-
-        }
-
-        return thereIsDieNextTo;
-    }
-
-    public boolean controlColourBoundAdjacencies(DieClient d, int x, int y){
-
-        if (x - 1 >= 0 && boardBox[x - 1][y].die !=null && boardBox[x - 1][y].die.getColourDie().equals(d.getColourDie())) {
-
-            return true;
-
-        } else if (x + 1 < boardBox.length && boardBox[x + 1][y].die != null && boardBox[x + 1][y].die.getColourDie().equals(d.getColourDie())) {
-
-            return true;
-
-        } else if ((y - 1 >= 0) && boardBox[x][y - 1].die != null && boardBox[x][y - 1].die.getColourDie().equals(d.getColourDie()) ) {
-
-            return true;
-
-        } else if ((y + 1 < boardBox[0].length) && (boardBox[x][y + 1].die != null) && boardBox[x][y + 1].die.getColourDie().equals(d.getColourDie())) {
-
-            return true;
-
-        } else {
-
-            return false;
-
-        }
-    }
-
-    public boolean controlValueBoundAdjacencies(DieClient d, int x, int y){
-
-        if (x - 1 >= 0 && boardBox[x - 1][y].die != null && boardBox[x - 1][y].die.getValueDie().equals(d.getValueDie())) {
-
-            return true;
-
-        } else if (x + 1 < boardBox.length && boardBox[x + 1][y].die != null && boardBox[x + 1][y].die.getValueDie().equals(d.getValueDie())) {
-
-            return true;
-
-        } else if ((y - 1 >= 0) && (boardBox[x][y - 1].die != null && boardBox[x][y - 1].die.getValueDie().equals(d.getValueDie()))) {
-
-            return true;
-
-        } else if ((y + 1 < boardBox[0].length) && (boardBox[x][y + 1].die != null) && boardBox[x][y + 1].die.getValueDie().equals(d.getValueDie())) {
-
-            return true;
-
-        } else {
-
-            return false;
-
-        }
-    }
-
-    public boolean controlAllBoundAdjacencies(DieClient d, int x, int y){
-
-        if(controlColourBoundAdjacencies(d,x,y)){
-
-            return true;
-
-        }else if(controlValueBoundAdjacencies(d,x,y)){
-
-            return true;
-
-        }else{
-
-            return false;
-
-        }
-    }
-
-    public boolean isEmpty(){
-
-        for (BoxClient[] aBoardBox : boardBox) {
-            for (int j = 0; j < boardBox[0].length; j++) {
-                if (aBoardBox[j].die != null) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    public int numBoxEmpty(){
-
-        int nEmpty=0;
-
-        for (BoxClient[] aBoardBox : boardBox) {
-
-            for (int j = 0; j < boardBox[0].length; j++) {
-
-                if (aBoardBox[j].die == null) {
-
-                    nEmpty++;
-
-                }
-            }
-        }
-
-        return nEmpty;
-    }
-
-
-    public int calculateSecretScore(ColourClient whichSecretColour){
-
-        int secretScore=0;
-
-        for (BoxClient[] aBoardBox : boardBox) {
-
-            for (int j = 0; j < boardBox[0].length; j++) {
-
-                if (aBoardBox[j].die!=null && aBoardBox[j].die.getColourDie()== whichSecretColour) {
-
-                    secretScore+=aBoardBox[j].die.getValueDie().getNumber();
-
-                }
-            }
-        }
-
-        return secretScore;
-    }
-
-    public boolean controlAllBoundBox(int x, int y, DieClient d){
-
-        return boardBox[x][y].controlBounds(d);
-
-    }
-
-    public boolean controlColourBoundBox(int x, int y, DieClient d){
-
-        return boardBox[x][y].controlColour(d);
-
-    }
-
-    public boolean controlValueBoundBox(int x, int y, DieClient d){
-
-        return boardBox[x][y].controlValue(d);
-
-    }
-
+    /**
+     *
+     * @return Numero righe
+     */
     public int rowSize(){
 
         return boardBox.length;
     }
 
+    /**
+     *
+     * @return Numero colonne
+     */
     public int columnSize(){
 
         return boardBox[0].length;

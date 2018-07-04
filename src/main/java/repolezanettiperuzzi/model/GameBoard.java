@@ -54,11 +54,11 @@ public class GameBoard {
 
     /**
      * Aggiunge un giocatore alla lista di giocatori che hanno aderito alla partita
-     * @param playerName nome del giocatore
-     * @param connection tipo di connessione del giocatore
-     * @param UI tipo di interfaccia
-     * @param address indirizzo ip del giocatore
-     * @param port porta del client
+     * @param playerName Nome del giocatore
+     * @param connection Tipo di connessione del giocatore
+     * @param UI Tipo di interfaccia
+     * @param address Indirizzo ip del giocatore
+     * @param port Porta del client
      */
     public void addPlayer(String playerName, String connection, String UI, String address, int port){
 
@@ -68,7 +68,7 @@ public class GameBoard {
     }
 
     /**
-     * riduce di 1 il numero di player
+     * Riduce di 1 il numero di player
      */
     public void reduceNPlayers(){
 
@@ -78,7 +78,7 @@ public class GameBoard {
 
     /**
      * Rimuove un giocatore dall'ArrayList
-     * @param playerIndex indice del giocatore all'interno dell'ArrayList
+     * @param playerIndex Indice del giocatore all'interno dell'ArrayList
      */
     public void removePlayer(int playerIndex){
 
@@ -88,15 +88,15 @@ public class GameBoard {
     }
 
     /**
-     * @return numero di giocatori
+     * @return Numero di giocatori
      */
     public int getNPlayers(){
         return this.nPlayers;
     }
 
     /**
-     * deep clone dell'ArrayList di giocatori
-     * @return copia dell'ArrayList di giocatori
+     * Deep clone dell'ArrayList di giocatori
+     * @return Copia dell'ArrayList di giocatori
      */
     public List<Player> getPlayersCopy(){
         ArrayList<Player> copy = new ArrayList<>(players.size());
@@ -106,7 +106,7 @@ public class GameBoard {
 
     /**
      * Restituisce i giocatori che sono ancora onLine
-     * @return numero di giocatori onLine
+     * @return Numero di giocatori onLine
      */
     public int getPlayersOnline(){
         int nPlayersOnline = 0;
@@ -120,8 +120,8 @@ public class GameBoard {
 
     /**
      * Restituisce un dado dalla posizione desiderata del draft
-     * @param posDie posizione sul draft
-     * @return dado selezionato
+     * @param posDie Posizione sul draft
+     * @return Dado selezionato
      */
     public Die getDieDraft(int posDie) {
 
@@ -148,8 +148,8 @@ public class GameBoard {
 
     /**
      * Inserisce un dado nella posizione desiderata del draft
-     * @param posDie posizione desiderata
-     * @param d dado da inserire
+     * @param posDie Posizione desiderata
+     * @param d Dado da inserire
      */
     public void setDieDraft(int posDie, Die d){
 
@@ -159,7 +159,7 @@ public class GameBoard {
 
     /**
      * Sposta un dado dal draft al sacchetto dei dadi
-     * @param posDieDraft posizione del dado sul draft
+     * @param posDieDraft Posizione del dado sul draft
      */
     public void putDieInBag(int posDieDraft) {
 
@@ -169,7 +169,7 @@ public class GameBoard {
 
     /**
      * Rimuove un dado dal draft
-     * @param posDieDraft posizione del dado sul draft
+     * @param posDieDraft Posizione del dado sul draft
      */
     public void removeDieFromDraft(int posDieDraft){
 
@@ -178,8 +178,8 @@ public class GameBoard {
     }
 
     /**
-     * prende un dado dal sacchetto
-     * @return dado pescato
+     * Prende un dado dal sacchetto
+     * @return Dado pescato
      */
     public Die takeDieFromBag(){
 
@@ -189,7 +189,7 @@ public class GameBoard {
 
     /**
      * Aggiunge un dado al draft
-     * @param d dado da aggiungere
+     * @param d Dado da aggiungere
      */
     public void addDieToDraft(Die d){
 
@@ -198,7 +198,7 @@ public class GameBoard {
     }
 
     /**
-     * @return dimensione del draft
+     * @return Dimensione del draft
      */
     public int getSizeDraft(){
 
@@ -208,9 +208,9 @@ public class GameBoard {
 
     /**
      * Prende un dado dalla RoundTrack
-     * @param whichRound round nel quale si vuole prendere il dado
-     * @param whichDieRound posizione del dado che si vuole prendere
-     * @return dado preso
+     * @param whichRound Round nel quale si vuole prendere il dado
+     * @param whichDieRound Posizione del dado che si vuole prendere
+     * @return Dado preso
      */
     public Die getDieFromRoundTrack(int whichRound, int whichDieRound){
 
@@ -220,9 +220,9 @@ public class GameBoard {
 
     /**
      * Inserisce un dado nella RoundTrack
-     * @param whichRound round attuale
-     * @param whichDieRound posizione nella quale si vuole inserire il dado
-     * @param d dado che si vuole inserire
+     * @param whichRound Round attuale
+     * @param whichDieRound Posizione nella quale si vuole inserire il dado
+     * @param d Dado che si vuole inserire
      */
     public void setDieToRoundTrack(int whichRound, int whichDieRound, Die d){
 
@@ -250,8 +250,8 @@ public class GameBoard {
 
     /**
      * Restituisce il costo di una ToolCard
-     * @param whichToolCard intero che indica la ToolCard di cui si vuole conoscere il costo
-     * @return intero che indica il costo
+     * @param whichToolCard Intero che indica la ToolCard di cui si vuole conoscere il costo
+     * @return Intero che indica il costo
      */
     public int getCostToolCard(int whichToolCard) {
 
@@ -260,8 +260,8 @@ public class GameBoard {
     }
 
     /**
-     * imposta il costo di una ToolCard a 2 dopo che è stata utilizzata una volta
-     * @param whichToolCard intero che indica la ToolCard di cui si vuole modificare il costo
+     * Imposta il costo di una ToolCard a 2 dopo che è stata utilizzata una volta
+     * @param whichToolCard Intero che indica la ToolCard di cui si vuole modificare il costo
      */
     public void setCostToolCard(int whichToolCard) {
 
@@ -271,7 +271,7 @@ public class GameBoard {
 
     /**
      * Prende la ToolCard desiderata
-     * @param whichToolCard indice della ToolCard desiderata
+     * @param whichToolCard Indice della ToolCard desiderata
      * @return ToolCard desiderata
      */
     public ToolCard getToolCard(int whichToolCard) {
@@ -282,7 +282,7 @@ public class GameBoard {
 
     /**
      * Prende la PublicCard desiderata
-     * @param whichPublicCard indice della PublicCard desiderata
+     * @param whichPublicCard Indice della PublicCard desiderata
      * @return PublicCard desiderata
      */
     public PublicCard getPublicCards(int whichPublicCard) {
@@ -293,8 +293,8 @@ public class GameBoard {
 
     /**
      * Restituisce l'ID della ToolCard selezionata
-     * @param whichToolCard indice della ToolCard
-     * @return intero che rappresenta la ToolCard
+     * @param whichToolCard Indice della ToolCard
+     * @return Intero che rappresenta la ToolCard
      */
     public int getId(int whichToolCard){
 
@@ -304,8 +304,8 @@ public class GameBoard {
 
     /**
      * Restituisce il giocatore selezionato nell'ArrayList
-     * @param nPlayer indice del giocatore selezionato
-     * @return giocatore selezionato
+     * @param nPlayer Indice del giocatore selezionato
+     * @return Giocatore selezionato
      */
     public Player getPlayer(int nPlayer){
         return players.get(nPlayer);
@@ -313,8 +313,8 @@ public class GameBoard {
 
     /**
      * Per selezionare un giocatore tramite il nome
-     * @param playerID nome del giocatore che si vuole selezionare
-     * @return giocatore selezionato
+     * @param playerID Nome del giocatore che si vuole selezionare
+     * @return Giocatore selezionato
      */
     public synchronized Player getPlayerByName(String playerID){
         for(int i = 0; i<players.size(); i++){
@@ -328,7 +328,7 @@ public class GameBoard {
     /**
      * Inserisce una ToolCard nella GameBoard
      * @param toolCard ToolCard da inserire
-     * @param i indice in cui si vuole inserire
+     * @param i Indice in cui si vuole inserire
      */
     public void setToolCards(ToolCard toolCard, int i) {
 
@@ -371,7 +371,7 @@ public class GameBoard {
     /**
      * Ritorna le Windows tra cui puo' scegliere un determinato giocatore
      * @param player Giocatore della quale si vogliono ottenere le Window
-     * @return windows tra cui può scegliere il player
+     * @return Windows tra cui può scegliere il player
      */
     public ArrayList<Window> getPlayersWindowsChoices(Player player){
         return this.playersWindowsChoices.get(player);
@@ -414,7 +414,7 @@ public class GameBoard {
     /**
      * Inserisce una PublicCard nella GameBoard
      * @param publicCard PublicCard che si vuole inserire
-     * @param i indice in cui si vuole inserire
+     * @param i Indice in cui si vuole inserire
      */
     public void setPublicCards(PublicCard publicCard, int i) {
 
@@ -422,7 +422,7 @@ public class GameBoard {
     }
 
     /**
-     * @return copia dell'ArrayList di giocatori
+     * @return Copia dell'ArrayList di giocatori
      */
     public List<Player> getPlayers() {
 
@@ -431,7 +431,7 @@ public class GameBoard {
     }
 
     /**
-     * @return ritorna se il è game locked o no
+     * @return Ritorna se il è game locked o no
      */
     public boolean isGameLocked(){
         return this.gameLocked;
@@ -439,14 +439,14 @@ public class GameBoard {
 
 
     /**
-     * imposta il valore a true del game locked
+     * Imposta il valore a true del game locked
      */
     public void setGameLocked(){
         this.gameLocked = true;
     }
 
     /**
-     * @return ritorna la stringa che rappresenta il draft: ogni dado formato da una lettera che rappresenta il colore e un numero per il valore e ogni dado è separato dall'altro da _
+     * @return Ritorna la stringa che rappresenta il draft: ogni dado formato da una lettera che rappresenta il colore e un numero per il valore e ogni dado è separato dall'altro da _
      */
     //B3_Y1_G6...
     public String toStringDraft(){
@@ -466,8 +466,8 @@ public class GameBoard {
     }
 
     /**
-     * richiama il metodo toString della round track
-     * @return ritorna la stringa che rappresenta il round track
+     * Richiama il metodo toString della round track
+     * @return Ritorna la stringa che rappresenta il round track
      */
     public String toStringRoundTrack(){
 
@@ -476,7 +476,7 @@ public class GameBoard {
     }
 
     /**
-     * @return ritorna una stringa che rappresenta le tool card:titolo_id_descrizione e ogni carta separata da *
+     * @return Ritorna una stringa che rappresenta le tool card:titolo_id_descrizione e ogni carta separata da *
      */
     public String toStringToolCards(){
 
@@ -502,7 +502,7 @@ public class GameBoard {
     }
 
     /**
-     * @return ritorna una stringa che rappresenta le public card: titolo_descrizione_punti e ogni carta separata da *
+     * @return Ritorna una stringa che rappresenta le public card: titolo_descrizione_punti e ogni carta separata da *
      */
     public String toStringPublicCards(){
 

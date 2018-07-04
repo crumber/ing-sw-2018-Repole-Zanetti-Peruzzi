@@ -15,13 +15,20 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.logging.*;
 
-
+/**
+ * Classe che rappresenta lo stato di connessione
+ * @author Giampiero Repole
+ */
 public class SetConnectionState extends ControllerState{
 
     private final Logger LOGGER = Logger.getLogger(SetConnectionState.class.getName());
     private GameBoard board;
     private Controller controller;
 
+    /**
+     * Inizializza il controller e la game board
+     * @param controller Controller
+     */
     @Override
     public void doAction(Controller controller) {
 
@@ -30,6 +37,18 @@ public class SetConnectionState extends ControllerState{
 
     }
 
+    /**
+     * Metodo chiamato all'inizio dal client per impostare il player
+     * @param playerID Nome player
+     * @param pwd Password
+     * @param addr Indirizzo
+     * @param port Numero di porta
+     * @param connection Tipo di connessione
+     * @param UI Tipo di interfaccia grafica
+     * @return Stringa con parametri
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws ParseException Errore durante l'analisi
+     */
     //metodo chiamato dal giocatore appena si connette al server
     public String initializePlayer(String playerID, String pwd, InetAddress addr, int port, String connection, String UI) throws IOException, ParseException {
         JSONParser parser = new JSONParser();
@@ -111,6 +130,16 @@ public class SetConnectionState extends ControllerState{
 
     }
 
+    /**
+     * Notifica la riconnessione
+     * @param controller Controller
+     * @param connection Tipo connessione
+     * @param UI Tipo interfaccia grafica
+     * @param address Indirizzo
+     * @param port Numero della porta
+     * @param playerID Nome del player
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnReconnect(Controller controller, String connection, String UI, String address, int port, String playerID) throws IOException {
         if(connection.equals("Socket")){
             HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
@@ -120,6 +149,15 @@ public class SetConnectionState extends ControllerState{
         }
     }
 
+    /**
+     * Notifica che il nome inserito è gia stato usato
+     * @param controller Controller
+     * @param connection Tipo connessione
+     * @param UI Tipo interfaccia grafica
+     * @param address Indirizzo
+     * @param port Numero della porta
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnStealAccount(Controller controller, String connection, String UI, String address, int port) throws IOException {
         if(connection.equals("Socket")){
             HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
@@ -129,6 +167,15 @@ public class SetConnectionState extends ControllerState{
         }
     }
 
+    /**
+     * Notifica che ha inserito la password sbagliata
+     * @param controller Controller
+     * @param connection Tipo connessione
+     * @param UI Tipo interfaccia grafica
+     * @param address Indirizzo
+     * @param port Numero della porta
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnWrongPassword(Controller controller, String connection, String UI, String address, int port) throws IOException {
         if(connection.equals("Socket")){
             HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
@@ -138,6 +185,15 @@ public class SetConnectionState extends ControllerState{
         }
     }
 
+    /**
+     * Notifica che il gioco è gia iniziato
+     * @param controller Controller
+     * @param connection Tipo connessione
+     * @param UI Tipo interfaccia grafica
+     * @param address Indirizzo
+     * @param port Numero della porta
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnGameAlreadyStarted(Controller controller, String connection, String UI, String address, int port) throws IOException {
         if(connection.equals("Socket")){
             HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
@@ -147,6 +203,15 @@ public class SetConnectionState extends ControllerState{
         }
     }
 
+    /**
+     * Notifica che il numero massimo di giocatori è gia stato raggiunto
+     * @param controller Controller
+     * @param connection Tipo connessione
+     * @param UI Tipo interfaccia grafica
+     * @param address Indirizzo
+     * @param port Numero della porta
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnAlready4Players(Controller controller, String connection, String UI, String address, int port) throws IOException {
         if(connection.equals("Socket")){
             HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
@@ -156,6 +221,15 @@ public class SetConnectionState extends ControllerState{
         }
     }
 
+    /**
+     * Notifica la registrazione
+     * @param controller Controller
+     * @param connection Tipo connessione
+     * @param UI Tipo interfaccia grafica
+     * @param address Indirizzo
+     * @param port Numero della porta
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnRegister(Controller controller, String connection, String UI, String address, int port) throws IOException {
         if(connection.equals("Socket")){
             HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
@@ -167,6 +241,10 @@ public class SetConnectionState extends ControllerState{
         }
     }
 
+    /**
+     * Caricamento waiting room
+     * @param playerName Nome del player
+     */
     public void waitingRoomLoaded(String playerName){
         for(int i = 0; i<controller.board.getNPlayers(); i++){
             if(controller.board.getPlayer(i).getName().equals(playerName)){
@@ -176,6 +254,12 @@ public class SetConnectionState extends ControllerState{
         }
     }
 
+    /**
+     * Notifica l'update del player
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws ParseException Errore durante l'analisi
+     * @throws InterruptedException Interruzione thread
+     */
     public void notifyOnUpdatedPlayer() throws IOException, ParseException, InterruptedException {
         int timer = 0;
         if(controller.board.getPlayersOnline()==2 && !controller.isTimerOn()){
@@ -219,7 +303,10 @@ public class SetConnectionState extends ControllerState{
     }
 
 
-
+    /**
+     * Metodo che pulisce il Json ogni volta che rinizia il gioco
+     * @param jsonPath Percorso del Json
+     */
     //method to clean the json file every time the game restarts
     private void cleanJson(String jsonPath){
         JSONArray jsonArr = new JSONArray();
@@ -231,6 +318,11 @@ public class SetConnectionState extends ControllerState{
         }
     }
 
+    /**
+     *
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws ParseException Errore durante l'analisi
+     */
     //notifia i client ancora connessi che si sta passando alla fase di scelta della window e cancella quelli offline dal file json e dalla board
     public void notifyOnBeginChooseWindow() throws IOException, ParseException {
 

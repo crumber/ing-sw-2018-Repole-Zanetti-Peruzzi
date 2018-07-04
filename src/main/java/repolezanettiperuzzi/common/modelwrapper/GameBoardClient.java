@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Classe che modellizza lo schema del gioco nel client
+ * @author Giampiero Repole
+ * @author Andrea Zanetti
+ * @author Alessandro Peruzzi
+ */
 public class GameBoardClient implements Serializable {
 
     private ArrayList<PlayerClient> players;
@@ -20,6 +26,9 @@ public class GameBoardClient implements Serializable {
     private int nPlayers;
     private int[] costToolCard = new int[3];
 
+    /**
+     * Costruttore della classe
+     */
     public GameBoardClient(){
 
         players = new ArrayList<>();
@@ -38,32 +47,48 @@ public class GameBoardClient implements Serializable {
 
     }
 
-
+    /**
+     *
+     * @return La dimensione del roundtrack
+     */
     public int sizeRoundTrack(){
 
         return roundTrack.sizeRoundTrack();
 
     }
 
+    /**
+     *
+     * @return True se il roundtrack è vuoto
+     */
     public boolean isEmptyRoundTrack(){
 
         return roundTrack.isEmptyRoundTrack();
 
     }
 
+    /**
+     *
+     * @param whichRound Intero che indica quale round del roundtrack
+     * @return Ritorna il numero di dadi nel round del roundtrack
+     */
     public int sizeDiceRoundTrack(int whichRound){
 
         return roundTrack.sizeRound(whichRound);
 
     }
 
+    /**
+     *
+     * @return Numero di player
+     */
     public int getNPlayers(){
         return this.nPlayers;
     }
 
     /**
      * Aggiunge un giocatore alla lista di giocatori che hanno aderito alla partita
-     * @param playerName nome del giocatore
+     * @param playerName Nome del giocatore
      */
     public void addPlayer(String playerName){
 
@@ -72,22 +97,47 @@ public class GameBoardClient implements Serializable {
 
     }
 
+    /**
+     * Aggiunge una public card alla game board
+     * @param title Titolo della carta
+     * @param description Descrizione della carta
+     * @param value Valore della carta
+     */
     public void addPublicCard(String title, String description, int value){
         publicCards.add(new PublicCardClient(title, description, value));
     }
 
+    /**
+     * Aggiunge una tool card alla game board
+     * @param title Titolo della carta
+     * @param description Descrizione della carta
+     * @param id Id della carta
+     * @param favorTokens Numero favor token
+     */
     public void addToolCard(String title, String description, int id, int favorTokens){
         toolCards.add(new ToolCardClient(title, description, id, favorTokens));
     }
 
+    /**
+     *
+     * @return ArrayList con tutte le public card della game board
+     */
     public ArrayList<PublicCardClient> getPublicCards(){
         return this.publicCards;
     }
 
+    /**
+     *
+     * @return ArrayList con tutte le tool card della game board
+     */
     public ArrayList<ToolCardClient> getToolCards(){
         return this.toolCards;
     }
 
+    /**
+     *
+     * @return Numero player Online
+     */
     public int getPlayersOnline(){
         int nPlayersOnline = 0;
         for(int i = 0; i<this.nPlayers; i++){
@@ -98,23 +148,11 @@ public class GameBoardClient implements Serializable {
         return nPlayersOnline;
     }
 
-    /*
-    PER ORA NON USATO E NEMMENO FINITO
-
-    public void shuffleCards() throws IOException {
-        Deck deck = new Deck("cards/publiccards", "cards/toolcards");
-
-        //il metodo draw non pesca ancora una carta casuale ma ne crea na sempre dello stesso tipo
-        for(int i = 0; i < 3; i++){
-            publicCards[i] = deck.drawPublicCard();
-        }
-
-        for(int i = 0; i < 3; i++){
-            toolCards[i] = deck.drawToolCard();
-        }
-    }
-    */
-
+    /**
+     *
+     * @param posDie Posizione del dado nel draft
+     * @return Il dado presente nella posizione del draft selezionata
+     */
     public DieClient getDieDraft(int posDie) {
 
         if(posDie>=diceDraft.size()){
@@ -127,99 +165,83 @@ public class GameBoardClient implements Serializable {
 
     }
 
-    //metodo pericolo che può cambiare il rep dall'esterno in un attimo, meglio toglierlo se non serve
-    public void setDiceDraft(ArrayList<DieClient> diceDraft) {
-
-        this.diceDraft = diceDraft;
-
-    }
-
-    public void setDieDraft(int posDie, DieClient d){
-
-        diceDraft.set(posDie,d);
-
-    }
-
+    /**
+     * Rimuove il dado dal draft
+     * @param posDieDraft Posizione del dado nel draft
+     */
     public void removeDieFromDraft(int posDieDraft){
 
         diceDraft.remove(posDieDraft);
 
     }
 
+    /**
+     * Aggiunge il dado al draft
+     * @param d Dado da aggiungere al draft
+     */
     public void addDieToDraft(DieClient d){
 
         diceDraft.add(d);
 
     }
 
+    /**
+     *
+     * @return La dimensione del draft
+     */
     public int getSizeDraft(){
 
         return diceDraft.size();
 
     }
 
+    /**
+     *
+     * @param whichRound Indica il round del roundtrack
+     * @param whichDieRound Indica quale dado nel round del roundtrack
+     * @return Il dado presente nel round del roundtrack
+     */
     public DieClient getDieFromRoundTrack(int whichRound, int whichDieRound){
 
         return roundTrack.getDieRoundTrack(whichRound,whichDieRound);
 
     }
 
-    public void setDieToRoundTrack(int whichRound, int whichDieRound, DieClient d){
-
-        roundTrack.setDieOnRoundTrack(whichRound,whichDieRound,d);
-
-    }
-
-    public void addDieToRoundTrack(DieClient die){
-
-        this.roundTrack.addDie(die, round);
-
-    }
-
-    public void addDiceToRoundTrack(){
-
-        ArrayList<DieClient> remainingDice=new ArrayList<>();
-
-        for(int i=0;i<this.getSizeDraft();i++){
-
-            remainingDice.add(this.getDieDraft(i));
-
-        }
-
-        roundTrack.addDice(remainingDice);
-        diceDraft.clear();
-
-    }
-
+    /**
+     *
+     * @param whichToolCard Indica quale tool card
+     * @return Il costo della tool card
+     */
     public int getCostToolCard(int whichToolCard) {
 
         return costToolCard[whichToolCard];
 
     }
 
-    public void setCostToolCard(int whichToolCard) {
-
-        costToolCard[whichToolCard]=2;
-
-    }
-
+    /**
+     *
+     * @return Il valore del round
+     */
     public int getRound() {
 
         return round;
 
     }
 
-    //Incrementa il round di 1.
-    //Non ho creato una setRound perche' non sarebbe mai utile a noi cambiare il numero del round
-    //da 1 a 10 e sarebbe anche un metodo pericoloso che potrebbe creare risultati inaspettati.
-    public void incrRound(){
-        this.round++;
-    }
-
+    /**
+     *
+     * @param nPlayer Indica quale player
+     * @return Il player
+     */
     public PlayerClient getPlayer(int nPlayer){
         return players.get(nPlayer);
     }
 
+    /**
+     *
+     * @param playerID Stringa che rappresenta il nome del player
+     * @return Il player cercato
+     */
     public PlayerClient getPlayerByName(String playerID){
         for(int i = 0; i<players.size(); i++){
             if(players.get(i).getName().equals(playerID)){
@@ -229,46 +251,50 @@ public class GameBoardClient implements Serializable {
         return null;
     }
 
+    /**
+     *
+     * @return Clone della lista di player
+     */
     public List<PlayerClient> getPlayers() {
 
         return (ArrayList<PlayerClient>) this.players.clone();
 
     }
 
-    public WindowClient getPlayerWindow(String playerName){
-
-        for(PlayerClient player : this.players){
-
-            if(player.getName().equals(playerName)){
-
-                return player.getWindow();
-
-            }
-
-        }
-
-        return null;
-
-    }
-
+    /**
+     *
+     * @return Il roundtrack
+     */
     public RoundTrackClient getRoundTrack(){
 
         return this.roundTrack;
 
     }
 
+    /**
+     * Inizializza il round
+     * @param round Valore round
+     */
     public void setRound(int round){
 
         this.round=round;
 
     }
 
+    /**
+     * Inizializza il turno
+     * @param turn Valore turno
+     */
     public void setTurn(int turn){
 
         this.turn=turn;
 
     }
 
+    /**
+     *
+     * @return Il valore del turno
+     */
     public int getTurn(){
 
         return this.turn;

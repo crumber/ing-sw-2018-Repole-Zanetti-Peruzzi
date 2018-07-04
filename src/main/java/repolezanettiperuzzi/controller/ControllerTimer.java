@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+/**
+ * Classe che rappresenta il controller del timer
+ * @author Giampiero Repole
+ */
 public class ControllerTimer extends TimerTask {
 
     private int currentTime;
@@ -16,14 +19,17 @@ public class ControllerTimer extends TimerTask {
     private ControllerState nextState;
     private String currentState;
 
-
-
+    /**
+     * Costruttore
+     * @param timerType Tipo di timer
+     * @param controller Controller
+     */
     public ControllerTimer(String timerType, Controller controller){
 
         this.timer = new Timer();
         this.controller = controller;
         this.currentState=timerType;
-        this.currentTime = 20;
+        this.currentTime = 40;
 
         //TODO apro file configurazione durata timer
 
@@ -47,6 +53,9 @@ public class ControllerTimer extends TimerTask {
         }
     }
 
+    /**
+     * Aggiorna il timer ad ogni esecuzione
+     */
     @Override
     public void run() {
         currentTime--;//aggiorna il timer ad ogni esecuzione
@@ -97,12 +106,20 @@ public class ControllerTimer extends TimerTask {
 
     }
 
+    /**
+     *
+     * @return Il timer corrente
+     */
     public int getCurrentTime(){
 
         return this.currentTime;
         
     }
 
+    /**
+     *
+     * @return Il timer
+     */
     public Timer getTimer(){
 
         return this.timer;

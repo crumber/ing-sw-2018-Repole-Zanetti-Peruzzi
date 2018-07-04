@@ -34,7 +34,7 @@ public class DiceBag {
 
     /**
      * Pesca casualmente un numDice di dadi dal sacchetto
-     * @param numDice numero di dadi da pescare
+     * @param numDice Numero di dadi da pescare
      * @return List di dadi pescati
      */
     public List<Die> takeDice(int numDice){
@@ -60,7 +60,7 @@ public class DiceBag {
 
     /**
      * Pesca casualmente un dado dal sacchetto
-     * @return dado pescato
+     * @return Dado pescato
      */
     public Die takeDie(){
 
@@ -77,7 +77,7 @@ public class DiceBag {
 
     /**
      * Inserisce un dado nel sacchetto
-     * @param d dado da inserire
+     * @param d Dado da inserire
      */
     public void setDieInBag(Die d) {
 
@@ -87,7 +87,7 @@ public class DiceBag {
     }
 
     /**
-     * @return intero che rappresenta il numero di dadi che contiene il sacchetto
+     * @return Intero che rappresenta il numero di dadi che contiene il sacchetto
      */
     public int getSize(){
 

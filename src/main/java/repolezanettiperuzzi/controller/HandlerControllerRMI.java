@@ -17,6 +17,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Classe che rappresenta l'implementazione effettiva del controller che risiede nel server
+ * @author Andrea Zanetti
+ */
 //questa e' l'implementazione effettiva del controller che riesede nel server e che chiamera' i metodi della classe controller
 //e sua insaputa che sia una comunicazione RMI o Socket
 public class HandlerControllerRMI implements ControllerStubRMI {
@@ -26,11 +30,27 @@ public class HandlerControllerRMI implements ControllerStubRMI {
     /* lista dei client registrati */
     private HashMap<String, ClientStubRMI> clients;
 
+    /**
+     * Costruttore
+     * @param controller Controller
+     * @throws RemoteException Eccezione RMI
+     */
     public HandlerControllerRMI(Controller controller) throws RemoteException {
         this.controller = controller;
         clients = new HashMap<>( );
     }
 
+    /**
+     *
+     * @param callbackClient Riferimento all'oggetto remoto del client
+     * @param username Nome client
+     * @param pwd Password client
+     * @param conn Connessione
+     * @param UI Grafica scelta
+     * @return Stringa di connessione
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws ParseException Errore durante l'analisi
+     */
     public synchronized String init(ClientStubRMI callbackClient, String username, String pwd, String conn, String UI) throws IOException, ParseException {
         synchronized (controller) {
             controller.setState(new SetConnectionState());
@@ -50,6 +70,11 @@ public class HandlerControllerRMI implements ControllerStubRMI {
         }
     }
 
+    /**
+     * Notifica la registrazione
+     * @param playerName Nome del player
+     * @throws RemoteException Eccezione RMI
+     */
     public synchronized void notifyOnRegister(String playerName) throws RemoteException {
         System.out.println("Starting callbacks: "+playerName);
         System.out.println("Exists: "+clients.containsKey(playerName));
@@ -58,6 +83,15 @@ public class HandlerControllerRMI implements ControllerStubRMI {
         System.out.println("Callbacks complete.");
     }
 
+    /**
+     * Annulla la registrazione per il callback
+     * @param playerName Nome del player
+     * @param typeView Tipo di view
+     * @return Boolean
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws ParseException Errore durante l'analisi
+     * @throws InterruptedException Interruzione thread
+     */
     /* annulla registrazione per il callback */
     public synchronized boolean notifyOnExit(String playerName, String typeView) throws IOException, ParseException, InterruptedException {
         synchronized (controller) {
@@ -88,6 +122,10 @@ public class HandlerControllerRMI implements ControllerStubRMI {
         }
     }
 
+    /**
+     * waiting room loaded
+     * @param playerName Nome del Player
+     */
     public synchronized void waitingRoomLoaded(String playerName){
         synchronized (controller) {
             Player player = controller.board.getPlayerByName(playerName);
@@ -116,6 +154,11 @@ public class HandlerControllerRMI implements ControllerStubRMI {
         }
     }
 
+    /**
+     * Aggiorna la waiting room
+     * @param playerName Nome del player
+     * @param setTimer Timer
+     */
     public synchronized void refreshWaitingRoom(String playerName, int setTimer){
         synchronized (controller){
             String[] players = new String[controller.board.getPlayersOnline()];
@@ -135,6 +178,10 @@ public class HandlerControllerRMI implements ControllerStubRMI {
         }
     }
 
+    /**
+     * Notifica l'inizio della scelta delle windows
+     * @param playerName Nome del player
+     */
     public synchronized void notifyOnBeginChooseWindow(String playerName){
         synchronized (controller){
             new Thread(new Runnable() {
@@ -150,6 +197,10 @@ public class HandlerControllerRMI implements ControllerStubRMI {
         }
     }
 
+    /**
+     * Loaded della scelta delle window
+     * @param playerName Nome del player
+     */
     public synchronized void chooseWindowSceneLoaded(String playerName){
         synchronized(controller){
             ArrayList<Window> windows = new ArrayList<>();
@@ -223,6 +274,10 @@ public class HandlerControllerRMI implements ControllerStubRMI {
         }
     }
 
+    /**
+     * Passa alla schermata successiva
+     * @param playerName Nome del player
+     */
     public synchronized void readyToPlay(String playerName){
         synchronized (controller){
             new Thread(new Runnable() {
@@ -241,6 +296,11 @@ public class HandlerControllerRMI implements ControllerStubRMI {
         }
     }
 
+    /**
+     * Invia la window scelta
+     * @param playerName Player che ha scelto la window
+     * @param windowName Nome della window scelta
+     */
     public synchronized void sendChosenWindow(String playerName, String windowName){
         synchronized (controller){
             new Thread(new Runnable() {
@@ -259,6 +319,10 @@ public class HandlerControllerRMI implements ControllerStubRMI {
         }
     }
 
+    /**
+     * Mostra che sei dentro l'inizio del gioco
+     * @param playerName Nome del player
+     */
     public synchronized void enterGame(String playerName){
         synchronized (controller) {
             System.out.println("enterGame");
@@ -276,6 +340,10 @@ public class HandlerControllerRMI implements ControllerStubRMI {
         }
     }
 
+    /**
+     * Mostra che sei l'ultimo in gioco
+     * @param playerName Nome del player
+     */
     public synchronized void showWinOnChooseWindowAlert(String playerName){
         synchronized (controller){
             try {
@@ -286,11 +354,4 @@ public class HandlerControllerRMI implements ControllerStubRMI {
         }
     }
 
-    @Override
-    public void faiQualcosa(String description) throws RemoteException {
-        /*
-        manipolo i dati...
-        controller.currentAction();
-        */
-    }
 }

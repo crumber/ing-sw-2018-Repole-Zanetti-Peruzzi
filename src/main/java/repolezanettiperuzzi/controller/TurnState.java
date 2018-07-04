@@ -8,11 +8,21 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * Classe che rappresenta lo stato del turno del player
+ * @author Giampiero Repole
+ */
 public class TurnState extends ControllerState {
 
     private Controller controller;
     public static boolean isSendTurn = false;
 
+    /**
+     * Fa iniziare il turno del player
+     * @param controller Controller
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws ParseException Errore durante l'analisi
+     */
     @Override
     public void doAction(Controller controller) throws IOException, ParseException {
 
@@ -59,6 +69,10 @@ public class TurnState extends ControllerState {
 
     }
 
+    /**
+     * Notifica l'inizio del turno al player
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyPlayerTurn() throws IOException {
 
         Player actualPlayer = controller.board.getPlayer(BeginTurn.getCurrentPlayer());
@@ -88,6 +102,12 @@ public class TurnState extends ControllerState {
         }
     }
 
+    /**
+     * Inserimento del dado
+     * @param player Player che vuole inserire il dado
+     * @param message Messaggio da parte dal client
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void insertDie(Player player, String message) throws IOException {
 
         if(BeginTurn.controlTurn(player)) {
@@ -140,6 +160,12 @@ public class TurnState extends ControllerState {
 
     }
 
+    /**
+     * Richiesta attivazione tool card
+     * @param player Player che vuole usare la carta
+     * @param numCard Numero posizione carta nella game board
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     //da usare quando il giocatore richiede di utilizzare una carta
     public void useCardRequest(Player player, int numCard) throws IOException {
 
@@ -215,6 +241,13 @@ public class TurnState extends ControllerState {
 
     }
 
+    /**
+     * Richiesta attivazione tool card
+     * @param player Player che vuole usare la carta
+     * @param numCard Numero posizione carta nella game board
+     * @param parameters Parametri per l'attivazione della carta
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void useCard(Player player, int numCard, String parameters) throws IOException {
 
         CreateListForCardAction list = new CreateListForCardAction();
@@ -294,6 +327,11 @@ public class TurnState extends ControllerState {
 
     }
 
+    /**
+     * Aggiornamento view
+     * @param player Player
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void updateView(Player player) throws IOException {
 
         if(player.getConnection().equals("Socket")&&(player.getLiveStatus())){
@@ -308,6 +346,10 @@ public class TurnState extends ControllerState {
         }
     }
 
+    /**
+     * Creazione e invio della stringa che rappresenta la situazione del gioco
+     * @return Stringa che rappresenta la situazione del gioco
+     */
     private String gameToString(){
 
         StringBuilder res = new StringBuilder();
@@ -348,6 +390,12 @@ public class TurnState extends ControllerState {
         return res.toString();
     }
 
+    /**
+     * Passaggio del turno
+     * @param player Player
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws ParseException Errore durante l'analisi
+     */
     public void passToNextTurn(Player player) throws IOException, ParseException {
 
         controller.board.getPlayer(BeginTurn.getCurrentPlayer()).setInsertDieInThisTurn(false);
@@ -372,9 +420,6 @@ public class TurnState extends ControllerState {
             controller.setState(new TurnState());
 
         }
-
-
-
     }
 
 }

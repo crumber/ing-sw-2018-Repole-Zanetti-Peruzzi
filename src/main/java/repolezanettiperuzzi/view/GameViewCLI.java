@@ -976,7 +976,7 @@ public class GameViewCLI implements Runnable {
 
                             answer.add(Integer.parseInt(futureInput.get()) - 1);
 
-                            System.out.println("\nYou choose position row:" + answer.get(1) + " column: " + answer.get(2) + "!");
+                            System.out.println("\nYou choose position row:" + (answer.get(1)+1) + " column: " + (answer.get(2)+1) + "!");
 
                             //TODO ANDRE PARTE SOTTO
                             try {

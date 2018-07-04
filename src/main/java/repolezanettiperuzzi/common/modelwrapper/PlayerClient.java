@@ -2,6 +2,12 @@ package repolezanettiperuzzi.common.modelwrapper;
 
 import java.io.Serializable;
 
+/**
+ * Classe che modellizza il giocatore nel client
+ * @author Andrea Zanetti
+ * @author Giampiero Repole
+ * @author Alessandro Peruzzi
+ */
 public class PlayerClient implements Serializable {
 
     private String name;
@@ -14,42 +20,50 @@ public class PlayerClient implements Serializable {
     private int score;
     private boolean liveStatus;
 
+    /**
+     *
+     * @param name Nome del player
+     */
     public PlayerClient(String name){
         this.name = name;
         this.score = 0;
         this.liveStatus = true;
     }
 
-    public void updateScore(int points){
-
-        score+=points;
-
-    }
-
+    /**
+     *
+     * @return Score del player
+     */
     public int getScore(){
 
         return score;
 
     }
 
-    public void setUsedCardInThisTurn(boolean trueOrFalse){
-
-        usedCardInThisTurn=trueOrFalse;
-
-    }
-
+    /**
+     *
+     * @return Vero se player ha già utilizzato una carta in questo turno sennò falso
+     */
     public boolean getUseCardInThisTurn(){
 
         return usedCardInThisTurn;
 
     }
 
+    /**
+     *
+     * @return La window del player
+     */
     public WindowClient getWindow(){
 
         return this.window;
 
     }
 
+    /**
+     * Inizializza la window del player
+     * @param window window da daren al player
+     */
     public void setWindow(WindowClient window){
 
         this.window = window;
@@ -57,84 +71,108 @@ public class PlayerClient implements Serializable {
 
     }
 
+    /**
+     *
+     * @return True se il giocatore è online sennò false
+     */
     public boolean getLiveStatus(){
         return this.liveStatus;
     }
 
+    /**
+     * Inizializza lo stato del player
+     * @param status True se online sennò false
+     */
     public void setLiveStatus(boolean status){
         this.liveStatus = status;
     }
 
+    /**
+     *
+     * @return Numero favor token
+     */
     public int getFavorTokens() {
 
         return favorTokens;
 
     }
 
+    /**
+     * Inizializza i FV del player
+     * @param flavorTokens Intero che rappresenta il numero di FV
+     */
     public void setFavorTokens(int flavorTokens){
 
         this.favorTokens=flavorTokens;
 
     }
 
-
-
+    /**
+     *
+     * @return Il nome del player
+     */
     public String getName() {
 
         return name;
 
     }
 
+    /**
+     * Inizializza a true se il player ha gia inserito un dado nel turno sennò inizializza a false
+     * @param trueOrFalse True se player ha gia inserito un dado in questo turno
+     */
     public void setInsertDieInThisTurn(boolean trueOrFalse) {
 
          insertDieInThisTurn=trueOrFalse;
 
     }
 
+    /**
+     *
+     * @return True se ha gia inserito un dado sennò false
+     */
     public boolean getInsertDieInThisTurn(){
 
         return insertDieInThisTurn;
 
     }
 
+    /**
+     *
+     * @return Il secret colour del player
+     */
     public ColourClient getSecretColour() {
 
         return secretColour;
 
     }
 
+    /**
+     * Inizializza il colore segreto
+     * @param colour Colore a cui viene inizializzato
+     */
     public void setSecretColour(ColourClient colour){
 
         this.secretColour=colour;
 
     }
 
+    /**
+     *
+     * @return Ritorna il valore del turno
+     */
     public int getTurn() {
 
         return turn;
 
     }
 
-    public void reduceFavorTokens(int reduction) {
-
-        favorTokens -= reduction;
-
-    }
-
+    /**
+     * Incrementa il turno
+     */
     //vedi incrRound dentro GameBoard per il metovo per cui non ho creato una setTurn
     public void incrTurn(){
         this.turn++;
     }
-
-    //Il primo turno di un giocatore si ha quando turn = 1 . Qui nella reset lo imposto a 0 perchè questo
-    //metodo viene chiamato solo dalla Azione BeginRound. Quindi all'inizio del Round tutti i turni vengono
-    //impostati a 0 tramite questo metodo e quando sta per iniziare il primo turno vengono tutti incrementati di 1
-    //tramite la incrTurn(). Così chi dovra saltare il turno successivo per via di una carta tool basterà incrementare
-    //il suo turno di 1 portandolo quindi ad un eventuale turno 3 che non potra' mai giocare quel Round (per via di controlli
-    // sui turni che verranno fatti).
-    public void resetTurn(){
-        this.turn = 0;
-    }
-
 
 }

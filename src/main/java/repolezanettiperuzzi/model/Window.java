@@ -15,10 +15,10 @@ public class Window {
 
     /**
      * Costruttore della classe
-     * @param name nome della Window
+     * @param name Nome della Window
      * @param ft FavorToken che assegna in caso venga scelta
-     * @param board caselle della Window
-     * @param fileName nome del file in cui risiedono le informazioni sulla Window
+     * @param board Caselle della Window
+     * @param fileName Nome del file in cui risiedono le informazioni sulla Window
      */
     public Window(String name, int ft, Box[][] board,String fileName) {
 
@@ -55,10 +55,10 @@ public class Window {
 
     /**
      * Inserisce un dado nella casella desiderata
-     * @param d dado da inserire
-     * @param x riga della casella
-     * @param y colonna della casella
-     * @param restriction restrizioni della casella da verificare
+     * @param d Dado da inserire
+     * @param x Riga della casella
+     * @param y Colonna della casella
+     * @param restriction Restrizioni della casella da verificare
      */
     public void insertDie(Die d, int x, int y, String restriction){
 
@@ -69,11 +69,11 @@ public class Window {
 
     /**
      * Muove un dado da una casella ad un'altra
-     * @param xIn riga da cui muovere il dado
-     * @param yIn colonna da cui muovere il dado
-     * @param xEnd riga in cui muovere il dado
-     * @param yEnd colonna in cui muovere il dado
-     * @param restriction stringa che indica la restriziona
+     * @param xIn Riga da cui muovere il dado
+     * @param yIn Colonna da cui muovere il dado
+     * @param xEnd Riga in cui muovere il dado
+     * @param yEnd Colonna in cui muovere il dado
+     * @param restriction Stringa che indica la restriziona
      */
     public void moveDie(int xIn,int yIn, int xEnd, int yEnd, String restriction) {
 
@@ -82,10 +82,10 @@ public class Window {
     }
 
     /**
-     * dice la box contiene un dado
-     * @param x riga della casella
-     * @param y colonna della casella
-     * @return true se c'è un dado nella box sennò false
+     * Dice se la box contiene un dado
+     * @param x Riga della casella
+     * @param y Colonna della casella
+     * @return True se c'è un dado nella box sennò false
      */
     public boolean thereIsDie(int x, int y){
 
@@ -99,10 +99,10 @@ public class Window {
     }
 
     /**
-     * rimuove il dado nella box, se non presente restituisce null
-     * @param x riga della casella
-     * @param y colonna della casella
-     * @return rimuove il dado e lo restituisce ma se non presente ritorna null
+     * Rimuove il dado nella box, se non presente restituisce null
+     * @param x Riga della casella
+     * @param y Colonna della casella
+     * @return Rimuove il dado e lo restituisce ma se non presente ritorna null
      */
      public Die removeDie(int x, int y){
 
@@ -114,7 +114,7 @@ public class Window {
     }
 
     /**
-     * @return nome della window
+     * @return Nome della window
      */
     public String getName(){
 
@@ -123,7 +123,7 @@ public class Window {
     }
 
     /**
-     * @return numero FV
+     * @return Numero FV
      */
     public int getFTokens(){
 
@@ -132,9 +132,9 @@ public class Window {
     }
 
     /**
-     * @param x riga della casella
-     * @param y colonna della casella
-     * @return restituisce dado della box
+     * @param x Riga della casella
+     * @param y Colonna della casella
+     * @return Restituisce dado della box
      */
     public Die getDieFromBoardBox(int x, int y)
     {
@@ -142,9 +142,9 @@ public class Window {
     }
 
     /**
-     * @param x riga della casella
-     * @param y colonna della casella
-     * @return restituisce valore dado nella box
+     * @param x Riga della casella
+     * @param y Colonna della casella
+     * @return Restituisce valore dado nella box
      */
     public Value getDieValue(int x, int y){
 
@@ -153,9 +153,9 @@ public class Window {
     }
 
     /**
-     * @param x riga della casella
-     * @param y colonna della casella
-     * @return restituisce colore dado della box
+     * @param x Riga della casella
+     * @param y Colonna della casella
+     * @return Restituisce colore dado della box
      */
     public Colour getDieColour(int x, int y){
 
@@ -164,9 +164,9 @@ public class Window {
     }
 
     /**
-     * @param x riga della casella
-     * @param y colonna della casella
-     * @return vero se c'è un dado vicino alla posizione inserita sennò false
+     * @param x Riga della casella
+     * @param y Colonna della casella
+     * @return Vero se c'è un dado vicino alla posizione inserita sennò false
      */
     public boolean controlAdjacencies(int x, int y){
 
@@ -214,10 +214,10 @@ public class Window {
     }
 
     /**
-     * @param d dado da controllare
-     * @param x riga della casella
-     * @param y colonna della casella
-     * @return vero se c'è un dado vicino alla posizione inserita con lo stesso colore del dado passato sennò false
+     * @param d Dado da controllare
+     * @param x Riga della casella
+     * @param y Colonna della casella
+     * @return Vero se c'è un dado vicino alla posizione inserita con lo stesso colore del dado passato sennò false
      */
     public boolean controlColourBoundAdjacencies(Die d, int x, int y){
 
@@ -245,10 +245,10 @@ public class Window {
     }
 
     /**
-     * @param d dado da controllare
-     * @param x riga della casella
-     * @param y colonna della casella
-     * @return vero se c'è un dado vicino alla posizione inserita con lo stesso valore del dado passato sennò false
+     * @param d Dado da controllare
+     * @param x Riga della casella
+     * @param y Colonna della casella
+     * @return Vero se c'è un dado vicino alla posizione inserita con lo stesso valore del dado passato sennò false
      */
     public boolean controlValueBoundAdjacencies(Die d, int x, int y){
 
@@ -276,10 +276,10 @@ public class Window {
     }
 
     /**
-     * @param d dado da controllare
-     * @param x riga della casella
-     * @param y colonna della casella
-     * @return vero se c'è un dado vicino alla posizione inserita con lo stesso colore e/o valore del dado passato sennò false
+     * @param d Dado da controllare
+     * @param x Riga della casella
+     * @param y Colonna della casella
+     * @return Vero se c'è un dado vicino alla posizione inserita con lo stesso colore e/o valore del dado passato sennò false
      */
     public boolean controlAllBoundAdjacencies(Die d, int x, int y){
 
@@ -299,7 +299,7 @@ public class Window {
     }
 
     /**
-     * @return vero se la window non contiene dadi senno ritorna false
+     * @return Vero se la window non contiene dadi senno ritorna false
      */
     public boolean isEmpty(){
 
@@ -315,7 +315,7 @@ public class Window {
     }
 
     /**
-     * @return numero di box vuote
+     * @return Numero di box vuote
      */
     public int numBoxEmpty(){
 
@@ -337,8 +337,8 @@ public class Window {
     }
 
     /**
-     * @param whichSecretColour colore segreto
-     * @return la somma dei valori dei dadi presenti nella window con il colore passato
+     * @param whichSecretColour Colore segreto
+     * @return La somma dei valori dei dadi presenti nella window con il colore passato
      */
     public int calculateSecretScore(Colour whichSecretColour){
 
@@ -360,10 +360,10 @@ public class Window {
     }
 
     /**
-     * @param x riga della casella
-     * @param y colonna della casella
-     * @param d dado da controllare
-     * @return vero se il dado passato rispetta i vincoli di colore e valore della box, falso altrimenti
+     * @param x Riga della casella
+     * @param y Colonna della casella
+     * @param d Dado da controllare
+     * @return Vero se il dado passato rispetta i vincoli di colore e valore della box, falso altrimenti
      */
     public boolean controlAllBoundBox(int x, int y, Die d){
 
@@ -372,10 +372,10 @@ public class Window {
     }
 
     /**
-     * @param x riga della casella
-     * @param y colonna della casella
-     * @param d dado da controllare
-     * @return vero se il dado passato rispetta i vincoli di colore della box, falso altrimenti
+     * @param x Riga della casella
+     * @param y Colonna della casella
+     * @param d Dado da controllare
+     * @return Vero se il dado passato rispetta i vincoli di colore della box, falso altrimenti
      */
     public boolean controlColourBoundBox(int x, int y, Die d){
 
@@ -384,10 +384,10 @@ public class Window {
     }
 
     /**
-     * @param x riga della casella
-     * @param y colonna della casella
-     * @param d dado da controllare
-     * @return vero se il dado passato rispetta i vincoli di valore della box, falso altrimenti
+     * @param x Riga della casella
+     * @param y Colonna della casella
+     * @param d Dado da controllare
+     * @return Vero se il dado passato rispetta i vincoli di valore della box, falso altrimenti
      */
     public boolean controlValueBoundBox(int x, int y, Die d){
 
@@ -396,7 +396,7 @@ public class Window {
     }
 
     /**
-     * @return clone della Window
+     * @return Clone della Window
      */
     //deep clone method
     public Window copy(){
@@ -404,7 +404,7 @@ public class Window {
     }
 
     /**
-     * @return numero righe della Window
+     * @return Numero righe della Window
      */
     public int numRow(){
 
@@ -413,7 +413,7 @@ public class Window {
     }
 
     /**
-     * @return numero colonne della Window
+     * @return Numero colonne della Window
      */
     public int numColumn(){
 

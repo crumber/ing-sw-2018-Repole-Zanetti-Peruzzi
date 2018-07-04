@@ -11,10 +11,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+/**
+ * Classe che rappresenta lo stato di reset del game cioòè pulizia file Json
+ * @author Giampiero Repole
+ */
 public class ResetGameState extends ControllerState{
 
     private DynamicPath dP;
 
+    /**
+     * Pulisce file Json
+     * @param controller Controller
+     */
     @Override
     public void doAction(Controller controller) {
         this.dP = new DynamicPath("gamedata/playersinfo.json");
@@ -22,6 +30,9 @@ public class ResetGameState extends ControllerState{
         cleanJson("gamedata/playersinfo.json");
     }
 
+    /**
+     * Prende risorse dal Jar
+     */
     public void handleJson(){
         if(dP.isJar()){
             try {
@@ -33,6 +44,10 @@ public class ResetGameState extends ControllerState{
         }
     }
 
+    /**
+     * Pulisce il Json
+     * @param jsonPath Percorso Json
+     */
     //method to clean the json file every time the game restarts
     private void cleanJson(String jsonPath){
         JSONArray jsonArr = new JSONArray();
@@ -44,6 +59,12 @@ public class ResetGameState extends ControllerState{
         }
     }
 
+    /**
+     * Estrae le risorse dal Jar
+     * @param resourceName Nome Jar
+     * @return Stringa che rappresenta i parametri del Jar
+     * @throws Exception Non riesce ha prendere le risorse dal Jar
+     */
     public String extractResourceFromJar(String resourceName) throws Exception {
         InputStream stream = null;
         String jarFolder;

@@ -22,7 +22,7 @@ public enum Value {
 
     /**
      * Costruttore della classe
-     * @param value valore scelto
+     * @param value Valore scelto
      */
     Value(int value){
 
@@ -32,7 +32,7 @@ public enum Value {
 
     /**
      * Trasforma un intero nel Value corrispondente
-     * @param val intero che si vuole trasformare
+     * @param val Intero che si vuole trasformare
      * @return Value corrispondente all'intero
      */
     public static Value intToValue(int val){
@@ -69,7 +69,7 @@ public enum Value {
     }
 
     /**
-     * @return intero corrispondente al Value
+     * @return Intero corrispondente al Value
      */
     public int getNumber() {
 

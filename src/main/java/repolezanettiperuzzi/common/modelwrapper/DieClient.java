@@ -2,11 +2,21 @@ package repolezanettiperuzzi.common.modelwrapper;
 
 import java.io.Serializable;
 
+/**
+ * Classe che modellizza un dado lato client
+ * @author Alessandro Peruzzi
+ * @author Giampiero Repole
+ * @author Andrea Zanetti
+ */
 public class DieClient implements Serializable {
 
     private final ColourClient COLOURDIE;
     private ValueClient valueDie;
 
+    /**
+     * Costruttore della classe
+     * @param c Colore del dado
+     */
     public DieClient(ColourClient c){
 
         this.COLOURDIE=c;
@@ -14,6 +24,10 @@ public class DieClient implements Serializable {
 
     }
 
+    /**
+     * Inizializza il dado convertendo la stinga passata negli attributi per il dado
+     * @param colorValue Stringa che rappresenta il dado: una lettera per il colore e un numero per il valore
+     */
     public DieClient(String colorValue){
         String colour = colorValue.charAt(0)+"";
         String value = colorValue.charAt(1)+"";
@@ -60,30 +74,38 @@ public class DieClient implements Serializable {
         }
     }
 
-    public void rollDie(){
-
-        this.valueDie=valueDie.randomValue();
-
-    }
-
+    /**
+     * @return Colore del dado
+     */
     public ColourClient getColourDie() {
 
         return COLOURDIE;
 
     }
 
+    /**
+     * @return Valore del dado
+     */
     public ValueClient getValueDie() {
 
         return valueDie;
 
     }
 
+    /**
+     * Imposta il valore del dado
+     * @param value Valore che si vuole assegnare al dado
+     */
     public void setValue(ValueClient value) {
 
         this.valueDie=value;
 
     }
 
+    /**
+     *
+     * @return Restituisce una stringa che rapprenseta il dado prima una lettera che indica il colore e poi un numero per il valore
+     */
     public String toString() {
 
         String res = "";

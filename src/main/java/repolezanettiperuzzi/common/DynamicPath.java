@@ -6,15 +6,27 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * Classe che crea i percorsi
+ * @author Andrea Zanetti
+ */
 public class DynamicPath {
 
     private String path;
     private static String OS = System.getProperty("os.name");
 
+    /**
+     * Costruttore
+     * @param path Stringa che indica il percorso
+     */
     public DynamicPath(String path){
         this.path = path;
     }
 
+    /**
+     *
+     * @return Il percorso del Jar
+     */
     public String getJarPath(){
         String currPath = System.getProperty("user.dir");
         String jarName = new File(GameViewGUI.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getName();
@@ -22,12 +34,20 @@ public class DynamicPath {
         return OS.startsWith("Windows") ? result.replace("\\", "/") : result;
     }
 
+    /**
+     *
+     * @return Il percorso di Intellij
+     */
     public String getDebugPath(){
         String currPath = System.getProperty("user.dir");
         String result = "file:"+currPath+"/"+path;
         return OS.startsWith("Windows") ? result.replace("\\", "/") : result;
     }
 
+    /**
+     *
+     * @return Il percorso utilizzando getDebugPath e getJarPath
+     */
     public String getPath(){
         if(isJar()){
             return getJarPath();
@@ -36,6 +56,10 @@ public class DynamicPath {
         }
     }
 
+    /**
+     * Controlla che il percorso vada bene
+     * @return Il percorso
+     */
     public String getPathNoFile(){
         if(isJar()){
             System.out.println(path);
@@ -49,6 +73,10 @@ public class DynamicPath {
         }
     }
 
+    /**
+     * Controlla che il percorso vada bene
+     * @return Il percorso
+     */
     public String getPathJsonFile(){
         String currPath = System.getProperty("user.dir");
         if(isJar()){
@@ -60,6 +88,10 @@ public class DynamicPath {
         }
     }
 
+    /**
+     *
+     * @return Nome del Jar
+     */
     public String getJarName(){
         if(isJar()){
             return new File(GameViewGUI.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getName();
@@ -67,6 +99,10 @@ public class DynamicPath {
         return "";
     }
 
+    /**
+     *
+     * @return True se è un Jar sennò false
+     */
     public boolean isJar(){
         boolean isJar = false;
         try {
