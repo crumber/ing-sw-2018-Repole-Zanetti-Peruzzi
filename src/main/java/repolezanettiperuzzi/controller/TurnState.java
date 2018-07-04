@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class TurnState extends ControllerState {
 
     private Controller controller;
+    public static boolean isSendTurn = false;
 
     @Override
     public void doAction(Controller controller) throws IOException, ParseException {
@@ -50,7 +51,10 @@ public class TurnState extends ControllerState {
 
         }
 
-        notifyPlayerTurn();
+        if(!isSendTurn) {
+            notifyPlayerTurn();
+            isSendTurn = true;
+        }
 
         beginTurn.doAction(controller.board.getPlayer(BeginTurn.getCurrentPlayer()),controller.board);
 
@@ -349,6 +353,7 @@ public class TurnState extends ControllerState {
 
         controller.board.getPlayer(BeginTurn.getCurrentPlayer()).setInsertDieInThisTurn(false);
         controller.board.getPlayer(BeginTurn.getCurrentPlayer()).setUsedCardInThisTurn(false);
+        isSendTurn = false;
 
         for(int i=0; i<controller.board.getNPlayers();i++){
 

@@ -21,6 +21,7 @@ public class GameViewCLI implements Runnable {
     private ShutdownConsole shutdownConsole;
     private GameBoardClient boardClient;
     public static int globalGameTime = 0;
+    private boolean myTurn;
 
     String ANSI_RESET = "\u001B[0m";
     String ANSI_BLACK = "\u001B[30m";
@@ -37,6 +38,7 @@ public class GameViewCLI implements Runnable {
         this.gV = gV;
         this.isTimerOn = false;
         this.hasShutdownHook = false;
+        this.myTurn = false;
         /*if(OS.startsWith("Windows")){
             ANSI_RESET = "";
             ANSI_BLACK = "";
@@ -843,6 +845,7 @@ public class GameViewCLI implements Runnable {
         if(currentPlayer.equals(gV.getUsername())){
             showQuestion(currentTime);
         } else {
+            myTurn = false;
             System.out.println("It's "+currentPlayer+"'s turn!");
         }
     }

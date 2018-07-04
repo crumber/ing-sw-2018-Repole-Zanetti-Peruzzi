@@ -387,6 +387,7 @@ public class GameView implements ClientStubRMI {
         if(this.UI.equals("GUI")){
             ((GameFXMLController) fxmlController).notifyTurn(actualPlayer, currentTime);
         }else if(this.UI.equals("CLI")){
+            System.out.println("NOTIFY NOTIFY NOTIFYNOTIFY NOTIFY NOTIFY");
             gvCLI.notifyTurn(actualPlayer, currentTime);
         }
     }
