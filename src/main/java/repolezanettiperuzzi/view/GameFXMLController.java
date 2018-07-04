@@ -959,7 +959,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
     public void setCurrentTurn(GameBoardClient board){
 
         System.out.println(board.getTurn());
-        Platform.runLater(() -> currentTurn.setText(": "+board.getTurn()));
+        Platform.runLater(() -> currentTurn.setText(": "+(board.getTurn()+1)));
 
     }
 

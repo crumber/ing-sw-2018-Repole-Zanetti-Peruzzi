@@ -19,25 +19,20 @@ public class TurnState extends ControllerState {
 
         this.controller=controller;
 
-        System.out.println("doAction");
-
         if(BeginTurn.getCurrentTurn()==0 && BeginTurn.getNumPlayedTurn()==0){
 
             BeginTurn.resetCurrentPlayer();
 
         }
 
-
-
-        System.out.println(controller.board.getPlayer(BeginTurn.getCurrentPlayer()).getName());
-
         if(!controller.board.getPlayer(BeginTurn.getCurrentPlayer()).getLiveStatus()){
 
             this.passToNextTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer()));
+
         }
 
 
-        if(BeginTurn.getNumPlayedTurn()==0 && BeginTurn.getCurrentTurn()==0){
+        if(BeginTurn.getNumPlayedTurn()==0){
 
             for(int i=0; i<controller.board.getNPlayers();i++){
 

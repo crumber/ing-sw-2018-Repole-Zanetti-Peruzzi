@@ -278,13 +278,16 @@ public class GameViewSocket implements Runnable{
         }
         if(boardElems[i].length()==2) {
 
+
             board.setRound(Character.getNumericValue(boardElems[i].charAt(0)));
             board.setTurn(Character.getNumericValue(boardElems[i].charAt(1)));
+            System.out.println(board.getRound()+" "+board.getTurn());
 
         }else{
 
             board.setRound(Integer.parseInt(boardElems[i].substring(0,2)));
             board.setTurn(Character.getNumericValue(boardElems[i].charAt(2)));
+            System.out.println(board.getRound()+" "+board.getTurn());
 
         }
         i++;
