@@ -645,9 +645,9 @@ public class GameFXMLController extends FXMLController implements Initializable{
                     e.printStackTrace();
                 }
                 //showAlert("Inviato", "Invio "+lastDieDraft+" "+lastWindowCell.xPos+" "+lastWindowCell.yPos);
-            } else if (lastWindowCells.size()==0 && this.lastDieDraft < 0) {
+            } else if (lastWindowCells.isEmpty() && this.lastDieDraft < 0) {
                 showAlert("Inserisci dati", "Scegli un dado e una cella!");
-            } else if (lastWindowCells.size()==0) {
+            } else if (lastWindowCells.isEmpty()) {
                 showAlert("Scegli cella", "Scegli una cella!");
             } else if (this.lastDieDraft < 0) {
                 showAlert("Scegli dado", "Scegli un dado!");
@@ -741,7 +741,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
                     checkInsertDieParameters();
                     break;
                 case "endTurnButton":
-                    System.out.println("pressed end turn");
+                    onClickEndTurn();
                     break;
                 case "currentPlayerButton":
                     setVisibleWindow("gridWindow"+ gV.getUsername());
@@ -807,6 +807,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
         tc1Button.setOnMouseReleased(e -> showCardAlert(tc1Button.getId(),"Choose card 1","Do you want to "+tc1Button.getText().toLowerCase().replace("ft","favor tokens")+"?"));
         tc2Button.setOnMouseReleased(e -> showCardAlert(tc2Button.getId(),"Choose card 2","Do you want to "+tc2Button.getText().toLowerCase().replace("ft","favor tokens")+"?"));
         tc3Button.setOnMouseReleased(e -> showCardAlert(tc3Button.getId(),"Choose card 3","Do you want to "+tc3Button.getText().toLowerCase().replace("ft","favor tokens")+"?"));
+
 
         numSelectableCells = 1;
         lastDieDraft = -1;
@@ -1181,6 +1182,23 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
         });
 
+    }
+
+    public void onClickEndTurn() {
+
+        if(myTurn){
+
+            try {
+                gV.sendEndTurnButton();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+
+        }else{
+
+            showAlert("Not your turn", "This is not your turn!");
+
+        }
     }
 
 

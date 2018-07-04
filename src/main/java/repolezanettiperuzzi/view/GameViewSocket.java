@@ -376,4 +376,12 @@ public class GameViewSocket implements Runnable{
         return this.localServerPort;
     }
 
+    public void sendEndTurn(String username) throws IOException {
+
+        PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
+        out.println(username + " endTurn");
+        out.close();
+        socket.close();
+
+    }
 }

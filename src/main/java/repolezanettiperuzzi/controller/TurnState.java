@@ -16,6 +16,7 @@ public class TurnState extends ControllerState {
 
     private Controller controller;
     public static boolean isSendTurn = false;
+    public static boolean activedCard8 = false;
 
     /**
      * Fa iniziare il turno del player
@@ -53,7 +54,7 @@ public class TurnState extends ControllerState {
 
         }
 
-        if((!BeginTurn.controlTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer())))||(!controller.board.getPlayer(BeginTurn.getCurrentPlayer()).getLiveStatus())) {
+        if(((!BeginTurn.controlTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer())))||(!controller.board.getPlayer(BeginTurn.getCurrentPlayer()).getLiveStatus()))&&!activedCard8) {
 
             this.passToNextTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer()));
             return;
@@ -306,6 +307,11 @@ public class TurnState extends ControllerState {
 
             }else{
 
+                if(numCard==8){
+
+                    activedCard8=true;
+
+                }
 
                 this.updateView(player);
                 return;
@@ -407,6 +413,8 @@ public class TurnState extends ControllerState {
             this.updateView(controller.board.getPlayer(i));
 
         }
+
+        activedCard8=false;
 
         BeginTurn.nextTurnParameters(controller.board,player);
 

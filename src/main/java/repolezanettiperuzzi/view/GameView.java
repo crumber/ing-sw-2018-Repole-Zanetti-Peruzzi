@@ -449,6 +449,15 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    public void sendEndTurnButton() throws IOException {
+        if(connection.equals("Socket")){
+            gvSocket = new GameViewSocket(this);
+            gvSocket.sendEndTurn(username);
+        }else if(connection.equals("RMI")){
+
+        }
+    }
+
     public static void printSagrada(){
         System.out.print("\033[H\033[2J");
         System.out.flush();

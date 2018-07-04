@@ -149,6 +149,11 @@ public class HandlerControllerSocket implements Runnable{
                 controller.setState(new TurnState());
                 ((TurnState)controller.getState()).useCardRequest(controller.board.getPlayerByName(playerID), Integer.parseInt(param[0]));
                 break;
+            case "endTurn":
+                controller.cancelTimer();
+                controller.setState(new TurnState());
+                ((TurnState)controller.getState()).passToNextTurn(controller.board.getPlayerByName(playerID));
+                break;
             case "exit":
                 controller.notifyExitToClient(playerID);
                 switch(param[0]){
