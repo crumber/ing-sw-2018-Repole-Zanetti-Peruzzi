@@ -19,13 +19,13 @@ import repolezanettiperuzzi.common.modelwrapper.WindowClient;
 import javafx.scene.input.MouseEvent;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 
 public class WindowGenerator {
 
     private WindowClient window;
     private boolean mouseOut;
-    private Coordinates coordinates;
     private Object clickLock;
     private GameFXMLController controller;
 
@@ -35,7 +35,6 @@ public class WindowGenerator {
 
     public WindowGenerator(WindowClient window, Object clickLock, GameFXMLController controller){
         this.window = window;
-        this.coordinates = new Coordinates(-1, -1);
         this.clickLock = clickLock;
         this.controller = controller;
     }
@@ -238,8 +237,21 @@ public class WindowGenerator {
         rect.setOnMouseExited(e -> {
             synchronized (clickLock) {
                 mouseOut = true;
-                if ((coordinates.xPos != i) || (coordinates.yPos != j)) {
+                ArrayList<Coordinates> lastWindowCells = controller.getLastWindowCells();
+                if(lastWindowCells.size()>0) {
+                    boolean cellFound = false;
+                    for (int k = 0; k < lastWindowCells.size(); k++) {
+                        if (!((lastWindowCells.get(k).xPos != i) || (lastWindowCells.get(k).yPos != j))) {
 
+                            cellFound = true;
+
+                        }
+                    }
+                    if (!cellFound) {
+                        rect.setVisible(false);
+                        rect.setOpacity(0.5);
+                    }
+                } else {
                     rect.setVisible(false);
                     rect.setOpacity(0.5);
                 }
@@ -249,7 +261,7 @@ public class WindowGenerator {
         rect.setOnMouseReleased(e -> onClickBoxes(grid, rect, i, j));
     }
 
-    public void onClickBoxes(GridPane grid, Rectangle rect, int i, int j){
+    /*public void onClickBoxes(GridPane grid, Rectangle rect, int i, int j){
         synchronized (clickLock) {
             if (!mouseOut) {
                 ObservableList<Node> childrens = grid.getChildren();
@@ -264,6 +276,35 @@ public class WindowGenerator {
                 }
                 this.coordinates = new Coordinates(i, j);
                 controller.setLastWindowCell(coordinates);
+                rect.setFill(Color.TRANSPARENT);
+                rect.setOpacity(1);
+                rect.setStroke(Color.PINK);
+                rect.setStrokeType(StrokeType.INSIDE);
+                rect.setStrokeWidth(4.0);
+            }
+        }
+    }*/
+
+    public void onClickBoxes(GridPane grid, Rectangle rect, int i, int j){
+        synchronized (clickLock) {
+            if (!mouseOut && controller.getMyTurn()) {
+                ArrayList<Coordinates> lastWindowCells = controller.getLastWindowCells();
+                if(lastWindowCells.size()==controller.getNumSelectableCells()) {
+                    ObservableList<Node> childrens = grid.getChildren();
+                    for (Node node : childrens) {
+                        if ((node.getId() != null) && (node.getId().equals("Rect" + lastWindowCells.get(0).yPos + lastWindowCells.get(0).xPos))) {
+                            //System.out.println(node.getId());
+                            Rectangle r = (Rectangle) node;
+                            r.setStrokeWidth(0);
+                            r.setOpacity(0.5);
+                            r.setVisible(false);
+                            lastWindowCells.remove(0);
+                            break;
+                        }
+                    }
+                }
+                lastWindowCells.add(new Coordinates(i, j));
+                System.out.println(lastWindowCells.toString());
                 rect.setFill(Color.TRANSPARENT);
                 rect.setOpacity(1);
                 rect.setStroke(Color.PINK);

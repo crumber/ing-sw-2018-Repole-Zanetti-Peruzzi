@@ -689,7 +689,6 @@ public class GameViewCLI implements Runnable {
                 }
                 System.out.print("\n");
 
-
             } else if (i == boardClient.getPlayer(0).getWindow().rowSize() - 1) {
 
                 System.out.print(space +middlespace);

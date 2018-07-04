@@ -86,8 +86,6 @@ public class GameView implements ClientStubRMI {
             this.UI = UI;
             this.login = true;
 
-
-
             if (connection.equals("Socket")) {
                 //mi serve creae prima l'oggetto in caso venga chiamata la onReceiveCallback su un oggetto che non esiste
                 gvSocket = new GameViewSocket(this);

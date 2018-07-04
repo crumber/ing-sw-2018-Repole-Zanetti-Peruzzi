@@ -52,10 +52,11 @@ public class GameFXMLController extends FXMLController implements Initializable{
     private boolean mouseOut;
     private boolean alreadyUpdated;
     private Object clickLock;
-    private Coordinates lastWindowCell;
+    private ArrayList<Coordinates> lastWindowCells;
     private int lastDieDraft;
     private String lastDieRT;
     private boolean myTurn;
+    private int numSelectableCells;
 
     @FXML
     // The reference of inputText will be injected by the FXML loader
@@ -148,10 +149,6 @@ public class GameFXMLController extends FXMLController implements Initializable{
         gV.notifyOnExit("game");
     }
 
-    public void setLastWindowCell(Coordinates coordinates){
-        this.lastWindowCell = coordinates;
-    }
-
     public void setLastDieDraft(int lastDieDraft){
 
         this.lastDieDraft = lastDieDraft;
@@ -164,6 +161,10 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     }
 
+    public boolean getMyTurn(){
+        return this.myTurn;
+    }
+
     public void updateView(GameBoardClient board, int currentTime){
         synchronized (clickLock) {
             //this.setTimer(currentTime);
@@ -173,8 +174,8 @@ public class GameFXMLController extends FXMLController implements Initializable{
             ArrayList<ArrayList<Node>> nodesToDeleteRT = new ArrayList<>();
             lastDieDraft = -1;
             lastDieRT = "";
-            lastWindowCell.xPos = -1;
-            lastWindowCell.yPos = -1;
+            lastWindowCells = new ArrayList<>();
+            numSelectableCells = 4;
 
             if (alreadyUpdated) {
 
@@ -629,16 +630,16 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     public void checkInsertDieParameters(){
         if(myTurn) {
-            if (this.lastDieDraft >= 0 && lastWindowCell.xPos >= 0 && lastWindowCell.yPos >= 0) {
+            if (this.lastDieDraft >= 0 && lastWindowCells.size()>0) {
                 try {
-                    gV.sendInsertDie(lastDieDraft, lastWindowCell.xPos, lastWindowCell.yPos);
+                    gV.sendInsertDie(lastDieDraft, lastWindowCells.get(0).xPos, lastWindowCells.get(0).yPos);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 //showAlert("Inviato", "Invio "+lastDieDraft+" "+lastWindowCell.xPos+" "+lastWindowCell.yPos);
-            } else if (lastWindowCell.xPos < 0 && lastWindowCell.yPos < 0 && this.lastDieDraft < 0) {
+            } else if (lastWindowCells.size()==0 && this.lastDieDraft < 0) {
                 showAlert("Inserisci dati", "Scegli un dado e una cella!");
-            } else if (lastWindowCell.xPos < 0 && lastWindowCell.yPos < 0) {
+            } else if (lastWindowCells.size()==0) {
                 showAlert("Scegli cella", "Scegli una cella!");
             } else if (this.lastDieDraft < 0) {
                 showAlert("Scegli dado", "Scegli un dado!");
@@ -711,6 +712,14 @@ public class GameFXMLController extends FXMLController implements Initializable{
         b.setOnMouseEntered(e -> b.setStyle(getHoverButtonStyle(hoverColor, shadowColor)));
     }
 
+    public ArrayList<Coordinates> getLastWindowCells(){
+        return this.lastWindowCells;
+    }
+
+    public int getNumSelectableCells(){
+        return numSelectableCells;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         alreadyUpdated = false;
@@ -727,9 +736,10 @@ public class GameFXMLController extends FXMLController implements Initializable{
         tc2Button.setOnMouseReleased(e -> showCardAlert(tc2Button.getId(),"Choose card 2","Do you want to "+tc2Button.getText().toLowerCase().replace("ft","favor tokens")+"?"));
         tc3Button.setOnMouseReleased(e -> showCardAlert(tc3Button.getId(),"Choose card 3","Do you want to "+tc3Button.getText().toLowerCase().replace("ft","favor tokens")+"?"));
 
+        numSelectableCells = 1;
         lastDieDraft = -1;
         lastDieRT = "";
-        lastWindowCell = new Coordinates(-1, -1);
+        lastWindowCells = new ArrayList<>();
         myTurn = false;
 
         currentPlayerButton.setText(gV.getUsername());

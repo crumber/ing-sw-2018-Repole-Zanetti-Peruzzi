@@ -8,4 +8,9 @@ public class Coordinates {
             this.xPos = xPos;
             this.yPos = yPos;
         }
+
+        @Override
+        public String toString(){
+            return xPos+""+yPos;
+        }
 }
