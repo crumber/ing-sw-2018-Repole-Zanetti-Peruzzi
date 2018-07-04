@@ -360,9 +360,9 @@ public class GameView implements ClientStubRMI {
 
     public void viewError(String error){
         if(this.UI.equals("GUI")){
-            ((GameFXMLController) fxmlController).viewError(error);
+            ((GameFXMLController) fxmlController).viewError(ErrorFactory.getErrorMessage(error));
         }else if(this.UI.equals("CLI")){
-
+            gvCLI.viewError(ErrorFactory.getErrorMessage(error));
         }
     }
 
