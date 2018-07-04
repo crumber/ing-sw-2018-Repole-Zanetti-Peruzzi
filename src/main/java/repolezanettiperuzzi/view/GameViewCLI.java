@@ -21,6 +21,7 @@ public class GameViewCLI implements Runnable {
     private ShutdownConsole shutdownConsole;
     private GameBoardClient boardClient;
     public static int globalGameTime = 0;
+    private String currentPlayer;
     private boolean myTurn;
 
     String ANSI_RESET = "\u001B[0m";
@@ -76,18 +77,21 @@ public class GameViewCLI implements Runnable {
     public String readLine(int timeout, String message, String[] actions, TimeUnit unit) throws InterruptedException {
         ExecutorService ex = Executors.newSingleThreadExecutor();
         String input = null;
+        Future<String> result = null;
         try {
-            Future<String> result = ex.submit(new ConsoleInputReadTask(actions, message, gV, this.lastScene));
+            result = ex.submit(new ConsoleInputReadTask(actions, message, gV, this.lastScene));
             try {
                 input = result.get(timeout, unit);
             } catch (ExecutionException e) {
                 e.getCause().printStackTrace();
             } catch (TimeoutException e) {
                 result.cancel(true);
+                myTurn = false;
                 System.out.println("\nTimer expired!");
             }
 
         } finally {
+            result.cancel(true);
             ex.shutdownNow();
         }
         return input;
@@ -831,7 +835,9 @@ public class GameViewCLI implements Runnable {
 
         }
 
-        //TODO ANDRE PASSARE A SHOW QUESTION
+        if(myTurn){
+            showQuestion(globalGameTime/1000);
+        }
 
     }
 
@@ -843,10 +849,12 @@ public class GameViewCLI implements Runnable {
 
     public void notifyTurn(String currentPlayer, int currentTime){
         if(currentPlayer.equals(gV.getUsername())){
+            myTurn = true;
             showQuestion(currentTime);
         } else {
             myTurn = false;
-            System.out.println("It's "+currentPlayer+"'s turn!");
+            this.currentPlayer = currentPlayer;
+            System.out.println("It's "+this.currentPlayer+"'s turn!");
         }
     }
 
@@ -907,6 +915,8 @@ public class GameViewCLI implements Runnable {
         if (futureInput.isPresent()) {
 
             if (futureInput.get().compareTo("i") == 0) {
+
+                System.out.println(space + "You have "+(globalGameTime/1000)+" seconds before the timeout expires.");
 
                 String messDraft = "Which die on draft (";
                 String[] actionDraft = new String[boardClient.getSizeDraft()];
@@ -984,6 +994,8 @@ public class GameViewCLI implements Runnable {
 
                 String[] actionCards = {"1","2","3"};
                 String messCard = "Which tool card (1,2,3)?";
+
+                System.out.println(space + "You have "+(globalGameTime/1000)+" seconds before the timeout expires.");
 
                 try {
                     //readLine personalizzata che sblocca il thread allo scadere del timer

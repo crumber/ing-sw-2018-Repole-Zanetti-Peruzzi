@@ -33,7 +33,7 @@ public class TurnState extends ControllerState {
         }
 
 
-        if(BeginTurn.getNumPlayedTurn()==0){
+        if(BeginTurn.getNumPlayedTurn()==0 && !isSendTurn){
 
             for(int i=0; i<controller.board.getNPlayers();i++){
 
@@ -45,7 +45,6 @@ public class TurnState extends ControllerState {
 
         if((!BeginTurn.controlTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer())))||(!controller.board.getPlayer(BeginTurn.getCurrentPlayer()).getLiveStatus())) {
 
-            System.out.println(true);
             this.passToNextTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer()));
             return;
 

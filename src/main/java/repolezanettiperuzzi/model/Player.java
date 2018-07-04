@@ -269,7 +269,6 @@ public class Player {
      */
     public void setInsertDieInThisTurn(boolean trueOrFalse) {
 
-        System.out.println(trueOrFalse);
         insertDieInThisTurn=trueOrFalse;
 
     }

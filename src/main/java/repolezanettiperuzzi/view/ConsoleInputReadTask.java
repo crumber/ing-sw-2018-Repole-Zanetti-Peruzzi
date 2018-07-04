@@ -29,7 +29,7 @@ public class ConsoleInputReadTask implements Callable<String> {
                 // wait until we have data to complete a readLine()
                 while (!br.ready()) {
                     Thread.sleep(200);
-                    GameViewCLI.globalGameTime -= -200;
+                    GameViewCLI.globalGameTime += -200;
                 }
                 input = br.readLine();
             } catch (InterruptedException e) {

@@ -414,7 +414,6 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 }
             }
             setLastDieRT(i);
-            System.out.println(i);
             rect.setFill(Color.TRANSPARENT);
             rect.setOpacity(1);
             rect.setStroke(Color.BLACK);
@@ -791,8 +790,6 @@ public class GameFXMLController extends FXMLController implements Initializable{
         }
 
         for (Node node: favorTokensPane.getChildren()) {
-
-            System.out.println(node.getId());
 
             if(node.getId()!=null && node.getId().equals(idWindow.substring(10)+"FavorTokens")){
 
