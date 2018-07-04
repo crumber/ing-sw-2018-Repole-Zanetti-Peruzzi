@@ -59,7 +59,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     @FXML
     // The reference of inputText will be injected by the FXML loader
-    private Text playersText;
+    private Text playersText, currentTurn;
 
     @FXML
     // The reference of inputText will be injected by the FXML loader
@@ -248,6 +248,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
             viewSecretColor(board);
             viewFavorTokens(board);
             setRoundRectangle(board);
+            setCurrentTurn(board);
             //viewDraft();
             alreadyUpdated = true;
 
@@ -952,6 +953,13 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 break;
 
         }
+
+    }
+
+    public void setCurrentTurn(GameBoardClient board){
+
+        System.out.println(board.getTurn());
+        Platform.runLater(() -> currentTurn.setText(": "+board.getTurn()));
 
     }
 

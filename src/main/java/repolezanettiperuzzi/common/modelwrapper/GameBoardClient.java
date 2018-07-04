@@ -16,6 +16,7 @@ public class GameBoardClient implements Serializable {
     private ArrayList<ToolCardClient> toolCards;
     private RoundTrackClient roundTrack;
     private int round;
+    private int turn;
     private int nPlayers;
     private int[] costToolCard = new int[3];
 
@@ -259,6 +260,18 @@ public class GameBoardClient implements Serializable {
     public void setRound(int round){
 
         this.round=round;
+
+    }
+
+    public void setTurn(int turn){
+
+        this.turn=turn;
+
+    }
+
+    public int getTurn(){
+
+        return this.turn;
 
     }
 }
