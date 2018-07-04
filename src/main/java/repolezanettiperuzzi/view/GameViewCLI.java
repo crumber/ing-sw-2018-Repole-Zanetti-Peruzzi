@@ -708,9 +708,20 @@ public class GameViewCLI implements Runnable {
 
                     if(myName.compareTo(boardClient.getPlayer(n).getName())!=0) {
 
-                        System.out.print("\n" + space + "WINDOW " + l + " BELONGS TO: " + boardClient.getPlayer(n).getName() + space + "FAVOR TOKEN: " + boardClient.getPlayer(n).getFavorTokens());
-                        l++;
+                        System.out.print("\n" + space + "WINDOW " + l + " BELONGS TO: " + boardClient.getPlayer(n).getName() + space + "FAVOR TOKEN: " + boardClient.getPlayer(n).getFavorTokens() +
+                        space +"Status: ");
 
+                        if(boardClient.getPlayer(n).getLiveStatus()){
+
+                            System.out.print(ANSI_GREEN +"ONLINE" +ANSI_RESET);
+
+                        }else{
+
+                            System.out.print(ANSI_RED +"OFFLINE" +ANSI_RESET);
+
+                        }
+
+                        l++;
                     }
                 }
             }
@@ -886,18 +897,7 @@ public class GameViewCLI implements Runnable {
             }
         }
 
-        //costruisco il messaggio in base a cosa può fare il player
-        if (!boardClient.getPlayer(myNumber).getInsertDieInThisTurn()) {
-
-            message += messInsertDie;
-
-        }
-        if (!boardClient.getPlayer(myNumber).getUseCardInThisTurn()) {
-
-            message += messUsedCard;
-
-        }
-        message += messagefine;
+        message+=messInsertDie+messUsedCard+messagefine;
         String[] actions = {"i", "u", "p"}; //risposte giuste che ci si aspetta dall'utente
         Optional<String> futureInput = Optional.of("");
 
