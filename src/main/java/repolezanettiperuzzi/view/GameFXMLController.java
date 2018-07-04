@@ -57,6 +57,9 @@ public class GameFXMLController extends FXMLController implements Initializable{
     private String lastDieRT;
     private boolean myTurn;
     private int numSelectableCells;
+    private boolean incrToolCard;
+    private String[] cardParameters;
+    private int lastToolCard;
 
     @FXML
     // The reference of inputText will be injected by the FXML loader
@@ -109,6 +112,8 @@ public class GameFXMLController extends FXMLController implements Initializable{
     @FXML
     private Button tc1Button, tc2Button, tc3Button;
 
+    @FXML
+    private Button useCard;
 
     // Add a public no-args constructor
     public GameFXMLController()
@@ -175,7 +180,9 @@ public class GameFXMLController extends FXMLController implements Initializable{
             lastDieDraft = -1;
             lastDieRT = "";
             lastWindowCells = new ArrayList<>();
-            numSelectableCells = 4;
+            numSelectableCells = 1;
+            incrToolCard = false;
+            lastToolCard = 0;
 
             if (alreadyUpdated) {
 
@@ -615,7 +622,8 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
                 if (alert.getResult() == ButtonType.YES) {
 
-                    this.chooseCard(Character.getNumericValue(idButton.charAt(2))-1);
+                    lastToolCard = Character.getNumericValue(idButton.charAt(2))-1;
+                    this.chooseCard(lastToolCard);
 
                 }
 
@@ -663,6 +671,67 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     }
 
+    public void sendCardParameters(){
+        if(incrToolCard && myTurn){
+            //TODO SE E' PRESENTE UN DADO SCELTO NEL DRAFT MOSTRA FINESTRA PER INCR O DECR DADO
+        } else if(myTurn && cardParameters!=null){
+            String response = "";
+
+            String parameters = "";
+            for(int i = 0; i<cardParameters.length; i++){
+                parameters = cardParameters[i]+" ";
+            }
+
+            if(parameters.contains("dieDraft")){
+                if(lastDieDraft>=0){
+                    response+=lastDieDraft+" ";
+                } else {
+                    showAlert("Illegal card parameters", "You didn't choose a die in the draft!");
+                    return;
+                }
+            }
+
+            if(numSelectableCells==2){
+                if(lastWindowCells.size()==2){
+                    for(int i = 0; i<lastWindowCells.size(); i++) response+=lastWindowCells.get(i).xPos+" "+lastWindowCells.get(i).yPos+" ";
+                } else {
+                    showAlert("Illegal card parameters", "You didn't choose 2 dice and 2 end positions!");
+                    return;
+                }
+            } else if(numSelectableCells==4){
+                if(lastWindowCells.size()==4){
+                    for(int i = 0; i<lastWindowCells.size(); i++) response+=lastWindowCells.get(i).xPos+" "+lastWindowCells.get(i).yPos+" ";
+                } else {
+                    showAlert("Illegal card parameters", "You didn't choose 4 dice and 2 end positions!");
+                    return;
+                }
+            }else if(parameters.contains("endPos")){
+                if(lastWindowCells.size()==1){
+                    response+=lastWindowCells.get(0)+" ";
+                } else {
+                    showAlert("Illegal card parameters", "You didn't choose a position in the window!");
+                    return;
+                }
+            }
+
+            if(parameters.contains("dieRoundTrack")){
+                if(!lastDieRT.equals("")){
+                    response+=lastDieRT.charAt(0)+" "+lastDieRT.charAt(1)+" ";
+                } else {
+                    showAlert("Illegal card parameters", "You didn't choose a die in the round track!");
+                    return;
+                }
+            }
+
+            response = response.substring(0, response.length()-1).replace(" ", "-");
+            try {
+                gV.sendResponseToolCard(lastToolCard, response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void mouseReleased(MouseEvent e, Button b, String id, String backgroundColor, String shadowColor){
         b.setPrefHeight(41);
         b.setStyle(getIdleButtonStyle(backgroundColor, shadowColor));
@@ -676,6 +745,9 @@ public class GameFXMLController extends FXMLController implements Initializable{
                     break;
                 case "currentPlayerButton":
                     setVisibleWindow("gridWindow"+ gV.getUsername());
+                    break;
+                case "useCardButton":
+                    sendCardParameters();
                     break;
                 default :
                     setVisibleWindow("gridWindow"+b.getId());
@@ -739,11 +811,14 @@ public class GameFXMLController extends FXMLController implements Initializable{
         numSelectableCells = 1;
         lastDieDraft = -1;
         lastDieRT = "";
+        incrToolCard = false;
         lastWindowCells = new ArrayList<>();
         myTurn = false;
+        lastToolCard = 0;
 
         currentPlayerButton.setText(gV.getUsername());
         setButtonEvents(insertDieButton, "insertDieButton","#1895d7", "#084c8a", "#00c0ff");
+        setButtonEvents(useCard, "useCardButton","#1895d7", "#084c8a", "#00c0ff");
         setButtonEvents(endTurnButton, "endTurnButton","#1895d7", "#084c8a", "#00c0ff");
         setButtonEvents(currentPlayerButton, "currentPlayerButton","#1895d7","#084c8a", "#00c0ff");
     }
@@ -1035,6 +1110,8 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     public void showCardParameters(String[] parameters){
 
+        this.cardParameters = parameters;
+
         int j=0;
 
         StringBuilder showedParameters = new StringBuilder();
@@ -1046,12 +1123,12 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 case "startPos":
 
                     showedParameters.append("Seleziona dado ").append(j + 1).append(" dalla window.\n");
+                    j++;
                     break;
 
                 case "endPos":
 
-                    showedParameters.append("Seleziona dove vuoi inserire il dado ").append(j + 1).append(" sulla window.\n");
-                    j++;
+                    showedParameters.append("Seleziona dove vuoi inserire il dado ").append(j).append(" sulla window.\n");
                     break;
 
                 case "dieDraft":
@@ -1066,16 +1143,24 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
                 case "incrDecrDie":
 
-                    showedParameters.append("Scegliere un dado da inrementare o decrementare.\n");
+                    showedParameters.append("Scegliere un dado dal draft, premere \"Use Card\" e inrementare o decrementare il dado.\n");
+                    incrToolCard = true;
                     break;
 
                 case "dieValue":
 
+                    //TODO fai apparire finestre incremento dado
                     showedParameters.append("Scegliere il valore dell'ultimo dado del draft\n");
                     break;
 
             }
 
+        }
+
+        if(j==1){
+            numSelectableCells = 2;
+        } else if(j==2){
+            numSelectableCells = 4;
         }
 
         showedParameters.append("\nRispettare quest'ordine di selezione.");

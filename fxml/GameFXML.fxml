@@ -224,7 +224,7 @@
                         <VBox prefHeight="200.0" prefWidth="143.27">
                            <children>
                               <ImageView fx:id="tc1" fitHeight="200.0" fitWidth="143.27" pickOnBounds="true" preserveRatio="true" />
-                              <Button fx:id="tc1Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="143.27" style="-fx-background-color: #e2952f;" >
+                              <Button fx:id="tc1Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="143.27" style="-fx-background-color: #e2952f;">
                                  <effect>
                                     <InnerShadow />
                                  </effect>
@@ -236,7 +236,7 @@
                         <VBox prefHeight="200.0" prefWidth="143.27">
                            <children>
                               <ImageView fx:id="tc2" fitHeight="200.0" fitWidth="143.27" pickOnBounds="true" preserveRatio="true" />
-                              <Button fx:id="tc2Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="143.27" style="-fx-background-color: #e2952f#e2952f;" >
+                              <Button fx:id="tc2Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="143.27" style="-fx-background-color: #e2952f#e2952f;">
                                  <effect>
                                     <InnerShadow />
                                  </effect>
@@ -248,7 +248,7 @@
                         <VBox prefHeight="200.0" prefWidth="143.27">
                            <children>
                               <ImageView fx:id="tc3" fitHeight="200.0" fitWidth="143.27" pickOnBounds="true" preserveRatio="true" />
-                              <Button fx:id="tc3Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="143.27" style="-fx-background-color: #e2952f#e2952f;" >
+                              <Button fx:id="tc3Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="143.27" style="-fx-background-color: #e2952f#e2952f;">
                                  <effect>
                                     <InnerShadow />
                                  </effect>
@@ -414,7 +414,7 @@
             <Image url="@../assets/turn.png" />
          </image>
       </ImageView>
-      <Button fx:id="UseCard" contentDisplay="TOP" layoutX="202.0" layoutY="729.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="116.0" style="-fx-padding: 8 15 15 15; -fx-background-insets: 0 0 7 0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: 8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #084c8a 0%, #084c8a 100%),        #084c8a,        #084c8a,        radial-gradient(center 50% 50%, radius 100%, #1895d7, #1895d7); -fx-font-weight: bold; -fx-font-size: 1.1em; -fx-font-family: &quot;Arial&quot;;" text="USE CARD" textAlignment="CENTER" textFill="#ffffffe3" textOverrun="WORD_ELLIPSIS">
+      <Button fx:id="useCard" contentDisplay="TOP" layoutX="202.0" layoutY="729.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="116.0" style="-fx-padding: 8 15 15 15; -fx-background-insets: 0 0 7 0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: 8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #084c8a 0%, #084c8a 100%),        #084c8a,        #084c8a,        radial-gradient(center 50% 50%, radius 100%, #1895d7, #1895d7); -fx-font-weight: bold; -fx-font-size: 1.1em; -fx-font-family: &quot;Arial&quot;;" text="USE CARD" textAlignment="CENTER" textFill="#ffffffe3" textOverrun="WORD_ELLIPSIS">
          <font>
             <Font name="Futura Medium" size="14.0" />
          </font>
@@ -424,7 +424,7 @@
             <Image url="@../assets/currentTurn.png" />
          </image>
       </ImageView>
-      <Text fx:id="currentTurn" fill="WHITE" layoutX="1158.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-stroke: black; -fx-stroke-width: 3px;"  wrappingWidth="87.00000643730164">
+      <Text fx:id="currentTurn" fill="WHITE" layoutX="1158.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-stroke: black; -fx-stroke-width: 3px;" wrappingWidth="87.00000643730164">
          <font>
             <Font size="35.0" />
          </font>

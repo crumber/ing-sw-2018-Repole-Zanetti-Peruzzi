@@ -385,7 +385,7 @@ public class GameView implements ClientStubRMI {
         }
     }
 
-    public void receiveCardParameter(String parameters){
+    public void receiveCardParameters(String parameters){
 
         //System.out.println(parameters);
         String[] separatedParameters = parameters.split("-");
@@ -395,6 +395,15 @@ public class GameView implements ClientStubRMI {
             ((GameFXMLController) fxmlController).showCardParameters(separatedParameters);
 
         }else if(UI.equals("CLI")){
+
+        }
+    }
+
+    public void sendResponseToolCard(int nCard, String response) throws IOException {
+        if(connection.equals("Socket")){
+            gvSocket = new GameViewSocket(this);
+            gvSocket.sendResponseToolCard(username, nCard, response);
+        }else if(connection.equals("RMI")){
 
         }
     }

@@ -141,6 +141,10 @@ public class HandlerControllerSocket implements Runnable{
                 controller.setState(new TurnState());
                 ((TurnState)controller.getState()).insertDie(controller.board.getPlayerByName(playerID) , param[0]+" "+param[1]+" "+param[2]);
                 break;
+            case "responseToolCard":
+                controller.setState(new TurnState());
+                ((TurnState)controller.getState()).useCard(controller.board.getPlayerByName(playerID), Integer.parseInt(param[0]), param[1].replace("-", " "));
+                break;
             case "chooseCard":
                 controller.setState(new TurnState());
                 ((TurnState)controller.getState()).useCardRequest(controller.board.getPlayerByName(playerID), Integer.parseInt(param[0]));

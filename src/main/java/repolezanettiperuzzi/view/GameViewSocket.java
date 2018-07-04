@@ -115,7 +115,7 @@ public class GameViewSocket implements Runnable{
                 break;
             case "requestCard":
                 System.out.println(line[1]);
-                gameView.receiveCardParameter(line[1]);
+                gameView.receiveCardParameters(line[1]);
                 break;
             case "exit":
                 gameView.shutdownClient();
@@ -173,6 +173,13 @@ public class GameViewSocket implements Runnable{
         out.close();
         socket.close();
 
+    }
+
+    public void sendResponseToolCard(String username, int nCard, String response) throws IOException {
+        PrintWriter out= new PrintWriter(socket.getOutputStream(),true);
+        out.println(username+" responseToolCard "+nCard+" "+response);
+        out.close();
+        socket.close();
     }
 
     private void receivedWindows(String[] line){
