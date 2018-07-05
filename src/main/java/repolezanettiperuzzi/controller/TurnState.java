@@ -420,7 +420,10 @@ public class TurnState extends ControllerState {
                         HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
                         handler.notifyWinBeforeEndGame();
 
+                        System.exit(0);
+
                     }else if(player.getConnection().equals("RMI")){
+
 
                     }
                 }

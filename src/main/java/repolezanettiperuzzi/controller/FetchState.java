@@ -157,8 +157,8 @@ public class FetchState extends ControllerState {
     }
 
     /**
-     * Assegna la window scelta al player se entro il il timer
-     * @param player Player
+     * Assegna una window al player se non ne ha scelta una entro la scadenza del timer
+     * @param player Player giocatore
      * @param choose Window scelta dal player (nome della window)
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      * @throws ParseException Errore durante l'analisi
