@@ -295,17 +295,18 @@ public class TurnState extends ControllerState {
 
             if(mode[0].equals("preEffect")) {
 
-                System.out.println(parameters);
+
                 parameters = parameters.substring(10);
-                System.out.println(parameters);
+
                 code = action.doActionPreEffect(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
-                System.out.println(code);
+
 
                 if(code==11){
 
                     ParametersRequestCardAction secondRequest = new ParametersRequestCardAction();
                     message = secondRequest.doAction();
-                    System.out.println(message);
+                    this.updateView(player);
+
                 }else{
 
                     message = error.doAction(code);
@@ -314,10 +315,8 @@ public class TurnState extends ControllerState {
 
 
             }else{
-                System.out.println("entrato nell'azione finale");
-                code = action.doAction(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
 
-                System.out.println(code);
+                code = action.doAction(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
 
                 if(code<0){
 

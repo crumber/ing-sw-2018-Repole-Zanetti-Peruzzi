@@ -225,7 +225,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
             lastWindowCells = new ArrayList<>();
             numSelectableCells = 1;
             incrToolCard = false;
-            lastToolCard = 0;
+            //lastToolCard = 0;
 
             if (alreadyUpdated) {
 
@@ -462,7 +462,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
         lastWindowCells = new ArrayList<>();
         numSelectableCells = 1;
         incrToolCard = false;
-        lastToolCard = 0;
+        //lastToolCard = 0;
         synchronized (clickLock) {  //resetto selezioni nel draft, roundtrack e window
             ObservableList<Node> childrens = draftPane.getChildren();
             for (Node node : childrens) {               //resetto selezioni draft
@@ -1586,5 +1586,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
         }
     }
+
+
 
 }
