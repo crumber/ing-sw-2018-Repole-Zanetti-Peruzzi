@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+//testa la tool card 9
 public class CorkbackedStraightedgeTest {
 
     private CorkbackedStraightedge testPublicCard=new CorkbackedStraightedge();

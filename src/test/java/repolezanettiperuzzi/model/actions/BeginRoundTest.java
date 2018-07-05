@@ -5,10 +5,12 @@ import repolezanettiperuzzi.model.GameBoard;
 
 import static org.junit.Assert.*;
 
+//test della begin round
 public class BeginRoundTest {
 
     BeginRound testBeginRound=new BeginRound();
 
+    //testo che svolga l'azione in modo corretto
     @Test
     public void doAction() {
 

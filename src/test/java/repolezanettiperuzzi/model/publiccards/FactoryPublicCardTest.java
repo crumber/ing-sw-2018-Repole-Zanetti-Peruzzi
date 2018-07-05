@@ -5,8 +5,10 @@ import repolezanettiperuzzi.model.toolcards.FactoryToolCard;
 
 import static org.junit.Assert.*;
 
+//test della factory delle public card
 public class FactoryPublicCardTest {
 
+    //testa che ritorni la classe corretta
     @Test
     public void testGetPublicCard() {
 

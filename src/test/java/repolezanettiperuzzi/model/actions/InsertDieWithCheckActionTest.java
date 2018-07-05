@@ -8,6 +8,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+//test classe insertdiewithcheckactiontest
 public class InsertDieWithCheckActionTest {
 
     InsertDieWithCheckAction testInsertDieWithCheckAction=new InsertDieWithCheckAction();
@@ -19,7 +20,7 @@ public class InsertDieWithCheckActionTest {
     Die d2=new Die(Colour.YELLOW);
 
 
-
+    //testo che svolga l'azione in modo corretto e ritorni i codici giusti di errore
     @Test
     public void testDoAction() {
 

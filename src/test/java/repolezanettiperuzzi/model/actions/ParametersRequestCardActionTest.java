@@ -9,6 +9,7 @@ import repolezanettiperuzzi.model.toolcards.*;
 
 import static org.junit.Assert.*;
 
+//test classe parametersrequestcardaction
 public class ParametersRequestCardActionTest {
 
     ParametersRequestCardAction testParametersRequestCardAction=new ParametersRequestCardAction();
@@ -30,11 +31,10 @@ public class ParametersRequestCardActionTest {
     ToolCard card8=new RunningPliers(); //id 8
 
 
-
+    //testo che esca la stringa di codici delle richieste in modo corretto
     @Test
     public void testDoActionForSecondStepToolCard11() {
 
-        int question=11;
         assertEquals("requestCard dieValue ",testParametersRequestCardAction.doAction());
     }
 

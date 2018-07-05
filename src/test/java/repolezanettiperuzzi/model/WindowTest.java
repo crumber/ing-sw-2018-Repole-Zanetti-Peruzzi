@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+//test della window
 public class WindowTest {
 
     private Window testWindow;
@@ -11,7 +12,7 @@ public class WindowTest {
     private String name;
     private Die testDie,testDie2;
 
-
+    // testa l'inserimento del dado
     @Test
     public void testTestInsertDie(){
 
@@ -44,6 +45,7 @@ public class WindowTest {
 
     }
 
+    // testa il muovere i dadi all'interno della window
     @Test
     public void testMoveDie() {
         testBoxes = new Box[4][5];
@@ -74,6 +76,7 @@ public class WindowTest {
 
     }
 
+    //testa il metodo che ritorna se c'è un dado o no nella box della window
     @Test
     public void  testThereIsDie(){
 
@@ -99,6 +102,7 @@ public class WindowTest {
     }
 
 
+    //testa che funzionino i get del nome e dei fv
     @Test
     public void testGetNameFToken() {
 
@@ -122,6 +126,7 @@ public class WindowTest {
         assertEquals(20,testWindow.numBoxEmpty());
     }
 
+    //test che controlla che ci siano dadi nelle vicinanze della box
     @Test
     public void testControlAdjacences() {
 
@@ -168,6 +173,7 @@ public class WindowTest {
 
     }
 
+    //test che controlla che nelle vicinanze della box non ci siano dadi dello stesso colore/valore del dado
     @Test
     public void testControlAllBoundAdjacences() {
 
@@ -224,6 +230,7 @@ public class WindowTest {
         assertTrue(testWindow.controlAllBoundAdjacencies(testDie,1,1));
     }
 
+    //test che controlla che nelle vicinanze della box non ci siano dadi dello stesso colore del dado
     @Test
     public void testControlColourBoundAdjacencies(){
 
@@ -256,6 +263,7 @@ public class WindowTest {
 
     }
 
+    //tets che controlla che nelle vicinanze della box non ci siano dadi dello stesso valore del dado
     @Test
     public void testControlValueBoundAdjacencies(){
 
@@ -302,6 +310,7 @@ public class WindowTest {
 
     }
 
+    //test sul calcolo dei punti dovuti dal colore segreto
     @Test
     public void testCalculeteSecretScore() {
         testBoxes = new Box[4][5];
@@ -332,6 +341,7 @@ public class WindowTest {
 
     }
 
+    //test che controlla che il dado rispetti tutti i vincoli della box
     @Test
     public void testControlAllBoundBox() {
 
@@ -366,6 +376,7 @@ public class WindowTest {
         assertTrue(testWindow.controlAllBoundBox(0,0,testDie2));
     }
 
+    //test che controlla che il dado rispetti i vincoli di colore della box
     @Test
     public void testControlColourBoundBox() {
 
@@ -392,6 +403,7 @@ public class WindowTest {
         assertFalse(testWindow.controlColourBoundBox(0,0,testDie2));
     }
 
+    //test che controlla che il dado rispetti i vincoli di valore della box
     @Test
     public void testControlValueBoundBox() {
 
@@ -419,6 +431,7 @@ public class WindowTest {
         assertFalse(testWindow.controlValueBoundBox(0,0,testDie2));
     }
 
+    //testa che avvenga la copia della window
     @Test
     public void testCopy() {
 
@@ -444,6 +457,7 @@ public class WindowTest {
         assertTrue(testWindow.thereIsDie(3,3));
     }
 
+    //testa che la toString ritorni la stringa come la vogliamo
     @Test
     public void testToString(){
 

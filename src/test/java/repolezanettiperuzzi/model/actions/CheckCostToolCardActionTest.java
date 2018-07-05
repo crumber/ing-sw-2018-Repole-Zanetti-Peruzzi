@@ -8,12 +8,14 @@ import repolezanettiperuzzi.model.Window;
 
 import static org.junit.Assert.*;
 
+//testo la classe Checkcosttoolcardaction
 public class CheckCostToolCardActionTest {
 
     CheckCostToolCardAction testCheckCostToolCardAction=new CheckCostToolCardAction();
     GameBoard board=new GameBoard();
     int whichToolCard=0;
 
+    //testo che svolga l'azione in modo corretto e ritorni i codici giusti di errore
     @Test
     public void testCheckCostToolCard() {
 

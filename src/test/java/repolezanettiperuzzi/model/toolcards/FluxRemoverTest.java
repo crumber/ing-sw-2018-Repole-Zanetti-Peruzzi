@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+//testa la tool card 11
 public class FluxRemoverTest {
 
     private FluxRemover testPublicCard=new FluxRemover();

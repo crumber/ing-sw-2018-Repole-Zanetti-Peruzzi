@@ -9,10 +9,12 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+//tetso la classe taketwocardwindowaction
 public class TakeTwoCardWindowActionTest {
 
     TakeTwoCardWindowAction testTakeTwoCardWindow= new TakeTwoCardWindowAction();
 
+    //testo che svolga correttamente l'azione
     @Test
     public void doAction() {
 

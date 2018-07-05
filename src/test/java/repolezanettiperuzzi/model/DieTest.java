@@ -4,8 +4,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+//testa la classe die
 public class DieTest {
 
+    //test che ritorna il colore
     @Test
     public void testGetColourDie() {
 
@@ -14,6 +16,7 @@ public class DieTest {
 
     }
 
+    //test che ritorna il valore
     @Test
     public void testGetValueDie() {
 
@@ -21,6 +24,7 @@ public class DieTest {
         assertTrue(d1.getValueDie()==Value.ONE);
     }
 
+    //test che controlla l'impostazione del valore del dado
     @Test
     public void  testSetValueDie(){
 
@@ -49,6 +53,7 @@ public class DieTest {
         assertTrue(d6.getValueDie()==Value.SIX);
     }
 
+    // test che controlla che il dodo venga "tirato"
     @Test
     public void testRollDie(){
 
@@ -65,6 +70,7 @@ public class DieTest {
         assertTrue(itIsValue);
     }
 
+    // test che controlla che la stringa venga creata come vogliamo
     @Test
     public void testToString(){
 

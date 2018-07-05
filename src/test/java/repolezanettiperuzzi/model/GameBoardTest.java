@@ -13,11 +13,13 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+//testa la game board e i suoi metodi
 public class GameBoardTest {
 
     private GameBoard boardTest;
     private Player gamer;
 
+    //test sull'inserimento del player nella board
     @Test
     public void testAddPlayer() {
 
@@ -27,6 +29,7 @@ public class GameBoardTest {
 
     }
 
+    // test che ritorni il numero esatto di player
     @Test
     public void testGetNPlayers() {
 
@@ -44,6 +47,7 @@ public class GameBoardTest {
 
     }
 
+    // test sulla presa dei dadi nel draft
     @Test
     public void testGetDieDraft() {
 
@@ -60,6 +64,7 @@ public class GameBoardTest {
         assertEquals(dieTest,die1);
     }
 
+    // test sull'inserimento corretto dei dadi nel draft
     @Test
     public void testSetDieDraft() {
 
@@ -80,6 +85,7 @@ public class GameBoardTest {
 
     }
 
+    //test sul mettere un dado nella board
     @Test
     public void testPutDieInBag() {
 
@@ -109,6 +115,7 @@ public class GameBoardTest {
         assertEquals(1,okay);
     }
 
+    //test sull'aggiungere un dado al draft
     @Test
     public void testAddDieToDraft() {
 
@@ -126,6 +133,7 @@ public class GameBoardTest {
         assertEquals(3, boardTest.getSizeDraft());
     }
 
+    // test sulla rimozione dei dadi del draft
     @Test
     public void testRemoveDieFromDraft(){
         boardTest = new GameBoard();
@@ -142,6 +150,7 @@ public class GameBoardTest {
 
     }
 
+    //test sulla presa dei dadi del roundtrack
     @Test
     public void testGetDieFromRoundTrack() {
 
@@ -161,6 +170,7 @@ public class GameBoardTest {
 
     }
 
+    //tets sull'inserire i dadi nel roundtrack
     @Test
     public void testSetDieToRoundTrack() {
 
@@ -178,6 +188,7 @@ public class GameBoardTest {
         assertEquals(testDie,boardTest.getDieFromRoundTrack(0,0));
     }
 
+    //test sui costi delle carte
     @Test
     public void testGetCostToolCard() {
 
@@ -191,6 +202,7 @@ public class GameBoardTest {
 
     }
 
+    // test sul prendere le tool card
     @Test
     public void testGetToolCards() {
 
@@ -209,6 +221,7 @@ public class GameBoardTest {
 
     }
 
+    //test sul prendere le public  card
     @Test
     public void testGetPublicCards() {
 
@@ -222,6 +235,7 @@ public class GameBoardTest {
 
 
 
+    //test sul prendere i player
     @Test
     public void testGetPlayers() {
 
@@ -237,6 +251,7 @@ public class GameBoardTest {
 
     }
 
+    //test sul metodo che copia i player
     @Test
     public void getPlayersCopy() {
 
@@ -280,6 +295,7 @@ public class GameBoardTest {
 
     }
 
+    //testa che venga rimosso il player
     @Test
     public void testRemovePlayer(){
 
@@ -294,6 +310,7 @@ public class GameBoardTest {
 
     }
 
+    //testa il metodo che riotrn se il player è online
     @Test
     public void testPlayersOnLine(){
 
@@ -311,6 +328,7 @@ public class GameBoardTest {
 
     }
 
+    //testa la presa della window
    @Test
    public void testWindowPool(){
 
@@ -352,6 +370,7 @@ public class GameBoardTest {
        assertEquals("testWindow",boardTest.getWindowsPool().get(0).getName());
    }
 
+   //testa il metodo player window choiche
    @Test
     public void testPlayerWindowChoices(){
 
@@ -397,6 +416,7 @@ public class GameBoardTest {
 
    }
 
+
    @Test
     public void testFetchPlayer(){
 
@@ -408,6 +428,7 @@ public class GameBoardTest {
 
    }
 
+   //testa che i metodo che prendono o inizializzano il game locked funzionino
    @Test
     public void testGameLocked(){
 
@@ -417,6 +438,7 @@ public class GameBoardTest {
 
    }
 
+   //testa che le toString ritornino quello che ci aspettiamo
    @Test
     public void testToString(){
 

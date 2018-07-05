@@ -3,10 +3,9 @@ package repolezanettiperuzzi.model.actions;
 import org.junit.Test;
 import repolezanettiperuzzi.model.*;
 import repolezanettiperuzzi.model.publiccards.*;
-
-
 import static org.junit.Assert.*;
 
+//test della classe calculate score
 public class CalculateScoreTest {
 
     CalculateScore testCalculateScore=new CalculateScore();
@@ -23,6 +22,7 @@ public class CalculateScoreTest {
     PublicCard card10=new ShadeVariety();
     String ranking="";
 
+    //testo che svolga l'azione in modo corretto
     @Test
     public void testDoAction() {
 
@@ -151,11 +151,11 @@ public class CalculateScoreTest {
         board.getPlayer(1).setFavorTokens(window2.getFTokens());
         ranking=testCalculateScore.doAction(board);
         Finalranking=ranking.split("_");
-        score=Integer.parseInt(Finalranking[3]);
+        score=Integer.parseInt(Finalranking[1]);
         assertEquals(1000,score);
         ranking=testCalculateScore.doAction(board);
         Finalranking=ranking.split("_");
-        score=Integer.parseInt(Finalranking[1]);
+        score=Integer.parseInt(Finalranking[3]);
         assertEquals(29,score);
 
     }

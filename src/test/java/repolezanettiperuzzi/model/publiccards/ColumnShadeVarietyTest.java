@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+//testa che ritorni i punteggi corretti dovuti alle regole della public card
 public class ColumnShadeVarietyTest {
 
     @Test

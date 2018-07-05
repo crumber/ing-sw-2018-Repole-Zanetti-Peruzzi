@@ -4,8 +4,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+//test della factory delle tool card
 public class FactoryToolCardTest {
 
+    //testa che ritorni la classe corretta
     @Test
     public void testGetToolCardTest() {
 

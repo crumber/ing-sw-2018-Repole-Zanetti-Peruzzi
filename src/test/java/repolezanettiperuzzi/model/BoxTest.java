@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+//test dei metodi della classe Box
 public class BoxTest {
 
     private Box testBox;
@@ -105,6 +106,7 @@ public class BoxTest {
 
     }
 
+    //test che inserisce un dado rispettando il vincolo di valore
     @Test
     public void testSetDieValueBound(){
 
@@ -130,6 +132,7 @@ public class BoxTest {
 
     }
 
+    // test che inserisce un dado senza controllare i vincoli
     @Test
     public void testSetDieNoneBound(){
 
@@ -143,6 +146,7 @@ public class BoxTest {
 
     }
 
+    // test che controlla che la stringa esca come vogliamo
     @Test
     public  void testToString(){
 
