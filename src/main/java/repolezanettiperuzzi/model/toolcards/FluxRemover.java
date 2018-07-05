@@ -35,8 +35,7 @@ public class FluxRemover extends ToolCard {
     @Override
     public int check(GameBoard board, Player player, List<Integer> parameterForCard){
 
-        posDieOnDraft=parameterForCard.get(0);
-        dieValue=parameterForCard.get(1);
+        dieValue=parameterForCard.get(0);
 
         if(dieValue<1 || dieValue>6){
 
@@ -83,9 +82,6 @@ public class FluxRemover extends ToolCard {
         board.removeDieFromDraft(posDieOnDraft); //removed die from draft
         Die newDie= board.takeDieFromBag(); // take another die from bag
         board.addDieToDraft(newDie); // add die in draft in final position
-
-        int posNewDie = board.getSizeDraft() - 1 ;
-        parameterForCard.add(0, posNewDie);// change the die's position in parameterForCard
 
         //new player quest
         resultOfAction=11;

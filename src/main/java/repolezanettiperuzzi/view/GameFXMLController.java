@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -714,12 +715,73 @@ public class GameFXMLController extends FXMLController implements Initializable{
     }
 
     public void sendCardParameters(){
+
+
         if(incrToolCard && myTurn){
-            //TODO SE E' PRESENTE UN DADO SCELTO NEL DRAFT MOSTRA FINESTRA PER INCR O DECR DADO
+
+            Platform.runLater(() -> {
+
+                String response = "";
+                String parameters = "";
+
+                for(int i = 0; i<cardParameters.length; i++){
+                    parameters += cardParameters[i]+" ";
+                }
+
+                if(parameters.contains("dieDraft")){
+                    if(lastDieDraft>=0){
+                        response+=lastDieDraft+" ";
+                    } else {
+                        showAlert("Illegal card parameters", "You didn't choose a die in the draft!");
+                        return;
+                    }
+                }
+
+                Alert alert = new Alert(Alert.AlertType.NONE, "Scegli se incrementare o decrementare");
+                alert.initOwner(stage);
+                alert.setX(stage.getX() + stage.getScene().getWidth() / 2 - 125);
+                alert.setY(stage.getY() + stage.getScene().getHeight() / 2 - 60);
+                alert.setTitle("");
+                alert.setResizable(true);
+                alert.getDialogPane().setPrefSize(350, 200);
+                alert.setResizable(false);
+
+                ButtonType incrementa = new ButtonType("Incrementa", ButtonBar.ButtonData.YES);
+                ButtonType decrementa = new ButtonType("Decrementa",ButtonBar.ButtonData.NO);
+
+                alert.getButtonTypes().setAll(incrementa,decrementa);
+
+                Optional<ButtonType> result = alert.showAndWait();
+
+
+                if(result.isPresent()) {
+                    if (result.get() == incrementa) {
+
+                        response += "1 ";
+
+
+                    } else if (result.get() == decrementa) {
+
+                        response += "0 ";
+
+                    }
+                }
+
+                response = response.substring(0, response.length()-1).replace(" ", "-");
+
+                try {
+                    gV.sendResponseToolCard(lastToolCard, response);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
+
         } else if(myTurn && cardParameters!=null){
-            String response = "";
 
             String parameters = "";
+            String response = "";
+
             for(int i = 0; i<cardParameters.length; i++){
                 parameters += cardParameters[i]+" ";
             }
@@ -1194,7 +1256,69 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 case "dieValue":
 
                     //TODO fai apparire finestre incremento dado
-                    showedParameters.append("Scegliere il valore dell'ultimo dado del draft\n");
+                    System.out.println("ci sono");
+                    showedParameters.append("Scegliere il valore dell'ultimo dado del draft.\n");
+
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.NONE, "Scegli il valore dell'ultimo dado del draft");
+                        alert.initOwner(stage);
+                        alert.setX(stage.getX() + stage.getScene().getWidth() / 2 - 125);
+                        alert.setY(stage.getY() + stage.getScene().getHeight() / 2 - 60);
+                        alert.setTitle("");
+                        alert.setResizable(true);
+                        alert.getDialogPane().setPrefSize(350, 200);
+                        alert.setResizable(false);
+
+                        ButtonType uno = new ButtonType("1");
+                        ButtonType due = new ButtonType("2");
+                        ButtonType tre = new ButtonType("3");
+                        ButtonType quattro = new ButtonType("4");
+                        ButtonType cinque = new ButtonType("5");
+                        ButtonType sei = new ButtonType("6");
+
+                        alert.getButtonTypes().setAll(uno,due,tre,quattro,cinque,sei);
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if(result.isPresent()) {
+
+                            if (result.get() == uno) {
+                                try {
+                                    gV.sendResponseToolCard(lastToolCard, "1");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (result.get() == due) {
+                                try {
+                                    gV.sendResponseToolCard(lastToolCard, "2");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (result.get() == tre) {
+                                try {
+                                    gV.sendResponseToolCard(lastToolCard, "3");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (result.get() == quattro) {
+                                try {
+                                    gV.sendResponseToolCard(lastToolCard, "4");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (result.get() == cinque) {
+                                try {
+                                    gV.sendResponseToolCard(lastToolCard, "5");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else if (result.get() == sei) {
+                                try {
+                                    gV.sendResponseToolCard(lastToolCard, "6");
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    });
                     break;
 
             }
@@ -1243,6 +1367,5 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
         }
     }
-
 
 }

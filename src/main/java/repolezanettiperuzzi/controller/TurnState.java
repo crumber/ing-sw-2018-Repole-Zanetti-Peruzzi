@@ -268,8 +268,10 @@ public class TurnState extends ControllerState {
 
         if(controller.board.getToolCard(numCard).getId()==11){
 
+            System.out.println("preEffect");
             if(mode[0].equals("preEffect")) {
 
+                System.out.println(parameters);
                 parameters = parameters.substring(10);
 
                 code = action.doActionPreEffect(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));

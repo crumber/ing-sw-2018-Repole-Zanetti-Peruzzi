@@ -17,7 +17,7 @@ public class GlazingHammerTest {
     private GlazingHammer testPublicCard=new GlazingHammer();
     private GameBoard board=new GameBoard();
     private Player player;
-    private ArrayList<Integer> parameterforcard=new ArrayList<>();
+    private ArrayList<Integer> parameterForCard =new ArrayList<>();
 
     @Test
     public void testCheck() {
@@ -25,11 +25,11 @@ public class GlazingHammerTest {
         player=mock(Player.class);
         when(player.getTurn()).thenReturn(1);
 
-        assertEquals(1,testPublicCard.check(board,player,parameterforcard));
+        assertEquals(1,testPublicCard.check(board,player, parameterForCard));
 
         when(player.getTurn()).thenReturn(0);
 
-        assertEquals(-12,testPublicCard.check(board,player,parameterforcard));
+        assertEquals(-12,testPublicCard.check(board,player, parameterForCard));
 
     }
 
@@ -46,7 +46,7 @@ public class GlazingHammerTest {
         board.addDieToDraft(die1);
         board.addDieToDraft(die2);
 
-        testPublicCard.effect(board,player,parameterforcard);
+        testPublicCard.effect(board,player, parameterForCard);
 
         assertEquals(2, board.getSizeDraft());
     }
