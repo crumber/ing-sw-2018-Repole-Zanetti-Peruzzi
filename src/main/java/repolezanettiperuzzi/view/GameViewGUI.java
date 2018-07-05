@@ -15,16 +15,29 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
-
+/**
+ * Classe che modellizza i colori dei dadi
+ * @author Alessandro Peruzzi
+ * @author Andrea Zanetti
+ * @author Giampiero Repole
+ */
 public class GameViewGUI extends Application{
 
     Stage stage;
     public static GameView gameView;
 
+    /**
+     * Aggiorno view
+     */
     public void updateView() {
         //aggiorno View
     }
 
+    /**
+     *
+     * @param primaryStage
+     * @throws Exception Eccezione
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
 

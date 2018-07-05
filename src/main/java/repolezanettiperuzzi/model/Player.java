@@ -46,7 +46,6 @@ public class Player {
 
     /**
      * Costruttore della classe che crea una copia di un altro giocatore
-     *
      * @param p Giocatore da copiare
      */
     public Player(Player p) {
@@ -76,6 +75,15 @@ public class Player {
 
     }
 
+    /**
+     * Assegna il punteggio al player
+     * @param score Punteggio da assegnare al player
+     */
+    public void setScore(int score){
+
+        this.score=score;
+
+    }
 
     /**
      * Imposta a vero o falso l'attributo che indica se il giocatore ha usato o meno una carta in questo turno

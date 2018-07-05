@@ -15,9 +15,10 @@ public class CalculateScore {
      * @param board game board
      * @return ritorna un hashMap con chiave il nome del player e il suo punteggio finale
      */
-    public HashMap<String,Integer> doAction(GameBoard board){
+    public String doAction(GameBoard board){
 
-        HashMap<String,Integer> ranking=new HashMap<>();
+        int [] possInRanking= new int[board.getNPlayers()];
+        String ranking="";
 
         for(int i=0;i<board.getNPlayers();i++){
 
@@ -45,8 +46,29 @@ public class CalculateScore {
 
             }
 
-            //aggiorna l'hash map inserendo la chiave: punteggio, così è gia ordinato in ordine crescente e nome player
-            ranking.put(board.getPlayer(i).getName(), score);
+            board.getPlayer(i).setScore(score);
+            possInRanking[i]=i;
+
+        }
+
+        for(int i=0;i<board.getNPlayers();i++){
+
+            for(int j=0; j<board.getNPlayers();j++){
+
+                if(board.getPlayer(i).getScore()<board.getPlayer(j).getScore()){
+
+                    int temp=possInRanking[i];
+                    possInRanking[i]=possInRanking[j];
+                    possInRanking[j]=temp;
+
+                }
+            }
+        }
+
+        for (int i=0; i<board.getNPlayers();i++){
+
+            ranking+=(board.getPlayer(i).getName() +"_" +board.getPlayer(i).getScore() +"_");
+
         }
 
         return ranking;
