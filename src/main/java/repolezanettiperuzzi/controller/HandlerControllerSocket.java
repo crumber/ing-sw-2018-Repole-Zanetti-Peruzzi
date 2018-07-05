@@ -167,8 +167,9 @@ public class HandlerControllerSocket implements Runnable{
                         controller.setLiveStatusOffline(playerID);
                         break;
                     case "game":
+                        controller.setState(new TurnState());
                         controller.setLiveStatusOffline(playerID);
-                        //TODO gestire l'uscita durante il gioco
+                        ((TurnState)controller.getState()).notifyStatusToPlayers();
                         break;
                 }
                 break;
@@ -242,7 +243,15 @@ public class HandlerControllerSocket implements Runnable{
                 notifyOnChooseWindow();
                 break;
             case "game":
-                //TODO riconnessione durante la partita
+                notifyOnStartGame();
+                controller.board.getPlayerByName(playerID).setLiveStatus(true);
+                try {
+                    controller.setState(new TurnState());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                ((TurnState)controller.getState()).notifyStatusToPlayers();
+                ((TurnState)controller.getState()).notifyPlayerTurn();
                 break;
         }
     }

@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -227,12 +228,19 @@ public class LoginFXMLController extends FXMLController{
         controller.setStage(stage);
         FXMLLoader loader = null;
         try {
-            loader = new FXMLLoader(new URI(new DynamicPath("fxml/GameFXML.fxml").getPath()).toURL());
+            loader = new FXMLLoader(new URI(new DynamicPath("fxml/GameFXML.fxml").getPath()).toURL()); //TODO imposta nuovo controller
             loader.setController(controller);
-            Group root = (Group) loader.load();
+            AnchorPane root = (AnchorPane) loader.load();
             FXMLLoader finalLoader = loader;
             Platform.runLater(() -> {
-                stage.setScene(new Scene(root, 1280, 720));
+                stage.setScene(new Scene(root, 1280, 800));
+                //stage.setMaximized(true);
+                stage.setFullScreen(true);
+                //Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+                //stage.setX(primaryScreenBounds.getMinX());
+                //stage.setY(primaryScreenBounds.getMinY());
+                stage.setWidth(stage.getWidth());
+                stage.setHeight(stage.getHeight()-22);
                 stage.setUserData(finalLoader);
             });
             gV.gameLoaded();

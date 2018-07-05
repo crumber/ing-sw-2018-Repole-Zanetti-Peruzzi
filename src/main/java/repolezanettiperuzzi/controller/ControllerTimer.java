@@ -151,6 +151,7 @@ public class ControllerTimer extends TimerTask {
                 case "playerTurn" :
 
                     try {
+                        controller.setStateNoDoAction(new TurnState());
                         ((TurnState) controller.getState()).passToNextTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer()));
                     } catch (IOException | ParseException e) {
                         e.printStackTrace();

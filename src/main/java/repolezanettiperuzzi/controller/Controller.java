@@ -58,6 +58,13 @@ public class Controller {
 
     }
 
+    public synchronized void setStateNoDoAction(ControllerState nextState){
+        this.currentState=nextState;
+        if(nextState instanceof TurnState){
+            ((TurnState)this.currentState).setController(this);
+        }
+    }
+
     /**
      *
      * @return Lo stato corrente del controller

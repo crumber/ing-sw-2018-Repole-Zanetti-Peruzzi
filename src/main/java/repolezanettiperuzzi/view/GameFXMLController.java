@@ -437,34 +437,11 @@ public class GameFXMLController extends FXMLController implements Initializable{
     }
 
     public void onClickDieDraft(GridPane grid, int i, Rectangle rect){
-        synchronized (clickLock) {
-            ObservableList<Node> childrens = grid.getChildren();
-            for (Node node : childrens) {
-                if ((node.getId() != null) && (node.getId().equals("dieDraft" + lastDieDraft))) {
-                    //System.out.println(node.getId());
-                    Rectangle r = (Rectangle) node;
-                    r.setVisible(false);
-                    r.setStrokeWidth(0);
-                    r.setOpacity(0.5);
-                }
-            }
-            setLastDieDraft(i);
-            rect.setFill(Color.TRANSPARENT);
-            rect.setOpacity(1);
-            rect.setStroke(Color.BLACK);
-            rect.setStrokeType(StrokeType.INSIDE);
-            rect.setStrokeWidth(4.0);
-        }
-    }
-
-    public void onClickDieRT(String i, Rectangle rect){
-
-        synchronized (clickLock) {
-            ObservableList<Node> grids = RTGrids.getChildren();
-            for(Node grid : grids) {
-                ObservableList<Node> cells = ((GridPane)grid).getChildren();
-                for (Node node : cells) {
-                    if ((node.getId() != null) && (node.getId().equals("dieRT" + lastDieRT))) {
+        if(myTurn) {
+            synchronized (clickLock) {
+                ObservableList<Node> childrens = grid.getChildren();
+                for (Node node : childrens) {
+                    if ((node.getId() != null) && (node.getId().equals("dieDraft" + lastDieDraft))) {
                         //System.out.println(node.getId());
                         Rectangle r = (Rectangle) node;
                         r.setVisible(false);
@@ -472,13 +449,39 @@ public class GameFXMLController extends FXMLController implements Initializable{
                         r.setOpacity(0.5);
                     }
                 }
+                setLastDieDraft(i);
+                rect.setFill(Color.TRANSPARENT);
+                rect.setOpacity(1);
+                rect.setStroke(Color.BLACK);
+                rect.setStrokeType(StrokeType.INSIDE);
+                rect.setStrokeWidth(4.0);
             }
-            setLastDieRT(i);
-            rect.setFill(Color.TRANSPARENT);
-            rect.setOpacity(1);
-            rect.setStroke(Color.BLACK);
-            rect.setStrokeType(StrokeType.INSIDE);
-            rect.setStrokeWidth(4.0);
+        }
+    }
+
+    public void onClickDieRT(String i, Rectangle rect){
+        if(myTurn) {
+            synchronized (clickLock) {
+                ObservableList<Node> grids = RTGrids.getChildren();
+                for (Node grid : grids) {
+                    ObservableList<Node> cells = ((GridPane) grid).getChildren();
+                    for (Node node : cells) {
+                        if ((node.getId() != null) && (node.getId().equals("dieRT" + lastDieRT))) {
+                            //System.out.println(node.getId());
+                            Rectangle r = (Rectangle) node;
+                            r.setVisible(false);
+                            r.setStrokeWidth(0);
+                            r.setOpacity(0.5);
+                        }
+                    }
+                }
+                setLastDieRT(i);
+                rect.setFill(Color.TRANSPARENT);
+                rect.setOpacity(1);
+                rect.setStroke(Color.BLACK);
+                rect.setStrokeType(StrokeType.INSIDE);
+                rect.setStrokeWidth(4.0);
+            }
         }
     }
 
