@@ -1,7 +1,11 @@
 package repolezanettiperuzzi.controller;
 
 
+import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.actions.CalculateScore;
+
+import java.io.IOException;
+import java.net.Socket;
 
 /**
  * Classe che rappresenta lo stato finale del gioco
@@ -14,10 +18,30 @@ public class EndGameState extends ControllerState{
      * @param controller Controller
      */
     @Override
-    public void doAction(Controller controller) {
+    public void doAction(Controller controller) throws IOException {
 
-        new CalculateScore().doAction(controller.board);
+        String message = new CalculateScore().doAction(controller.board);
 
+        System.out.println(message);
+
+        for (Player player : controller.board.getPlayers()){
+
+            if(player.getConnection().equals("Socket")){
+
+                try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+
+                    HandlerControllerSocket handler = new HandlerControllerSocket(controller,socket);
+                    handler.notifyOnEndGame(message);
+
+                }
+
+            }else if(player.getConnection().equals("RMI")){
+
+
+            }
+        }
+
+        System.exit(0);
     }
 
 }

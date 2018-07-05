@@ -126,6 +126,12 @@ public class GameViewSocket implements Runnable{
             case "requestCard":
                 gameView.receiveCardParameters(line[1]);
                 break;
+            case "endGame":
+                gameView.receiveRanking(line[1]);
+                break;
+            case "winBeforeEnd":
+                gameView.showWinBeforeEndGameAlert();
+                break;
             case "exit":
                 gameView.shutdownClient();
                 break;
@@ -474,4 +480,6 @@ public class GameViewSocket implements Runnable{
         socket.close();
 
     }
+
+
 }

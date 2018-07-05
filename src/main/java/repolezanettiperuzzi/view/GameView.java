@@ -667,4 +667,46 @@ public class GameView implements ClientStubRMI {
             gvCLI.updateView(board, username);
         }
     }
+
+    public void receiveRanking(String score) {
+
+     String[] player = score.split("_");
+     String result = null;
+
+     System.out.println(Arrays.toString(player));
+
+     for(int i = 0; i<player.length; i+=2 ){
+
+         System.out.println(i+" "+player.length);
+
+         assert result != null;
+         result+=player[i];
+         result+=" ";
+         result+=player[i+1];
+         result+="\n";
+
+         System.out.println(result);
+
+     }
+
+     if(this.UI.equals("GUI")){
+         ((GameFXMLController) fxmlController).showEndGame(result.toString());
+     }else if(this.UI.equals("CLI")){
+
+     }
+
+    }
+
+    public void showWinBeforeEndGameAlert() {
+
+        this.login = false;
+        this.rejectedLogin = true;
+        this.win = true;
+        if(this.UI.equals("GUI")){
+            ((GameFXMLController) fxmlController).showWinBeforeEndGameAlert();
+        } else if(this.UI.equals("CLI")){
+            System.out.println("\n/// You won! You are the only player left online! ///");
+            //gvSocketServer.shutdownServer();
+        }
+    }
 }

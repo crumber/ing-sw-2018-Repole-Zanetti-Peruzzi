@@ -21,7 +21,7 @@ public class CalculateScoreTest {
     PublicCard card8=new MediumShades();
     PublicCard card9=new ColorVariety();
     PublicCard card10=new ShadeVariety();
-    String ranking;
+    String ranking="";
 
     @Test
     public void testDoAction() {

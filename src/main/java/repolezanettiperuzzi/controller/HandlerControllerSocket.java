@@ -163,7 +163,6 @@ public class HandlerControllerSocket implements Runnable{
                         ((SetConnectionState)controller.getState()).notifyOnUpdatedPlayer();
                         break;
                     case "chooseWindow":
-                        //TODO gestire l'uscita durante la scelta delle window
                         controller.setLiveStatusOffline(playerID);
                         break;
                     case "game":
@@ -396,6 +395,15 @@ public class HandlerControllerSocket implements Runnable{
 
     }
 
+    public void notifyWinBeforeEndGame() throws IOException {
+
+        PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+        out.println("winBeforeEnd");
+        out.close();
+        this.socket.close();
+
+    }
+
     /**
      * Notifica l'inizio del turno
      * @param actualPlayer Player attuale
@@ -472,10 +480,11 @@ public class HandlerControllerSocket implements Runnable{
      * Invia che è finito il gioco
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
-    public void notifyOnEndGame() throws IOException {
+    public void notifyOnEndGame(String message) throws IOException {
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(),true);
-        out.println("endGame");
+        out.println("endGame "+message);
+        System.out.println("endGame "+message);
         out.close();
         this.socket.close();
 

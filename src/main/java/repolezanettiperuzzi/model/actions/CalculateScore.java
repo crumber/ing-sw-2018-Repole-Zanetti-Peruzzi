@@ -2,8 +2,6 @@ package repolezanettiperuzzi.model.actions;
 
 import repolezanettiperuzzi.model.GameBoard;
 
-import java.util.HashMap;
-
 /**
  * Classe che rappresenta il calcolo dei punteggi finali dei client
  * @author Alessandro Peruzzi

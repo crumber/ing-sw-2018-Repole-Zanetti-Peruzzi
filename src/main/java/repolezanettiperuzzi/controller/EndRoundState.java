@@ -30,22 +30,7 @@ public class EndRoundState extends ControllerState {
 
         if(BeginRound.getRound()==10){
 
-            for (Player player : controller.board.getPlayers()){
-
-                if(player.getConnection().equals("Socket")){
-
-                    try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
-
-                        HandlerControllerSocket handler = new HandlerControllerSocket(controller,socket);
-                        handler.notifyOnEndGame();
-
-                    }
-
-                }else if(player.getConnection().equals("RMI")){
-
-
-                }
-            }
+            controller.cancelTimer();
 
             controller.setState(new EndGameState());
 

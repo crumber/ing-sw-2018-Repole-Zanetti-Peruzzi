@@ -182,6 +182,11 @@
       </GridPane>
       <Button fx:id="roundTrackButton" layoutX="364.4" layoutY="54.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="545.0" style="-fx-background-color: transparent; -fx-text-fill: transparent;" />
       <AnchorPane fx:id="favorTokensPane" layoutX="515.0" layoutY="582.0" prefHeight="50.0" prefWidth="250.0" />
+      <ImageView fx:id="myTurnMarker" fitHeight="30.0" fitWidth="30.0" layoutX="909.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/turn.png" />
+         </image>
+      </ImageView>
       <VBox fx:id="pcWindow" layoutX="800.19" layoutY="200.0" prefHeight="220.0" prefWidth="430.0" visible="false">
          <children>
             <Pane prefHeight="20.0" prefWidth="430.0" style="-fx-background-color: #f0f2ef;">
@@ -268,6 +273,16 @@
             <Font size="35.0" />
          </font>
       </Text>
+      <Text fx:id="currentTurn" fill="WHITE" layoutX="1158.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-stroke: black; -fx-stroke-width: 3px;" wrappingWidth="87.00000643730164">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="41.0" fitWidth="100.0" layoutX="1057.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/currentTurn.png" />
+         </image>
+      </ImageView>
       <VBox fx:id="RTWindow" layoutX="232.0" layoutY="43.0" prefHeight="120.0" prefWidth="1000.0" visible="false">
          <children>
             <Pane prefHeight="20.0" prefWidth="430.0" style="-fx-background-color: #f0f2ef;">
@@ -409,25 +424,10 @@
             </Pane>
          </children>
       </VBox>
-      <ImageView fx:id="myTurnMarker" fitHeight="30.0" fitWidth="30.0" layoutX="909.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../assets/turn.png" />
-         </image>
-      </ImageView>
       <Button fx:id="useCard" contentDisplay="TOP" layoutX="202.0" layoutY="729.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="116.0" style="-fx-padding: 8 15 15 15; -fx-background-insets: 0 0 7 0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: 8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #084c8a 0%, #084c8a 100%),        #084c8a,        #084c8a,        radial-gradient(center 50% 50%, radius 100%, #1895d7, #1895d7); -fx-font-weight: bold; -fx-font-size: 1.1em; -fx-font-family: &quot;Arial&quot;;" text="USE CARD" textAlignment="CENTER" textFill="#ffffffe3" textOverrun="WORD_ELLIPSIS">
          <font>
             <Font name="Futura Medium" size="14.0" />
          </font>
       </Button>
-      <ImageView fitHeight="41.0" fitWidth="100.0" layoutX="1057.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../assets/currentTurn.png" />
-         </image>
-      </ImageView>
-      <Text fx:id="currentTurn" fill="WHITE" layoutX="1158.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-stroke: black; -fx-stroke-width: 3px;" wrappingWidth="87.00000643730164">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Text>
    </children>
 </AnchorPane>

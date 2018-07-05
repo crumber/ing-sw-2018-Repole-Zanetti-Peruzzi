@@ -1587,6 +1587,48 @@ public class GameFXMLController extends FXMLController implements Initializable{
         }
     }
 
+    public void showEndGame(String score){
+
+        cancelTimer();
+        Platform.runLater(() ->{
+
+            Alert alert = new Alert(Alert.AlertType.NONE, score, ButtonType.OK);
+            alert.initOwner(stage);
+            alert.setX(stage.getX() + stage.getScene().getWidth() / 2 - 125);
+            alert.setY(stage.getY() + stage.getScene().getHeight() / 2 - 60);
+            alert.setTitle("Scegli parametri carta");
+            alert.setResizable(true);
+            alert.getDialogPane().setPrefSize(350, 200);
+            alert.setResizable(false);
+            alert.showAndWait();
+
+            if(alert.getResult()==ButtonType.OK){
+
+                //Platform.exit();
+                System.exit(0);
+            }
+        });
+    }
 
 
+    public void showWinBeforeEndGameAlert() {
+
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.NONE, "You won! Seems like you're the only player left online!", ButtonType.OK);
+            alert.setX(stage.getX()+stage.getScene().getWidth()/2 - 125);
+            alert.setY(stage.getY()+stage.getScene().getHeight()/2 - 60);
+            alert.setTitle("You won!");
+            alert.setResizable(true);
+            alert.getDialogPane().setPrefSize(250, 120);
+            alert.setResizable(false);
+
+            alert.showAndWait();
+
+            if(alert.getResult()==ButtonType.OK){
+
+                System.exit(0);
+            }
+        });
+
+    }
 }
