@@ -31,13 +31,9 @@ public class GlazingHammer extends ToolCard {
     @Override
     public int check(GameBoard board, Player player, List<Integer> parameterForCard) {
 
-        if (player.getTurn()!=2) {
+        if (player.getTurn()!=1) {
 
             resultOfAction=-12;
-
-        }else if (player.getInsertDieInThisTurn()) {
-
-            resultOfAction=-13;
 
         }else {
 

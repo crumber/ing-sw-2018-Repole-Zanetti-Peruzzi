@@ -725,6 +725,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
             response = response.substring(0, response.length()-1).replace(" ", "-");
             try {
+                System.out.println(response);
                 gV.sendResponseToolCard(lastToolCard, response);
             } catch (IOException e) {
                 e.printStackTrace();

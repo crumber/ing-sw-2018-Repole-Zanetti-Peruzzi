@@ -183,8 +183,9 @@ public class TurnState extends ControllerState {
                 //solo per la carta 7
                 if(requestParameters.equals("requestCard NOTHING")){
 
+
                     UseCardAction cardAction = new UseCardAction();
-                    cardAction.doAction(player,controller.board,numCard,new ArrayList<>());
+                    int code7 = cardAction.doAction(player,controller.board,numCard,new ArrayList<>());
                     this.updateView(player);
                     return;
 
@@ -251,6 +252,7 @@ public class TurnState extends ControllerState {
      */
     public void useCard(Player player, int numCard, String parameters) throws IOException {
 
+        System.out.println(numCard+" "+parameters);
         CreateListForCardAction list = new CreateListForCardAction();
         UseCardAction action = new UseCardAction();
         String[] mode = parameters.split(" ");
@@ -260,7 +262,7 @@ public class TurnState extends ControllerState {
 
         WhichErrorAction error = new WhichErrorAction();
 
-        if(numCard==11){
+        if(controller.board.getToolCard(numCard).getId()==11){
 
             if(mode[0].equals("preEffect")) {
 
@@ -283,7 +285,7 @@ public class TurnState extends ControllerState {
             }else{
 
                 code = action.doAction(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
-
+                System.out.println(code);
                 if(code<0){
 
                     message = error.doAction(code);
@@ -295,11 +297,13 @@ public class TurnState extends ControllerState {
 
                 }
 
+
             }
 
         }else{
 
             code = action.doAction(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
+            System.out.println(code);
 
             if(code<0){
 
@@ -307,7 +311,7 @@ public class TurnState extends ControllerState {
 
             }else{
 
-                if(numCard==8){
+                if(controller.board.getToolCard(numCard).getId()==8){
 
                     activedCard8=true;
 
