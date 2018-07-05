@@ -35,7 +35,7 @@ public class ParametersRequestCardActionTest {
     public void testDoActionForSecondStepToolCard11() {
 
         int question=11;
-        assertEquals("dieValue ",testParametersRequestCardAction.doAction());
+        assertEquals("requestCard dieValue ",testParametersRequestCardAction.doAction());
     }
 
     //testo che esca la stringa di codici delle richieste in modo corretto per ogni id
@@ -78,7 +78,7 @@ public class ParametersRequestCardActionTest {
         board.setToolCards(card11,2);
         assertEquals("requestCard startPos-endPos-",testParametersRequestCardAction.doAction(board,0));
         assertEquals("requestCard dieDraft-",testParametersRequestCardAction.doAction(board,1));
-        assertEquals("requestCard dieDraft-",testParametersRequestCardAction.doAction(board,2));
+        assertEquals("requestCard card11-",testParametersRequestCardAction.doAction(board,2));
 
 
     }

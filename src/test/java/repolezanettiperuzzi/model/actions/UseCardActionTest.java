@@ -29,15 +29,14 @@ public class UseCardActionTest {
         board.addDieToDraft(d2);
         board.addPlayer("kim","RMI","CLI","127.0.0.1",8008);
 
-        parameterForCard.add(2);
         parameterForCard.add(7);
 
         assertEquals(-11,testUseCardAction.doAction(board.getPlayer(0),board,whichToolCard,parameterForCard));
 
-        parameterForCard.add(1,4);
+        parameterForCard.add(0,4);
         testUseCardAction.doAction(board.getPlayer(0),board,whichToolCard,parameterForCard);
 
-        assertEquals(Value.FOUR,board.getDieDraft(parameterForCard.get(0)).getValueDie());
+        assertEquals(Value.FOUR,board.getDieDraft(board.getSizeDraft()-1).getValueDie());
         assertEquals(2,board.getCostToolCard(0));
 
         testUseCardAction.doAction(board.getPlayer(0),board,whichToolCard,parameterForCard);

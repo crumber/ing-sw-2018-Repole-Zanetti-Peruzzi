@@ -16,8 +16,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 /**
- * Classe che modellizza i colori dei dadi
- * @author Alessandro Peruzzi
+ * Classe che modella la GUI
  * @author Andrea Zanetti
  * @author Giampiero Repole
  */
@@ -34,9 +33,9 @@ public class GameViewGUI extends Application{
     }
 
     /**
-     *
-     * @param primaryStage
-     * @throws Exception Eccezione
+     * Metodo che si lancia quando si chiama javafx
+     * @param primaryStage Finestra della fase iniziale
+     * @throws Exception Eccezione e
      */
     @Override
     public void start(Stage primaryStage) throws Exception {

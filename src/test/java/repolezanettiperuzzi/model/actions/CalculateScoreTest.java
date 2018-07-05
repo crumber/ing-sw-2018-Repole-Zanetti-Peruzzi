@@ -4,6 +4,7 @@ import org.junit.Test;
 import repolezanettiperuzzi.model.*;
 import repolezanettiperuzzi.model.publiccards.*;
 
+import javax.print.attribute.IntegerSyntax;
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
@@ -22,7 +23,7 @@ public class CalculateScoreTest {
     PublicCard card8=new MediumShades();
     PublicCard card9=new ColorVariety();
     PublicCard card10=new ShadeVariety();
-    HashMap<String,Integer> ranking=new HashMap<>();
+    String ranking;
 
     @Test
     public void testDoAction() {
@@ -98,7 +99,8 @@ public class CalculateScoreTest {
         board.getPlayer(0).setFavorTokens(window.getFTokens());
 
         ranking=testCalculateScore.doAction(board);
-        int score=ranking.get("jerry");
+        String[] Finalranking=ranking.split("_");
+        int score=Integer.parseInt(Finalranking[1]);
         assertEquals(38,score);
 
 
@@ -107,7 +109,8 @@ public class CalculateScoreTest {
         board.setPublicCards(card6,2);
 
         ranking=testCalculateScore.doAction(board);
-        score=ranking.get("jerry");
+        Finalranking=ranking.split("_");
+        score=Integer.parseInt(Finalranking[1]);
         assertEquals(16,score);
 
 
@@ -115,8 +118,10 @@ public class CalculateScoreTest {
         board.setPublicCards(card8,1);
         board.setPublicCards(card9,2);
 
+
         ranking=testCalculateScore.doAction(board);
-        score=ranking.get("jerry");
+        Finalranking=ranking.split("_");
+        score=Integer.parseInt(Finalranking[1]);
         assertEquals(28,score);
 
 
@@ -125,7 +130,8 @@ public class CalculateScoreTest {
         board.setPublicCards(card10,2);
 
         ranking=testCalculateScore.doAction(board);
-        score=ranking.get("jerry");
+        Finalranking=ranking.split("_");
+        score=Integer.parseInt(Finalranking[1]);
         assertEquals(29,score);
 
         Box[][] boxes2 = new Box[4][5];
@@ -146,9 +152,12 @@ public class CalculateScoreTest {
         board.getPlayer(1).setSecretColour(Colour.BLUE);
         board.getPlayer(1).setFavorTokens(window2.getFTokens());
         ranking=testCalculateScore.doAction(board);
-        score=ranking.get("affo");
+        Finalranking=ranking.split("_");
+        score=Integer.parseInt(Finalranking[3]);
         assertEquals(1000,score);
-        score=ranking.get("jerry");
+        ranking=testCalculateScore.doAction(board);
+        Finalranking=ranking.split("_");
+        score=Integer.parseInt(Finalranking[1]);
         assertEquals(29,score);
 
     }
