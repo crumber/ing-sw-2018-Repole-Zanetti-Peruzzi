@@ -8,10 +8,12 @@ import repolezanettiperuzzi.model.Window;
 
 import static org.junit.Assert.*;
 
+//test sulla classe setwindowaction
 public class SetWindowActionTest {
 
     SetWindowAction testsSetWindowAction=new SetWindowAction();
 
+    //testo che svolga correttamente l'azione
     @Test
     public void doAction() {
 

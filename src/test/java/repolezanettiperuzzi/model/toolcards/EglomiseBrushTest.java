@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+//testa la tool card 2
 public class EglomiseBrushTest {
 
     private EglomiseBrush testPublicCard=new EglomiseBrush();

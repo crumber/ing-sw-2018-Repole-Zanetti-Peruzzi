@@ -4,10 +4,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+//testa la classe Player
 public class PlayerTest {
 
     Player player;
 
+    // testa che funzionino i get sugli attributi del player
     @Test
     public void getNamePortAddressConnectionScore() {
 
@@ -40,6 +42,7 @@ public class PlayerTest {
 
     }
 
+    //testa che funzioni l'inizializzazione del prametro che indica se il player ha gia inserito il dado
     @Test
     public void setGetInserDieInThisTurn() {
 
@@ -50,6 +53,7 @@ public class PlayerTest {
 
     }
 
+    // test che controlla che funzioni l'inizializzazione del colore segnreto
     @Test
     public void testSetGetSecretColour() {
 
@@ -60,6 +64,7 @@ public class PlayerTest {
         assertEquals(Colour.RED,player.getSecretColour());
     }
 
+    //testa che vengano ridotti i fv
     @Test
     public void testReduceFavorTokens() {
 
@@ -72,6 +77,7 @@ public class PlayerTest {
         assertEquals(11,player.getFavorTokens());
     }
 
+    //testa che venga incrementato/resettato il turno
     @Test
     public void testIncrTurnResetTurn() {
 
@@ -84,6 +90,7 @@ public class PlayerTest {
         assertEquals(0,player.getTurn());
     }
 
+    //tetsa che copia il player
     @Test
     public void testCopy() {
 
@@ -110,6 +117,7 @@ public class PlayerTest {
         assertEquals("testWindow",playerCopy.getWindow().getName());
     }
 
+    // testa la last scene
     @Test
     public void testCheckLastScene(){
 
@@ -122,6 +130,7 @@ public class PlayerTest {
 
     }
 
+    //tetsa il live status
     @Test
     public void testLiveStatus(){
 
@@ -135,6 +144,7 @@ public class PlayerTest {
 
     }
 
+    //testa il tipo di connessione
     @Test
     public void testSetTypeConnection(){
 

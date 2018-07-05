@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+//testa la tool card 5
 public class LensCutterTest {
 
     private LensCutter testPublicCard=new LensCutter();

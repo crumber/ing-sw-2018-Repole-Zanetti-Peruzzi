@@ -8,6 +8,7 @@ import repolezanettiperuzzi.model.Player;
 
 import static org.junit.Assert.*;
 
+//test classe whicherroractiontest
 public class WhichErrorActionTest {
 
     GameBoard board=new GameBoard();
@@ -15,6 +16,7 @@ public class WhichErrorActionTest {
     String error;
     WhichErrorAction testWhichErrorAction=new WhichErrorAction();
 
+    //testo che ritorni il codice d'errore corretto
     @Test
     public void testDoAction() {
 

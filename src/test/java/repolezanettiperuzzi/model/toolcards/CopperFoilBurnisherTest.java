@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+//testa la tool card 3
 public class CopperFoilBurnisherTest {
 
     private CopperFoilBurnisher testPublicCard=new CopperFoilBurnisher();

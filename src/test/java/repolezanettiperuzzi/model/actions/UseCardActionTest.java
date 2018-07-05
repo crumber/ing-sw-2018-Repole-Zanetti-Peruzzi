@@ -9,6 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+//testo la classe usecardaction
 public class UseCardActionTest {
 
     UseCardAction testUseCardAction=new UseCardAction();
@@ -20,6 +21,7 @@ public class UseCardActionTest {
     Die d1=new Die(Colour.RED);
     Die d2=new Die(Colour.BLUE);
 
+    //testo che svolga correttamente l'azione e che ritorni i valori corretti di errore
     @Test
     public void testDoAction() {
 
@@ -45,6 +47,7 @@ public class UseCardActionTest {
 
     }
 
+    //testo che svolga correttamente l'azione e che ritorni i valori corretti di errore
     @Test
     public void testDoActionPreEffect() {
 

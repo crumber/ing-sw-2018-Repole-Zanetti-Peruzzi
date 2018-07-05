@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+//testa la tool card 12
 public class TapWheelTest {
 
     private TapWheel testPublicCard=new TapWheel();

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+//testa la tool card 8
 public class RunningPliersTest {
 
     private RunningPliers testRunningPliers=new RunningPliers();

@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+//testa la tool card 7
 public class GlazingHammerTest {
 
     private GlazingHammer testPublicCard=new GlazingHammer();

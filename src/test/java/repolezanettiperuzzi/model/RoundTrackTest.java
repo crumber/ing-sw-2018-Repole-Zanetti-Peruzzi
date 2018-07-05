@@ -6,8 +6,10 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+//testa la roundtrack
 public class RoundTrackTest {
 
+    //testa che vengano aggiunti i dadi alla roundtrack
     @Test
     public void testAddDice() {
 
@@ -37,6 +39,7 @@ public class RoundTrackTest {
 
     }
 
+    //testa che vengano inseriti i dadi nel roundtrack
     @Test
     public void testSetDieOnRoundTrack(){
 
@@ -64,6 +67,7 @@ public class RoundTrackTest {
 
     }
 
+    //testa che la toString funzioni come vogliamo
     @Test
     public void testToString(){
 

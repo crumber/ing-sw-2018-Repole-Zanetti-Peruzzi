@@ -6,10 +6,12 @@ import repolezanettiperuzzi.model.Player;
 
 import static org.junit.Assert.*;
 
+//test sulla classe begin turn
 public class BeginTurnTest {
 
     BeginTurn testBeginTurn=new BeginTurn();
 
+    //testo che svolga l'azione in modo corretto
     @Test
     public void doAction() {
 
@@ -34,6 +36,7 @@ public class BeginTurnTest {
 
     }
 
+    //test sulla creazione dei parametri per il turno successivo
     @Test
     public void nextTurnParameters() {
 

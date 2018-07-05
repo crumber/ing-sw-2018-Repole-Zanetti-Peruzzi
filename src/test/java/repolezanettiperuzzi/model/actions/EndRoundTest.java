@@ -8,10 +8,12 @@ import repolezanettiperuzzi.model.Player;
 
 import static org.junit.Assert.*;
 
+//test sulla classe endroundtest
 public class EndRoundTest {
 
     EndRound testEndRound= new EndRound();
 
+    //testo che svolga l'azione in modo corretto
     @Test
     public void doAction() {
 

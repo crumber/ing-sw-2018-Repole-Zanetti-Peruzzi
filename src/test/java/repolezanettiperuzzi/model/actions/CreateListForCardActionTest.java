@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+//test della classe createlistforcardaction
 public class CreateListForCardActionTest {
 
     CreateListForCardAction testCreatedListForCardAction=new CreateListForCardAction();
@@ -27,6 +28,7 @@ public class CreateListForCardActionTest {
     String stringFromClient;
     ArrayList<Integer> intParameter=new ArrayList<>();
 
+    //testo che svolga l'azione in modo corretto cioè che prenda il numero giusto di parametri
     @Test
     public void testDoAction() {
 

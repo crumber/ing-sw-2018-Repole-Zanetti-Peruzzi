@@ -6,11 +6,13 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+//test classe createlistforinsertdieaction
 public class CreateListForInsertDieActionTest {
 
     CreateListForInsertDieAction testCreateListForInsertDieAction=new CreateListForInsertDieAction();
     String stringFromClient="1 223 21111";
 
+    //testo che svolga l'azione in modo corretto e ritorni i codici giusti di errore
     @Test
     public void testDoAction() {
 

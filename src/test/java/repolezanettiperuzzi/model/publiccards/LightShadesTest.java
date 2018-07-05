@@ -1,6 +1,6 @@
 package repolezanettiperuzzi.model.publiccards;
 
-        import org.junit.Test;
+import org.junit.Test;
         import repolezanettiperuzzi.model.Value;
         import repolezanettiperuzzi.model.Window;
 
@@ -8,6 +8,7 @@ package repolezanettiperuzzi.model.publiccards;
         import static org.mockito.Mockito.mock;
         import static org.mockito.Mockito.when;
 
+//testa che ritorni i punteggi corretti dovuti alle regole della public card
 public class LightShadesTest {
 
     @Test

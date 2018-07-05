@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+//testa la tool card 10
 public class GrindingStoneTest {
 
     private ToolCard testPublicCard=new GrindingStone();

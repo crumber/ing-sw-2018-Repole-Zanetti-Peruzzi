@@ -13,10 +13,12 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+//test della classe Deck
 public class DeckTest {
 
     Deck testDeck;
 
+    //controlla che venga pescata una carta public e quindi diminuita la dimensione del deck
     @Test
     public void testDrawPublicCard() throws IOException {
 
@@ -30,6 +32,7 @@ public class DeckTest {
 
     }
 
+    //controlla che venga pescata una carta tool e quindi diminuita la dimensione del deck
     @Test
     public void testDrawToolCard() throws IOException {
 
@@ -50,14 +53,4 @@ public class DeckTest {
         assertEquals(12,nToolCard);
     }
 
-    @Test
-    public void testDeck() throws IOException{
-
-        DynamicPath dP = mock(DynamicPath.class);
-        when(dP.isJar()).thenReturn(true);
-
-        testDeck= new Deck("cards/publiccards","cards/toolcards");
-
-
-    }
 }

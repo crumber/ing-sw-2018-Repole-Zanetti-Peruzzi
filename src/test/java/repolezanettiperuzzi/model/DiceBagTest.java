@@ -6,11 +6,12 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+//Test dei metodi della classe dice bag
 public class DiceBagTest {
 
     private DiceBag testDiceBag;
 
-
+    //testa che vengano pescati n dadi
     @Test
     public void testTakeDice() {
 
@@ -25,6 +26,7 @@ public class DiceBagTest {
 
     }
 
+    //testa che venga pescato un dado
     @Test
     public void testTakeDie(){
 
@@ -36,6 +38,7 @@ public class DiceBagTest {
 
     }
 
+    //testa che venga inserito il dado nella dice bag
     @Test
     public void testSetDieInBag(){
 
