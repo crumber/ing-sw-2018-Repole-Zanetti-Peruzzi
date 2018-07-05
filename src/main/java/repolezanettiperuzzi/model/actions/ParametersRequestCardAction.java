@@ -14,7 +14,7 @@ public class ParametersRequestCardAction{
      */
     public String doAction(){
 
-        return "dieValue ";
+        return "requestCard dieValue ";
 
     }
 
@@ -46,7 +46,7 @@ public class ParametersRequestCardAction{
 
         }else if(id==11){
 
-            requestForToolCard=card11+draft;
+            requestForToolCard=card11;
 
         }else if(id==6 || id==10){
 

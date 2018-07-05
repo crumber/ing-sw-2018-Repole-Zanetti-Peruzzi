@@ -190,7 +190,31 @@ public class TurnState extends ControllerState {
 
                     UseCardAction cardAction = new UseCardAction();
                     int code7 = cardAction.doAction(player,controller.board,numCard,new ArrayList<>());
-                    this.updateView(player);
+
+                    if(code7<0){
+
+                        String error = new WhichErrorAction().doAction(code7);
+
+                        if (player.getConnection().equals("Socket")) {
+
+                            try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+
+                                HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
+                                handler.sendActionError(error);
+
+                            }
+
+                        } else if (player.getConnection().equals("RMI")) {
+
+
+                        }
+
+                    }else{
+
+                        this.updateView(player);
+
+                    }
+
                     return;
 
                 }
@@ -268,19 +292,20 @@ public class TurnState extends ControllerState {
 
         if(controller.board.getToolCard(numCard).getId()==11){
 
-            System.out.println("preEffect");
+
             if(mode[0].equals("preEffect")) {
 
                 System.out.println(parameters);
                 parameters = parameters.substring(10);
-
+                System.out.println(parameters);
                 code = action.doActionPreEffect(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
+                System.out.println(code);
 
                 if(code==11){
 
                     ParametersRequestCardAction secondRequest = new ParametersRequestCardAction();
                     message = secondRequest.doAction();
-
+                    System.out.println(message);
                 }else{
 
                     message = error.doAction(code);
@@ -289,9 +314,11 @@ public class TurnState extends ControllerState {
 
 
             }else{
-
+                System.out.println("entrato nell'azione finale");
                 code = action.doAction(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
+
                 System.out.println(code);
+
                 if(code<0){
 
                     message = error.doAction(code);

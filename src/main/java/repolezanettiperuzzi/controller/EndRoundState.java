@@ -28,8 +28,6 @@ public class EndRoundState extends ControllerState {
 
         endRound.doAction(controller.board);
 
-        //TODO if round number>10 pass to EndGameState
-
         if(BeginRound.getRound()==10){
 
             for (Player player : controller.board.getPlayers()){

@@ -48,19 +48,16 @@ public class ControllerRMIServer {
 
 
 
-        //System.out.println("Creating new RMI Handler");
+
         HandlerControllerRMI handlerRMI = new HandlerControllerRMI(controller);
         controller.setHandlerRMI(handlerRMI);
-        //System.out.println("Exporting HandlerRMI");
+
         ControllerStubRMI stub = (ControllerStubRMI) UnicastRemoteObject.exportObject (handlerRMI, 39000);
 
-        //System.out.println("Binding");
+
         registry.rebind("controller", stub);
 
         System.out.println("Server RMI ready on port "+port+"\n");
-
-        //UnicastRemoteObject.unexportObject(ctrlRMI, true);
-        //UnicastRemoteObject.unexportObject(registry, true);
 
         return registry;
     }

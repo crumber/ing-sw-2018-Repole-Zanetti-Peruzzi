@@ -168,14 +168,12 @@ public class ChooseWindowFXMLController extends FXMLController{
             b.setId(i+"");
             b.setGraphic(box);
             xPos = 175+(300*((i%2))); //posiziono ogni gridpane creata alternando la pos X (prima *1 poi *2 poi *1 poi *2)
-            //System.out.println("xPos: "+xPos);
             b.setLayoutX(xPos);
             if(i%2==0){  //incrememnto il moltiplicatore della pos Y ogni 2 cicli
                 yPos = 150+(300*j);
                 j++;
 
             }
-            //System.out.println("yPos: "+yPos);
             b.setLayoutY(yPos);
             b.setStyle("-fx-background-color: transparent;"+"-fx-text-fill: transparent;");
             b.setOnAction(e -> onWindowClick(e,windowName));
@@ -209,13 +207,10 @@ public class ChooseWindowFXMLController extends FXMLController{
         windowLabel.setCache(true);
         box.getChildren().addAll(pane,windowLabel);
         xPos = 200; //posiziono ogni gridpane creata alternando la pos X (prima *1 poi *2 poi *1 poi *2)
-        //System.out.println("xPos: "+xPos);
         box.setLayoutX(xPos);
         yPos = 200;
         box.setLayoutY(yPos);
-        Platform.runLater(() -> {
-            ((Group)stage.getScene().getRoot()).getChildren().add(box);
-        });
+        Platform.runLater(() -> ((Group)stage.getScene().getRoot()).getChildren().add(box));
 
     }
 

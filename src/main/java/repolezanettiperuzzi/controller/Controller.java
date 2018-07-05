@@ -182,16 +182,14 @@ public class Controller {
      * @param playerName Stringa che rappresnta il nome del player
      */
     public void setLiveStatusOffline(String playerName){
-        System.out.println("exit game "+playerName);
+
         for(int i = 0; i<this.board.getNPlayers(); i++){
             if(this.board.getPlayer(i).getName().equals(playerName)){
                 this.board.getPlayer(i).setLiveStatus(false);
                 break;
             }
         }
-        /*if(this.board.getPlayersOnline()==0){ // da problemi con RMI. Chiude il server prima che il metodo ritorni
-            System.exit(0);
-        }*/
+
     }
 
 

@@ -44,6 +44,7 @@ public class FluxRemover extends ToolCard {
         }else{
 
             resultOfAction=1;
+
         }
 
         return resultOfAction;
@@ -99,10 +100,9 @@ public class FluxRemover extends ToolCard {
     @Override
     public void effect(GameBoard board, Player player, List<Integer> parameterForCard){
 
-        posDieOnDraft=parameterForCard.get(0);
-        dieValue=parameterForCard.get(1);
+        dieValue=parameterForCard.get(0);
 
-        board.getDieDraft(posDieOnDraft).setValue(Value.intToValue(dieValue));
+        board.getDieDraft(board.getSizeDraft()-1).setValue(Value.intToValue(dieValue));
 
     }
 }

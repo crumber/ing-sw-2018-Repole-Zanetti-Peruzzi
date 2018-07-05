@@ -10,12 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
-import java.util.stream.Stream;
 
 /**
  * Classe che rappresenta il controller del timer
@@ -39,7 +34,6 @@ public class ControllerTimer extends TimerTask {
         this.timer = new Timer();
         this.controller = controller;
         this.currentState=timerType;
-        //this.currentTime = 40;
 
         DynamicPath dp = new DynamicPath("");
 
@@ -76,6 +70,8 @@ public class ControllerTimer extends TimerTask {
                     bR.readLine();
                     bR.readLine();
                     this.currentTime = Integer.parseInt(bR.readLine());
+                    break;
+                default :
                     break;
 
             }

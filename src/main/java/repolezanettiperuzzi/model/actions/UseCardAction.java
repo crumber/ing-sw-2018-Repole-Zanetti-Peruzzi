@@ -26,7 +26,7 @@ public class UseCardAction {
         int resultOfAction;
 
         resultOfAction=board.getToolCard(whichToolCard).check(board,player,parameterForCard);
-
+        System.out.println("resultOfAction "+resultOfAction);
         //if check is correct, do active action, reduce player's tokens
         if(resultOfAction==1){
 

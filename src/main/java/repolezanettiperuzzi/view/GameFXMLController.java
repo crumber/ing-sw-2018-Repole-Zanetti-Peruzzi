@@ -517,7 +517,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 ObservableList<Node> childrens = grid.getChildren();
                 for (Node node : childrens) {
                     if ((node.getId() != null) && (node.getId().equals("dieDraft" + lastDieDraft))) {
-                        //System.out.println(node.getId());
+
                         Rectangle r = (Rectangle) node;
                         r.setVisible(false);
                         r.setStrokeWidth(0);
@@ -547,7 +547,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
                     ObservableList<Node> cells = ((GridPane) grid).getChildren();
                     for (Node node : cells) {
                         if ((node.getId() != null) && (node.getId().equals("dieRT" + lastDieRT))) {
-                            //System.out.println(node.getId());
+
                             Rectangle r = (Rectangle) node;
                             r.setVisible(false);
                             r.setStrokeWidth(0);
@@ -684,7 +684,6 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 stage.setMaximized(true);
                 stage.setFullScreen(true);
                 Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-                //System.out.println(primaryScreenBounds.getMinX()+" "+primaryScreenBounds.getMinY()+" "+primaryScreenBounds.getHeight()+" "+primaryScreenBounds.getWidth());
                 stage.setX(primaryScreenBounds.getMinX());
                 stage.setY(primaryScreenBounds.getMinY());
                 stage.setWidth(primaryScreenBounds.getWidth());
@@ -931,6 +930,15 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 }
             }
 
+            if(parameters.contains("card11")){
+                if(lastDieDraft>=0){
+                    response+="preEffect "+lastDieDraft+" ";
+                }else{
+                    showAlert("Illegal card parameters", "You didn't choose a die in the draft!");
+                    return;
+                }
+            }
+
             if(numSelectableCells==2){
                 if(lastWindowCells.size()==2){
                     for(int i = 0; i<lastWindowCells.size(); i++) response+=lastWindowCells.get(i).xPos+" "+lastWindowCells.get(i).yPos+" ";
@@ -965,7 +973,6 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
             response = response.substring(0, response.length()-1).replace(" ", "-");
             try {
-                System.out.println(response);
                 gV.sendResponseToolCard(lastToolCard, response);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -1415,7 +1422,6 @@ public class GameFXMLController extends FXMLController implements Initializable{
      */
     public void setCurrentTurn(GameBoardClient board){
 
-        //System.out.println(board.getTurn());
         Platform.runLater(() -> currentTurn.setText(": "+(board.getTurn()+1)));
 
     }
@@ -1463,11 +1469,13 @@ public class GameFXMLController extends FXMLController implements Initializable{
                     incrToolCard = true;
                     break;
 
+                case "card11":
+
+                    showedParameters.append("Seleziona un dado dal draft.\n");
+                    break;
+
                 case "dieValue":
 
-                    //TODO fai apparire finestre incremento dado
-                    System.out.println("ci sono");
-                    showedParameters.append("Scegliere il valore dell'ultimo dado del draft.\n");
 
                     Platform.runLater(() -> {
                         Alert alert = new Alert(Alert.AlertType.NONE, "Scegli il valore dell'ultimo dado del draft");
@@ -1489,7 +1497,6 @@ public class GameFXMLController extends FXMLController implements Initializable{
                         alert.getButtonTypes().setAll(uno,due,tre,quattro,cinque,sei);
                         Optional<ButtonType> result = alert.showAndWait();
                         if(result.isPresent()) {
-
                             if (result.get() == uno) {
                                 try {
                                     gV.sendResponseToolCard(lastToolCard, "1");
@@ -1528,13 +1535,14 @@ public class GameFXMLController extends FXMLController implements Initializable{
                                 }
                             }
                         }
+
                     });
-                    break;
+                    return;
+
 
             }
 
         }
-
         if(j==2){
             numSelectableCells = 2;
         } else if(j==3){
@@ -1542,8 +1550,6 @@ public class GameFXMLController extends FXMLController implements Initializable{
         }
 
         showedParameters.append("\nRispettare quest'ordine di selezione.");
-
-        //showAlert("Scegli parametri carta",showedParameters.toString());
 
         Platform.runLater(() -> {
 

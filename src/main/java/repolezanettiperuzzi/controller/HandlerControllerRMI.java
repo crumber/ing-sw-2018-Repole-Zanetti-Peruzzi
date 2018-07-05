@@ -56,8 +56,6 @@ public class HandlerControllerRMI implements ControllerStubRMI {
             controller.setState(new SetConnectionState());
             InetAddress ipAddr = InetAddress.getByName("0.0.0.0");
             String result = ((SetConnectionState) controller.getState()).initializePlayer(username, pwd, ipAddr, 0, conn, UI);
-            //System.out.println("isRegistered: " + result);
-            //System.out.println("!clients.containsKey(username): " + !clients.containsKey(username));
             if (!clients.containsKey(username) && result.equals("registered")) {
                 clients.put(username, callbackClient);
                 System.out.println("New client registered.");

@@ -33,12 +33,9 @@ public class GameViewSocket implements Runnable{
     public void run(){
         try(ServerSocket serverSocket = new ServerSocket(0)){
             this.localServerPort = serverSocket.getLocalPort();
-            //System.out.println("port: "+localServerPort);
             serverLoop = true;
             while(serverLoop){
-                //System.out.println("Attendo connessione");
                 this.socket = serverSocket.accept();
-                //System.out.println("Connessione accettata\n");
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 onReceiveCallback.accept(in.readLine());
                 in.close();
@@ -58,11 +55,9 @@ public class GameViewSocket implements Runnable{
         String[] line = message.split(" ");
         switch(line[0]){
             case "registered":
-                //System.out.println("registered");
                 gameView.enterWaitingRoom();
                 break;
-            case "updatedplayers":  // setTimer player1 player2
-                //System.out.println("updatedPlayers");
+            case "updatedplayers":
 
                 String players[] = new String[line.length-2];
                 for(int i = 0; i<players.length; i++){
@@ -88,7 +83,6 @@ public class GameViewSocket implements Runnable{
                 }
                 break;
             case "chooseWindow":
-                //System.out.println("chooseWindow");
                 receivedWindows(line);
                 break;
             case "showWindow":
@@ -110,11 +104,9 @@ public class GameViewSocket implements Runnable{
                 gameView.notifyTurn(line[1], Integer.parseInt(line[2]));
                 break;
             case "updateView":
-                //System.out.println(line[1]);
                 updateView(line[1]);
                 break;
             case "requestCard":
-                System.out.println(line[1]);
                 gameView.receiveCardParameters(line[1]);
                 break;
             case "exit":
@@ -167,7 +159,6 @@ public class GameViewSocket implements Runnable{
 
     public void sendChooseCard(String username, int numCard) throws IOException {
 
-        System.out.println("carta scelta"+numCard);
         PrintWriter out= new PrintWriter(socket.getOutputStream(),true);
         out.println(username+" chooseCard "+numCard);
         out.close();
@@ -302,13 +293,13 @@ public class GameViewSocket implements Runnable{
 
             board.setRound(Character.getNumericValue(boardElems[i].charAt(0)));
             board.setTurn(Character.getNumericValue(boardElems[i].charAt(1)));
-            //System.out.println(board.getRound()+" "+board.getTurn());
+
 
         }else{
 
             board.setRound(Integer.parseInt(boardElems[i].substring(0,2)));
             board.setTurn(Character.getNumericValue(boardElems[i].charAt(2)));
-            //System.out.println(board.getRound()+" "+board.getTurn());
+
 
         }
         i++;
@@ -324,7 +315,6 @@ public class GameViewSocket implements Runnable{
         if(!boardElems[i].equals("")) {
             String[] roundAndDice = boardElems[i].split("-");
             for(int j = 0; j<roundAndDice.length; j++){
-                //board.setRound(Character.getNumericValue(roundAndDice[j].charAt(0)));
                 String dice = roundAndDice[j].substring(1);
                 String[] die = dice.split("_");
                 ArrayList<DieClient> dieRound = new ArrayList<>();

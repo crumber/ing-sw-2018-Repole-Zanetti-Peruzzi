@@ -473,6 +473,7 @@ public class GameView implements ClientStubRMI {
      */
     public void receiveCardParameters(String parameters){
 
+        System.out.println(parameters);
         String[] separatedParameters = parameters.split("-");
 
         if(UI.equals("GUI")){
@@ -579,6 +580,8 @@ public class GameView implements ClientStubRMI {
     /**
      * Stampa SAGRADA
      */
+
+
     public static void printSagrada(){
 
         String ANSI_RESET = "\u001B[0m";
