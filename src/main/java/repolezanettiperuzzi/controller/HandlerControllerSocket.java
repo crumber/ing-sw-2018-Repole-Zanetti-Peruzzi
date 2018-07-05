@@ -426,7 +426,7 @@ public class HandlerControllerSocket implements Runnable{
      */
     public void sendParametersForToolCard(String message) throws IOException {
 
-        System.out.println(controller.board.getToolCard(0).getTitle()+" "+controller.board.getToolCard(0).getId()+" "+controller.board.getToolCard(1).getTitle()+" "+controller.board.getToolCard(1).getId()+" "+controller.board.getToolCard(2).getTitle()+" "+controller.board.getToolCard(2).getId());
+        //System.out.println(controller.board.getToolCard(0).getTitle()+" "+controller.board.getToolCard(0).getId()+" "+controller.board.getToolCard(1).getTitle()+" "+controller.board.getToolCard(1).getId()+" "+controller.board.getToolCard(2).getTitle()+" "+controller.board.getToolCard(2).getId());
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(),true);
         out.println(message);
         out.close();
@@ -484,7 +484,7 @@ public class HandlerControllerSocket implements Runnable{
 
         PrintWriter out = new PrintWriter(this.socket.getOutputStream(),true);
         out.println("endGame "+message);
-        System.out.println("endGame "+message);
+        //System.out.println("endGame "+message);
         out.close();
         this.socket.close();
 

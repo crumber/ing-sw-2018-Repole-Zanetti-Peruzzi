@@ -41,6 +41,17 @@ public class RoundTrack {
 
     }
 
+    public ArrayList<Die> getRound(int i){
+        if(i<dieRoundTrack.size()) {
+            return dieRoundTrack.get(i);
+        }
+        return null;
+    }
+
+    public int getSize(){
+        return dieRoundTrack.size();
+    }
+
     /**
      * Inserisce un dado nella RoundTrack
      * @param whichRound Round attualr

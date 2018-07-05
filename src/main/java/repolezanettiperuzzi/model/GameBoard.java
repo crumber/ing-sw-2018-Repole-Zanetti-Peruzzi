@@ -260,6 +260,16 @@ public class GameBoard {
     }
 
     /**
+     *
+     * @return Il roundtrack
+     */
+    public RoundTrack getRoundTrack(){
+
+        return this.roundTrack;
+
+    }
+
+    /**
      * Imposta il costo di una ToolCard a 2 dopo che è stata utilizzata una volta
      * @param whichToolCard Intero che indica la ToolCard di cui si vuole modificare il costo
      */

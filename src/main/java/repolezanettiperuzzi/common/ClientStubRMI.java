@@ -68,4 +68,16 @@ public interface ClientStubRMI extends Remote {
      * @throws RemoteException Eccezione di RMI
      */
     void enterGame() throws RemoteException;
+
+    void notifyTurn(String actualPlayer, int currentTime) throws RemoteException;
+
+    void receiveCardParameters(String parameters) throws RemoteException;
+
+    void notYourTurn() throws RemoteException;
+
+    void viewError(String error) throws RemoteException;
+
+    void showWinBeforeEndGameAlert() throws RemoteException;
+
+    void receiveRanking(String score) throws RemoteException;
 }

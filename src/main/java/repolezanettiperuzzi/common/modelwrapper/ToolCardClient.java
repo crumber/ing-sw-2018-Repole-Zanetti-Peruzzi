@@ -1,12 +1,14 @@
 package repolezanettiperuzzi.common.modelwrapper;
 
+import java.io.Serializable;
+
 /**
  * Classe che modellizza le tool card nel client
  * @author Andrea Zanetti
  * @author Giampiero Repole
  * @author Alessandro Peruzzi
  */
-public class ToolCardClient {
+public class ToolCardClient implements Serializable{
     private String title;
     private String description;
     private int id;

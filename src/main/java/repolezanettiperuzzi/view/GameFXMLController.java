@@ -211,9 +211,8 @@ public class GameFXMLController extends FXMLController implements Initializable{
     /**
      * Aggiornamento view
      * @param board Game board
-     * @param currentTime Valore timer corrente
      */
-    public void updateView(GameBoardClient board, int currentTime){
+    public void updateView(GameBoardClient board){
         synchronized (clickLock) {
             //this.setTimer(currentTime);
             ArrayList<Node> nodesToDeleteWindow = new ArrayList<>();

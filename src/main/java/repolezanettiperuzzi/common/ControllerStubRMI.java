@@ -68,4 +68,12 @@ public interface ControllerStubRMI extends Remote {
      * @throws RemoteException Eccezione di RMI
      */
     void sendChosenWindow(String playerName, String windowName) throws RemoteException;
+
+    void insertDie(String playerName, int draftPos, int xPos, int yPos) throws RemoteException;
+
+    void chooseCard(String playerName, int numCard) throws RemoteException;
+
+    void endTurn(String playerName) throws RemoteException;
+
+    void responseToolCard(String playerName, int nCard, String message) throws RemoteException;
 }

@@ -1,14 +1,22 @@
 package repolezanettiperuzzi.controller;
 
+import javafx.collections.ObservableList;
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.common.ClientStubRMI;
 import repolezanettiperuzzi.common.ControllerStubRMI;
+import repolezanettiperuzzi.common.modelwrapper.ColourClient;
+import repolezanettiperuzzi.common.modelwrapper.DieClient;
+import repolezanettiperuzzi.common.modelwrapper.GameBoardClient;
 import repolezanettiperuzzi.common.modelwrapper.WindowClient;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.Window;
+import repolezanettiperuzzi.model.actions.BeginRound;
+import repolezanettiperuzzi.model.actions.BeginTurn;
+import repolezanettiperuzzi.model.publiccards.PublicCard;
+import repolezanettiperuzzi.model.toolcards.ToolCard;
 
-import java.awt.*;
 import java.io.IOException;
+import java.io.ObjectInput;
 import java.net.InetAddress;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -30,6 +38,8 @@ public class HandlerControllerRMI implements ControllerStubRMI {
     /* lista dei client registrati */
     private HashMap<String, ClientStubRMI> clients;
 
+    private Object lock;
+
     /**
      * Costruttore
      * @param controller Controller
@@ -38,6 +48,7 @@ public class HandlerControllerRMI implements ControllerStubRMI {
     public HandlerControllerRMI(Controller controller) throws RemoteException {
         this.controller = controller;
         clients = new HashMap<>( );
+        this.lock = new Object();
     }
 
     /**
@@ -98,17 +109,16 @@ public class HandlerControllerRMI implements ControllerStubRMI {
                     case "waitingRoom":
                         controller.setState(new SetConnectionState());
                         controller.setLiveStatusOffline(playerName);
-                        System.out.println("enscro");
                         ((SetConnectionState) controller.getState()).notifyOnUpdatedPlayer();
-                        System.out.println("escio");
                         break;
                     case "chooseWindow":
                         //TODO gestire l'uscita durante la scelta delle window
                         controller.setLiveStatusOffline(playerName);
                         break;
                     case "game":
+                        controller.setState(new TurnState());
                         controller.setLiveStatusOffline(playerName);
-                        //TODO gestire l'uscita durante il gioco
+                        ((TurnState)controller.getState()).notifyStatusToPlayers();
                         break;
                 }
                 System.out.println("Client unregistered");
@@ -246,11 +256,7 @@ public class HandlerControllerRMI implements ControllerStubRMI {
      */
     public synchronized void viewWindows(String playerName, ArrayList<Window> windows, int setTimer){
         synchronized (controller) {
-            System.out.println("dentro view");
             ArrayList<WindowClient> windowsClient = new ArrayList<>();
-            if (windows == null) {
-                System.out.println("e' null");
-            }
             for (Window w : windows) {
                 System.out.println(w.toString());
                 windowsClient.add(new WindowClient(w.getName(), w.getFTokens(), w.toString()));
@@ -328,7 +334,6 @@ public class HandlerControllerRMI implements ControllerStubRMI {
                 @Override
                 public void run() {
                     try {
-                        System.out.println("insideEnterGame");
                         clients.get(playerName).enterGame();
                     } catch (RemoteException e) {
                         e.printStackTrace();
@@ -349,6 +354,212 @@ public class HandlerControllerRMI implements ControllerStubRMI {
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public synchronized void updateView(String playerName){
+        synchronized (controller){
+            GameBoardClient boardClient = new GameBoardClient();
+
+            for (Player player: controller.board.getPlayers()){
+                boardClient.addPlayer(player.getName());
+                boardClient.getPlayerByName(player.getName()).setSecretColour(ColourClient.stringToColour(player.getSecretColour().toString()));
+                boardClient.getPlayerByName(player.getName()).setWindow(new WindowClient(player.getWindow().getName(), player.getWindow().getFTokens(), player.getWindow().toString()));
+                boardClient.getPlayerByName(player.getName()).setFavorTokens(player.getFavorTokens());
+                boardClient.getPlayerByName(player.getName()).setLiveStatus(player.getLiveStatus());
+            }
+
+            boardClient.setRound(BeginRound.getRound());
+            boardClient.setTurn(BeginTurn.getCurrentTurn());
+            for(int i = 0; i<controller.board.getSizeDraft(); i++){
+                boardClient.addDieToDraft(new DieClient(controller.board.getDieDraft(i).toString()));
+            }
+            for(int i = 0; i<controller.board.getRoundTrack().getSize(); i++) {
+                ArrayList<DieClient> dice = new ArrayList<>();
+                for(int j = 0; j<controller.board.getRoundTrack().getRound(i).size(); j++) {
+                    dice.add(new DieClient(controller.board.getDieFromRoundTrack(i, j).toString()));
+                }
+                boardClient.getRoundTrack().addDice(dice);
+            }
+
+            for(int i = 0; i<3; i++) {
+                PublicCard card = controller.board.getPublicCards(i);
+                boardClient.addPublicCard(card.getTitle(), card.getDescription(), card.getValue());
+            }
+
+            for(int i = 0; i<3; i++) {
+                ToolCard card = controller.board.getToolCard(i);
+                boardClient.addToolCard(card.getTitle(), card.getDescription(), card.getId(), controller.board.getCostToolCard(i));
+            }
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        synchronized (clients.get(playerName)) {
+                            clients.get(playerName).updateView(boardClient);
+                        }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+        }
+    }
+
+    public synchronized void insertDie(String playerName, int draftPos, int xPos, int yPos){
+        synchronized (controller){
+            try {
+                controller.setState(new TurnState());
+                ((TurnState)controller.getState()).insertDie(controller.board.getPlayerByName(playerName),draftPos+" "+xPos+" "+yPos);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public synchronized void notifyOnBeginTurn(String playerName, String actualPlayer, int currentTime){
+        synchronized (controller){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        synchronized (clients.get(playerName)) {
+                            clients.get(playerName).notifyTurn(actualPlayer, currentTime);
+                        }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+    }
+
+    public synchronized void chooseCard(String playerName, int numCard){
+        synchronized (controller){
+            try {
+                controller.setState(new TurnState());
+                ((TurnState)controller.getState()).useCardRequest(controller.board.getPlayerByName(playerName), numCard);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public synchronized void endTurn(String playerName){
+        synchronized (controller){
+            try {
+                controller.cancelTimer();
+                controller.setState(new TurnState());
+                ((TurnState)controller.getState()).passToNextTurn(controller.board.getPlayerByName(playerName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public synchronized void responseToolCard(String playerName, int nCard, String message){
+        synchronized (controller){
+            try {
+                controller.setState(new TurnState());
+                ((TurnState)controller.getState()).useCard(controller.board.getPlayerByName(playerName), nCard, message.replace("-", " "));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public synchronized void sendCardParameters(String playerName, String requestParameters){
+        synchronized (controller){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        synchronized (clients.get(playerName)) {
+                            clients.get(playerName).receiveCardParameters(requestParameters.split(" ")[1]);
+                        }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+    }
+
+    public synchronized void sendActionError(String playerName, String error){
+        synchronized (controller){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        synchronized (clients.get(playerName)) {
+                            clients.get(playerName).viewError(error.split(" ")[1]);
+                        }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+    }
+
+    public synchronized void sendNotYourTurn(String playerName){
+        synchronized (controller){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        synchronized (clients.get(playerName)) {
+                            clients.get(playerName).notYourTurn();
+                        }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+    }
+
+    public synchronized void notifyOnWinBeforeEndGame(String playerName){
+        synchronized (controller){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        synchronized (clients.get(playerName)) {
+                            clients.get(playerName).notYourTurn();
+                        }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+    }
+
+    public synchronized void receiveRanking(String playerName, String score){
+        synchronized (controller){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    synchronized (clients.get(playerName)) {
+                        try {
+                            clients.get(playerName).receiveRanking(score);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }).start();
         }
     }
 

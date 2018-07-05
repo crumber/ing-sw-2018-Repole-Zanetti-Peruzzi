@@ -965,7 +965,6 @@ public class GameViewCLI implements Runnable {
         String messUsedCard = "press u to use a tool card ";
         String messagefine = "press p to pass the turn (press 'q' to exit game): ";
         String message = space;
-
         for (int n = 0; n < boardClient.getNPlayers(); n++) {
 
             if (myName.compareTo(boardClient.getPlayer(n).getName()) == 0) {
@@ -1474,9 +1473,8 @@ public class GameViewCLI implements Runnable {
     /**
      * Stampa il ranking
      * @param ranking Array di stringhe: nome punteggio, gia ordinto in modo decrescente e di dimensione del numero dei player
-     * @param boardClient Game board
      */
-    public void showRanking(String[] ranking, GameBoardClient boardClient){
+    public void showRanking(String[] ranking){
 
         String bigspace = "                  ";
         String bigSpaceX3=bigspace+bigspace+bigspace;

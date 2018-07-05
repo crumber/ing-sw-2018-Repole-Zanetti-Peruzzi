@@ -101,6 +101,7 @@ public class TurnState extends ControllerState {
 
             } else if (player.getConnection().equals("RMI")&&player.getLiveStatus()) {
 
+                controller.getHandlerRMI().notifyOnBeginTurn(player.getName(), actualPlayer.getName(), controller.getCurrentTime());
 
             }
 
@@ -136,6 +137,7 @@ public class TurnState extends ControllerState {
                     }
                 }else if(player.getConnection().equals("RMI")){
 
+                    controller.getHandlerRMI().sendActionError(player.getName(), error);
 
                 }
 
@@ -206,6 +208,7 @@ public class TurnState extends ControllerState {
 
                         } else if (player.getConnection().equals("RMI")) {
 
+                            controller.getHandlerRMI().sendActionError(player.getName(), error);
 
                         }
 
@@ -230,6 +233,7 @@ public class TurnState extends ControllerState {
 
                 } else if (player.getConnection().equals("RMI")) {
 
+                    controller.getHandlerRMI().sendCardParameters(player.getName(), requestParameters);
 
                 }
 
@@ -248,6 +252,7 @@ public class TurnState extends ControllerState {
 
                 } else if (player.getConnection().equals("RMI")) {
 
+                    controller.getHandlerRMI().sendActionError(player.getName(), error);
 
                 }
 
@@ -265,6 +270,7 @@ public class TurnState extends ControllerState {
                 }
             }else if(player.getConnection().equals("RMI")){
 
+                controller.getHandlerRMI().sendNotYourTurn(player.getName());
 
             }
         }
@@ -364,6 +370,10 @@ public class TurnState extends ControllerState {
                 handler.sendActionError(message);
             }
 
+        } else if(player.getConnection().equals("RMI")){
+
+            controller.getHandlerRMI().sendActionError(player.getName(), message);
+
         }
 
 
@@ -384,6 +394,7 @@ public class TurnState extends ControllerState {
 
         }else if(player.getConnection().equals("RMI")&&(player.getLiveStatus())){
 
+            controller.getHandlerRMI().updateView(player.getName());
 
         }
     }
@@ -401,8 +412,9 @@ public class TurnState extends ControllerState {
                     HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
                     handler.sendUpdateView(gameToString());
 
-                } else if (player.getConnection().equals("RMI") && (player.getUI().equals("GUI") || (player.getUI().equals("CLI") && !player.getName().equals(BeginTurn.getCurrentPlayer()))) && (player.getLiveStatus())) {
+                } else if (player.getConnection().equals("RMI") && player.getUI().equals("GUI") && player.getLiveStatus()) {
 
+                    controller.getHandlerRMI().updateView(player.getName());
 
                 }
             }
@@ -424,6 +436,8 @@ public class TurnState extends ControllerState {
 
                     }else if(player.getConnection().equals("RMI")){
 
+                        controller.getHandlerRMI().notifyOnWinBeforeEndGame(player.getName());
+                        System.exit(0);
 
                     }
                 }

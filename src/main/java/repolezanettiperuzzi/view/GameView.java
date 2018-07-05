@@ -186,6 +186,9 @@ public class GameView implements ClientStubRMI {
                 case "chooseWindowRoom":
                     enterChooseWindow();
                     break;
+                case "game":
+                    enterGame();
+                    break;
             }
         } else if(message.equals("stealAccount")){
             if(UI.equals("GUI")) ((LoginFXMLController)fxmlController).removeProgressIndicator();
@@ -447,7 +450,16 @@ public class GameView implements ClientStubRMI {
             gvSocket = new GameViewSocket(this);
             gvSocket.sendInsertDie(username, draftPos, xWindowPos, yWindowPos);
         } else if(connection.equals("RMI")){
-
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        stub.insertDie(username, draftPos, xWindowPos, yWindowPos);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         }
     }
 
@@ -464,7 +476,16 @@ public class GameView implements ClientStubRMI {
             gvSocket.sendChooseCard(username, numCard);
 
         }else if(connection.equals("RMI")){
-
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        stub.chooseCard(username, numCard);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         }
     }
 
@@ -472,9 +493,9 @@ public class GameView implements ClientStubRMI {
      * Riceve i parametri della carta
      * @param parameters Stringa che indica i parametri
      */
-    public void receiveCardParameters(String parameters){
+    public synchronized void receiveCardParameters(String parameters){
 
-        System.out.println(parameters);
+        //System.out.println(parameters);
         String[] separatedParameters = parameters.split("-");
 
         if(UI.equals("GUI")){
@@ -497,7 +518,16 @@ public class GameView implements ClientStubRMI {
             gvSocket = new GameViewSocket(this);
             gvSocket.sendResponseToolCard(username, nCard, response);
         }else if(connection.equals("RMI")){
-
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        stub.responseToolCard(username, nCard, response);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         }
     }
 
@@ -517,10 +547,11 @@ public class GameView implements ClientStubRMI {
      * @param actualPlayer Player attuale
      * @param currentTime Timer corrente
      */
-    public void notifyTurn(String actualPlayer, int currentTime){
+    public synchronized void notifyTurn(String actualPlayer, int currentTime){
         if(this.UI.equals("GUI")){
             ((GameFXMLController) fxmlController).notifyTurn(actualPlayer, currentTime);
         }else if(this.UI.equals("CLI")){
+            System.out.println("ricevo turn");
             gvCLI.notifyTurn(actualPlayer, currentTime);
         }
     }
@@ -574,7 +605,16 @@ public class GameView implements ClientStubRMI {
             gvSocket = new GameViewSocket(this);
             gvSocket.sendEndTurn(username);
         }else if(connection.equals("RMI")){
-
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        stub.endTurn(username);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         }
     }
 
@@ -660,39 +700,45 @@ public class GameView implements ClientStubRMI {
      * Aggiorna la view
      * @param board Game board
      */
-    public void updateView(GameBoardClient board) {
+    public synchronized void updateView(GameBoardClient board) {
         if(this.UI.equals("GUI")){
-            ((GameFXMLController) fxmlController).updateView(board, 100);
+            ((GameFXMLController) fxmlController).updateView(board);
         } else if(this.UI.equals("CLI")){
+            System.out.println("ricevo update");
             gvCLI.updateView(board, username);
         }
     }
 
-    public void receiveRanking(String score) {
+    public synchronized void receiveRanking(String score) {
 
      String[] player = score.split("_");
      String result = null;
+     String[] resultCLI = new String[player.length/2];
+     int j = 0;
+     for(int i = 0; i<resultCLI.length; i++){
+         resultCLI[i] = player[j];
+         j++;
+         resultCLI[i] += " "+player[j];
+         j++;
+     }
 
-     System.out.println(Arrays.toString(player));
+     //System.out.println(Arrays.toString(player));
 
      for(int i = 0; i<player.length; i+=2 ){
 
-         System.out.println(i+" "+player.length);
-
-         assert result != null;
          result+=player[i];
          result+=" ";
          result+=player[i+1];
          result+="\n";
 
-         System.out.println(result);
+         //System.out.println(result);
 
      }
 
      if(this.UI.equals("GUI")){
-         ((GameFXMLController) fxmlController).showEndGame(result.toString());
+         ((GameFXMLController) fxmlController).showEndGame(result);
      }else if(this.UI.equals("CLI")){
-
+        gvCLI.showRanking(resultCLI);
      }
 
     }

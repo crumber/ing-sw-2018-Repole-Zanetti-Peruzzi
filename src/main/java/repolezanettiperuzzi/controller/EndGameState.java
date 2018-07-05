@@ -22,7 +22,7 @@ public class EndGameState extends ControllerState{
 
         String message = new CalculateScore().doAction(controller.board);
 
-        System.out.println(message);
+        //System.out.println(message);
 
         for (Player player : controller.board.getPlayers()){
 
@@ -37,6 +37,7 @@ public class EndGameState extends ControllerState{
 
             }else if(player.getConnection().equals("RMI")){
 
+                    controller.getHandlerRMI().receiveRanking(player.getName(), message);
 
             }
         }
