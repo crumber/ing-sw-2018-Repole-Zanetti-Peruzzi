@@ -4,6 +4,7 @@ import org.junit.Test;
 import repolezanettiperuzzi.model.*;
 import repolezanettiperuzzi.model.publiccards.*;
 
+
 import static org.junit.Assert.*;
 
 public class CalculateScoreTest {

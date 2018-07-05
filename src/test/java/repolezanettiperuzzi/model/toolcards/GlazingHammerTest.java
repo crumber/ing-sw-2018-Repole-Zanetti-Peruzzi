@@ -23,7 +23,14 @@ public class GlazingHammerTest {
     public void testCheck() {
 
         player=mock(Player.class);
+
         when(player.getTurn()).thenReturn(1);
+        when(player.getInsertDieInThisTurn()).thenReturn(true);
+
+        assertEquals(-28,testPublicCard.check(board,player, parameterForCard));
+
+        when(player.getTurn()).thenReturn(1);
+        when(player.getInsertDieInThisTurn()).thenReturn(false);
 
         assertEquals(1,testPublicCard.check(board,player, parameterForCard));
 
