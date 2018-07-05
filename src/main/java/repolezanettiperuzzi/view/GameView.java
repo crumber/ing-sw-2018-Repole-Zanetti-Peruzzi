@@ -387,7 +387,6 @@ public class GameView implements ClientStubRMI {
 
     public void receiveCardParameters(String parameters){
 
-        //System.out.println(parameters);
         String[] separatedParameters = parameters.split("-");
 
         if(UI.equals("GUI")){

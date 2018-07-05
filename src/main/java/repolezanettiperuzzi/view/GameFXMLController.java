@@ -60,6 +60,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
     private boolean incrToolCard;
     private String[] cardParameters;
     private int lastToolCard;
+    private GridPane myWindow;
 
     @FXML
     // The reference of inputText will be injected by the FXML loader
@@ -390,6 +391,44 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     public void viewError(String error){
         showAlert("Illegal Action", error);
+        lastDieDraft = -1;
+        lastDieRT = "";
+        lastWindowCells = new ArrayList<>();
+        numSelectableCells = 1;
+        incrToolCard = false;
+        lastToolCard = 0;
+        synchronized (clickLock) {  //resetto selezioni nel draft, roundtrack e window
+            ObservableList<Node> childrens = draftPane.getChildren();
+            for (Node node : childrens) {               //resetto selezioni draft
+                if ((node.getId() != null) && (node.getId().contains("dieDraft"))) {
+                    Rectangle r = (Rectangle) node;
+                    r.setVisible(false);
+                    r.setStrokeWidth(0);
+                    r.setOpacity(0.5);
+                }
+            }
+            childrens = RTGrids.getChildren();
+            for(Node grid : childrens) {                //resetto selezioni roundtrack
+                ObservableList<Node> cells = ((GridPane)grid).getChildren();
+                for (Node node : cells) {
+                    if((node.getId() != null) && (node.getId().contains("dieRT"))) {
+                        Rectangle r = (Rectangle) node;
+                        r.setVisible(false);
+                        r.setStrokeWidth(0);
+                        r.setOpacity(0.5);
+                    }
+                }
+            }
+            childrens = myWindow.getChildren();
+            for (Node node : childrens) {               //resetto selezioni window
+                if ((node.getId() != null) && (node.getId().contains("Rect"))) {
+                    Rectangle r = (Rectangle) node;
+                    r.setStrokeWidth(0);
+                    r.setOpacity(0.5);
+                    r.setVisible(false);
+                }
+            }
+        }
     }
 
     public void notYourTurn(){
@@ -491,7 +530,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
             WindowGenerator wGenerator = new WindowGenerator(player.getWindow(), clickLock, this);
             //Esempio con GridPane
             boolean clickableBox = gV.getUsername().equals(player.getName());
-            GridPane pane = wGenerator.getWindowFXObject(clickableBox);
+            myWindow = wGenerator.getWindowFXObject(clickableBox);
             VBox box = new VBox();
             box.setId("gridWindow"+board.getPlayer(i).getName());
             String windowName = player.getWindow().getName().replace(" ", "-"); //questo per gestire in caso la window arrivi da RMI in cui il nome e' senza trattini
@@ -500,7 +539,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
             windowLabel.setPreserveRatio(true);
             windowLabel.setSmooth(true);
             windowLabel.setCache(true);
-            box.getChildren().addAll(pane,windowLabel);
+            box.getChildren().addAll(myWindow,windowLabel);
 
             //se la window generata non è quella del client allora viene settata trasparente
             if(!gV.getUsername().equals(player.getName())) {
@@ -679,7 +718,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
             String parameters = "";
             for(int i = 0; i<cardParameters.length; i++){
-                parameters = cardParameters[i]+" ";
+                parameters += cardParameters[i]+" ";
             }
 
             if(parameters.contains("dieDraft")){
@@ -1114,7 +1153,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
         this.cardParameters = parameters;
 
-        int j=0;
+        int j=1;
 
         StringBuilder showedParameters = new StringBuilder();
 
@@ -1124,13 +1163,13 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
                 case "startPos":
 
-                    showedParameters.append("Seleziona dado ").append(j + 1).append(" dalla window.\n");
+                    showedParameters.append("Seleziona dado ").append(j).append(" dalla window.\n");
                     j++;
                     break;
 
                 case "endPos":
 
-                    showedParameters.append("Seleziona dove vuoi inserire il dado ").append(j).append(" sulla window.\n");
+                    showedParameters.append("Seleziona dove vuoi inserire il dado ").append(j-1).append(" sulla window.\n");
                     break;
 
                 case "dieDraft":
@@ -1159,9 +1198,9 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
         }
 
-        if(j==1){
+        if(j==2){
             numSelectableCells = 2;
-        } else if(j==2){
+        } else if(j==3){
             numSelectableCells = 4;
         }
 
