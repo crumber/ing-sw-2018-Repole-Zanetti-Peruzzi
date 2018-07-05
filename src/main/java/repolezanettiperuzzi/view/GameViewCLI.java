@@ -1315,6 +1315,33 @@ public class GameViewCLI implements Runnable {
 
                     break;
                 }
+                case "card 11":{
+
+                    String messCard11="Which die on draft (";
+                    String[] actionCard11 = new String[boardClient.getSizeDraft()];
+
+                    questions=createMessAction(messCard11,actionCard11,boardClient.getSizeDraft());
+                    messCard11=(String)questions.get(0);
+                    actionCard11=(String[])questions.get(1);
+
+                    try {
+                        //readLine personalizzata che sblocca il thread allo scadere del timer
+                        //vuole il tempo rimanente al timer arrivato dal server, il messaggio da visualizzare all'utente e
+                        //un'array di string che contengono le risposte giuste che ci si aspetta dall'utente
+                        futureInput = Optional.ofNullable(readLine(globalGameTime, messCard11, actionCard11, TimeUnit.MILLISECONDS));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (futureInput.isPresent()) {
+
+                        answer.add(Integer.parseInt(futureInput.get()) - 1);
+                        System.out.println("\nYou choose die: " + boardClient.getDieDraft((Integer.parseInt(futureInput.get()) - 1)) + " " + boardClient.getDieDraft((Integer.parseInt(futureInput.get()) - 1)) + "!");
+
+                    }
+
+                    break;
+                }
                 case "incrDecrDie":{
 
                     String messIncrDecr = "Choose 1 to increment or 2 to decrement?";
