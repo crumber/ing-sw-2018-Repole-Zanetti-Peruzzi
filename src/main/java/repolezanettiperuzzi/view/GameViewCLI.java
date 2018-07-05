@@ -28,6 +28,8 @@ public class GameViewCLI implements Runnable {
     public static int globalGameTime = 0;
     private String currentPlayer;
     private boolean myTurn;
+    private int lastToolCard;
+    private boolean card11;
 
     String ANSI_RESET = "\u001B[0m";
     String ANSI_BLACK = "\u001B[30m";
@@ -49,6 +51,8 @@ public class GameViewCLI implements Runnable {
         this.isTimerOn = false;
         this.hasShutdownHook = false;
         this.myTurn = false;
+        this.lastToolCard = 0;
+        card11 = false;
         /*if(OS.startsWith("Windows")){
             ANSI_RESET = "";
             ANSI_BLACK = "";
@@ -698,7 +702,6 @@ public class GameViewCLI implements Runnable {
             }
         }
 
-
         //WINDOWS
         System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
@@ -834,7 +837,7 @@ public class GameViewCLI implements Runnable {
 
         for(int i=0; i<toolCardClients.size(); i++){
 
-            System.out.println(space +ANSI_YELLOW +"TOOL CARD " +(i+1) +": " +ANSI_RESET +toolCardClients.get(i).getTitle() +space +"COST: " +boardClient.getCostToolCard(i) +"\n"
+            System.out.println(space +ANSI_YELLOW +"TOOL CARD " +(i+1) +": " +ANSI_RESET +toolCardClients.get(i).getTitle() +space +"COST: " +boardClient.getToolCards().get(i).getFavorTokens() +"\n"
                     +space +"DESCRIPTION TOOL CARD " +(i+1) +": " +toolCardClients.get(i).getDescription() +"\n");
 
         }
@@ -911,7 +914,7 @@ public class GameViewCLI implements Runnable {
 
         }
 
-        if(myTurn){
+        if(myTurn && !card11){
             showQuestion(globalGameTime/1000);
         }
 
@@ -936,6 +939,7 @@ public class GameViewCLI implements Runnable {
             myTurn = false;
             this.currentPlayer = currentPlayer;
             System.out.println("It's "+this.currentPlayer+"'s turn!");
+            System.out.println("It will end in "+currentTime+" seconds.");
         }
     }
 
@@ -1053,7 +1057,6 @@ public class GameViewCLI implements Runnable {
 
                             System.out.println("\nYou choose position row:" + (answer.get(1)+1) + " column: " + (answer.get(2)+1) + "!");
 
-                            //TODO ANDRE PARTE SOTTO
                             try {
                                 gV.sendInsertDie(answer.get(0), answer.get(1), answer.get(2));
                             } catch (IOException e) {
@@ -1066,7 +1069,7 @@ public class GameViewCLI implements Runnable {
             }else if(futureInput.get().compareTo("u") == 0){
 
                 String[] actionCards = {"1","2","3"};
-                String messCard = "Which tool card (1,2,3)?";
+                String messCard = "Which tool card (1,2,3)? ";
 
                 System.out.println(space + "You have "+(globalGameTime/1000)+" seconds before the timeout expires.");
 
@@ -1082,29 +1085,27 @@ public class GameViewCLI implements Runnable {
                 if (futureInput.isPresent()) {
 
                     answer.add(Integer.parseInt(futureInput.get()) - 1);
+                    lastToolCard = answer.get(0);
 
                     System.out.println("\nYou choose tool card:" + boardClient.getToolCards().get(answer.get(0)).getTitle()+"!");
 
-                    //TODO ANDRE PARTE SOTTO
-
-                         /*   try {
-                                //CHIAMATA METODO RICHIESTA ATTIVA CARTA
+                            try {
+                                gV.sendChooseCard(answer.get(0));
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            */
+
                 }
 
             }else if(futureInput.get().compareTo("p") == 0){
 
-                //TODO ANDRE PARTE SOTTO
-
-                /*   try {
-                //CHIAMATA METODO PASSA TURNO
+                myTurn = false;
+                try {
+                    gV.sendEndTurn();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                */
+
 
             }
 
@@ -1113,12 +1114,11 @@ public class GameViewCLI implements Runnable {
 
     /**
      * Pone domande relativa alla mossa che vuole fare il client
-     * @param boardClient Game board
      * @param codeQuestions Codice domanda
      * @param myName Nome client
      */
     //come la showquestion ma relativa alla carta tool scelta, se non ha bisogno di parametri allora andra nel default
-    public void cardQuestion(GameBoardClient boardClient, ArrayList<String> codeQuestions, String myName){
+    public void cardQuestion(ArrayList<String> codeQuestions, String myName){
 
         int myNumber=0;
         ArrayList<Object> questions;
@@ -1315,7 +1315,7 @@ public class GameViewCLI implements Runnable {
 
                     break;
                 }
-                case "card 11":{
+                case "card11":{
 
                     String messCard11="Which die on draft (";
                     String[] actionCard11 = new String[boardClient.getSizeDraft()];
@@ -1334,7 +1334,7 @@ public class GameViewCLI implements Runnable {
                     }
 
                     if (futureInput.isPresent()) {
-
+                        card11 = true;
                         answer.add(Integer.parseInt(futureInput.get()) - 1);
                         System.out.println("\nYou choose die: " + boardClient.getDieDraft((Integer.parseInt(futureInput.get()) - 1)) + " " + boardClient.getDieDraft((Integer.parseInt(futureInput.get()) - 1)) + "!");
 
@@ -1344,7 +1344,7 @@ public class GameViewCLI implements Runnable {
                 }
                 case "incrDecrDie":{
 
-                    String messIncrDecr = "Choose 1 to increment or 2 to decrement?";
+                    String messIncrDecr = "Choose 1 to increment or 2 to decrement? ";
                     String[] actionIncrDecr = {"0","1"};
 
                     try {
@@ -1374,7 +1374,7 @@ public class GameViewCLI implements Runnable {
                 }
                 case "dieValue": {
 
-                    String messValueDie = "Choose value of die?";
+                    String messValueDie = "Choose value of die? ";
                     String[] actionValueDie = {"6", "1", "2", "3", "4", "5"};
 
                     try {
@@ -1387,7 +1387,7 @@ public class GameViewCLI implements Runnable {
                     }
 
                     if (futureInput.isPresent()) {
-
+                        card11 = false;
                         answer.add(Integer.parseInt(futureInput.get()));
 
                         System.out.println("\nYou choose value:" + answer.get(answer.size() - 1) + "!");
@@ -1413,14 +1413,22 @@ public class GameViewCLI implements Runnable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else{
+        }*/
+        if(!answer.isEmpty()){
+            String response = "";
+            if(card11){
+                response += "preEffect-";
+            }
             try {
-                //CHIAMATA METODO CHE INCVIA ANSWER AL CONTROLLER IN MODO DA FARE L'EFFECT DELLA CARTA
+                for(int i = 0; i<answer.size(); i++){
+                    response += answer.get(i)+"-";
+                }
+                response = response.substring(0, response.length()-1);
+                gV.sendResponseToolCard(lastToolCard, response);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }*/
+        }
     }
 
     /**

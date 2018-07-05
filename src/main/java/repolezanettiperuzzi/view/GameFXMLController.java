@@ -1575,7 +1575,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
         if(myTurn){
 
             try {
-                gV.sendEndTurnButton();
+                gV.sendEndTurn();
             }catch(IOException e){
                 e.printStackTrace();
             }

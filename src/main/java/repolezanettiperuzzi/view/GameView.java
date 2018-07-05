@@ -11,6 +11,7 @@ import java.io.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
@@ -481,7 +482,7 @@ public class GameView implements ClientStubRMI {
             ((GameFXMLController) fxmlController).showCardParameters(separatedParameters);
 
         }else if(UI.equals("CLI")){
-
+            gvCLI.cardQuestion(new ArrayList<>(Arrays.asList(separatedParameters)), username);
         }
     }
 
@@ -568,7 +569,7 @@ public class GameView implements ClientStubRMI {
      * Invia la fine del turno
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
-    public void sendEndTurnButton() throws IOException {
+    public void sendEndTurn() throws IOException {
         if(connection.equals("Socket")){
             gvSocket = new GameViewSocket(this);
             gvSocket.sendEndTurn(username);

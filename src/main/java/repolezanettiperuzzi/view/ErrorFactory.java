@@ -165,7 +165,7 @@ public class ErrorFactory {
             }
             default: {
 
-                return "You don't insert die in this turn!!";
+                return "You didn't insert a die already in this turn!!";
 
             }
         }

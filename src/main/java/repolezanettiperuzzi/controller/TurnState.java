@@ -391,13 +391,13 @@ public class TurnState extends ControllerState {
     public void notifyStatusToPlayers() throws IOException {
         for(int i = 0; i<controller.board.getNPlayers(); i++) {
             Player player = controller.board.getPlayer(i);
-            if (player.getConnection().equals("Socket") && player.getUI().equals("GUI") && (player.getLiveStatus())) { //solo GUI perche' altrimenti per la CLI mi blocca il flusso di updateView()
+            if (player.getConnection().equals("Socket") && (player.getUI().equals("GUI") || (player.getUI().equals("CLI") && !player.getName().equals(BeginTurn.getCurrentPlayer()))) && (player.getLiveStatus())) { //solo GUI perche' altrimenti per la CLI mi blocca il flusso di updateView()
 
                 Socket socket = new Socket(player.getAddress(), player.getPort());
                 HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
                 handler.sendUpdateView(gameToString());
 
-            } else if (player.getConnection().equals("RMI") && player.getUI().equals("GUI") && (player.getLiveStatus())) {
+            } else if (player.getConnection().equals("RMI") && (player.getUI().equals("GUI") || (player.getUI().equals("CLI") && !player.getName().equals(BeginTurn.getCurrentPlayer()))) && (player.getLiveStatus())) {
 
 
             }
