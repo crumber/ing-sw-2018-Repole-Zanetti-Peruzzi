@@ -23,16 +23,11 @@ public class GlazingHammerTest {
     public void testCheck() {
 
         player=mock(Player.class);
-        when(player.getTurn()).thenReturn(2);
-        when(player.getInsertDieInThisTurn()).thenReturn(false);
+        when(player.getTurn()).thenReturn(1);
 
         assertEquals(1,testPublicCard.check(board,player,parameterforcard));
 
-        when(player.getInsertDieInThisTurn()).thenReturn(true);
-
-        assertEquals(-13,testPublicCard.check(board,player,parameterforcard));
-
-        when(player.getTurn()).thenReturn(1);
+        when(player.getTurn()).thenReturn(0);
 
         assertEquals(-12,testPublicCard.check(board,player,parameterforcard));
 
@@ -42,7 +37,7 @@ public class GlazingHammerTest {
     public void testEffect() {
 
         player=mock(Player.class);
-        when(player.getTurn()).thenReturn(2);
+        when(player.getTurn()).thenReturn(1);
         when(player.getInsertDieInThisTurn()).thenReturn(false);
 
         Die die1=new Die(Colour.RED);
