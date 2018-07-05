@@ -458,14 +458,25 @@ public class GameView implements ClientStubRMI {
     }
 
     public static void printSagrada(){
+
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_BLACK = "\u001B[30m";
+        String ANSI_RED = "\u001B[31m";
+        String ANSI_GREEN = "\u001B[32m";
+        String ANSI_YELLOW = "\u001B[33m";
+        String ANSI_BLUE = "\u001B[34m";
+        String ANSI_PURPLE = "\u001B[35m";
+        String ANSI_CYAN = "\u001B[36m";
+        String ANSI_WHITE = "\u001B[37m";
+
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.println(" ____                            _       ");
-        System.out.println("/ ___|  __ _  __ _ _ __ __ _  __| | __ _ ");
-        System.out.println("\\___ \\ / _` |/ _` | '__/ _` |/ _` |/ _` |");
-        System.out.println(" ___) | (_| | (_| | | | (_| | (_| | (_| |");
-        System.out.println("|____/ \\__,_|\\__, |_|  \\__,_|\\__,_|\\__,_|     Published by Polimi Inc.");
-        System.out.println("             |___/                       \n\n\n");
+        System.out.println(ANSI_BLUE +" ____                            _       ");
+        System.out.println(ANSI_CYAN +"/ ___|  __ _  __ _ _ __ __ _  __| | __ _ ");
+        System.out.println(ANSI_GREEN +"\\___ \\ / _` |/ _` | '__/ _` |/ _` |/ _` |");
+        System.out.println(ANSI_PURPLE +" ___) | (_| | (_| | | | (_| | (_| | (_| |");
+        System.out.println(ANSI_RED +"|____/ \\__,_|\\__, |_|  \\__,_|\\__,_|\\__,_| "+ANSI_RESET +"    Published by Polimi Inc.");
+        System.out.println(ANSI_YELLOW +"             |___/                       \n\n\n"+ANSI_RESET);
     }
 
     public String getConnection(){

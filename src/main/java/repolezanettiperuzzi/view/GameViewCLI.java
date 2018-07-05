@@ -1347,4 +1347,22 @@ public class GameViewCLI implements Runnable {
         showQuestion(globalGameTime/1000);
     }
 
+    /*public void ranking(){
+
+        String bigspace = "                  ";
+        String bigSpaceX3=bigspace+bigspace+bigspace;
+        String centerPosition=bigSpaceX3 +"             ";
+
+        System.out.println("" +
+                bigSpaceX3 +ANSI_BLUE +"  ____     _    _   _ _  _____ _   _  ____ \n" +
+                bigSpaceX3 +ANSI_CYAN +" |  _ \\   / \\  | \\ | | |/ /_ _| \\ | |/ ___|\n" +
+                bigSpaceX3 +ANSI_YELLOW +" | |_) | / _ \\ |  \\| | ' / | ||  \\| | |  _ \n" +
+                bigSpaceX3 +ANSI_PURPLE +" |  _ < / ___ \\| |\\  | . \\ | || |\\  | |_| |\n" +
+                bigSpaceX3 +ANSI_RED +" |_| \\_\\_/   \\_\\_| \\_|_|\\_\\___|_| \\_|\\____|"+ANSI_RESET);
+
+        //con un for stampare il numero dei giocatori
+        System.out.print("\n" +centerPosition +"1- " +"nome" +"punteggio");
+
+    }*/
+
 }
