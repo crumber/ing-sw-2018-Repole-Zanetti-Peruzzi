@@ -10,6 +10,11 @@ import java.util.Scanner;
 import java.util.Timer;
 import java.util.concurrent.*;
 
+/**
+ * Classe che modella la Game view lato cli
+ * @author Alessandro Peruzzi
+ * @author Andrea Zanetti
+ */
 public class GameViewCLI implements Runnable {
 
     private GameView gV;
@@ -35,6 +40,10 @@ public class GameViewCLI implements Runnable {
     String ANSI_WHITE = "\u001B[37m";
     private static String OS = System.getProperty("os.name");
 
+    /**
+     * Costruttore
+     * @param gV Game view
+     */
     public GameViewCLI(GameView gV){
         this.gV = gV;
         this.isTimerOn = false;
@@ -53,6 +62,9 @@ public class GameViewCLI implements Runnable {
         }*/
     }
 
+    /**
+     * Pulisce lo screen
+     */
     public void clearScreen(){
         if(!OS.startsWith("Windows")){
             System.out.print("\033[H\033[2J");
@@ -74,6 +86,15 @@ public class GameViewCLI implements Runnable {
         }
     }
 
+    /**
+     * Svolge la readline e in caso di scadenza di timeout ritorna che è il tempo è scaduto, se inserisce un valore sbagliato ripone la domanda al client
+     * @param timeout Intero che indica il valore del timeout
+     * @param message Domanda
+     * @param actions Parametri corretti
+     * @param unit Time Unit
+     * @return La stringa della risposta
+     * @throws InterruptedException Interruzione thread
+     */
     public String readLine(int timeout, String message, String[] actions, TimeUnit unit) throws InterruptedException {
         ExecutorService ex = Executors.newSingleThreadExecutor();
         String input = null;
@@ -97,6 +118,10 @@ public class GameViewCLI implements Runnable {
         return input;
     }
 
+    /**
+     * Login scene
+     * @param message Messaggio da stampare
+     */
     public void loginScene(String message){
         Console console = System.console();
         clearScreen();
@@ -135,6 +160,11 @@ public class GameViewCLI implements Runnable {
         }
     }
 
+    /**
+     * Aggiorna la waiting room
+     * @param setTimer Timer
+     * @param players Array di stringhe che rappresentano i vari player
+     */
     public void refreshWaitingRoom(int setTimer, String[] players){
         String playersString = "";
         //se setTimer e' maggiore di 0 allora setto il timer
@@ -175,6 +205,9 @@ public class GameViewCLI implements Runnable {
 
     }
 
+    /**
+     * Imposta la waiting room
+     */
     public void setWaitingRoomScene()  {
         this.lastScene = "waitingRoom";
         if(!this.hasShutdownHook) {
@@ -190,6 +223,9 @@ public class GameViewCLI implements Runnable {
         }
     }
 
+    /**
+     * Imposta la scelta della window
+     */
     public void setChooseWindowScene(){
         this.lastScene = "chooseWindow";
         if(!this.hasShutdownHook) {
@@ -213,6 +249,9 @@ public class GameViewCLI implements Runnable {
         }
     }
 
+    /**
+     * Imposta la scena di gioco
+     */
     public void setGameScene(){
         this.lastScene= "game";
         if(!this.hasShutdownHook) {
@@ -232,6 +271,11 @@ public class GameViewCLI implements Runnable {
 
     }
 
+    /**
+     * Mostra le window
+     * @param windows Window scelta
+     * @param currentTime Timer corrente
+     */
     public void viewWindows(ArrayList<WindowClient> windows, int currentTime) {
 
         String highLowEdge="+———";
@@ -335,6 +379,11 @@ public class GameViewCLI implements Runnable {
         }
     }
 
+    /**
+     * Mostra la window scelta
+     * @param window Window scelta
+     * @param currentTime Timer
+     */
     public void viewOneWindow(WindowClient window, int currentTime) {
 
         String space = "   ";
@@ -405,6 +454,13 @@ public class GameViewCLI implements Runnable {
         System.out.println("\nIn " + currentTime + " seconds the game will start!");
     }
 
+    /**
+     * metodo che ritorna che dado c'è nella box o che vincolo c'è
+     * @param window Window del client
+     * @param x Indica la riga
+     * @param y Indica la colonna
+     * @return Una stringa che rappresenta cosa contiene la box o il vincolo della box
+     */
     public String createWindowCli(WindowClient window, int x, int y){
 
         String bound;
@@ -501,6 +557,11 @@ public class GameViewCLI implements Runnable {
         return bound;
     }
 
+    /**
+     *
+     * @param dieClient Dado
+     * @return Stringa che rappresenta il dado, valore dado colorato del colore del dado
+     */
     public String drawDie(DieClient dieClient){
 
         String bound;
@@ -583,6 +644,11 @@ public class GameViewCLI implements Runnable {
 
     }
 
+    /**
+     * Aggiorna la view
+     * @param boardClient Game board
+     * @param myName Nome client
+     */
     public void updateView(GameBoardClient boardClient, String myName) {
 
         this.boardClient = boardClient;
@@ -857,6 +923,11 @@ public class GameViewCLI implements Runnable {
         System.out.println("ciaoIO");
     }
 
+    /**
+     * Notifica il turno
+     * @param currentPlayer Player corrente
+     * @param currentTime Timer corrente
+     */
     public void notifyTurn(String currentPlayer, int currentTime){
         if(currentPlayer.equals(gV.getUsername())){
             myTurn = true;
@@ -868,12 +939,16 @@ public class GameViewCLI implements Runnable {
         }
     }
 
+    /**
+     * Pone le domande al client su cosa vuole fare
+     * @param currentTime Timer corrente
+     */
     //la prima domanda è relativa a che azione voglio fare cioè i=inserire dado, u=usare carta e p=passare turno
     // dopo vengono poste le domande relative alla scelta fatta e tutto questo mentre si controlla lo scadere del timer
     // una volta finite le domande e aver creato l'array list elle risposte si chiama il metodo
     // sucessivo di quella determinata azione
 
-    //TODO DA TESTARE I DUE METODI QUI SOTTO, SPERO SIANO GIUSTI
+    //TODO DA TESTARE I DUE METODI QUI SOTTO
     public void showQuestion(int currentTime){
 
         globalGameTime = currentTime*1000;
@@ -1036,6 +1111,12 @@ public class GameViewCLI implements Runnable {
         }
     }
 
+    /**
+     * Pone domande relativa alla mossa che vuole fare il client
+     * @param boardClient Game board
+     * @param codeQuestions Codice domanda
+     * @param myName Nome client
+     */
     //come la showquestion ma relativa alla carta tool scelta, se non ha bisogno di parametri allora andra nel default
     public void cardQuestion(GameBoardClient boardClient, ArrayList<String> codeQuestions, String myName){
 
@@ -1315,6 +1396,13 @@ public class GameViewCLI implements Runnable {
         }*/
     }
 
+    /**
+     * Crea il messaggio e i parametri corretti
+     * @param mess Messaggio
+     * @param action Parametri corretti
+     * @param size Size
+     * @return Il messaggio completo e i valori corretti
+     */
     //metodo che evita molto codice clonato e che crea la stringa mess e l'array di stringhe action per le domande
     private  ArrayList<Object> createMessAction(String mess, String[] action, int size){
 
@@ -1341,6 +1429,10 @@ public class GameViewCLI implements Runnable {
         return messActionCompleted;
     }
 
+    /**
+     * Mostra l'errore
+     * @param errorMessage Codice errore
+     */
     public void viewError(String errorMessage){
 
         System.out.println("\n///Illegal Action\n///"+errorMessage+"\n");

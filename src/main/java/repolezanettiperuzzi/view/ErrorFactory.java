@@ -1,6 +1,15 @@
 package repolezanettiperuzzi.view;
 
+/**
+ * Classe che rappresenta gli errori
+ * @author Andrea Zanetti
+ */
 public class ErrorFactory {
+    /**
+     *
+     * @param error String che indica il tipo d'errore
+     * @return Il messaggio che descrive l'errore
+     */
     //ritorna messaggio di errore prendendo il codice errore
     public static String getErrorMessage(String error) {
 

@@ -28,6 +28,7 @@ public class ParametersRequestCardAction{
 
         String requestForToolCard;
         int id=board.getToolCard(whichToolCard).getId();
+        String card11="card11 ";
         String typeMess="requestCard ";
         String start="startPos ";
         String end="endPos ";
@@ -43,7 +44,11 @@ public class ParametersRequestCardAction{
 
             requestForToolCard=draft+end;
 
-        }else if(id==6 || id==11 || id==10){
+        }else if(id==11){
+
+            requestForToolCard=card11+draft;
+
+        }else if(id==6 || id==10){
 
             requestForToolCard=draft;
 

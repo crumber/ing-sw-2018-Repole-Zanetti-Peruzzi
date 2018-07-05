@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.Callable;
 
+/**
+ * Classe che rappresenta l'input read
+ * @author Andrea Zanetti
+ */
 public class ConsoleInputReadTask implements Callable<String> {
 
     private String[] actions;
@@ -12,6 +16,13 @@ public class ConsoleInputReadTask implements Callable<String> {
     private GameView gameView;
     private String lastScene;
 
+    /**
+     * Costruttore
+     * @param actions Stringa che rappresenta l'azione
+     * @param message Messaggio
+     * @param gameView Game view
+     * @param lastScene Stringa che indica l'ultima scena
+     */
     public ConsoleInputReadTask(String[] actions, String message, GameView gameView, String lastScene){
         this.actions = actions;
         this.message = message;
@@ -19,6 +30,11 @@ public class ConsoleInputReadTask implements Callable<String> {
         this.lastScene = lastScene;
     }
 
+    /**
+     * Metodo che gestisce la readline
+     * @return Stringa inserita dall'utente
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public String call() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String input;

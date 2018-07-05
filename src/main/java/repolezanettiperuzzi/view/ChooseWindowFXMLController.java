@@ -32,6 +32,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Classe che modellizza la scelta delle window
+ * @author Andrea Zanetti
+ * @author Giampiero Repole
+ */
 public class ChooseWindowFXMLController extends FXMLController{
 
     private Stage stage;
@@ -65,14 +70,26 @@ public class ChooseWindowFXMLController extends FXMLController{
 
     }
 
+    /**
+     * Inizializza la game view
+     * @param gV Game view
+     */
     public void setGameView(GameView gV){
         this.gV = gV;
     }
 
+    /**
+     * Inizializza la stage
+     * @param stage Vista che visualizza tutta la grafica finestra
+     */
     public void setStage(Stage stage){
         this.stage = stage;
     }
 
+    /**
+     * Inizializza il timer
+     * @param timerDuration Intero che indica la durata del timer
+     */
     public void setTimer(int timerDuration){
 
         timerCounter = timerDuration;
@@ -88,6 +105,9 @@ public class ChooseWindowFXMLController extends FXMLController{
         timerCountdown.play();
     }
 
+    /**
+     * Cancella il timer
+     */
     public void cancelTimer(){
         if(this.timerCountdown != null){
             timerCountdown.stop();
@@ -95,10 +115,17 @@ public class ChooseWindowFXMLController extends FXMLController{
         }
     }
 
+    /**
+     * Notifica l'uscita
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnExit() throws IOException {
         gV.notifyOnExit("chooseWindow");
     }
 
+    /**
+     * Mostra che hai vinto nella scelta delle window perchè gli altri si sono scollegati
+     */
     public void showWinOnChooseWindowAlert(){
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.NONE, "You won! Seems like you're the only player left online!", ButtonType.OK);
@@ -113,6 +140,11 @@ public class ChooseWindowFXMLController extends FXMLController{
         });
     }
 
+    /**
+     * Mostra le window tra cui scegliere la propria window al cliente
+     * @param windows ArrayList delle window del client
+     * @param currentTime Intero che indica valore timer corrente
+     */
     public void viewWindows(ArrayList<WindowClient> windows, int currentTime)  {
 
         this.setTimer(currentTime);
@@ -155,6 +187,11 @@ public class ChooseWindowFXMLController extends FXMLController{
 
     }
 
+    /**
+     * Mostra la window del client
+     * @param window Window scelta dal client
+     * @param currentTime Intero che indica il valore del current time
+     */
     public void viewOneWindow(WindowClient window, int currentTime)  {
 
         this.setTimer(currentTime);
@@ -182,10 +219,18 @@ public class ChooseWindowFXMLController extends FXMLController{
 
     }
 
+    /**
+     * Invia la window scelta
+     * @param windowName Nome della window
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void sendChosenWindow(String windowName) throws IOException {
         gV.sendChosenWindow(windowName);
     }
 
+    /**
+     * Inizializza la game scene
+     */
     public void setGameScene(){
         this.cancelTimer();
 
@@ -217,6 +262,11 @@ public class ChooseWindowFXMLController extends FXMLController{
 
     }
 
+    /**
+     * Quando scegli una finestra
+     * @param e Azione
+     * @param windowName Nome stringa
+     */
     public void onWindowClick (ActionEvent e, String windowName){
 
         if(!alreadyClicked) {

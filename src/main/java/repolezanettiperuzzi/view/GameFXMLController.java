@@ -43,6 +43,11 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Classe che rappresenta il controller del game
+ * @author Andrea Zanetti
+ * @author Giampiero Repole
+ */
 public class GameFXMLController extends FXMLController implements Initializable{
 
     private Stage stage;
@@ -122,14 +127,26 @@ public class GameFXMLController extends FXMLController implements Initializable{
     {
     }
 
+    /**
+     * Inizializza la game view
+     * @param gV Game view
+     */
     public void setGameView(GameView gV){
         this.gV = gV;
     }
 
+    /**
+     * Inizializza lo stage
+     * @param stage Vista che visualizza tutta la grafica finestra
+     */
     public void setStage(Stage stage){
         this.stage = stage;
     }
 
+    /**
+     * Inizializza il timer
+     * @param timerDuration Intero che rappresenta il valore del timer
+     */
     public void setTimer(int timerDuration){
 
         timerCounter = timerDuration-1;
@@ -145,6 +162,9 @@ public class GameFXMLController extends FXMLController implements Initializable{
         timerCountdown.play();
     }
 
+    /**
+     * Cancella il timer
+     */
     public void cancelTimer(){
         if(this.timerCountdown != null){
             timerCountdown.stop();
@@ -152,26 +172,47 @@ public class GameFXMLController extends FXMLController implements Initializable{
         }
     }
 
+    /**
+     * Notifica l'uscita
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnExit() throws IOException {
         gV.notifyOnExit("game");
     }
 
+    /**
+     * Inizializza gli ultimi dadi del draft
+     * @param lastDieDraft Ultimo dado/i sul draft
+     */
     public void setLastDieDraft(int lastDieDraft){
 
         this.lastDieDraft = lastDieDraft;
 
     }
 
+    /**
+     * Inizializza
+     * @param lastDieRT Stringa che rappresenta l'ultimo dado Round track
+     */
     public void setLastDieRT(String lastDieRT){
 
         this.lastDieRT=lastDieRT;
 
     }
 
+    /**
+     *
+     * @return Il turno personale del player
+     */
     public boolean getMyTurn(){
         return this.myTurn;
     }
 
+    /**
+     * Aggiornamento view
+     * @param board Game board
+     * @param currentTime Valore timer corrente
+     */
     public void updateView(GameBoardClient board, int currentTime){
         synchronized (clickLock) {
             //this.setTimer(currentTime);
@@ -306,6 +347,11 @@ public class GameFXMLController extends FXMLController implements Initializable{
         }
     }
 
+    /**
+     * Notifica il turno
+     * @param actualPlayer Stringa che indica il player attuale
+     * @param currentTime Vlore timer corrente
+     */
     public void notifyTurn(String actualPlayer, int currentTime){
         cancelTimer();
         setTimer(currentTime);
@@ -330,6 +376,10 @@ public class GameFXMLController extends FXMLController implements Initializable{
         }
     }
 
+    /**
+     * Mostra draft
+     * @param board Game Board
+     */
     public void viewDraft(GameBoardClient board){
         int j = 0;
         for(int i = 0; i<board.getSizeDraft(); i++){
@@ -349,6 +399,10 @@ public class GameFXMLController extends FXMLController implements Initializable{
         }
     }
 
+    /**
+     * Mostra il roundtrack
+     * @param board Game board
+     */
     public void viewRoundTrack(GameBoardClient board){
 
         ObservableList<Node> childrenRoundTrack = RTGrids.getChildren();
@@ -376,6 +430,13 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     }
 
+    /**
+     * Restituisce la cella della griglia
+     * @param row Indica quale criga
+     * @param column Indica quale colonna
+     * @param gridPane Indica la griglia
+     * @return Nodo della griglia (una cella)
+     */
     public Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
         Node result = null;
         ObservableList<Node> childrens = gridPane.getChildren();
@@ -390,6 +451,10 @@ public class GameFXMLController extends FXMLController implements Initializable{
         return result;
     }
 
+    /**
+     * Mostra l'errore
+     * @param error Stringa che indica il codice d'errore
+     */
     public void viewError(String error){
         showAlert("Illegal Action", error);
         lastDieDraft = -1;
@@ -432,11 +497,20 @@ public class GameFXMLController extends FXMLController implements Initializable{
         }
     }
 
+    /**
+     * Mostra che non è il tuo turno
+     */
     public void notYourTurn(){
         String notYourTurn = "Not your turn";
         showAlert(notYourTurn, notYourTurn+"!");
     }
 
+    /**
+     * Metodo che mostra quando clicchi
+     * @param grid Indica la griglia
+     * @param i Intero
+     * @param rect Rettangolo
+     */
     public void onClickDieDraft(GridPane grid, int i, Rectangle rect){
         if(myTurn) {
             synchronized (clickLock) {
@@ -460,6 +534,11 @@ public class GameFXMLController extends FXMLController implements Initializable{
         }
     }
 
+    /**
+     * Mostra quando clicchi sul roundtrack
+     * @param i Stringa
+     * @param rect Rettangolo
+     */
     public void onClickDieRT(String i, Rectangle rect){
         if(myTurn) {
             synchronized (clickLock) {
@@ -486,6 +565,15 @@ public class GameFXMLController extends FXMLController implements Initializable{
         }
     }
 
+    /**
+     * Inizializza l'evento del draft
+     * @param i Intero
+     * @param j Intero
+     * @param pane Griglia
+     * @param dieView Immagine della view: die view
+     * @param width Larghezza
+     * @param height Altezza
+     */
     public void setDraftEvents(int i, int j, GridPane pane, ImageView dieView, double width, double height){
 
         Rectangle rect = new Rectangle(width, height);
@@ -505,6 +593,15 @@ public class GameFXMLController extends FXMLController implements Initializable{
         rect.setOnMouseReleased(e -> {synchronized(clickLock){onClickDieDraft(pane, i, rect);}});
     }
 
+    /**
+     * Inizializza l'evento del roundtrack
+     * @param i Intero
+     * @param j Intero
+     * @param pane Griglia
+     * @param dieView Immagine della view: dieView
+     * @param width Larghezza
+     * @param height Altezza
+     */
     public void setRoundTrackEvents(int i, int j, GridPane pane, ImageView dieView, double width, double height){
 
         Rectangle rect = new Rectangle(width, height);
@@ -525,6 +622,10 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     }
 
+    /**
+     * Mostra le window
+     * @param board Game board
+     */
     public void viewWindows(GameBoardClient board)  {
 
         int i = 0;
@@ -561,6 +662,9 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     }
 
+    /**
+     * Inizializza la scena del gioco
+     */
     public void setGameScene(){
         this.cancelTimer();
 
@@ -594,6 +698,11 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     }
 
+    /**
+     * Mostra evento click della box
+     * @param e Evento
+     * @param windowName Nome della windo
+     */
     public void onBoxClick (ActionEvent e, String windowName){
 
         Button b = (Button) e.getSource();
@@ -625,12 +734,23 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     }
 
+    /**
+     * Metodo che rappresenta la pressione del mouse
+     * @param e Mouse evento
+     * @param b Bottone
+     * @param backgroundColor Stringa che rappresenta il colore in background
+     */
     public void mousePressed(MouseEvent e, Button b, String backgroundColor){
         b.setPrefHeight(35);
         b.setStyle(getPressedButtonStyle(backgroundColor));
         mouseOut = false;
     }
 
+    /**
+     * Mostra l'alert
+     * @param title Titolo
+     * @param text Testo dell'alert
+     */
     public void showAlert(String title, String text){
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.NONE, text, ButtonType.OK);
@@ -647,6 +767,12 @@ public class GameFXMLController extends FXMLController implements Initializable{
         });
     }
 
+    /**
+     * Mostra l'alert della carta
+     * @param idButton Id del bottone
+     * @param title Titolo
+     * @param text Tetso
+     */
     public void showCardAlert (String idButton, String title, String text){
 
         if(myTurn) {
@@ -679,6 +805,9 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     }
 
+    /**
+     * Controlla i parametri di inserimento di un dado
+     */
     public void checkInsertDieParameters(){
         if(myTurn) {
             if (this.lastDieDraft >= 0 && lastWindowCells.size()>0) {
@@ -700,6 +829,10 @@ public class GameFXMLController extends FXMLController implements Initializable{
         }
     }
 
+    /**
+     * Scelta della carta
+     * @param numCard Numero della carta
+     */
     public void chooseCard(int numCard){
 
         try {
@@ -714,6 +847,9 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     }
 
+    /**
+     * Invio parametri della carta
+     */
     public void sendCardParameters(){
 
 
@@ -837,6 +973,14 @@ public class GameFXMLController extends FXMLController implements Initializable{
         }
     }
 
+    /**
+     * Effetto del mouse e chiamata del metodo
+     * @param e Evento mouse
+     * @param b Bottone
+     * @param id Id
+     * @param backgroundColor Stringa che rappresenta il colore del background
+     * @param shadowColor Colore dell'ombra
+     */
     public void mouseReleased(MouseEvent e, Button b, String id, String backgroundColor, String shadowColor){
         b.setPrefHeight(41);
         b.setStyle(getIdleButtonStyle(backgroundColor, shadowColor));
@@ -862,21 +1006,46 @@ public class GameFXMLController extends FXMLController implements Initializable{
         }
     }
 
+    /**
+     *
+     * @param backgroundColor Stringa che rappresenta il colore del background
+     * @param shadowColor Colore dell'ombra
+     * @return Stringa che rappresenta lo stile corretto dei pulsanti
+     */
     public String getIdleButtonStyle(String backgroundColor, String shadowColor){
         final String IDLE_BUTTON_STYLE = "-fx-padding: 8 15 15 15; -fx-background-insets: 0 0 7 0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: 8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, "+shadowColor+" 0%, "+shadowColor+" 100%),        "+shadowColor+",        "+shadowColor+",        radial-gradient(center 50% 50%, radius 100%, "+backgroundColor+", "+backgroundColor+"); -fx-font-weight: bold; -fx-font-size: 1.1em; -fx-font-family: \"Arial\";";
         return IDLE_BUTTON_STYLE;
     }
 
+    /**
+     *
+     * @param backgroundColor Stringa che rappresenta il colore del background
+     * @param shadowColor Colore dell'ombra
+     * @return Stringa che rappresenta lo stile corretto dei pulsanti
+     */
     public String getHoverButtonStyle(String backgroundColor, String shadowColor){
         String HOVER_BUTTON_STYLE = "-fx-padding: 8 15 15 15; -fx-background-insets: 0 0 7 0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: 8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, "+shadowColor+" 0%, "+shadowColor+" 100%),        "+shadowColor+",        "+shadowColor+",        radial-gradient(center 50% 50%, radius 100%, "+backgroundColor+", "+backgroundColor+"); -fx-font-weight: bold; -fx-font-size: 1.1em; -fx-font-family: \"Arial\";";
         return HOVER_BUTTON_STYLE;
     }
 
+    /**
+     *
+     * @param backgroundColor Stringa che rappresenta il colore del background
+     * @return Stringa che rappresenta lo stile corretto dei pulsanti
+     */
     public String getPressedButtonStyle(String backgroundColor){
         final String PRESSED_BUTTON_STYLE = "-fx-padding: 6 6 6 6; -fx-background-radius: 8; -fx-background-color: "+backgroundColor+"; -fx-font-weight: bold; -fx-font-size: 1.1em; -fx-font-family: \"Arial\";";
         return PRESSED_BUTTON_STYLE;
     }
 
+    /**
+     * Inizializza i bottoni
+     * @param b Bottone
+     * @param id Id
+     * @param backgroundColor Stringa che rappresenta il colore del background
+     * @param shadowColor Colore dell'ombra
+     * @param hoverColor Colore
+     */
     public void setButtonEvents(Button b, String id, String backgroundColor, String shadowColor, String hoverColor){
         b.setId(id);
         b.setStyle(getIdleButtonStyle(backgroundColor, shadowColor));
@@ -889,14 +1058,27 @@ public class GameFXMLController extends FXMLController implements Initializable{
         b.setOnMouseEntered(e -> b.setStyle(getHoverButtonStyle(hoverColor, shadowColor)));
     }
 
+    /**
+     *
+     * @return ArrayList delle coordinate delle ultime celle
+     */
     public ArrayList<Coordinates> getLastWindowCells(){
         return this.lastWindowCells;
     }
 
+    /**
+     *
+     * @return Intero che rappresenta il numero di celle selezionabili
+     */
     public int getNumSelectableCells(){
         return numSelectableCells;
     }
 
+    /**
+     * Inizializza i vari bottoni e la situazione
+     * @param location URL
+     * @param resources Risorse
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         alreadyUpdated = false;
@@ -929,6 +1111,10 @@ public class GameFXMLController extends FXMLController implements Initializable{
         setButtonEvents(currentPlayerButton, "currentPlayerButton","#1895d7","#084c8a", "#00c0ff");
     }
 
+    /**
+     * Mostra le carte
+     * @param board Game board
+     */
     public void viewCards(GameBoardClient board){
 
         int i = 0;
@@ -988,12 +1174,20 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     }
 
+    /**
+     * Mostra il colore segreto
+     * @param board Game Board
+     */
     public void viewSecretColor(GameBoardClient board){
 
         Platform.runLater(() -> secretColor.setImage(new Image(new DynamicPath("assets/SecretColors/"+board.getPlayerByName(gV.getUsername()).getSecretColour().toString()+".png").getPath())));
 
     }
 
+    /**
+     * Mostra i favor tokens
+     * @param board Game board
+     */
     public void viewFavorTokens(GameBoardClient board){
 
         for(PlayerClient player: board.getPlayers()) {
@@ -1027,6 +1221,10 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     }
 
+    /**
+     * Imposta la visible window a true o false
+     * @param idWindow Id della window
+     */
     public void setVisibleWindow(String idWindow){
 
         for (Node node: playerWindow.getChildren()) {
@@ -1059,6 +1257,10 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     }
 
+    /**
+     * Imposta il rettangolo del round
+     * @param board Game board
+     */
     public void setRoundRectangle(GameBoardClient board) {
 
         switch(board.getRound()){
@@ -1207,6 +1409,10 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     }
 
+    /**
+     * Imposta il turno corrente
+     * @param board Game board
+     */
     public void setCurrentTurn(GameBoardClient board){
 
         //System.out.println(board.getTurn());
@@ -1214,6 +1420,10 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     }
 
+    /**
+     * Mostra i parametri delle carte
+     * @param parameters Stringa di parametri
+     */
     public void showCardParameters(String[] parameters){
 
         this.cardParameters = parameters;
@@ -1351,6 +1561,9 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     }
 
+    /**
+     * Click della fine del turno
+     */
     public void onClickEndTurn() {
 
         if(myTurn){

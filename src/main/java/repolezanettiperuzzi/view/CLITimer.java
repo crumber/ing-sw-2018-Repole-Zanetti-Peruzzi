@@ -1,5 +1,9 @@
 package repolezanettiperuzzi.view;
 
+/**
+ * Classe che modellizza il timer della cli
+ * @author Andrea Zanetti
+ */
 import repolezanettiperuzzi.controller.Controller;
 
 import java.util.Timer;
@@ -11,12 +15,20 @@ public class CLITimer extends TimerTask {
     private Timer timer;
     private int currentTime;
 
+    /**
+     * Costruttore
+     * @param players Stringa che indica il player
+     * @param currentTime Intero che indica valore timer
+     */
     public CLITimer(String players, int currentTime){
         this.players = players;
         this.currentTime = currentTime;
         this.timer = new Timer();
     }
 
+    /**
+     * Mostra i giocatori in attesa e il timer
+     */
     @Override
     public void run() {
 
@@ -35,11 +47,20 @@ public class CLITimer extends TimerTask {
 
     }
 
+    /**
+     * Inizializza il timer e il player
+     * @param currentTime Intero che indica valore timer corrente
+     * @param players Stringa che rapprenta il player
+     */
     public void setTimeAndPlayer(int currentTime, String players){
         this.currentTime = currentTime;
         this.players = players;
     }
 
+    /**
+     *
+     * @return Tempo rimanente
+     */
     public Timer getTimer(){
 
         return this.timer;

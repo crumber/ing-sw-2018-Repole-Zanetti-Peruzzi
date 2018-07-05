@@ -14,6 +14,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
+/**
+ * Classe che modella la Game vie
+ * @author Alessandro Peruzzi
+ * @author Andrea Zanetti
+ * @author Giampiero Repole
+ */
 //lato client della view che chiama i metodi in remoto del controller
 //prendo i dati gia' elaborati da RMI o Socket e li passo a GameViewCLI o GameViewGUI
 public class GameView implements ClientStubRMI {
@@ -39,6 +45,9 @@ public class GameView implements ClientStubRMI {
     private boolean win;
     private boolean alreadyExit;
 
+    /**
+     * Costruttore
+     */
     public GameView(){
         this.onReceiveCallback = data -> gvSocket.handleMessage(data);
         this.login = false;
@@ -49,6 +58,10 @@ public class GameView implements ClientStubRMI {
         this.alreadyExit = false;
     }
 
+    /**
+     * Main
+     * @param args Parametri del main
+     */
     public static void main(String args[]) {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -78,6 +91,15 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Svolge il login
+     * @param username Nome player
+     * @param pwd Password
+     * @param conn Connessione
+     * @param UI Interfaccia grafica
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     * @throws InterruptedException Interruzione thread
+     */
     public void onLogin(String username, String pwd, String conn, String UI) throws IOException, InterruptedException {
         int port = 0;
         if(!login) {
@@ -179,6 +201,9 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Alert che nome gia usato da un player online
+     */
     public void showPlayerAlreadyOnlineAlert(){
         this.login = false;
         this.rejectedLogin = true;
@@ -189,6 +214,9 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Alert di password errata
+     */
     public void showWrongPwdAlert(){
         this.login = false;
         this.rejectedLogin = true;
@@ -199,6 +227,9 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Mostra che il gioco è gia iniziato
+     */
     public void showGameAlreadyStarted(){
         this.login = false;
         this.rejectedLogin = true;
@@ -209,6 +240,9 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Mostra che il numero massimo di player è stato raggiunto
+     */
     public void showAlready4Players(){
         this.login = false;
         this.rejectedLogin = true;
@@ -219,6 +253,9 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Alert che dice che hai vinto perchè non ci sono altri giocatori online
+     */
     public void showWinOnChooseWindowAlert(){
         this.login = false;
         this.rejectedLogin = true;
@@ -279,6 +316,9 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Shutdown del client
+     */
     public void shutdownClient(){
         if(this.login) {
             //System.out.println("logout");
@@ -286,6 +326,11 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Aggiornamento waiting room
+     * @param setTimer Timer
+     * @param players Array di stringhe che rappresentano i player
+     */
     public void refreshWaitingRoom(int setTimer, String[] players){
         if(this.UI.equals("GUI")){
             ((WaitingRoomFXMLController) fxmlController).refreshPlayers(setTimer, players);
@@ -294,6 +339,9 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Entra nella waiting room
+     */
     public void enterWaitingRoom(){
         rejectedLogin = false;
         if(this.UI.equals("GUI")){
@@ -303,6 +351,9 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Entra nella scelta delle window
+     */
     public void enterChooseWindow(){
         if(this.UI.equals("GUI")){
             if(fxmlController instanceof WaitingRoomFXMLController) {
@@ -316,6 +367,9 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Entra nel gioco
+     */
     public void enterGame(){
         if(this.UI.equals("GUI")){
             if(fxmlController instanceof ChooseWindowFXMLController) {
@@ -329,6 +383,10 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Caricamento waiting room
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void waitingRoomLoaded() throws IOException {
         if(connection.equals("Socket")){
             gvSocket = new GameViewSocket(this);
@@ -338,6 +396,10 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Caricamento scelta delle window
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void chooseWindowSceneLoaded() throws IOException {
         if(connection.equals("Socket")){
             gvSocket = new GameViewSocket(this);
@@ -347,6 +409,10 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Caricamento gioco
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void gameLoaded() throws IOException {
         if(connection.equals("Socket")){
             gvSocket = new GameViewSocket(this);
@@ -356,6 +422,10 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Mostra l'errore
+     * @param error Stringa codice errore
+     */
     public void viewError(String error){
         if(this.UI.equals("GUI")){
             ((GameFXMLController) fxmlController).viewError(ErrorFactory.getErrorMessage(error));
@@ -364,6 +434,13 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Invia l'inserimento del dado
+     * @param draftPos Indica la posizione nel draft
+     * @param xWindowPos Indica la coordinata x
+     * @param yWindowPos Indica la coordinata y
+     * @throws IOException  Fallimento o interruzione delle operazioni I/O
+     */
     public void sendInsertDie(int draftPos, int xWindowPos, int yWindowPos) throws IOException {
         if(connection.equals("Socket")){
             gvSocket = new GameViewSocket(this);
@@ -373,6 +450,11 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Invia la scelta della carta
+     * @param numCard Numero della carta
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void sendChooseCard(int numCard) throws IOException {
 
         if(connection.equals("Socket")){
@@ -385,6 +467,10 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Riceve i parametri della carta
+     * @param parameters Stringa che indica i parametri
+     */
     public void receiveCardParameters(String parameters){
 
         String[] separatedParameters = parameters.split("-");
@@ -398,6 +484,12 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Invia risposte delle tool card
+     * @param nCard Numero carta
+     * @param response Risposta
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void sendResponseToolCard(int nCard, String response) throws IOException {
         if(connection.equals("Socket")){
             gvSocket = new GameViewSocket(this);
@@ -407,6 +499,9 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Avvisa che non è il tuo turno
+     */
     public void notYourTurn(){
         if(this.UI.equals("GUI")){
             ((GameFXMLController) fxmlController).notYourTurn();
@@ -415,6 +510,11 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Notifica il turno
+     * @param actualPlayer Player attuale
+     * @param currentTime Timer corrente
+     */
     public void notifyTurn(String actualPlayer, int currentTime){
         if(this.UI.equals("GUI")){
             ((GameFXMLController) fxmlController).notifyTurn(actualPlayer, currentTime);
@@ -423,6 +523,11 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Mostra le 4 window da cui sceglierne una
+     * @param windows Lista di 4 window da cui scegliere
+     * @param currentTime Timer
+     */
     public synchronized void viewWindows(ArrayList<WindowClient> windows, int currentTime){
         if(this.UI.equals("GUI")){
             ((ChooseWindowFXMLController) fxmlController).viewWindows(windows,currentTime);
@@ -431,6 +536,11 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Mostra la singola window scelta
+     * @param window window scelta
+     * @param currentTime Timer
+     */
     public void viewOneWindow(WindowClient window, int currentTime){
         if(this.UI.equals("GUI")){
             ((ChooseWindowFXMLController) fxmlController).viewOneWindow(window,currentTime);
@@ -439,6 +549,11 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Invia la window scelta
+     * @param windowName Nome della window
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void sendChosenWindow(String windowName) throws IOException {
         if(connection.equals("Socket")){
             gvSocket = new GameViewSocket(this);
@@ -448,6 +563,10 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Invia la fine del turno
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void sendEndTurnButton() throws IOException {
         if(connection.equals("Socket")){
             gvSocket = new GameViewSocket(this);
@@ -457,6 +576,9 @@ public class GameView implements ClientStubRMI {
         }
     }
 
+    /**
+     * Stampa SAGRADA
+     */
     public static void printSagrada(){
 
         String ANSI_RESET = "\u001B[0m";
@@ -479,22 +601,42 @@ public class GameView implements ClientStubRMI {
         System.out.println(ANSI_YELLOW +"             |___/                       \n\n\n"+ANSI_RESET);
     }
 
+    /**
+     *
+     * @return La connessione
+     */
     public String getConnection(){
         return this.connection;
     }
 
+    /**
+     *
+     * @return User name
+     */
     public String getUsername(){
         return this.username;
     }
 
+    /**
+     *
+     * @return Game view socket
+     */
     public GameViewSocket getGvSocket(){
         return this.gvSocket;
     }
 
+    /**
+     * Imposta il controller FXML
+     * @param fxmlController Controller FXML
+     */
     public void setFXMLController(FXMLController fxmlController){
         this.fxmlController = fxmlController;
     }
 
+    /**
+     * Imposta la Game view cli
+     * @param gvCLI Game view cli
+     */
     public void setGVCLI(GameViewCLI gvCLI){
         this.UI = "CLI";
         this.gvCLI = gvCLI;
@@ -510,6 +652,10 @@ public class GameView implements ClientStubRMI {
         this.RMIActive = true;
     }
 
+    /**
+     * Aggiorna la view
+     * @param board Game board
+     */
     public void updateView(GameBoardClient board) {
         if(this.UI.equals("GUI")){
             ((GameFXMLController) fxmlController).updateView(board, 100);
