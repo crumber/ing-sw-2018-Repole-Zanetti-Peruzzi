@@ -799,7 +799,7 @@ public class GameViewCLI implements Runnable {
 
 
         // ROUND TRACK AND ROUND GAME
-        System.out.print(space +bigspace +ANSI_CYAN +"ROUND TRACK" +ANSI_RESET +bigspace +bigspace +bigspace +bigspace +"ROUND GAME: " +boardClient.getRound() +space +"TURN: " +boardClient.getTurn()+"\n\n");
+        System.out.print(space +bigspace +ANSI_CYAN +"ROUND TRACK" +ANSI_RESET +bigspace +bigspace +bigspace +bigspace +"ROUND GAME: " +boardClient.getRound() +space +"TURN: " +(boardClient.getTurn()+1)+"\n\n");
         for(int i=0;i<10;i++){
 
             System.out.print(space +"ROUND " +(i+1) +": ");
