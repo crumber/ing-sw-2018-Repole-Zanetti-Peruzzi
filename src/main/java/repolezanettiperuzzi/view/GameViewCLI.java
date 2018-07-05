@@ -796,7 +796,7 @@ public class GameViewCLI implements Runnable {
 
 
         // ROUND TRACK AND ROUND GAME
-        System.out.print(space +bigspace +ANSI_CYAN +"ROUND TRACK" +ANSI_RESET +bigspace +bigspace +bigspace +bigspace +"ROUND GAME: " +boardClient.getRound() +"\n\n");
+        System.out.print(space +bigspace +ANSI_CYAN +"ROUND TRACK" +ANSI_RESET +bigspace +bigspace +bigspace +bigspace +"ROUND GAME: " +boardClient.getRound() +space +"TURN: " +boardClient.getTurn()+"\n\n");
         for(int i=0;i<10;i++){
 
             System.out.print(space +"ROUND " +(i+1) +": ");
@@ -1466,7 +1466,12 @@ public class GameViewCLI implements Runnable {
         showQuestion(globalGameTime/1000);
     }
 
-    /*public void ranking(){
+    /**
+     * Stampa il ranking
+     * @param ranking Array di stringhe: nome punteggio, gia ordinto in modo decrescente e di dimensione del numero dei player
+     * @param boardClient Game board
+     */
+    public void showRanking(String[] ranking, GameBoardClient boardClient){
 
         String bigspace = "                  ";
         String bigSpaceX3=bigspace+bigspace+bigspace;
@@ -1480,8 +1485,11 @@ public class GameViewCLI implements Runnable {
                 bigSpaceX3 +ANSI_RED +" |_| \\_\\_/   \\_\\_| \\_|_|\\_\\___|_| \\_|\\____|"+ANSI_RESET);
 
         //con un for stampare il numero dei giocatori
-        System.out.print("\n" +centerPosition +"1- " +"nome" +"punteggio");
+        for(int i=0; i<boardClient.getNPlayers(); i++){
 
-    }*/
+            System.out.print("\n" +centerPosition +"1- " +ranking[i]);
+        }
+
+    }
 
 }

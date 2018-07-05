@@ -13,7 +13,7 @@ public class CalculateScore {
     /**
      * calcola il punteggio finale di tutti i player
      * @param board game board
-     * @return ritorna un hashMap con chiave il nome del player e il suo punteggio finale
+     * @return ritorna una stringa nome_punteggio inordine di chi ha il punteggio maggiore
      */
     public String doAction(GameBoard board){
 
