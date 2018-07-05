@@ -34,7 +34,7 @@ public class GameViewRMIServer {
      * @throws RemoteException Eccezione RMI
      * @throws NotBoundException Non associazione
      */
-    public ControllerStubRMI bind() throws RemoteException, NotBoundException {
+    public ControllerStubRMI bind(String serverAddr) throws RemoteException, NotBoundException {
         System.setProperty("java.rmi.server.useCodebaseOnly", "false");
         System.setProperty("java.rmi.server.logCalls", "false");
 
@@ -46,7 +46,7 @@ public class GameViewRMIServer {
             System.setSecurityManager(new SecurityManager());
         }
 
-        String serverIp = "127.0.0.1";
+        String serverIp = serverAddr;
 
         Registry registry= LocateRegistry.getRegistry(serverIp, 1099);
         //System.out.print("RMI registry bindings: ");

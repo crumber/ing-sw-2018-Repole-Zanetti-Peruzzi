@@ -59,12 +59,12 @@ public class GameViewGUI extends Application{
 
         primaryStage.getIcons().add(new javafx.scene.image.Image(new File("assets/icon.png").toURI().toString()));
 
-        MenuBar menuBar = new MenuBar();
+        //MenuBar menuBar = new MenuBar();
 
         // --- Menu File
-        Menu menuFile = new Menu("About"); //TODO metti info programma
+        //Menu menuFile = new Menu("About"); //TODO metti info programma
 
-        menuBar.getMenus().addAll(menuFile);
+        //menuBar.getMenus().addAll(menuFile);
 
         final String os = System.getProperty("os.name");
         /*if (os != null && os.startsWith("Mac")) {
@@ -73,7 +73,7 @@ public class GameViewGUI extends Application{
             com.apple.eawt.Application.getApplication().setDockIconImage(image);
         }*/
 
-        root.getChildren().addAll(menuBar);
+        //root.getChildren().addAll(menuBar);
 
         // Set the Scene to the Stage
         primaryStage.setScene(scene);

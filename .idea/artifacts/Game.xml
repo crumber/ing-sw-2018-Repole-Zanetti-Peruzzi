@@ -1,0 +1,28 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Game">
+    <output-path>$PROJECT_DIR$/out/artifacts/Game</output-path>
+    <root id="archive" name="Game.jar">
+      <element id="module-output" name="Sagrada" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy-agent/1.7.9/byte-buddy-agent-1.7.9.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy/1.7.9/byte-buddy-1.7.9.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/mockito/mockito-core/2.15.0/mockito-core-2.15.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/objenesis/objenesis/2.6/objenesis-2.6.jar" path-in-jar="/" />
+      <element id="directory" name="assets">
+        <element id="dir-copy" path="$PROJECT_DIR$/assets" />
+      </element>
+      <element id="directory" name="fxml">
+        <element id="dir-copy" path="$PROJECT_DIR$/fxml" />
+      </element>
+      <element id="directory" name="RMI">
+        <element id="dir-copy" path="$PROJECT_DIR$/RMI" />
+      </element>
+      <element id="directory" name="gamedata">
+        <element id="dir-copy" path="$PROJECT_DIR$/gamedata" />
+      </element>
+      <element id="directory" name="cards">
+        <element id="dir-copy" path="$PROJECT_DIR$/cards" />
+      </element>
+    </root>
+  </artifact>
+</component>

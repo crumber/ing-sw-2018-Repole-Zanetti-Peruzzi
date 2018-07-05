@@ -45,6 +45,7 @@ public class GameView implements ClientStubRMI {
     private boolean rejectedLogin; //useful to know if login has been rejected, because server socket and RMI have been started and have to be shut down during notifyOnExit()
     private boolean win;
     private boolean alreadyExit;
+    private String serverIp;
 
     /**
      * Costruttore
@@ -97,21 +98,21 @@ public class GameView implements ClientStubRMI {
      * @param username Nome player
      * @param pwd Password
      * @param conn Connessione
-     * @param UI Interfaccia grafica
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      * @throws InterruptedException Interruzione thread
      */
-    public void onLogin(String username, String pwd, String conn, String UI) throws IOException, InterruptedException {
+    public void onLogin(String username, String pwd, String conn, String UI, String serverIp) throws IOException, InterruptedException {
         int port = 0;
         if(!login) {
             this.username = username;
             this.connection = conn;
             this.UI = UI;
+            this.serverIp = serverIp;
             this.login = true;
 
             if (connection.equals("Socket")) {
                 //mi serve creae prima l'oggetto in caso venga chiamata la onReceiveCallback su un oggetto che non esiste
-                gvSocket = new GameViewSocket(this);
+                gvSocket = new GameViewSocket(this, serverIp);
                 if(this.localPort==0) {
                     gvSocketServer = new GameViewSocket(onReceiveCallback);
                     this.serverThread = new Thread(gvSocketServer);
@@ -132,13 +133,13 @@ public class GameView implements ClientStubRMI {
                         @Override
                         public void run() {
                             ((LoginFXMLController) fxmlController).showProgressIndicator();
-                            initRMI(gameView, pwd, conn);
+                            initRMI(gameView, pwd, conn, serverIp);
                         }
                     });
                     startingRMIThread.start();
                 } else if(this.UI.equals("CLI")){
                     System.out.println("Connecting to RMI Server... (this may take up to 20 seconds)");
-                    initRMI(gameView, pwd, conn);
+                    initRMI(gameView, pwd, conn, serverIp);
                 }
 
 
@@ -154,14 +155,14 @@ public class GameView implements ClientStubRMI {
      * @param pwd Password inserita dall'utente
      * @param conn Connessione scelta dall'utente (RMI/Socket)
      */
-    private void initRMI(GameView gameView, String pwd, String conn){
+    private void initRMI(GameView gameView, String pwd, String conn, String serverIp){
         if(gvRMIServer==null){
             gvRMIServer = new GameViewRMIServer(gameView);
         }
         String message = "";
         try {
             if(stub==null) {
-                stub = gvRMIServer.bind();
+                stub = gvRMIServer.bind(serverIp);
             }
             message = stub.init(gvRMIServer.getClientStub(), username, pwd, conn, UI);
         } catch (NotBoundException e) {
@@ -284,13 +285,13 @@ public class GameView implements ClientStubRMI {
         if((this.login || rejectedLogin) && !alreadyExit) {   //se non ho fatto il login significa che ho chiuso la GUI per chiudere il gioco
             if (connection.equals("Socket")) {
                 if(win && UI.equals("GUI")){
-                    gvSocket = new GameViewSocket(this);
+                    gvSocket = new GameViewSocket(this, serverIp);
                     gvSocket.notifyOnExit(username, typeView);
                     alreadyExit = true;
                     System.exit(0);
                 } else {
                     //System.out.println("ci sono");
-                    gvSocket = new GameViewSocket(this);
+                    gvSocket = new GameViewSocket(this, serverIp);
                     gvSocket.notifyOnExit(username, typeView);
                     alreadyExit = true;
                 }
@@ -393,7 +394,7 @@ public class GameView implements ClientStubRMI {
      */
     public void waitingRoomLoaded() throws IOException {
         if(connection.equals("Socket")){
-            gvSocket = new GameViewSocket(this);
+            gvSocket = new GameViewSocket(this, serverIp);
             gvSocket.waitingRoomLoaded(username);
         } else if(connection.equals("RMI")){
             stub.waitingRoomLoaded(username);
@@ -406,7 +407,7 @@ public class GameView implements ClientStubRMI {
      */
     public void chooseWindowSceneLoaded() throws IOException {
         if(connection.equals("Socket")){
-            gvSocket = new GameViewSocket(this);
+            gvSocket = new GameViewSocket(this, serverIp);
             gvSocket.chooseWindowSceneLoaded(username);
         } else if(connection.equals("RMI")){
             stub.chooseWindowSceneLoaded(username);
@@ -419,10 +420,19 @@ public class GameView implements ClientStubRMI {
      */
     public void gameLoaded() throws IOException {
         if(connection.equals("Socket")){
-            gvSocket = new GameViewSocket(this);
+            gvSocket = new GameViewSocket(this, serverIp);
             gvSocket.gameSceneLoaded(username);
         } else if(connection.equals("RMI")){
-            stub.readyToPlay(username);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                        try {
+                            stub.readyToPlay(username);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+                }
+            }).start();
         }
     }
 
@@ -447,7 +457,7 @@ public class GameView implements ClientStubRMI {
      */
     public void sendInsertDie(int draftPos, int xWindowPos, int yWindowPos) throws IOException {
         if(connection.equals("Socket")){
-            gvSocket = new GameViewSocket(this);
+            gvSocket = new GameViewSocket(this, serverIp);
             gvSocket.sendInsertDie(username, draftPos, xWindowPos, yWindowPos);
         } else if(connection.equals("RMI")){
             new Thread(new Runnable() {
@@ -472,7 +482,7 @@ public class GameView implements ClientStubRMI {
 
         if(connection.equals("Socket")){
 
-            gvSocket = new GameViewSocket(this);
+            gvSocket = new GameViewSocket(this, serverIp);
             gvSocket.sendChooseCard(username, numCard);
 
         }else if(connection.equals("RMI")){
@@ -515,7 +525,7 @@ public class GameView implements ClientStubRMI {
      */
     public void sendResponseToolCard(int nCard, String response) throws IOException {
         if(connection.equals("Socket")){
-            gvSocket = new GameViewSocket(this);
+            gvSocket = new GameViewSocket(this, serverIp);
             gvSocket.sendResponseToolCard(username, nCard, response);
         }else if(connection.equals("RMI")){
             new Thread(new Runnable() {
@@ -551,7 +561,6 @@ public class GameView implements ClientStubRMI {
         if(this.UI.equals("GUI")){
             ((GameFXMLController) fxmlController).notifyTurn(actualPlayer, currentTime);
         }else if(this.UI.equals("CLI")){
-            System.out.println("ricevo turn");
             gvCLI.notifyTurn(actualPlayer, currentTime);
         }
     }
@@ -589,7 +598,7 @@ public class GameView implements ClientStubRMI {
      */
     public void sendChosenWindow(String windowName) throws IOException {
         if(connection.equals("Socket")){
-            gvSocket = new GameViewSocket(this);
+            gvSocket = new GameViewSocket(this, serverIp);
             gvSocket.sendChosenWindow(username, windowName);
         } else if(connection.equals("RMI")){
             stub.sendChosenWindow(username, windowName);
@@ -602,7 +611,7 @@ public class GameView implements ClientStubRMI {
      */
     public void sendEndTurn() throws IOException {
         if(connection.equals("Socket")){
-            gvSocket = new GameViewSocket(this);
+            gvSocket = new GameViewSocket(this, serverIp);
             gvSocket.sendEndTurn(username);
         }else if(connection.equals("RMI")){
             new Thread(new Runnable() {
@@ -704,7 +713,6 @@ public class GameView implements ClientStubRMI {
         if(this.UI.equals("GUI")){
             ((GameFXMLController) fxmlController).updateView(board);
         } else if(this.UI.equals("CLI")){
-            System.out.println("ricevo update");
             gvCLI.updateView(board, username);
         }
     }

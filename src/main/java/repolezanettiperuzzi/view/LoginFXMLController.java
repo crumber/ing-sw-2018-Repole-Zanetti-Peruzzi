@@ -45,7 +45,7 @@ public class LoginFXMLController extends FXMLController{
     private ToggleGroup groupConn;
 
     @FXML
-    private ToggleGroup groupUI;
+    private TextField ipTextField;
 
     @FXML
     private Button sendButton;
@@ -102,10 +102,9 @@ public class LoginFXMLController extends FXMLController{
         if ((!textFieldName.getText().equals("") && !textFieldPwd.getText().equals(""))) {
 
             RadioButton conn = (RadioButton) groupConn.getSelectedToggle();
-            RadioButton userInt = (RadioButton) groupUI.getSelectedToggle();
             Platform.runLater(() -> {
                 try {
-                    gV.onLogin(textFieldName.getText(), textFieldPwd.getText(), conn.getText(), userInt.getText());
+                    gV.onLogin(textFieldName.getText(), textFieldPwd.getText(), conn.getText(), "GUI", ipTextField.getText());
                 } catch (IOException | InterruptedException e) {
                     e.printStackTrace();
                 }

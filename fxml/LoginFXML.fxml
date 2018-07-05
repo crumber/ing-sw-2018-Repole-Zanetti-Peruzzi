@@ -1,76 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Text?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<Group fx:id="group" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<Group fx:id="group" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
     <fx:define>
-        <ToggleGroup fx:id="groupConn"/>
-        <ToggleGroup fx:id="groupUI"/>
+        <ToggleGroup fx:id="groupConn" />
     </fx:define>
     <children>
-        <ImageView fx:id="bg" fitWidth="600" preserveRatio="true" smooth="true" cache="true">
+        <ImageView fx:id="bg" cache="true" fitWidth="600" preserveRatio="true" smooth="true">
             <image>
                 <Image url="@../assets/sagradaBg.jpg" />
             </image>
         </ImageView>
-        <Rectangle x="175" y="230" width="250" height="320" arcWidth="40" arcHeight="40" fill="lightgray" opacity="0.95"></Rectangle>
-        <Text x="195" y="260" text="Username">
+        <Rectangle arcHeight="40" arcWidth="40" fill="lightgray" height="320" opacity="0.95" width="250" x="175" y="230" />
+        <Text text="Username" x="195" y="260">
             <font>
                 <Font size="15" />
             </font>
         </Text>
-        <TextField fx:id="textFieldName" layoutX="195" layoutY="270" prefWidth="210"></TextField>
-        <Text x="195" y="320" text="Password">
+        <TextField fx:id="textFieldName" layoutX="195" layoutY="270" prefWidth="210" />
+        <Text text="Password" x="195" y="320">
             <font>
                 <Font size="15" />
             </font>
         </Text>
-        <PasswordField fx:id="textFieldPwd" layoutX="195" layoutY="330" prefWidth="210"></PasswordField>
+        <PasswordField fx:id="textFieldPwd" layoutX="195" layoutY="330" prefWidth="210" />
 
-        <Text x="195" y="390" text="Connection">
+        <Text text="Connection" x="195" y="390">
             <font>
                 <Font size="15" />
             </font>
         </Text>
 
         <HBox fx:id="hbConn" layoutX="195" layoutY="400" spacing="50">
-            <RadioButton fx:id="rmi" text="RMI" selected="true" toggleGroup="$groupConn"/>
-            <RadioButton fx:id="sock" text="Socket" toggleGroup="$groupConn"/>
+            <RadioButton fx:id="rmi" selected="true" text="RMI">
+            <toggleGroup>
+               <ToggleGroup fx:id="groupConn" />
+            </toggleGroup></RadioButton>
+            <RadioButton fx:id="sock" text="Socket" toggleGroup="$groupConn" />
         </HBox>
 
-        <Text x="195" y="450" text="User Interface">
+        <Text layoutY="-7.0" text="Server IP" x="195" y="450">
             <font>
                 <Font size="15" />
             </font>
         </Text>
 
-        <HBox fx:id="hbUI" layoutX="195" layoutY="460" spacing="50">
-            <RadioButton fx:id="cli" text="CLI" selected="true" toggleGroup="$groupUI"/>
-            <RadioButton fx:id="gui" text="GUI" toggleGroup="$groupUI"/>
-        </HBox>
+        <HBox fx:id="hbUI" layoutX="195" layoutY="460" spacing="50" />
 
-        <Button fx:id="sendButton" layoutX="195" layoutY="490" text="Login" prefWidth="210" prefHeight="35" onAction="#onSubmit" style="-fx-background-color: #1cbde9;">
+        <Button fx:id="sendButton" layoutX="195" layoutY="490" onAction="#onSubmit" prefHeight="35" prefWidth="210" style="-fx-background-color: #1cbde9;" text="Login">
             <font>
                 <Font size="20" />
             </font>
         </Button>
 
-        <Rectangle fx:id="progressBg" x="200" y="200" width="200" height="200" arcWidth="40" arcHeight="40" fill="lightgray" opacity="0.95"></Rectangle>
-        <Text fx:id="progressText" x="225" y="370" text="Connecting to RMI Server...">
+        <Rectangle fx:id="progressBg" arcHeight="40" arcWidth="40" fill="lightgray" height="200" opacity="0.95" visible="false" width="200" x="200" y="200" />
+        <Text fx:id="progressText" text="Connecting to RMI Server..." visible="false" x="225" y="370">
             <font>
                 <Font size="12" />
             </font>
         </Text>
+      <TextField fx:id="ipTextField" layoutX="195.0" layoutY="453.0" prefWidth="210" text="127.0.0.1" />
 
     </children>
 </Group>

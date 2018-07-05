@@ -155,8 +155,11 @@ public class GameViewCLI implements Runnable {
         } else if(connection.equals("r")){
             connection = "RMI";
         }
+        String serverIp;
+        System.out.print("Server IP: ");
+        serverIp = scanner.nextLine();
         try {
-            gV.onLogin(username, password, connection, "CLI");
+            gV.onLogin(username, password, connection, "CLI", serverIp);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -1492,6 +1495,8 @@ public class GameViewCLI implements Runnable {
 
             System.out.print("\n" +centerPosition +"1- " +ranking[i]);
         }
+
+        System.exit(0);
 
     }
 

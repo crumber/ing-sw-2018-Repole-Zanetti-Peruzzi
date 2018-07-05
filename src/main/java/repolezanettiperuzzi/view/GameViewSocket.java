@@ -37,9 +37,9 @@ public class GameViewSocket implements Runnable{
      * @param gameView Game view
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
-    public GameViewSocket(GameView gameView) throws IOException {
+    public GameViewSocket(GameView gameView, String serverIp) throws IOException {
         this.gameView = gameView;
-        this.socket = new Socket("127.0.0.1", 8080);
+        this.socket = new Socket(serverIp, 8080);
     }
 
     @Override
