@@ -86,6 +86,10 @@ public class GameViewGUI extends Application{
 
     }
 
+    /**
+     * Esegue lo stop
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     @Override
     public void stop() throws IOException {
         System.out.println("Closing GUI");

@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
+/**
+ * Classe che modella la game view (socket)
+ * @author Andrea Zanetti
+ */
 public class GameViewSocket implements Runnable{
 
     private Socket socket;
@@ -20,10 +24,19 @@ public class GameViewSocket implements Runnable{
     private GameView gameView;
     private boolean serverLoop;
 
+    /**
+     * Costruttore
+     * @param onReceiveCallback Riferimento all'oggetto remoto del client
+     */
     public GameViewSocket(Consumer<String> onReceiveCallback){
         this.onReceiveCallback = onReceiveCallback;
     }
 
+    /**
+     * Costruttore
+     * @param gameView Game view
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public GameViewSocket(GameView gameView) throws IOException {
         this.gameView = gameView;
         this.socket = new Socket("127.0.0.1", 8080);
@@ -51,6 +64,10 @@ public class GameViewSocket implements Runnable{
         this.serverLoop = false;
     }
 
+    /**
+     *  Gestore messaggio
+     * @param message Messaggio
+     */
     public void handleMessage(String message){
         String[] line = message.split(" ");
         switch(line[0]){
@@ -115,6 +132,15 @@ public class GameViewSocket implements Runnable{
         }
     }
 
+    /**
+     * Inizializzazione
+     * @param username Username
+     * @param pwd Password
+     * @param conn Tipo connessione
+     * @param UI Interfaccia grafica
+     * @param localPort Intero che rappresenta la porta locale
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void init(String username, String pwd, String conn, String UI, int localPort) throws IOException {
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         out.println(username + " init " + pwd + " " + conn + " " + UI + " " + localPort);
@@ -122,6 +148,11 @@ public class GameViewSocket implements Runnable{
         socket.close();
     }
 
+    /**
+     * Caricamento waiting room
+     * @param username Nome utente
+     * @throws IOException  Fallimento o interruzione delle operazioni I/O
+     */
     public void waitingRoomLoaded(String username) throws IOException {
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         out.println(username + " waitingOk");
@@ -129,6 +160,11 @@ public class GameViewSocket implements Runnable{
         socket.close();
     }
 
+    /**
+     * Caricamento scelta delle window
+     * @param username Nome utente
+     * @throws IOException  Fallimento o interruzione delle operazioni I/O
+     */
     public void chooseWindowSceneLoaded(String username) throws IOException{
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         out.println(username + " chooseWindowOk");
@@ -136,6 +172,11 @@ public class GameViewSocket implements Runnable{
         socket.close();
     }
 
+    /**
+     * Caricamento scena gioco
+     * @param username Nome utente
+     * @throws IOException  Fallimento o interruzione delle operazioni I/O
+     */
     public void gameSceneLoaded(String username) throws IOException{
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         out.println(username + " gameOk");
@@ -143,6 +184,12 @@ public class GameViewSocket implements Runnable{
         socket.close();
     }
 
+    /**
+     * Notify uscita
+     * @param username Nome utente
+     * @param typeView Tipo view
+     * @throws IOException  Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnExit(String username, String typeView) throws IOException {
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         out.println(username + " exit " + typeView);
@@ -150,6 +197,14 @@ public class GameViewSocket implements Runnable{
         socket.close();
     }
 
+    /**
+     * Invio inserimento dado
+     * @param username Nome utente
+     * @param draftPos Posizione draft
+     * @param xWindowPos Riga
+     * @param yWindowPos Colonna
+     * @throws IOException  Fallimento o interruzione delle operazioni I/O
+     */
     public void sendInsertDie(String username, int draftPos, int xWindowPos, int yWindowPos) throws IOException {
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         out.println(username + " insertDie "+draftPos+" "+xWindowPos+" "+yWindowPos );
@@ -157,6 +212,12 @@ public class GameViewSocket implements Runnable{
         socket.close();
     }
 
+    /**
+     * Invio scelta della carta
+     * @param username Nome player
+     * @param numCard Numero carta
+     * @throws IOException  Fallimento o interruzione delle operazioni I/O
+     */
     public void sendChooseCard(String username, int numCard) throws IOException {
 
         PrintWriter out= new PrintWriter(socket.getOutputStream(),true);
@@ -166,6 +227,13 @@ public class GameViewSocket implements Runnable{
 
     }
 
+    /**
+     * Invio risposte tool card
+     * @param username Nome utente
+     * @param nCard Numero card
+     * @param response Risosta
+     * @throws IOException  Fallimento o interruzione delle operazioni I/O
+     */
     public void sendResponseToolCard(String username, int nCard, String response) throws IOException {
         PrintWriter out= new PrintWriter(socket.getOutputStream(),true);
         out.println(username+" responseToolCard "+nCard+" "+response);
@@ -173,6 +241,10 @@ public class GameViewSocket implements Runnable{
         socket.close();
     }
 
+    /**
+     * Ricezione delle windows
+     * @param line String
+     */
     private void receivedWindows(String[] line){
         ArrayList<WindowClient> chosenWindows = new ArrayList<>();
         String windowName = "";
@@ -198,6 +270,10 @@ public class GameViewSocket implements Runnable{
         gameView.viewWindows(chosenWindows,currentTime);
     }
 
+    /**
+     * Ricezione della window
+     * @param line Stringa
+     */
     private void receivedOneWindow(String[] line){
         WindowClient window;
         String windowName = "";
@@ -221,6 +297,11 @@ public class GameViewSocket implements Runnable{
         gameView.viewOneWindow(window,currentTime);
     }
 
+    /**
+     * Crea la matrice
+     * @param chosenWindows Window
+     * @return Box client
+     */
     private BoxClient[][] arrayListToMatrix(ArrayList<ArrayList<String>> chosenWindows){
         int n = chosenWindows.size();
         int m = chosenWindows.get(0).size();
@@ -270,6 +351,10 @@ public class GameViewSocket implements Runnable{
         return boxMatrix;
     }
 
+    /**
+     * Aggiornamento view
+     * @param message Messaggio
+     */
     public void updateView(String message){
         GameBoardClient board = new GameBoardClient();
         String[] boardElems = message.split("\\+");
@@ -354,6 +439,12 @@ public class GameViewSocket implements Runnable{
         gameView.updateView(board);
     }
 
+    /**
+     * Invio window scelta
+     * @param username Nome utente
+     * @param windowName Nome windows
+     * @throws IOException  Fallimento o interruzione delle operazioni I/O
+     */
     public void sendChosenWindow(String username, String windowName) throws IOException {
 
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -362,10 +453,19 @@ public class GameViewSocket implements Runnable{
         socket.close();
     }
 
+    /**
+     *
+     * @return Local server port
+     */
     public int getLocalServerPort(){
         return this.localServerPort;
     }
 
+    /**
+     * Invio fine turno
+     * @param username Nome utente
+     * @throws IOException  Fallimento o interruzione delle operazioni I/O
+     */
     public void sendEndTurn(String username) throws IOException {
 
         PrintWriter out = new PrintWriter(socket.getOutputStream(),true);

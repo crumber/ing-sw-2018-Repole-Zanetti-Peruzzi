@@ -11,15 +11,29 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+/**
+ * Classe che rappresenta il server view RMI
+ * @author Andrea Zanetti
+ */
 public class GameViewRMIServer {
 
     private GameView gameview;
     private ClientStubRMI clientStub;
 
+    /**
+     * Costruttore
+     * @param gameview Game view
+     */
     public GameViewRMIServer(GameView gameview){
         this.gameview = gameview;
     }
 
+    /**
+     *
+     * @return Il controller stub RMI
+     * @throws RemoteException Eccezione RMI
+     * @throws NotBoundException Non associazione
+     */
     public ControllerStubRMI bind() throws RemoteException, NotBoundException {
         System.setProperty("java.rmi.server.useCodebaseOnly", "false");
         System.setProperty("java.rmi.server.logCalls", "false");
@@ -51,9 +65,14 @@ public class GameViewRMIServer {
         return h;
     }
 
+    /**
+     *
+     * @return Client stub RMI
+     */
     public ClientStubRMI getClientStub(){
         return this.clientStub;
     }
+
 
     public void unexportRMI(){
         try {

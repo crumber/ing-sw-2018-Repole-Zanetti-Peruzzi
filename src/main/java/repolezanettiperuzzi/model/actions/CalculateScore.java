@@ -67,7 +67,7 @@ public class CalculateScore {
 
         for (int i=0; i<board.getNPlayers();i++){
 
-            ranking+=(board.getPlayer(i).getName() +"_" +board.getPlayer(i).getScore() +"_");
+            ranking+=(board.getPlayer(possInRanking[i]).getName() +"_" +board.getPlayer(possInRanking[i]).getScore() +"_");
 
         }
 

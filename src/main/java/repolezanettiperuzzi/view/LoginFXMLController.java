@@ -24,6 +24,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import repolezanettiperuzzi.common.DynamicPath;
 
+/**
+ * Classe che rappresenta il Login FXML controller
+ * @author Andrea Zanetti
+ */
 public class LoginFXMLController extends FXMLController{
 
     private Stage stage;
@@ -59,11 +63,17 @@ public class LoginFXMLController extends FXMLController{
     @FXML
     private Text progressText;
 
+    /**
+     * Costruttore
+     */
     // Add a public no-args constructor
     public LoginFXMLController()
     {
     }
 
+    /**
+     * Inizializza
+     */
     @FXML
     private void initialize()
     {
@@ -74,10 +84,18 @@ public class LoginFXMLController extends FXMLController{
         progressText.setVisible(false);
     }
 
+    /**
+     * Notifica l'uscita
+     * @throws IOException  Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnExit() throws IOException {
         gV.notifyOnExit("login");
     }
 
+    /**
+     *
+     * @param event Evento
+     */
     @FXML
     private void onSubmit(ActionEvent event) {
         this.stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -109,6 +127,9 @@ public class LoginFXMLController extends FXMLController{
         }
     }
 
+    /**
+     * Mostra alert di nome gia usato
+     */
     public void showPlayerAlreadyOnlineAlert(){
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.NONE, "The username you chose is already used by a Player online", ButtonType.OK);
@@ -125,6 +146,9 @@ public class LoginFXMLController extends FXMLController{
         });
     }
 
+    /**
+     * Mostra l'errore nell'inserimento della password
+     */
     public void showWrongPwdAlert(){
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.NONE, "Wrong password inserted, please try again", ButtonType.OK);
@@ -140,6 +164,9 @@ public class LoginFXMLController extends FXMLController{
         });
     }
 
+    /**
+     * Mostra l'alert gioco gia iniziato
+     */
     public void showGameAlreadyStartedAlert(){
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.NONE, "A game already started, we're sorry. Try again after the end of this game", ButtonType.OK);
@@ -155,6 +182,9 @@ public class LoginFXMLController extends FXMLController{
         });
     }
 
+    /**
+     * Mostra l'alert di raggionto numero massimo player
+     */
     public void showAlready4PlayersAlert(){
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.NONE, "There are already 4 players online waiting the start of the game. Try again after the end of this game", ButtonType.OK);
@@ -170,6 +200,9 @@ public class LoginFXMLController extends FXMLController{
         });
     }
 
+    /**
+     * Imposta la waiting room
+     */
     public void setWaitingRoomScene() {
         WaitingRoomFXMLController controller = new WaitingRoomFXMLController();
         controller.setGameView(gV);
@@ -192,6 +225,9 @@ public class LoginFXMLController extends FXMLController{
 
     }
 
+    /**
+     * Imposta la scelta delle windows
+     */
     public void setChooseWindowScene(){
 
         ChooseWindowFXMLController controller = new ChooseWindowFXMLController();
@@ -220,6 +256,9 @@ public class LoginFXMLController extends FXMLController{
 
     }
 
+    /**
+     * Imposta la scena di gioco
+     */
     public void setGameScene(){
 
         GameFXMLController controller = new GameFXMLController();
@@ -250,6 +289,9 @@ public class LoginFXMLController extends FXMLController{
 
     }
 
+    /**
+     * Mostra l'indicatore
+     */
     public void showProgressIndicator(){
         Platform.runLater(() -> {
             progressBg.setVisible(true);
@@ -266,6 +308,9 @@ public class LoginFXMLController extends FXMLController{
         });
     }
 
+    /**
+     *  Rimuove l'indicatore
+     */
     public void removeProgressIndicator(){
         Platform.runLater(() -> {
             Group root = (Group) stage.getScene().getRoot();
@@ -275,6 +320,10 @@ public class LoginFXMLController extends FXMLController{
         });
     }
 
+    /**
+     * Imposta la game view
+     * @param gV Game view
+     */
     public void setGameView(GameView gV){
         this.gV = gV;
     }

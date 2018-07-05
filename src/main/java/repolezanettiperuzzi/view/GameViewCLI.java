@@ -951,8 +951,6 @@ public class GameViewCLI implements Runnable {
     // dopo vengono poste le domande relative alla scelta fatta e tutto questo mentre si controlla lo scadere del timer
     // una volta finite le domande e aver creato l'array list elle risposte si chiama il metodo
     // sucessivo di quella determinata azione
-
-    //TODO DA TESTARE I DUE METODI QUI SOTTO
     public void showQuestion(int currentTime){
 
         globalGameTime = currentTime*1000;
@@ -1257,7 +1255,7 @@ public class GameViewCLI implements Runnable {
                     if (futureInput.isPresent()) {
 
                         answer.add(Integer.parseInt(futureInput.get()) - 1);
-                        System.out.println("\nYou choose die: " + boardClient.getDieDraft((Integer.parseInt(futureInput.get()) - 1)) + " " + boardClient.getDieDraft((Integer.parseInt(futureInput.get()) - 1)) + "!");
+                        System.out.println("\nYou choose die: " + boardClient.getDieDraft((Integer.parseInt(futureInput.get()) - 1)) + "!");
 
                     }
 
@@ -1288,9 +1286,9 @@ public class GameViewCLI implements Runnable {
                         System.out.println("\nYou choose round: " + (Integer.parseInt(futureInput.get()) - 1) + "!");
 
                         String messDieRound = "Which die on roundtrack? (";
-                        String[] actionDieRound = new String[boardClient.sizeDiceRoundTrack(answer.size()-1)];
+                        String[] actionDieRound = new String[boardClient.sizeDiceRoundTrack(answer.get(answer.size()-1))];
 
-                        questions=createMessAction(messDieRound,actionDieRound,boardClient.sizeDiceRoundTrack(answer.size()-1));
+                        questions=createMessAction(messDieRound,actionDieRound,boardClient.sizeDiceRoundTrack(answer.get(answer.size()-1)));
                         messDieRound=(String)questions.get(0);
                         actionDieRound=(String[])questions.get(1);
 
@@ -1306,9 +1304,8 @@ public class GameViewCLI implements Runnable {
                         if (futureInput.isPresent()) {
 
                             answer.add(Integer.parseInt(futureInput.get()) - 1);
-                            System.out.println("\nYou choose round: " + (answer.size()-2)
-                                    +" and this die:" +boardClient.getDieFromRoundTrack(answer.size()-2,answer.size()-1).getColourDie()
-                                    +" " +boardClient.getDieFromRoundTrack(answer.size()-2,answer.size()-1).getValueDie()+ "!");
+                            System.out.println("\nYou choose round: " + answer.get(answer.size()-2)
+                                    +" and this die:" +boardClient.getDieFromRoundTrack(answer.get(answer.size()-2),answer.get(answer.size()-1)).getColourDie() + "!");
 
                         }
                     }
@@ -1336,7 +1333,7 @@ public class GameViewCLI implements Runnable {
                     if (futureInput.isPresent()) {
                         card11 = true;
                         answer.add(Integer.parseInt(futureInput.get()) - 1);
-                        System.out.println("\nYou choose die: " + boardClient.getDieDraft((Integer.parseInt(futureInput.get()) - 1)) + " " + boardClient.getDieDraft((Integer.parseInt(futureInput.get()) - 1)) + "!");
+                        System.out.println("\nYou choose die: " + boardClient.getDieDraft((Integer.parseInt(futureInput.get()) - 1)) +  "!");
 
                     }
 
@@ -1344,7 +1341,7 @@ public class GameViewCLI implements Runnable {
                 }
                 case "incrDecrDie":{
 
-                    String messIncrDecr = "Choose 1 to increment or 2 to decrement? ";
+                    String messIncrDecr = "Choose 1 to increment or 0 to decrement? ";
                     String[] actionIncrDecr = {"0","1"};
 
                     try {

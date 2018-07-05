@@ -85,6 +85,7 @@ public class Controller {
     /**
      * Inizializza il timer
      * @param timerType Tipo di timer
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
     public synchronized void setTimer(String timerType) throws IOException {
 

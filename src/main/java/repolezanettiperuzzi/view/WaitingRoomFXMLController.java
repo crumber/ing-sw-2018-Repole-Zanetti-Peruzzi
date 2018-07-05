@@ -31,6 +31,10 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Classe che rappresenta il controlle per RMI
+ * @author Andrea Zanetti
+ */
 public class WaitingRoomFXMLController extends FXMLController{
 
     private Stage stage;
@@ -54,6 +58,9 @@ public class WaitingRoomFXMLController extends FXMLController{
     @FXML
     private ResourceBundle resources;
 
+    /**
+     * Costruttore
+     */
     // Add a public no-args constructor
     public WaitingRoomFXMLController()
     {
@@ -63,14 +70,26 @@ public class WaitingRoomFXMLController extends FXMLController{
 
     }
 
+    /**
+     * Imposta la game view
+     * @param gV Game view
+     */
     public void setGameView(GameView gV){
         this.gV = gV;
     }
 
+    /**
+     * Imposta la stage
+     * @param stage Stage(finesta)
+     */
     public void setStage(Stage stage){
         this.stage = stage;
     }
 
+    /**
+     * Imposta il timer
+     * @param timerDuration Tempo durata timer
+     */
     public void setTimer(int timerDuration){
 
         timerCounter = timerDuration-1; //-1 necessario perche per la creazione della TimeLine ci mette un secondo
@@ -86,6 +105,9 @@ public class WaitingRoomFXMLController extends FXMLController{
         timerCountdown.play();
     }
 
+    /**
+     * Cancella il timer
+     */
     public void cancelTimer(){
         if(this.timerCountdown != null){
             timerCountdown.stop();
@@ -93,10 +115,19 @@ public class WaitingRoomFXMLController extends FXMLController{
         }
     }
 
+    /**
+     * Notifica l'uscita
+     * @throws IOException Fallimento o interruzione delle operazioni I/O
+     */
     public void notifyOnExit() throws IOException {
         gV.notifyOnExit("waitingRoom");
     }
 
+    /**
+     * Aggiornamento players
+     * @param timerDuration Timer
+     * @param players Players
+     */
     public void refreshPlayers(int timerDuration, String[] players){
         if(timerDuration>0){
             if(this.timerCountdown!=null){
@@ -119,6 +150,9 @@ public class WaitingRoomFXMLController extends FXMLController{
         Platform.runLater(() -> playersText.setText(textContent));
     }
 
+    /**
+     * Imposta scelta della window
+     */
     public void setChooseWindowScene(){
 
         this.cancelTimer();

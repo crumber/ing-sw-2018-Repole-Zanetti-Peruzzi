@@ -21,7 +21,10 @@ import javafx.scene.input.MouseEvent;
 import java.awt.*;
 import java.util.ArrayList;
 
-
+/**
+ * Classe che rappresenta la generazione delle window
+ * @author Andrea Zanetti
+ */
 public class WindowGenerator {
 
     private WindowClient window;
@@ -29,16 +32,31 @@ public class WindowGenerator {
     private Object clickLock;
     private GameFXMLController controller;
 
+    /**
+     * Costruttore
+     * @param window Window
+     */
     public WindowGenerator(WindowClient window){
         this.window = window;
     }
 
+    /**
+     * Costruttore
+     * @param window Window
+     * @param clickLock Object che indica il click
+     * @param controller Controller
+     */
     public WindowGenerator(WindowClient window, Object clickLock, GameFXMLController controller){
         this.window = window;
         this.clickLock = clickLock;
         this.controller = controller;
     }
 
+    /**
+     *
+     * @param clickableBox Riferimento all'oggetto remoto del client
+     * @return La griglia
+     */
     public GridPane getWindowFXObject(boolean clickableBox)  {
         //genero la finestra dinamicamente
         GridPane gridWindow = new GridPane();
@@ -221,6 +239,13 @@ public class WindowGenerator {
         return gridWindow;
     }
 
+    /**
+     * Invia l'evento On delle boxes
+     * @param grid Griglia
+     * @param node Nodo
+     * @param i Int
+     * @param j Int
+     */
     public void setEventsOnBoxes(GridPane grid, Node node, int i, int j){
         Rectangle rect = new Rectangle(50 ,50);
         rect.setFill(Color.LIGHTGRAY);
@@ -285,6 +310,13 @@ public class WindowGenerator {
         }
     }*/
 
+    /**
+     * Click della box
+     * @param grid Griglia
+     * @param rect Rettangolo
+     * @param i Int
+     * @param j Int
+     */
     public void onClickBoxes(GridPane grid, Rectangle rect, int i, int j){
         synchronized (clickLock) {
             if (!mouseOut && controller.getMyTurn()) {

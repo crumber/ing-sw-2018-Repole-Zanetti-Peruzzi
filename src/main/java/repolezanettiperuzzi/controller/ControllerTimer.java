@@ -28,6 +28,7 @@ public class ControllerTimer extends TimerTask {
      * Costruttore
      * @param timerType Tipo di timer
      * @param controller Controller
+     * @throws IOException  Fallimento o interruzione delle operazioni I/O
      */
     public ControllerTimer(String timerType, Controller controller) throws IOException {
 
