@@ -746,7 +746,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
                 }
             }else if(parameters.contains("endPos")){
                 if(lastWindowCells.size()==1){
-                    response+=lastWindowCells.get(0)+" ";
+                    response+=lastWindowCells.get(0).xPos+" "+lastWindowCells.get(0).yPos+" ";
                 } else {
                     showAlert("Illegal card parameters", "You didn't choose a position in the window!");
                     return;
