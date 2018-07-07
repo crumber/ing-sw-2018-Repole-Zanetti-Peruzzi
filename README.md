@@ -24,4 +24,14 @@ SAGRADA
 	
 • Limitazioni del gioco:
 
-	- attualmente il gioco e' supportato solo da sistemi UNIX
+	- attualmente il gioco è supportato solo da sistemi UNIX
+	- per una dimenticanza del gruppo, il jar è stato caricato con il timer per il turno della durata di soli 10 secondi (per questioni di debug). I timer sono comunque modificabili da un file di testo presente nel jar e saranno portati a 120 secondi per la presentazione del progetto
+
+• Istruzioni per l'esecuzione del Jar:
+
+	- Per eseguire il Server da jar, spostarsi nella cartella dove è presente il jar Game.jar e digitare il comando da terminale 
+	>java -cp Game.jar repolezanettiperuzzi.controller.MasterGame
+	
+	- Per eseguire il Client da jar, spostarsi nella cartella dove è presente il jar Game.jar e digitare il comando da terminale 
+	>java -cp Game.jar repolezanettiperuzzi.view.GameView
+	
