@@ -8,7 +8,7 @@ SAGRADA
 
 • Coverage test :
 	
-	- Model 97,8%
+	- Model 97,8% (2,2% non testabile perchè metodi che vengono eseguiti quando si fa partire il progetto da jar)
 
 • UML : https://www.lucidchart.com/documents/view/6b7fbe65-86ba-4f5c-9911-90f8060f67d2
 
