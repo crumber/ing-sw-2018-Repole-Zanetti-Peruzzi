@@ -1595,7 +1595,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
             alert.initOwner(stage);
             alert.setX(stage.getX() + stage.getScene().getWidth() / 2 - 125);
             alert.setY(stage.getY() + stage.getScene().getHeight() / 2 - 60);
-            alert.setTitle("Scegli parametri carta");
+            alert.setTitle("Classifica");
             alert.setResizable(true);
             alert.getDialogPane().setPrefSize(350, 200);
             alert.setResizable(false);

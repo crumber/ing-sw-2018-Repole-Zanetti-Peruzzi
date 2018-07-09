@@ -410,12 +410,14 @@ public class GameViewSocket implements Runnable{
                 String[] die = dice.split("_");
                 ArrayList<DieClient> dieRound = new ArrayList<>();
 
-                for(int k = 0; k<die.length; k++){
+                if(die[0].length()!=0) {
 
-                    dieRound.add(new DieClient(die[k]));
+                    for (int k = 0; k < die.length; k++) {
 
+                        dieRound.add(new DieClient(die[k]));
+
+                    }
                 }
-
                 board.getRoundTrack().addDice(dieRound);
             }
         }

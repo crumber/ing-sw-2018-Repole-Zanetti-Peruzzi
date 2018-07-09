@@ -720,7 +720,7 @@ public class GameView implements ClientStubRMI {
     public synchronized void receiveRanking(String score) {
 
      String[] player = score.split("_");
-     String result = null;
+     String result = "";
      String[] resultCLI = new String[player.length/2];
      int j = 0;
      for(int i = 0; i<resultCLI.length; i++){
@@ -733,6 +733,7 @@ public class GameView implements ClientStubRMI {
      //System.out.println(Arrays.toString(player));
 
      for(int i = 0; i<player.length; i+=2 ){
+
 
          result+=player[i];
          result+=" ";
