@@ -1,0 +1,6 @@
+Poli
+6
+6 B R 4 1
+0 0 B R G
+1 B R G 4
+Y 3 B R G

@@ -1,0 +1,6 @@
+Architettura
+3
+B 0 0 0 R
+0 0 0 0 0
+0 1 2 3 0
+G 0 0 0 P

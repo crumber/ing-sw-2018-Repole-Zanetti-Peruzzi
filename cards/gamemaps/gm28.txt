@@ -1,0 +1,6 @@
+Multicolor
+6
+B R G P Y
+R B P Y P
+B R B P G
+R B P G 0
