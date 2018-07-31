@@ -411,7 +411,6 @@ public class GameViewSocket implements Runnable{
                 ArrayList<DieClient> dieRound = new ArrayList<>();
 
                 if(die[0].length()!=0) {
-
                     for (int k = 0; k < die.length; k++) {
 
                         dieRound.add(new DieClient(die[k]));

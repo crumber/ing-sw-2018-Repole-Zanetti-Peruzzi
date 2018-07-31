@@ -734,6 +734,7 @@ public class GameView implements ClientStubRMI {
 
      for(int i = 0; i<player.length; i+=2 ){
 
+
          result+=player[i];
          result+=" ";
          result+=player[i+1];
