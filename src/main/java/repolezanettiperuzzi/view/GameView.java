@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.view;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.application.Application;
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.common.ClientStubRMI;
@@ -8,8 +9,10 @@ import repolezanettiperuzzi.common.modelwrapper.GameBoardClient;
 import repolezanettiperuzzi.common.modelwrapper.WindowClient;
 
 import java.io.*;
+import java.rmi.ConnectException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.UnmarshalException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -284,16 +287,20 @@ public class GameView implements ClientStubRMI {
     public synchronized void notifyOnExit(String typeView) throws IOException {
         if((this.login || rejectedLogin) && !alreadyExit) {   //se non ho fatto il login significa che ho chiuso la GUI per chiudere il gioco
             if (connection.equals("Socket")) {
-                if(win && UI.equals("GUI")){
-                    gvSocket = new GameViewSocket(this, serverIp);
-                    gvSocket.notifyOnExit(username, typeView);
-                    alreadyExit = true;
-                    System.exit(0);
-                } else {
-                    //System.out.println("ci sono");
-                    gvSocket = new GameViewSocket(this, serverIp);
-                    gvSocket.notifyOnExit(username, typeView);
-                    alreadyExit = true;
+                try {
+                    if (win && UI.equals("GUI")) {
+                        gvSocket = new GameViewSocket(this, serverIp);
+                        gvSocket.notifyOnExit(username, typeView);
+                        alreadyExit = true;
+                        System.exit(0);
+                    } else {
+                        //System.out.println("ci sono");
+                        gvSocket = new GameViewSocket(this, serverIp);
+                        gvSocket.notifyOnExit(username, typeView);
+                        alreadyExit = true;
+                    }
+                } catch(IOException e){
+                    //System.out.println("Server disconnesso");
                 }
             } else if (connection.equals("RMI")) {
                 if(RMIActive) {
@@ -305,6 +312,12 @@ public class GameView implements ClientStubRMI {
                             e.printStackTrace();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
+                        } catch (IOException e) {
+                            if (!((e instanceof ConnectException) || (e instanceof UnmarshalException))) {
+                                e.printStackTrace();
+                            } else {
+                                //System.out.println("Server disconnesso");
+                            }
                         }
                     }
                     gvRMIServer.unexportRMI();
@@ -620,7 +633,7 @@ public class GameView implements ClientStubRMI {
                     try {
                         stub.endTurn(username);
                     } catch (RemoteException e) {
-                        e.printStackTrace();
+                        //e.printStackTrace();
                     }
                 }
             }).start();
@@ -748,15 +761,17 @@ public class GameView implements ClientStubRMI {
          ((GameFXMLController) fxmlController).showEndGame(result);
      }else if(this.UI.equals("CLI")){
         gvCLI.showRanking(resultCLI);
+        //gvRMIServer.unexportRMI();
+        //System.exit(0);
      }
 
     }
 
     public void showWinBeforeEndGameAlert() {
 
-        this.login = false;
-        this.rejectedLogin = true;
+        this.login = true;
         this.win = true;
+        System.out.println("win");
         if(this.UI.equals("GUI")){
             ((GameFXMLController) fxmlController).showWinBeforeEndGameAlert();
         } else if(this.UI.equals("CLI")){
