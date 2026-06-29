@@ -272,9 +272,12 @@ Completed:
 - introduce `PlayerConnection` and `PlayerInterface` enums behind the legacy player strings
 - use `PlayerConnection` when branching on incoming connection requests
 
-Phase 3 is complete for this modernization pass. Remaining controller state and transport work is tracked in Phases 4 and 5.
 
 ### Phase 4: Application Flow Cleanup
+
+In progress:
+
+- add explicit tests for the current forward-then-backward turn order before replacing static turn state
 
 Reduce static mutable state:
 
