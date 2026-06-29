@@ -16,8 +16,7 @@ import java.util.ArrayList;
 public class TurnState extends ControllerState {
 
     private Controller controller;
-    public static boolean isSendTurn = false;
-    public static boolean activedCard8 = false;
+    private static final TurnStateTracker turnStateTracker = new TurnStateTracker();
 
     /**
      * Fa iniziare il turno del player
@@ -45,7 +44,7 @@ public class TurnState extends ControllerState {
         }
 
 
-        if(BeginTurn.getNumPlayedTurn()==0 && !isSendTurn){
+        if(BeginTurn.getNumPlayedTurn()==0 && !turnStateTracker.isTurnNotificationSent()){
 
             for(int i=0; i<controller.board.getNPlayers();i++){
 
@@ -55,16 +54,16 @@ public class TurnState extends ControllerState {
 
         }
 
-        if(((!BeginTurn.controlTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer())))||(!controller.board.getPlayer(BeginTurn.getCurrentPlayer()).getLiveStatus()))&&!activedCard8) {
+        if(((!BeginTurn.controlTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer())))||(!controller.board.getPlayer(BeginTurn.getCurrentPlayer()).getLiveStatus()))&&!turnStateTracker.isToolCard8Active()) {
 
             this.passToNextTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer()));
             return;
 
         }
 
-        if(!isSendTurn) {
+        if(!turnStateTracker.isTurnNotificationSent()) {
             notifyPlayerTurn();
-            isSendTurn = true;
+            turnStateTracker.markTurnNotificationSent();
         }
 
         beginTurn.doAction(controller.board.getPlayer(BeginTurn.getCurrentPlayer()),controller.board);
@@ -275,7 +274,7 @@ public class TurnState extends ControllerState {
 
                 if(controller.board.getToolCard(numCard).getId()==8){
 
-                    activedCard8=true;
+                    turnStateTracker.activateToolCard8();
 
                 }
 
@@ -500,7 +499,7 @@ public class TurnState extends ControllerState {
 
         controller.board.getPlayer(BeginTurn.getCurrentPlayer()).setInsertDieInThisTurn(false);
         controller.board.getPlayer(BeginTurn.getCurrentPlayer()).setUsedCardInThisTurn(false);
-        isSendTurn = false;
+        turnStateTracker.resetTurnNotification();
 
         for(int i=0; i<controller.board.getNPlayers();i++){
 
@@ -508,7 +507,7 @@ public class TurnState extends ControllerState {
 
         }
 
-        activedCard8=false;
+        turnStateTracker.resetToolCard8();
 
         BeginTurn.nextTurnParameters(controller.board,player);
 
