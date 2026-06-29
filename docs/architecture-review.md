@@ -289,6 +289,7 @@ In progress:
 - bind `TurnState` to the controller-owned turn-state tracker
 - add a session-backed `BeginTurn` instance path while preserving the legacy static API
 - add a session-backed `BeginRound` instance path while preserving the legacy static API
+- let `GameSession` create session-backed round and turn flow actions
 
 Reduce static mutable state:
 

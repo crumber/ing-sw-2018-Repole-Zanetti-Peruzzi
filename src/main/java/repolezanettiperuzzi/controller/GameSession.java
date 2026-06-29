@@ -1,5 +1,7 @@
 package repolezanettiperuzzi.controller;
 
+import repolezanettiperuzzi.application.actions.BeginRound;
+import repolezanettiperuzzi.application.actions.BeginTurn;
 import repolezanettiperuzzi.application.actions.RoundTracker;
 import repolezanettiperuzzi.application.actions.TurnTracker;
 
@@ -41,5 +43,19 @@ public class GameSession {
      */
     public TurnStateTracker getTurnStateTracker(){
         return turnStateTracker;
+    }
+
+    /**
+     * @return Azione di inizio round collegata allo stato della sessione
+     */
+    public BeginRound createBeginRound(){
+        return new BeginRound(roundTracker);
+    }
+
+    /**
+     * @return Azione di inizio turno collegata allo stato della sessione
+     */
+    public BeginTurn createBeginTurn(){
+        return new BeginTurn(turnTracker);
     }
 }

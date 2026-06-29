@@ -1,6 +1,9 @@
 package repolezanettiperuzzi.controller;
 
 import org.junit.Test;
+import repolezanettiperuzzi.application.actions.BeginRound;
+import repolezanettiperuzzi.application.actions.BeginTurn;
+import repolezanettiperuzzi.model.GameBoard;
 
 import static org.junit.Assert.*;
 
@@ -30,5 +33,39 @@ public class GameSessionTest {
 
         assertEquals(0,secondSession.getRoundTracker().getRound());
         assertFalse(secondSession.getTurnStateTracker().isTurnNotificationSent());
+    }
+
+    @Test
+    public void createsBeginRoundActionBoundToSessionTracker() {
+
+        GameSession session = new GameSession();
+        BeginRound beginRound = session.createBeginRound();
+        GameBoard board = new GameBoard();
+        board.addPlayer("ale","sda","rere","13521.122",12421);
+        board.addPlayer("fede","assa","rerereff","65.21.8788",5335);
+
+        beginRound.doAction(board);
+
+        assertEquals(1,session.getRoundTracker().getRound());
+        assertEquals(1,beginRound.getSessionRound());
+        assertEquals(5,board.getSizeDraft());
+    }
+
+    @Test
+    public void createsBeginTurnActionBoundToSessionTracker() {
+
+        GameSession session = new GameSession();
+        BeginTurn beginTurn = session.createBeginTurn();
+        GameBoard board = new GameBoard();
+        board.addPlayer("ale","sda","rere","13521.122",12421);
+        board.addPlayer("fede","assa","rerereff","65.21.8788",5335);
+
+        beginTurn.resetSessionCurrentPlayer(1);
+        beginTurn.nextSessionTurnParameters(board,board.getPlayer(beginTurn.getSessionCurrentPlayer()));
+
+        assertEquals(0,session.getTurnTracker().getCurrentPlayer());
+        assertEquals(1,session.getTurnTracker().getNumPlayedTurn());
+        assertEquals(0,beginTurn.getSessionCurrentPlayer());
+        assertEquals(1,beginTurn.getSessionNumPlayedTurn());
     }
 }
