@@ -126,6 +126,59 @@ public class WindowTest {
         assertEquals(20,testWindow.numBoxEmpty());
     }
 
+    // testa che il costruttore non condivida le caselle della matrice ricevuta
+    @Test
+    public void testConstructorDeepCopiesBoard(){
+
+        testBoxes = new Box[4][5];
+
+        for ( int i = 0; i < 4; i++){
+
+            for ( int j = 0; j < 5; j++){
+
+                testBoxes[i][j]= new Box();
+
+            }
+        }
+
+        testWindow = new Window("copy",5, testBoxes,"test");
+        testBoxes[0][0].setDie(new Die(Colour.RED), BoxRestriction.NONE);
+
+        assertFalse(testWindow.thereIsDie(0,0));
+
+    }
+
+    // testa che la copia della window non condivida caselle o dadi con l'originale
+    @Test
+    public void testCopyDeepCopiesBoard(){
+
+        testBoxes = new Box[4][5];
+
+        for ( int i = 0; i < 4; i++){
+
+            for ( int j = 0; j < 5; j++){
+
+                testBoxes[i][j]= new Box();
+
+            }
+        }
+
+        Window originalWindow = new Window("copy",5, testBoxes,"test");
+        Die originalDie = new Die(Colour.RED);
+        originalDie.setValue(Value.THREE);
+        originalWindow.insertDie(originalDie,0,0,BoxRestriction.NONE);
+
+        Window copiedWindow = originalWindow.copy();
+        originalDie.setValue(Value.FIVE);
+        originalWindow.removeDie(0,0);
+
+        assertFalse(originalWindow.thereIsDie(0,0));
+        assertTrue(copiedWindow.thereIsDie(0,0));
+        assertEquals(Value.THREE,copiedWindow.getDieValue(0,0));
+        assertNotSame(originalDie,copiedWindow.getDieFromBoardBox(0,0));
+
+    }
+
     //test che controlla che ci siano dadi nelle vicinanze della box
     @Test
     public void testControlAdjacences() {

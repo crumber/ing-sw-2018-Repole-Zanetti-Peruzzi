@@ -25,14 +25,7 @@ public class Window {
         this.NAME = name;
         this.FAVORTOKENS = ft;
         this.fileName = fileName;
-
-        this.boardBox = new Box[board.length][board[0].length];
-
-        for(int i = 0; i< board.length; i++) {
-
-            System.arraycopy(board[i], 0, boardBox[i], 0, board[0].length);
-
-        }
+        this.boardBox = copyBoard(board);
     }
 
     /**
@@ -40,17 +33,19 @@ public class Window {
      * @param w Window da copiare
      */
     public Window(Window w){
-        this.NAME = w.NAME;
-        this.boardBox = new Box[w.boardBox.length][w.boardBox[0].length];
+        this(w.NAME, w.FAVORTOKENS, w.boardBox, w.fileName);
+    }
 
-        for(int i = 0; i<w.boardBox.length; i++){
+    private static Box[][] copyBoard(Box[][] board) {
+        Box[][] copiedBoard = new Box[board.length][board[0].length];
 
-            System.arraycopy(w.boardBox[i], 0, this.boardBox[i], 0, w.boardBox[0].length);
-
+        for(int i = 0; i< board.length; i++) {
+            for(int j = 0; j< board[0].length; j++) {
+                copiedBoard[i][j] = board[i][j] == null ? null : new Box(board[i][j]);
+            }
         }
 
-        this.FAVORTOKENS = w.FAVORTOKENS;
-        this.fileName=w.fileName;
+        return copiedBoard;
     }
 
     /**

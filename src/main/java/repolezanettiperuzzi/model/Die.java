@@ -23,6 +23,17 @@ public class Die {
     }
 
     /**
+     * Costruttore che crea una copia di un dado passatogli come parametro
+     * @param die Dado da copiare
+     */
+    public Die(Die die){
+
+        this.COLOURDIE=die.COLOURDIE;
+        this.valueDie=die.valueDie;
+
+    }
+
+    /**
      * Tira il dado e gli assegna un valore casuale da 1 a 6
      */
     public void rollDie(){

@@ -39,6 +39,16 @@ public class Box {
     }
 
     /**
+     * Costruttore che crea una copia di una casella passatagli come parametro
+     * @param box Casella da copiare
+     */
+    public Box(Box box){
+        this.BOUNDCOLOUR=box.BOUNDCOLOUR;
+        this.BOUNDVALUE=box.BOUNDVALUE;
+        this.die=box.die == null ? null : new Die(box.die);
+    }
+
+    /**
      * @return Vincolo di colore della casella
      */
     public Colour getBoundColour(){

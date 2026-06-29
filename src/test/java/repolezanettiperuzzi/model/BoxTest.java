@@ -146,6 +146,28 @@ public class BoxTest {
 
     }
 
+    // test che verifica che la copia della casella non condivida il dado originale
+    @Test
+    public void testCopyConstructor(){
+
+        testBox = new Box(Colour.RED);
+        die = new Die(Colour.RED);
+        die.setValue(Value.THREE);
+        testBox.setDie(die, BoxRestriction.BOTH);
+
+        Box copiedBox = new Box(testBox);
+
+        die.setValue(Value.FIVE);
+        testBox.removeDie();
+
+        assertEquals(Colour.RED, copiedBox.getBoundColour());
+        assertNull(copiedBox.getBoundValue());
+        assertNotNull(copiedBox.die);
+        assertNotSame(die, copiedBox.die);
+        assertEquals(Value.THREE, copiedBox.die.getValueDie());
+
+    }
+
     // test che controlla che la stringa esca come vogliamo
     @Test
     public  void testToString(){
