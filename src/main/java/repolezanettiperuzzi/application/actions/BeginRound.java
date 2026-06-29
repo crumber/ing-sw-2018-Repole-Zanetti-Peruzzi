@@ -8,7 +8,21 @@ import repolezanettiperuzzi.model.GameBoard;
  */
 public class BeginRound {
 
-    private static final RoundTracker roundTracker = new RoundTracker();
+    private static final RoundTracker DEFAULT_ROUND_TRACKER = new RoundTracker();
+
+    private final RoundTracker roundTracker;
+
+    public BeginRound(){
+        this(DEFAULT_ROUND_TRACKER);
+    }
+
+    public BeginRound(RoundTracker roundTracker){
+        if(roundTracker==null){
+            throw new IllegalArgumentException("roundTracker cannot be null");
+        }
+
+        this.roundTracker=roundTracker;
+    }
 
     /**
      * aumenta il round e pesca i dadi dalla dice bag e aggiorna il draft
@@ -16,7 +30,7 @@ public class BeginRound {
      */
     public void doAction(GameBoard board) {
 
-        increaseRound();
+        increaseSessionRound();
 
         //add die to draft based on number of players
         for (int i = 0; i<((board.getNPlayers()*2)+1); i++) {
@@ -32,6 +46,15 @@ public class BeginRound {
      */
     public static void increaseIndex(){
 
+        DEFAULT_ROUND_TRACKER.increaseIndex();
+
+    }
+
+    /**
+     * aumenta l'indice che indica chi e' il primo player della sessione
+     */
+    public void increaseSessionIndex(){
+
         roundTracker.increaseIndex();
 
     }
@@ -42,6 +65,16 @@ public class BeginRound {
      */
     public static int getIndex(){
 
+        return DEFAULT_ROUND_TRACKER.getIndex();
+
+    }
+
+    /**
+     *
+     * @return l'intero che indica chi e' il primo player della sessione
+     */
+    public int getSessionIndex(){
+
         return roundTracker.getIndex();
 
     }
@@ -50,6 +83,15 @@ public class BeginRound {
      * razzera l'indice  che indica chi è il primo player
      */
     public static void resetIndex(){
+
+        DEFAULT_ROUND_TRACKER.resetIndex();
+
+    }
+
+    /**
+     * razzera l'indice che indica chi e' il primo player della sessione
+     */
+    public void resetSessionIndex(){
 
         roundTracker.resetIndex();
 
@@ -60,6 +102,15 @@ public class BeginRound {
      */
     public static void increaseRound(){
 
+        DEFAULT_ROUND_TRACKER.increaseRound();
+
+    }
+
+    /**
+     * aumenta il round di gioco della sessione
+     */
+    public void increaseSessionRound(){
+
         roundTracker.increaseRound();
 
     }
@@ -68,6 +119,15 @@ public class BeginRound {
      * Azzera il round di gioco.
      */
     public static void resetRound(){
+
+        DEFAULT_ROUND_TRACKER.resetRound();
+
+    }
+
+    /**
+     * Azzera il round di gioco della sessione.
+     */
+    public void resetSessionRound(){
 
         roundTracker.resetRound();
 
@@ -78,6 +138,16 @@ public class BeginRound {
      * @return il round di gioco
      */
     public static int getRound(){
+
+        return DEFAULT_ROUND_TRACKER.getRound();
+
+    }
+
+    /**
+     *
+     * @return il round di gioco della sessione
+     */
+    public int getSessionRound(){
 
         return roundTracker.getRound();
 

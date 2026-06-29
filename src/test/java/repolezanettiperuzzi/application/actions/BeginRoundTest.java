@@ -39,4 +39,40 @@ public class BeginRoundTest {
 
     }
 
+    @Test
+    public void sessionRoundTrackersAreIndependent() {
+
+        BeginRound firstSession = new BeginRound(new RoundTracker());
+        BeginRound secondSession = new BeginRound(new RoundTracker());
+
+        firstSession.increaseSessionIndex();
+        firstSession.increaseSessionRound();
+
+        assertEquals(1,firstSession.getSessionIndex());
+        assertEquals(1,firstSession.getSessionRound());
+
+        assertEquals(0,secondSession.getSessionIndex());
+        assertEquals(0,secondSession.getSessionRound());
+    }
+
+    @Test
+    public void doActionUsesSessionRoundTracker() {
+
+        BeginRound beginRound = new BeginRound(new RoundTracker());
+        GameBoard board=new GameBoard();
+        board.addPlayer("jobs","asd","ert","jsiji",12334);
+        board.addPlayer("bill","asd","ert","jsiji",12334);
+
+        beginRound.doAction(board);
+
+        assertEquals(1,beginRound.getSessionRound());
+        assertEquals(5,board.getSizeDraft());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void requiresRoundTrackerForSessionConstructor() {
+
+        new BeginRound(null);
+    }
+
 }
