@@ -153,6 +153,8 @@ public class PlayerTest {
         assertNotEquals("CLI",player.getUI());
         assertNotEquals("127.0.0.1",player.getAddress());
         assertNotEquals(8008,player.getPort());
+        assertNull(player.getConnectionType());
+        assertNull(player.getInterfaceType());
 
         player.setConnection("RMI");
         player.setUI("CLI");
@@ -163,6 +165,8 @@ public class PlayerTest {
         assertEquals("CLI",player.getUI());
         assertEquals("127.0.0.1",player.getAddress());
         assertEquals(8008,player.getPort());
+        assertEquals(PlayerConnection.RMI,player.getConnectionType());
+        assertEquals(PlayerInterface.CLI,player.getInterfaceType());
         assertTrue(player.isRmiConnection());
         assertFalse(player.isSocketConnection());
         assertTrue(player.usesCli());
@@ -171,6 +175,8 @@ public class PlayerTest {
         player.setConnection("Socket");
         player.setUI("GUI");
 
+        assertEquals(PlayerConnection.SOCKET,player.getConnectionType());
+        assertEquals(PlayerInterface.GUI,player.getInterfaceType());
         assertTrue(player.isSocketConnection());
         assertFalse(player.isRmiConnection());
         assertTrue(player.usesGui());

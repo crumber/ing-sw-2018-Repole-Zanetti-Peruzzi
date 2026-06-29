@@ -269,6 +269,7 @@ Completed:
 - extract single-player end-game notification handling in `TurnState`
 - add named `Player` queries for connection and UI checks used by `TurnState`
 - use named `Player` connection queries across controller states
+- introduce `PlayerConnection` and `PlayerInterface` enums behind the legacy player strings
 
 Focus on model correctness and encapsulation:
 
