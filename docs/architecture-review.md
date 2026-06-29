@@ -9,12 +9,13 @@ The project currently contains 101 production Java classes and 46 test classes u
 ```text
 repolezanettiperuzzi
   common
-    modelwrapper
   controller
   model
     actions
     publiccards
     toolcards
+  shared
+    dto
   view
 ```
 
@@ -96,9 +97,14 @@ Shared transport contracts:
 
 - RMI interfaces: `ClientStubRMI`, `ControllerStubRMI`
 - path helper: `DynamicPath`
-- client-side DTOs/wrappers: `common.modelwrapper.*`
 
-The `modelwrapper` classes are effectively DTOs used to transfer game state to the client without exposing the server model directly.
+### `shared`
+
+Client-facing transfer objects:
+
+- DTOs: `shared.dto.*`
+
+These classes transfer game state to the client without exposing the server model directly.
 
 ## Patterns In Use
 
@@ -149,9 +155,9 @@ These factories translate card identifiers from resource files into concrete str
 
 Present in:
 
-- `common.modelwrapper.*`
+- `shared.dto.*`
 
-These wrappers are client-facing transfer objects. The concept is good, but the package name could be clearer.
+These wrappers are client-facing transfer objects.
 
 ### Proxy / Remote Facade
 
@@ -170,7 +176,7 @@ The concept is useful, but the naming is inconsistent and the transport layer is
 3. The view package mixes UI rendering, client networking, and client-side state updates.
 4. Static mutable state in `BeginRound`, `BeginTurn`, and `TurnState` makes testing and multiple game sessions fragile.
 5. String protocols are parsed in several places with positional assumptions.
-6. `common.modelwrapper` is really a DTO package but is named around implementation detail.
+6. DTO classes are separated from transport contracts, but they are still mutable client snapshots that could be refined over time.
 7. Some classes expose internal mutable state or rely on shallow copies.
 8. Error handling is integer/string-code based and spread across model, controller, and view.
 
@@ -234,9 +240,12 @@ This structure separates:
 
 ### Phase 2: Naming And Package Clarity
 
-Low-risk moves:
+Completed:
 
 - `common.modelwrapper` -> `shared.dto`
+
+Remaining low-risk moves:
+
 - `model.actions` -> `application.actions`
 - `model.publiccards` -> `domain.cards.publiccards`
 - `model.toolcards` -> `domain.cards.toolcards`
@@ -281,11 +290,10 @@ Separate UI from networking:
 
 Good candidates because they are useful and relatively contained:
 
-1. Rename `common.modelwrapper` to `shared.dto`.
-2. Move `model.actions` to `application.actions`.
-3. Introduce an enum for box restriction mode.
-4. Replace static turn/round state with a `GameSession` or `TurnTracker`.
-5. Move socket message parsing out of `HandlerControllerSocket`.
+1. Move `model.actions` to `application.actions`.
+2. Introduce an enum for box restriction mode.
+3. Replace static turn/round state with a `GameSession` or `TurnTracker`.
+4. Move socket message parsing out of `HandlerControllerSocket`.
 
 Avoid starting with:
 

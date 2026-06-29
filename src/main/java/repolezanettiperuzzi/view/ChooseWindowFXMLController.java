@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
-import repolezanettiperuzzi.common.modelwrapper.WindowClient;
+import repolezanettiperuzzi.shared.dto.WindowClient;
 
 import java.io.IOException;
 import java.net.URI;

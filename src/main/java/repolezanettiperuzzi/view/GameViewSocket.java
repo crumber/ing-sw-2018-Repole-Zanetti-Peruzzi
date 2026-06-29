@@ -1,6 +1,6 @@
 package repolezanettiperuzzi.view;
 
-import repolezanettiperuzzi.common.modelwrapper.*;
+import repolezanettiperuzzi.shared.dto.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -4,8 +4,8 @@ import javafx.application.Application;
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.common.ClientStubRMI;
 import repolezanettiperuzzi.common.ControllerStubRMI;
-import repolezanettiperuzzi.common.modelwrapper.GameBoardClient;
-import repolezanettiperuzzi.common.modelwrapper.WindowClient;
+import repolezanettiperuzzi.shared.dto.GameBoardClient;
+import repolezanettiperuzzi.shared.dto.WindowClient;
 
 import java.io.*;
 import java.rmi.ConnectException;

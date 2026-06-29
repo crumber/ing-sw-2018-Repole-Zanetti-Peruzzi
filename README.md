@@ -40,7 +40,8 @@ The original code follows a broad MVC structure:
 - `model.actions`: game actions and use cases
 - `controller`: server flow, state machine, timers, networking handlers
 - `view`: CLI, GUI, JavaFX controllers, client networking
-- `common`: shared RMI contracts and client DTOs
+- `common`: shared RMI contracts and path utilities
+- `shared.dto`: client-facing transfer objects
 
 Main patterns used:
 

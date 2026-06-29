@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.common.modelwrapper;
+package repolezanettiperuzzi.shared.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -13,8 +13,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import repolezanettiperuzzi.common.DynamicPath;
-import repolezanettiperuzzi.common.modelwrapper.BoxClient;
-import repolezanettiperuzzi.common.modelwrapper.WindowClient;
+import repolezanettiperuzzi.shared.dto.BoxClient;
+import repolezanettiperuzzi.shared.dto.WindowClient;
 
 import javafx.scene.input.MouseEvent;
 

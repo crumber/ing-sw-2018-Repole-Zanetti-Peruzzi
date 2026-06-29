@@ -32,10 +32,10 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
-import repolezanettiperuzzi.common.modelwrapper.DieClient;
-import repolezanettiperuzzi.common.modelwrapper.GameBoardClient;
-import repolezanettiperuzzi.common.modelwrapper.PlayerClient;
-import repolezanettiperuzzi.common.modelwrapper.*;
+import repolezanettiperuzzi.shared.dto.DieClient;
+import repolezanettiperuzzi.shared.dto.GameBoardClient;
+import repolezanettiperuzzi.shared.dto.PlayerClient;
+import repolezanettiperuzzi.shared.dto.*;
 
 import java.io.IOException;
 import java.net.URI;

@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.common.modelwrapper;
+package repolezanettiperuzzi.shared.dto;
 
 import repolezanettiperuzzi.model.publiccards.PublicCard;
 

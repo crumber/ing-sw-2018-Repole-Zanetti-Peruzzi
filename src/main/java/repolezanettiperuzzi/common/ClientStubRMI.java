@@ -1,7 +1,7 @@
 package repolezanettiperuzzi.common;
 
-import repolezanettiperuzzi.common.modelwrapper.GameBoardClient;
-import repolezanettiperuzzi.common.modelwrapper.WindowClient;
+import repolezanettiperuzzi.shared.dto.GameBoardClient;
+import repolezanettiperuzzi.shared.dto.WindowClient;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
