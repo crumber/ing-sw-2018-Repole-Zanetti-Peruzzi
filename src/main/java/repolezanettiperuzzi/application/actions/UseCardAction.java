@@ -24,12 +24,10 @@ public class UseCardAction {
     //For all card and tool card 11's final effect
     public int doAction(Player player, GameBoard board, int whichToolCard, List<Integer> parameterForCard){
 
-        int resultOfAction;
-
-        resultOfAction=board.getToolCard(whichToolCard).check(board,player,parameterForCard);
-        System.out.println("resultOfAction "+resultOfAction);
+        ActionResult resultOfAction=board.getToolCard(whichToolCard).checkResult(board,player,parameterForCard);
+        System.out.println("resultOfAction "+resultOfAction.getCode());
         //if check is correct, do active action, reduce player's tokens
-        if(ActionResult.fromCode(resultOfAction).isSuccess()){
+        if(resultOfAction.isSuccess()){
 
             board.getToolCard(whichToolCard).effect(board,player,parameterForCard);
             player.setUsedCardInThisTurn(true);
@@ -43,7 +41,7 @@ public class UseCardAction {
             }
         }
 
-        return resultOfAction;
+        return resultOfAction.getCode();
     }
 
     /**
@@ -58,18 +56,16 @@ public class UseCardAction {
     //only for tool card 11
     public int doActionPreEffect(Player player, GameBoard board, int whichToolCard, List<Integer> parameterForCard){
 
-        int resultOfAction;
-
-        resultOfAction=((FluxRemover)board.getToolCard(whichToolCard)).checkPreEffect(board,player,parameterForCard);
+        ActionResult resultOfAction=((FluxRemover)board.getToolCard(whichToolCard)).checkPreEffectResult(board,player,parameterForCard);
 
         //if check is correct, do active action, not reduce player's tokens
-        if(ActionResult.fromCode(resultOfAction).isSuccess()) {
+        if(resultOfAction.isSuccess()) {
 
             // return +11 -> quest for the client
-            resultOfAction = ((FluxRemover)board.getToolCard(whichToolCard)).preEffect(board, player, parameterForCard);
+            resultOfAction = ((FluxRemover)board.getToolCard(whichToolCard)).preEffectResult(board, player, parameterForCard);
 
         }
 
-        return resultOfAction;
+        return resultOfAction.getCode();
     }
 }

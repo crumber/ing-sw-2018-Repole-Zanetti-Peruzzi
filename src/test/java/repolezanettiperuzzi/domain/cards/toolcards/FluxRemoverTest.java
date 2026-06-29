@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.domain.cards.toolcards;
 
 import org.junit.Test;
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.*;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class FluxRemoverTest {
 
         parameterforcard.add(0,4);
 
+        assertEquals(ActionResult.SUCCESS,testPublicCard.checkResult(board,player,parameterforcard));
         assertEquals(1,testPublicCard.check(board,player,parameterforcard));
 
     }
@@ -46,6 +48,7 @@ public class FluxRemoverTest {
 
         parameterforcard.add(0);
 
+        assertEquals(ActionResult.SUCCESS,testPublicCard.checkPreEffectResult(board,player,parameterforcard));
         assertEquals(1,testPublicCard.checkPreEffect(board,player,parameterforcard));
 
     }
@@ -66,6 +69,20 @@ public class FluxRemoverTest {
 
         assertEquals(2,board.getSizeDraft());
         assertEquals(die1,board.getDieDraft(0));
+    }
+
+    @Test
+    public void testPreEffectResult() {
+
+        GameBoard resultBoard = new GameBoard();
+        resultBoard.addDieToDraft(new Die(Colour.BLUE));
+        resultBoard.addDieToDraft(new Die(Colour.RED));
+
+        ArrayList<Integer> resultParameters = new ArrayList<>();
+        resultParameters.add(0);
+
+        assertEquals(ActionResult.FLUX_REMOVER_SECOND_STEP_REQUIRED, testPublicCard.preEffectResult(resultBoard,player,resultParameters));
+        assertEquals(2,resultBoard.getSizeDraft());
     }
 
     @Test

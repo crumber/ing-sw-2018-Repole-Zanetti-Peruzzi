@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.domain.cards.toolcards;
 
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.BoxRestriction;
@@ -34,39 +35,37 @@ public class CorkbackedStraightedge extends ToolCard {
      */
     //control that there is a die in draft position, that exist window's position, that there isn't die in this position, there aren't dice near this position and die respect bound of box
     @Override
-    public int check(GameBoard board, Player player, List<Integer> parameterForCard) {
+    public ActionResult checkResult(GameBoard board, Player player, List<Integer> parameterForCard) {
 
         posDieOnDraft=parameterForCard.get(0);
         whichRow=parameterForCard.get(1);
         whichColumn=parameterForCard.get(2);
 
-        if (checkDieOnDraft(board,player,posDieOnDraft) != 1) {
+        ActionResult draftResult = checkDieOnDraftResult(board,player,posDieOnDraft);
 
-            resultOfAction=checkDieOnDraft(board,player,posDieOnDraft);
+        if (!draftResult.isSuccess()) {
+
+            return draftResult;
 
         } else if(whichRow<0 || whichRow>player.getWindow().numRow()-1 || whichColumn<0 || whichColumn>player.getWindow().numColumn()-1){
 
-            resultOfAction=-1;
+            return ActionResult.STARTING_OR_FINAL_POSITION_NOT_EXIST;
 
         } else if (player.getWindow().thereIsDie(whichRow, whichColumn)) {
 
-            resultOfAction=-3;
+            return ActionResult.POSITION_OCCUPIED;
 
         } else if (player.getWindow().controlAdjacencies(whichRow, whichColumn)) {
 
-            resultOfAction=-10;
+            return ActionResult.DIE_NEXT_TO_POSITION;
 
         } else if(!player.getWindow().controlAllBoundBox(whichRow,whichColumn,board.getDieDraft(posDieOnDraft))) {
 
-            resultOfAction=-7;
-
-        }else{
-
-            resultOfAction=1;
+            return ActionResult.BOX_RESTRICTION_VIOLATED;
 
         }
 
-        return resultOfAction;
+        return ActionResult.SUCCESS;
     }
 
     /**

@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.domain.cards.toolcards;
 
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.BoxRestriction;
@@ -39,7 +40,7 @@ public class Lathekin extends ToolCard {
      */
     //check that exist start/end position, check that there is a die in initial position, check that there isn't a die in end position, check that this die respects all constraint (colour, value and there is die near end position). do it for two dice
     @Override
-    public int check(GameBoard board, Player player, List<Integer> parameterForCard) {
+    public ActionResult checkResult(GameBoard board, Player player, List<Integer> parameterForCard) {
 
         x1Start = parameterForCard.get(0);
         y1Start = parameterForCard.get(1);
@@ -50,9 +51,7 @@ public class Lathekin extends ToolCard {
         x2End = parameterForCard.get(6);
         y2End = parameterForCard.get(7);
 
-        resultOfAction = checkMoveTwoDice(board, player, x1Start, y1Start, x1End, y1End, x2Start, y2Start, x2End, y2End);
-
-        return resultOfAction;
+        return checkMoveTwoDiceResult(board, player, x1Start, y1Start, x1End, y1End, x2Start, y2Start, x2End, y2End);
     }
 
     /**

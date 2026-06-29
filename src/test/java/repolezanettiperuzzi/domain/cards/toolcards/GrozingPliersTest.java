@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.domain.cards.toolcards;
 
 import org.junit.Test;
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.*;
 
 import java.util.ArrayList;
@@ -55,6 +56,13 @@ public class GrozingPliersTest {
         parameterforcard.add(1);
         parameterforcard.add(0);
 
+        assertEquals(-9,testPublicCard.check(board,player,parameterforcard));
+
+        parameterforcard.clear();
+        parameterforcard.add(1);
+        parameterforcard.add(1);
+
+        assertEquals(ActionResult.EMPTY_DRAFT_POSITION,testPublicCard.checkResult(board,player,parameterforcard));
         assertEquals(-9,testPublicCard.check(board,player,parameterforcard));
     }
 

@@ -12,7 +12,6 @@ import java.util.List;
 public abstract class ToolCard {
 
     protected int id;
-    protected int resultOfAction;
     private String title;
     private String description;
 
@@ -58,7 +57,12 @@ public abstract class ToolCard {
 
     }
 
-    public abstract int check(GameBoard board, Player player, List<Integer> parameterForCard);
+    public int check(GameBoard board, Player player, List<Integer> parameterForCard){
+
+        return checkResult(board, player, parameterForCard).getCode();
+    }
+
+    public abstract ActionResult checkResult(GameBoard board, Player player, List<Integer> parameterForCard);
 
     /**
      *

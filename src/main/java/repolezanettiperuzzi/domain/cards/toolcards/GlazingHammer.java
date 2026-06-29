@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.domain.cards.toolcards;
 
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 
@@ -29,24 +30,19 @@ public class GlazingHammer extends ToolCard {
      */
     //control that is second turn of round and that player don't insert die in this turn
     @Override
-    public int check(GameBoard board, Player player, List<Integer> parameterForCard) {
+    public ActionResult checkResult(GameBoard board, Player player, List<Integer> parameterForCard) {
 
         if (player.getTurn()!=1) {
 
-            resultOfAction=-12;
+            return ActionResult.NOT_SECOND_TURN;
 
         }else if(player.getInsertDieInThisTurn()){
 
-            resultOfAction=-28;
-
-        }
-        else {
-
-            resultOfAction=1;
+            return ActionResult.ALREADY_INSERTED_DIE;
 
         }
 
-        return resultOfAction;
+        return ActionResult.SUCCESS;
     }
 
     /**

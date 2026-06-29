@@ -89,8 +89,8 @@ public class ToolCardTest {
     private static class TestToolCard extends ToolCard {
 
         @Override
-        public int check(GameBoard board, Player player, List<Integer> parameterForCard) {
-            return ActionResult.SUCCESS.getCode();
+        public ActionResult checkResult(GameBoard board, Player player, List<Integer> parameterForCard) {
+            return ActionResult.SUCCESS;
         }
 
         @Override

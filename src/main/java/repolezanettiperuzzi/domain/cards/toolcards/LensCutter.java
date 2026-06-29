@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.domain.cards.toolcards;
 
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.Die;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
@@ -34,22 +35,21 @@ public class LensCutter extends ToolCard {
      */
     //check that there is a die in this position on draft and check that there is a die in this position on round track
     @Override
-    public int check(GameBoard board, Player player, List<Integer> parameterForCard){
+    public ActionResult checkResult(GameBoard board, Player player, List<Integer> parameterForCard){
 
         posDieOnDraft=parameterForCard.get(0);
         whichRound=parameterForCard.get(1);
         whichDieRound=parameterForCard.get(2);
 
-        if(checkDieOnDraft(board,player,posDieOnDraft)!=1){
+        ActionResult draftResult = checkDieOnDraftResult(board,player,posDieOnDraft);
 
-            resultOfAction=checkDieOnDraft(board,player,posDieOnDraft);
+        if(!draftResult.isSuccess()){
 
-        }else{
+            return draftResult;
 
-            resultOfAction=checkDieOnRoundTrack(board,player,whichRound,whichDieRound);
         }
 
-        return resultOfAction;
+        return checkDieOnRoundTrackResult(board,player,whichRound,whichDieRound);
     }
 
     /**

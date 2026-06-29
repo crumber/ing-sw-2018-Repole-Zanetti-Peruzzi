@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.domain.cards.toolcards;
 
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.Value;
@@ -32,13 +33,11 @@ public class GrindingStone extends ToolCard {
      */
     //control that there is die in this position on draft
     @Override
-    public int check(GameBoard board, Player player, List<Integer> parameterForCard) {
+    public ActionResult checkResult(GameBoard board, Player player, List<Integer> parameterForCard) {
 
         posDieOnDraft=parameterForCard.get(0);
 
-        resultOfAction=checkDieOnDraft(board,player,posDieOnDraft);
-
-        return  resultOfAction;
+        return checkDieOnDraftResult(board,player,posDieOnDraft);
     }
 
     /**

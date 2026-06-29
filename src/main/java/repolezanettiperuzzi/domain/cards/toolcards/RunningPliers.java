@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.domain.cards.toolcards;
 
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.BoxRestriction;
@@ -53,7 +54,7 @@ public class RunningPliers extends ToolCard {
      * @param player indica il player che vuole attivare la carta
      * @param parameterForCard è una lista di interi che rappresentano i vari valori dei parametri per l'attivazione della carta scelti dal client
      */
-    public int check(GameBoard board, Player player, List<Integer> parameterForCard){
+    public ActionResult checkResult(GameBoard board, Player player, List<Integer> parameterForCard){
 
         posDieOnDraft=parameterForCard.get(0);
         whichRow=parameterForCard.get(1);
@@ -61,20 +62,18 @@ public class RunningPliers extends ToolCard {
 
         if(player.getTurn()!=0){
 
-            resultOfAction=-30;
+            return ActionResult.NOT_FIRST_TURN;
 
         }else if(!player.getInsertDieInThisTurn()){
 
-            resultOfAction=-31;
+            return ActionResult.DIE_NOT_INSERTED_IN_TURN;
 
         }else{
 
             InsertDieWithCheckAction controlInsert= new InsertDieWithCheckAction();
-            resultOfAction=controlInsert.checkInsert(player,board,posDieOnDraft,whichRow,whichColumn,true);
+            return controlInsert.checkInsertResult(player,board,posDieOnDraft,whichRow,whichColumn,true);
 
         }
-
-      return resultOfAction;
     }
 
 }

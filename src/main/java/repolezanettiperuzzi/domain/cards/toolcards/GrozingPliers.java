@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.domain.cards.toolcards;
 
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.Value;
@@ -33,38 +34,42 @@ public class GrozingPliers extends ToolCard {
      */
     //control thant change is 1 or 0, that there is a die in this position on draft, that die can increment (if is six no) /decrement (if is one no)
     @Override
-    public int check(GameBoard board, Player player, List<Integer> parameterForCard){
+    public ActionResult checkResult(GameBoard board, Player player, List<Integer> parameterForCard){
 
         numDieFromDraft=parameterForCard.get(0);
         change=parameterForCard.get(1);
 
         if(change>1 || change<0){
 
-            resultOfAction=-14;
+            return ActionResult.CHOICE_NOT_EXIST;
 
-        }else if(checkDieOnDraft(board,player,numDieFromDraft)!=1){
+        }
 
-            resultOfAction=checkDieOnDraft(board,player,numDieFromDraft);
+        ActionResult draftResult = checkDieOnDraftResult(board,player,numDieFromDraft);
+
+        if(!draftResult.isSuccess()){
+
+            return draftResult;
 
         }else if(change==0 && board.getDieDraft(numDieFromDraft).getValueDie().getNumber()!=1){
 
-            resultOfAction=1;
+            return ActionResult.SUCCESS;
 
         }else if(change==0){
 
-            resultOfAction=-15;
+            return ActionResult.DECREASE_IS_MINIMUM;
         }
 
         if(change==1 && board.getDieDraft(numDieFromDraft).getValueDie().getNumber()!=6){
 
-            resultOfAction=1;
+            return ActionResult.SUCCESS;
 
         }else if(change==1){
 
-            resultOfAction=-16;
+            return ActionResult.INCREASE_IS_MAXIMUM;
         }
 
-        return  resultOfAction;
+        return ActionResult.SUCCESS;
     }
 
     /**

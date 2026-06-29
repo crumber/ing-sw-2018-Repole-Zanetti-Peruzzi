@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.domain.cards.toolcards;
 
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.Die;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
@@ -33,21 +34,17 @@ public class FluxRemover extends ToolCard {
      * @return ritorna 1 se i controlli sono andati bene sennò un valore negativo che indica l'errore
      */
     @Override
-    public int check(GameBoard board, Player player, List<Integer> parameterForCard){
+    public ActionResult checkResult(GameBoard board, Player player, List<Integer> parameterForCard){
 
         dieValue=parameterForCard.get(0);
 
         if(dieValue<1 || dieValue>6){
 
-            resultOfAction=-11;
-
-        }else{
-
-            resultOfAction=1;
+            return ActionResult.WRONG_NUMBER;
 
         }
 
-        return resultOfAction;
+        return ActionResult.SUCCESS;
     }
 
     /**
@@ -59,10 +56,14 @@ public class FluxRemover extends ToolCard {
      */
     public int checkPreEffect(GameBoard board, Player player, List<Integer> parameterForCard){
 
-        posDieOnDraft=parameterForCard.get(0);
-        resultOfAction=checkDieOnDraft(board,player,posDieOnDraft);
+        return checkPreEffectResult(board, player, parameterForCard).getCode();
+    }
 
-        return resultOfAction;
+    public ActionResult checkPreEffectResult(GameBoard board, Player player, List<Integer> parameterForCard){
+
+        posDieOnDraft=parameterForCard.get(0);
+
+        return checkDieOnDraftResult(board,player,posDieOnDraft);
     }
 
     /**
@@ -77,6 +78,11 @@ public class FluxRemover extends ToolCard {
     // return 11 -> new quest for client (choose value from 1 to 6)
     public int preEffect(GameBoard board, Player player, List<Integer> parameterForCard){
 
+        return preEffectResult(board, player, parameterForCard).getCode();
+    }
+
+    public ActionResult preEffectResult(GameBoard board, Player player, List<Integer> parameterForCard){
+
         posDieOnDraft=parameterForCard.get(0);
 
         board.putDieInBag(posDieOnDraft); //put die in the bag
@@ -84,10 +90,7 @@ public class FluxRemover extends ToolCard {
         Die newDie= board.takeDieFromBag(); // take another die from bag
         board.addDieToDraft(newDie); // add die in draft in final position
 
-        //new player quest
-        resultOfAction=11;
-
-        return resultOfAction;
+        return ActionResult.FLUX_REMOVER_SECOND_STEP_REQUIRED;
     }
 
     /**
