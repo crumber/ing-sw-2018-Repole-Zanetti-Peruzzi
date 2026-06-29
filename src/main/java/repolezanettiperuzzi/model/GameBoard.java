@@ -142,7 +142,7 @@ public class GameBoard {
     //metodo pericoloso che può cambiare il rep dall'esterno in un attimo, meglio toglierlo se non serve
     public void setDiceDraft(List<Die> diceDraft) {
 
-        this.diceDraft = (ArrayList<Die>) diceDraft;
+        this.diceDraft = new ArrayList<>(diceDraft);
 
     }
 
@@ -350,16 +350,26 @@ public class GameBoard {
      * Ritorna il pool delle Window utile al FetchState
      * @return Pool di Window attuale
      */
-    public ArrayList<Window> getWindowsPool(){
-        return this.windowsPool;
+    public List<Window> getWindowsPool(){
+        return this.windowsPool == null ? null : new ArrayList<>(this.windowsPool);
     }
 
     /**
      * Setta l'attributo locale prendendo come parametro un windowsPool
      * @param windowsPool Pool di Windows che verra settato nell'attributo locale
      */
-    public void setWindowsPool(ArrayList<Window> windowsPool){
-        this.windowsPool = windowsPool;
+    public void setWindowsPool(List<Window> windowsPool){
+        this.windowsPool = new ArrayList<>(windowsPool);
+    }
+
+    /**
+     * Rimuove dal pool le Window assegnate a un giocatore
+     * @param windows Windows da rimuovere dal pool
+     */
+    public void removeWindowsFromPool(List<Window> windows){
+        if (this.windowsPool != null) {
+            this.windowsPool.removeAll(windows);
+        }
     }
 
     /**
@@ -374,8 +384,8 @@ public class GameBoard {
      * @param player Giocatore da inserire come chiave
      * @param windows Windows tra cui puo' scegliere il giocatore
      */
-    public void putPlayersWindowsChoices(Player player, ArrayList<Window> windows){
-        this.playersWindowsChoices.put(player, windows);
+    public void putPlayersWindowsChoices(Player player, List<Window> windows){
+        this.playersWindowsChoices.put(player, new ArrayList<>(windows));
     }
 
     /**
@@ -383,8 +393,9 @@ public class GameBoard {
      * @param player Giocatore della quale si vogliono ottenere le Window
      * @return Windows tra cui può scegliere il player
      */
-    public ArrayList<Window> getPlayersWindowsChoices(Player player){
-        return this.playersWindowsChoices.get(player);
+    public List<Window> getPlayersWindowsChoices(Player player){
+        ArrayList<Window> windows = this.playersWindowsChoices.get(player);
+        return windows == null ? null : new ArrayList<>(windows);
     }
 
     /**
@@ -436,7 +447,7 @@ public class GameBoard {
      */
     public List<Player> getPlayers() {
 
-        return (ArrayList<Player>) this.players.clone();
+        return new ArrayList<>(this.players);
 
     }
 

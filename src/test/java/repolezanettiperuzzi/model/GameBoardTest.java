@@ -64,6 +64,22 @@ public class GameBoardTest {
         assertEquals(dieTest,die1);
     }
 
+    // test che verifica che il draft non condivida la lista ricevuta
+    @Test
+    public void testSetDiceDraftCopiesInputList() {
+
+        boardTest=new GameBoard();
+        ArrayList<Die> diceForDraft= new ArrayList<>();
+        Die die1=new Die(Colour.RED);
+        diceForDraft.add(die1);
+
+        boardTest.setDiceDraft(diceForDraft);
+        diceForDraft.clear();
+
+        assertEquals(1, boardTest.getSizeDraft());
+        assertEquals(die1, boardTest.getDieDraft(0));
+    }
+
     // test sull'inserimento corretto dei dadi nel draft
     @Test
     public void testSetDieDraft() {
@@ -248,6 +264,8 @@ public class GameBoardTest {
 
 
         assertEquals("pippo",players.get(0).getName());
+        players.clear();
+        assertEquals(2, boardTest.getNPlayers());
 
     }
 
@@ -368,6 +386,17 @@ public class GameBoardTest {
 
        boardTest.setWindowsPool(windows);
        assertEquals("testWindow",boardTest.getWindowsPool().get(0).getName());
+
+       windows.clear();
+       assertEquals(2, boardTest.getWindowsPool().size());
+
+       boardTest.getWindowsPool().clear();
+       assertEquals(2, boardTest.getWindowsPool().size());
+
+       ArrayList<Window> assignedWindows = new ArrayList<>();
+       assignedWindows.add(tempWindow);
+       boardTest.removeWindowsFromPool(assignedWindows);
+       assertEquals("testWindow2", boardTest.getWindowsPool().get(0).getName());
    }
 
    //testa il metodo player window choiche
@@ -413,6 +442,12 @@ public class GameBoardTest {
        boardTest.putPlayersWindowsChoices(player1,windows);
        assertEquals("testWindow",boardTest.getPlayersWindowsChoices(player1).get(0).getName());
        assertEquals("testWindow2",boardTest.getPlayersWindowsChoices(player1).get(1).getName());
+
+       windows.clear();
+       assertEquals(2, boardTest.getPlayersWindowsChoices(player1).size());
+
+       boardTest.getPlayersWindowsChoices(player1).clear();
+       assertEquals(2, boardTest.getPlayersWindowsChoices(player1).size());
 
    }
 

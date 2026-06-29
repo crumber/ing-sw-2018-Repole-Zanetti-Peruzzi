@@ -16,6 +16,7 @@ import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe che rappresenta lo stato di inizializzazione del gioco
@@ -43,7 +44,7 @@ public class FetchState extends ControllerState {
             board.initPlayersWindowsChoices();
             InitializeGame init = new InitializeGame();
             init.doAction(board);
-            board.setWindowsPool((ArrayList<Window>) init.getWindows());
+            board.setWindowsPool(init.getWindows());
 
         }
     }
@@ -67,7 +68,7 @@ public class FetchState extends ControllerState {
 
             if (player.getWindow() == null) {
                 if (board.getPlayersWindowsChoices(player) == null) {
-                    board.putPlayersWindowsChoices(player, (ArrayList<Window>) new TakeTwoCardWindowAction().doAction(board.getWindowsPool()));
+                    board.putPlayersWindowsChoices(player, takeWindowsFromPool());
                 }
                 String message = this.windowsToString(board.getPlayersWindowsChoices(player));
                 Socket socket = new Socket(player.getAddress(), player.getPort());
@@ -85,10 +86,9 @@ public class FetchState extends ControllerState {
         } else if (player.getConnection().equals("RMI")) {
             if (player.getWindow() == null) {
                 if (board.getPlayersWindowsChoices(player) == null) {
-                    board.putPlayersWindowsChoices(player, (ArrayList<Window>) new TakeTwoCardWindowAction().doAction(board.getWindowsPool()));
+                    board.putPlayersWindowsChoices(player, takeWindowsFromPool());
                 }
-                ArrayList<Window> windows = board.getPlayersWindowsChoices(player);
-                this.windows = windows;
+                this.windows = new ArrayList<>(board.getPlayersWindowsChoices(player));
             } else {
                 ArrayList<Window> oneWindow = new ArrayList<>();
                 oneWindow.add(player.getWindow());
@@ -105,7 +105,13 @@ public class FetchState extends ControllerState {
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
     //create a string that contains the windows selectable from the player
-    private String windowsToString(ArrayList<Window> windows) throws IOException {
+    private List<Window> takeWindowsFromPool(){
+        List<Window> chosenWindows = new TakeTwoCardWindowAction().doAction(board.getWindowsPool());
+        board.removeWindowsFromPool(chosenWindows);
+        return chosenWindows;
+    }
+
+    private String windowsToString(List<Window> windows) throws IOException {
 
         DynamicPath dP = new DynamicPath("");
 
@@ -153,7 +159,7 @@ public class FetchState extends ControllerState {
      * @return ArrayList delle window
      */
     public ArrayList<Window> getWindows(){
-        return this.windows;
+        return this.windows == null ? null : new ArrayList<>(this.windows);
     }
 
     /**

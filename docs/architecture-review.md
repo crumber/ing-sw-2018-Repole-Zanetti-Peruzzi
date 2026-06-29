@@ -258,10 +258,10 @@ Completed:
 
 - replace raw string restrictions such as `"both"`, `"none"`, `"value"`, `"colour"` with `BoxRestriction`
 - make `Window`, `Box`, and `Die` copies independent from their mutable source objects
+- copy `GameBoard` collection inputs and outputs for draft dice, window pool, player list, and window choices
 
 Focus on model correctness and encapsulation:
 
-- avoid exposing mutable collections directly
 - centralize card/action validation results
 
 ### Phase 4: Application Flow Cleanup
@@ -295,7 +295,7 @@ Good candidates because they are useful and relatively contained:
 
 1. Replace static turn/round state with a `GameSession` or `TurnTracker`.
 2. Move socket message parsing out of `HandlerControllerSocket`.
-3. Avoid exposing mutable collections directly.
+3. Centralize card/action validation results.
 
 Avoid starting with:
 
