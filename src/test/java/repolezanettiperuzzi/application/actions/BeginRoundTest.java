@@ -1,6 +1,5 @@
 package repolezanettiperuzzi.application.actions;
 
-import org.junit.Before;
 import org.junit.Test;
 import repolezanettiperuzzi.model.GameBoard;
 
@@ -11,30 +10,25 @@ public class BeginRoundTest {
 
     BeginRound testBeginRound=new BeginRound();
 
-    @Before
-    public void setUp() {
-        BeginRound.resetIndex();
-        BeginRound.resetRound();
-    }
-
     //testo che svolga l'azione in modo corretto
     @Test
     public void doAction() {
 
-        assertEquals(0,BeginRound.getRound());
-        assertEquals(0,BeginRound.getIndex());
-        BeginRound.increaseIndex();
-        BeginRound.increaseRound();
-        assertEquals(1,BeginRound.getRound());
-        assertEquals(1,BeginRound.getIndex());
-        BeginRound.resetIndex();
-        assertEquals(0,BeginRound.getIndex());
+        assertEquals(0,testBeginRound.getSessionRound());
+        assertEquals(0,testBeginRound.getSessionIndex());
+        testBeginRound.increaseSessionIndex();
+        testBeginRound.increaseSessionRound();
+        assertEquals(1,testBeginRound.getSessionRound());
+        assertEquals(1,testBeginRound.getSessionIndex());
+        testBeginRound.resetSessionIndex();
+        assertEquals(0,testBeginRound.getSessionIndex());
 
         GameBoard board=new GameBoard();
         board.addPlayer("jobs","asd","ert","jsiji",12334);
         board.addPlayer("bill","asd","ert","jsiji",12334);
 
         testBeginRound.doAction(board);
+        assertEquals(2,testBeginRound.getSessionRound());
         assertEquals(5,board.getSizeDraft());
 
     }

@@ -4,7 +4,6 @@ import org.junit.Test;
 import repolezanettiperuzzi.model.Colour;
 import repolezanettiperuzzi.model.Die;
 import repolezanettiperuzzi.model.GameBoard;
-import repolezanettiperuzzi.model.Player;
 
 import static org.junit.Assert.*;
 
@@ -46,11 +45,6 @@ public class EndRoundTest {
         assertEquals(1,gameBoard.getPlayer(1).getTurn());
         assertEquals(1,gameBoard.getPlayer(2).getTurn());
         assertEquals(1,gameBoard.getPlayer(3).getTurn());
-
-        BeginRound.increaseIndex();
-        BeginRound.increaseIndex();
-        BeginRound.increaseIndex();
-        BeginRound.increaseIndex();
 
         testEndRound.doAction(gameBoard);
 
