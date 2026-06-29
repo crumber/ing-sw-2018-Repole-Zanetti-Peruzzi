@@ -8,9 +8,7 @@ import repolezanettiperuzzi.model.GameBoard;
  */
 public class BeginRound {
 
-    private static int firstPlayerIndex = 0;
-
-    private static int round = 0;
+    private static final RoundTracker roundTracker = new RoundTracker();
 
     /**
      * aumenta il round e pesca i dadi dalla dice bag e aggiorna il draft
@@ -34,7 +32,7 @@ public class BeginRound {
      */
     public static void increaseIndex(){
 
-        firstPlayerIndex++;
+        roundTracker.increaseIndex();
 
     }
 
@@ -44,7 +42,7 @@ public class BeginRound {
      */
     public static int getIndex(){
 
-        return firstPlayerIndex;
+        return roundTracker.getIndex();
 
     }
 
@@ -53,7 +51,7 @@ public class BeginRound {
      */
     public static void resetIndex(){
 
-        firstPlayerIndex=0;
+        roundTracker.resetIndex();
 
     }
 
@@ -62,7 +60,7 @@ public class BeginRound {
      */
     public static void increaseRound(){
 
-        round++;
+        roundTracker.increaseRound();
 
     }
 
@@ -71,7 +69,7 @@ public class BeginRound {
      */
     public static void resetRound(){
 
-        round=0;
+        roundTracker.resetRound();
 
     }
 
@@ -81,7 +79,7 @@ public class BeginRound {
      */
     public static int getRound(){
 
-        return round;
+        return roundTracker.getRound();
 
     }
 

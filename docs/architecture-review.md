@@ -281,6 +281,7 @@ In progress:
 - introduce a non-static `TurnTracker` with matching turn-order tests before wiring it into `BeginTurn`
 - make `BeginTurn` delegate its static turn counters to `TurnTracker` while preserving the existing API
 - introduce a non-static `RoundTracker` with tests before wiring it into `BeginRound`
+- make `BeginRound` delegate its static round counters to `RoundTracker` while preserving the existing API
 
 Reduce static mutable state:
 
