@@ -30,9 +30,6 @@ public class HandlerControllerSocket implements Runnable{
     private InetAddress addr;
     private int port;
     private Controller controller;
-    private String playerID;
-    private String action;
-    private String[] param;
 
     /**
      * Costruttore
@@ -72,35 +69,28 @@ public class HandlerControllerSocket implements Runnable{
      */
     public void handleMessage() throws IOException, ParseException, InterruptedException {
 
-        String[] line = in.readLine().split(" ");
+        SocketClientMessage message = SocketClientMessage.parse(in.readLine());
+        String playerID = message.getPlayerId();
 
-        this.playerID = line[0];
-        this.action = line[1];
-        this.param = new String[line.length-2];
-
-        for(int i = 0; i<param.length; i++){
-            param[i] = line[i+2];
-        }
-
-        switch(action) {
+        switch(message.getAction()) {
             case "init":
                 controller.setState(new SetConnectionState());
-                String result = ((SetConnectionState)controller.getState()).initializePlayer(playerID, param[0], addr, Integer.parseInt(param[3]), param[1], param[2]);
+                String result = ((SetConnectionState)controller.getState()).initializePlayer(playerID, message.getParameter(0), addr, Integer.parseInt(message.getParameter(3)), message.getParameter(1), message.getParameter(2));
 
                 switch (result){
                     case "registered": {
                         Player player = controller.board.getPlayerByName(playerID);
-                        ((SetConnectionState) controller.getState()).notifyOnRegister(controller, param[1], param[2], player.getAddress(), player.getPort());
+                        ((SetConnectionState) controller.getState()).notifyOnRegister(controller, message.getParameter(1), message.getParameter(2), player.getAddress(), player.getPort());
                         break;
                     }
                     case "stealAccount": {
                         Player player = controller.board.getPlayerByName(playerID);
-                        ((SetConnectionState) controller.getState()).notifyOnStealAccount(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), Integer.parseInt(param[3])); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
+                        ((SetConnectionState) controller.getState()).notifyOnStealAccount(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), Integer.parseInt(message.getParameter(3))); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
                         break;
                     }
                     case "wrongPassword": {
                         Player player = controller.board.getPlayerByName(playerID);
-                        ((SetConnectionState) controller.getState()).notifyOnWrongPassword(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), Integer.parseInt(param[3])); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
+                        ((SetConnectionState) controller.getState()).notifyOnWrongPassword(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), Integer.parseInt(message.getParameter(3))); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
                         break;
                     }
                     case "reconnect": {
@@ -109,11 +99,11 @@ public class HandlerControllerSocket implements Runnable{
                         break;
                     }
                     case "gameAlreadyStarted": {
-                        ((SetConnectionState) controller.getState()).notifyOnGameAlreadyStarted(controller, param[1], param[2], addr.toString().substring(1), Integer.parseInt(param[3]));
+                        ((SetConnectionState) controller.getState()).notifyOnGameAlreadyStarted(controller, message.getParameter(1), message.getParameter(2), addr.toString().substring(1), Integer.parseInt(message.getParameter(3)));
                         break;
                     }
                     case "already4Players": {
-                        ((SetConnectionState) controller.getState()).notifyOnAlready4Players(controller, param[1], param[2], addr.toString().substring(1), Integer.parseInt(param[3]));
+                        ((SetConnectionState) controller.getState()).notifyOnAlready4Players(controller, message.getParameter(1), message.getParameter(2), addr.toString().substring(1), Integer.parseInt(message.getParameter(3)));
                         break;
                     }
                 }
@@ -131,7 +121,7 @@ public class HandlerControllerSocket implements Runnable{
                 break;
             case "chosenWindow":
                 controller.setState(new FetchState());
-                ((FetchState)controller.getState()).setChosenWindow(controller.board.getPlayerByName(playerID), param[0].replace("-"," "));
+                ((FetchState)controller.getState()).setChosenWindow(controller.board.getPlayerByName(playerID), message.getParameter(0).replace("-"," "));
                 break;
             case "gameOk":
                 controller.setState(new FetchState());
@@ -139,15 +129,15 @@ public class HandlerControllerSocket implements Runnable{
                 break;
             case "insertDie":
                 controller.setState(new TurnState());
-                ((TurnState)controller.getState()).insertDie(controller.board.getPlayerByName(playerID) , param[0]+" "+param[1]+" "+param[2]);
+                ((TurnState)controller.getState()).insertDie(controller.board.getPlayerByName(playerID) , message.getParameter(0)+" "+message.getParameter(1)+" "+message.getParameter(2));
                 break;
             case "responseToolCard":
                 controller.setState(new TurnState());
-                ((TurnState)controller.getState()).useCard(controller.board.getPlayerByName(playerID), Integer.parseInt(param[0]), param[1].replace("-", " "));
+                ((TurnState)controller.getState()).useCard(controller.board.getPlayerByName(playerID), Integer.parseInt(message.getParameter(0)), message.getParameter(1).replace("-", " "));
                 break;
             case "chooseCard":
                 controller.setState(new TurnState());
-                ((TurnState)controller.getState()).useCardRequest(controller.board.getPlayerByName(playerID), Integer.parseInt(param[0]));
+                ((TurnState)controller.getState()).useCardRequest(controller.board.getPlayerByName(playerID), Integer.parseInt(message.getParameter(0)));
                 break;
             case "endTurn":
                 controller.cancelTimer();
@@ -156,7 +146,7 @@ public class HandlerControllerSocket implements Runnable{
                 break;
             case "exit":
                 controller.notifyExitToClient(playerID);
-                switch(param[0]){
+                switch(message.getParameter(0)){
                     case "waitingRoom":
                         controller.setState(new SetConnectionState());
                         controller.setLiveStatusOffline(playerID);

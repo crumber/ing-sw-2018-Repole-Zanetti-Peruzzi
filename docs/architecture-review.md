@@ -275,7 +275,7 @@ Completed:
 
 ### Phase 4: Application Flow Cleanup
 
-In progress:
+Completed:
 
 - add explicit tests for the current forward-then-backward turn order before replacing static turn state
 - introduce a non-static `TurnTracker` with matching turn-order tests before wiring it into `BeginTurn`
@@ -308,6 +308,10 @@ Reduce static mutable state:
 ### Phase 5: Transport Boundaries
 
 Separate game commands from socket/RMI parsing:
+
+In progress:
+
+- introduce a tested `SocketClientMessage` parser before separating socket command dispatch
 
 - define command/request objects for client actions
 - parse socket messages into commands in the infrastructure layer
