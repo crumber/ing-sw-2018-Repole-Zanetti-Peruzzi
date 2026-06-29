@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.application.actions;
 
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 
@@ -18,22 +19,21 @@ public class CheckCostToolCardAction {
      */
     public int checkCostToolCard(GameBoard board, Player player, int whichCard ){
 
-        int resultOfCheck;
+        return checkCostToolCardResult(board, player, whichCard).getCode();
+    }
+
+    public ActionResult checkCostToolCardResult(GameBoard board, Player player, int whichCard ){
 
         if(player.getUseCardInThisTurn()){
 
-            resultOfCheck=-29;
+            return ActionResult.ALREADY_USED_TOOL_CARD;
 
         } else if(player.getFavorTokens()<board.getCostToolCard(whichCard)){
 
-            resultOfCheck=-8;
-
-        }else{
-
-            resultOfCheck=1;
+            return ActionResult.NOT_ENOUGH_FAVOR_TOKENS;
 
         }
 
-        return resultOfCheck;
+        return ActionResult.SUCCESS;
     }
 }

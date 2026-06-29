@@ -259,10 +259,11 @@ Completed:
 - replace raw string restrictions such as `"both"`, `"none"`, `"value"`, `"colour"` with `BoxRestriction`
 - make `Window`, `Box`, and `Die` copies independent from their mutable source objects
 - copy `GameBoard` collection inputs and outputs for draft dice, window pool, player list, and window choices
+- add `ActionResult` to name action and tool-card validation codes while keeping legacy integer bridges
 
 Focus on model correctness and encapsulation:
 
-- centralize card/action validation results
+- migrate tool-card checks from integer codes to `ActionResult`
 
 ### Phase 4: Application Flow Cleanup
 
@@ -295,7 +296,7 @@ Good candidates because they are useful and relatively contained:
 
 1. Replace static turn/round state with a `GameSession` or `TurnTracker`.
 2. Move socket message parsing out of `HandlerControllerSocket`.
-3. Centralize card/action validation results.
+3. Migrate tool-card checks from integer codes to `ActionResult`.
 
 Avoid starting with:
 

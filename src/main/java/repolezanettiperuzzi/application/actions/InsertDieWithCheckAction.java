@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.application.actions;
 
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.BoxRestriction;
@@ -24,47 +25,46 @@ public class InsertDieWithCheckAction{
      */
     public int checkInsert(Player player, GameBoard board,int posDieOnDraft, int whichRow, int whichColumn, boolean card8){
 
-        int resultOfAction;
+        return checkInsertResult(player, board, posDieOnDraft, whichRow, whichColumn, card8).getCode();
+    }
+
+    public ActionResult checkInsertResult(Player player, GameBoard board,int posDieOnDraft, int whichRow, int whichColumn, boolean card8){
 
         if(!(card8) && (player.getInsertDieInThisTurn())){
 
-            resultOfAction=-28;
+            return ActionResult.ALREADY_INSERTED_DIE;
 
         } else if(board.getDieDraft(posDieOnDraft)==null){
 
-            resultOfAction=-9;
+            return ActionResult.EMPTY_DRAFT_POSITION;
 
         }else if(whichRow<0 || whichRow>player.getWindow().numRow()-1 || whichColumn>player.getWindow().numColumn()-1 || whichColumn<0){
 
-            resultOfAction=-1;
+            return ActionResult.STARTING_OR_FINAL_POSITION_NOT_EXIST;
 
         }else if(player.getWindow().isEmpty() && whichColumn!=0 && whichColumn!=player.getWindow().numColumn()-1 && whichRow!=0 && whichRow!=player.getWindow().numRow()-1){
 
-            resultOfAction=-27;
+            return ActionResult.FIRST_PLACEMENT_NOT_BOUNDARY;
 
         }else if(player.getWindow().thereIsDie(whichRow,whichColumn)){
 
-            resultOfAction=-3;
+            return ActionResult.POSITION_OCCUPIED;
 
         }else if(!player.getWindow().controlAdjacencies(whichRow,whichColumn) && !player.getWindow().isEmpty()){
 
-            resultOfAction=-4;
+            return ActionResult.NO_ADJACENT_DIE;
 
         }else if(!player.getWindow().controlAllBoundBox(whichRow,whichColumn,board.getDieDraft(posDieOnDraft))){
 
-            resultOfAction=-7;
+            return ActionResult.BOX_RESTRICTION_VIOLATED;
 
         }else if(player.getWindow().controlAllBoundAdjacencies(board.getDieDraft(posDieOnDraft),whichRow,whichColumn)){
 
-            resultOfAction=-25;
-
-        }else{
-
-            resultOfAction=1;
+            return ActionResult.ADJACENT_SAME_COLOUR_OR_VALUE;
 
         }
 
-        return resultOfAction;
+        return ActionResult.SUCCESS;
     }
 
     /**
@@ -76,13 +76,12 @@ public class InsertDieWithCheckAction{
      */
     public int doAction(Player player, GameBoard board, List<Integer> parameterForInserDie){
 
-        int resultOfAction;
         int posDieOnDraft=parameterForInserDie.get(0);
         int whichRow=parameterForInserDie.get(1);
         int whichColumn=parameterForInserDie.get(2);
-        resultOfAction=checkInsert(player,board,posDieOnDraft,whichRow,whichColumn,false);
+        ActionResult resultOfAction=checkInsertResult(player,board,posDieOnDraft,whichRow,whichColumn,false);
 
-        if(resultOfAction==1){
+        if(resultOfAction.isSuccess()){
 
             player.getWindow().insertDie(board.getDieDraft(posDieOnDraft),whichRow,whichColumn,BoxRestriction.BOTH);
             board.removeDieFromDraft(posDieOnDraft);
@@ -90,6 +89,6 @@ public class InsertDieWithCheckAction{
 
         }
 
-        return resultOfAction;
+        return resultOfAction.getCode();
     }
 }

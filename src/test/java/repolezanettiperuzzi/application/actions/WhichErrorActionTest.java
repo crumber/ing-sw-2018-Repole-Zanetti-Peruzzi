@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.application.actions;
 
 import org.junit.Test;
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.Colour;
 import repolezanettiperuzzi.model.Die;
 import repolezanettiperuzzi.model.GameBoard;
@@ -152,6 +153,8 @@ public class WhichErrorActionTest {
         numError=-31;
         error=testWhichErrorAction.doAction(numError);
         assertEquals("error notInsertDieInTurn",error);
+
+        error=testWhichErrorAction.doAction(ActionResult.ALREADY_INSERTED_DIE);
+        assertEquals("error alreadyInsertedDie",error);
     }
 }
-

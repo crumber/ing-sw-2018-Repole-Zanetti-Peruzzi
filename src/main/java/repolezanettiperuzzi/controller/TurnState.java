@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.controller;
 
 import org.json.simple.parser.ParseException;
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.application.actions.*;
 
@@ -123,7 +124,7 @@ public class TurnState extends ControllerState {
             InsertDieWithCheckAction insert = new InsertDieWithCheckAction();
             code = insert.doAction(player,controller.board,new CreateListForInsertDieAction().doAction(message));
 
-            if(code<0){
+            if(ActionResult.isErrorCode(code)){
 
                 String error = new WhichErrorAction().doAction(code);
 
@@ -181,7 +182,7 @@ public class TurnState extends ControllerState {
             CheckCostToolCardAction check = new CheckCostToolCardAction();
             int checkCost = check.checkCostToolCard(controller.board,player,numCard);
 
-            if(checkCost>=0) {
+            if(!ActionResult.isErrorCode(checkCost)) {
 
                 ParametersRequestCardAction action = new ParametersRequestCardAction();
                 String requestParameters = action.doAction(controller.board, numCard);
@@ -193,7 +194,7 @@ public class TurnState extends ControllerState {
                     UseCardAction cardAction = new UseCardAction();
                     int code7 = cardAction.doAction(player,controller.board,numCard,new ArrayList<>());
 
-                    if(code7<0){
+                    if(ActionResult.isErrorCode(code7)){
 
                         String error = new WhichErrorAction().doAction(code7);
 
@@ -307,7 +308,7 @@ public class TurnState extends ControllerState {
                 code = action.doActionPreEffect(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
 
 
-                if(code==11){
+                if(ActionResult.FLUX_REMOVER_SECOND_STEP_REQUIRED.matches(code)){
 
                     ParametersRequestCardAction secondRequest = new ParametersRequestCardAction();
                     message = secondRequest.doAction();
@@ -324,7 +325,7 @@ public class TurnState extends ControllerState {
 
                 code = action.doAction(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
 
-                if(code<0){
+                if(ActionResult.isErrorCode(code)){
 
                     message = error.doAction(code);
 
@@ -343,7 +344,7 @@ public class TurnState extends ControllerState {
             code = action.doAction(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
             System.out.println(code);
 
-            if(code<0){
+            if(ActionResult.isErrorCode(code)){
 
                 message = error.doAction(code);
 
