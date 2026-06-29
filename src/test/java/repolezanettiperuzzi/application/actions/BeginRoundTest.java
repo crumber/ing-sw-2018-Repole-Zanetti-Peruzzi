@@ -14,21 +14,21 @@ public class BeginRoundTest {
     @Test
     public void doAction() {
 
-        assertEquals(0,testBeginRound.getSessionRound());
-        assertEquals(0,testBeginRound.getSessionIndex());
-        testBeginRound.increaseSessionIndex();
-        testBeginRound.increaseSessionRound();
-        assertEquals(1,testBeginRound.getSessionRound());
-        assertEquals(1,testBeginRound.getSessionIndex());
-        testBeginRound.resetSessionIndex();
-        assertEquals(0,testBeginRound.getSessionIndex());
+        assertEquals(0,testBeginRound.getRound());
+        assertEquals(0,testBeginRound.getIndex());
+        testBeginRound.increaseIndex();
+        testBeginRound.increaseRound();
+        assertEquals(1,testBeginRound.getRound());
+        assertEquals(1,testBeginRound.getIndex());
+        testBeginRound.resetIndex();
+        assertEquals(0,testBeginRound.getIndex());
 
         GameBoard board=new GameBoard();
         board.addPlayer("jobs","asd","ert","jsiji",12334);
         board.addPlayer("bill","asd","ert","jsiji",12334);
 
         testBeginRound.doAction(board);
-        assertEquals(2,testBeginRound.getSessionRound());
+        assertEquals(2,testBeginRound.getRound());
         assertEquals(5,board.getSizeDraft());
 
     }
@@ -39,14 +39,14 @@ public class BeginRoundTest {
         BeginRound firstSession = new BeginRound(new RoundTracker());
         BeginRound secondSession = new BeginRound(new RoundTracker());
 
-        firstSession.increaseSessionIndex();
-        firstSession.increaseSessionRound();
+        firstSession.increaseIndex();
+        firstSession.increaseRound();
 
-        assertEquals(1,firstSession.getSessionIndex());
-        assertEquals(1,firstSession.getSessionRound());
+        assertEquals(1,firstSession.getIndex());
+        assertEquals(1,firstSession.getRound());
 
-        assertEquals(0,secondSession.getSessionIndex());
-        assertEquals(0,secondSession.getSessionRound());
+        assertEquals(0,secondSession.getIndex());
+        assertEquals(0,secondSession.getRound());
     }
 
     @Test
@@ -55,14 +55,14 @@ public class BeginRoundTest {
         BeginRound firstSession = new BeginRound();
         BeginRound secondSession = new BeginRound();
 
-        firstSession.increaseSessionIndex();
-        firstSession.increaseSessionRound();
+        firstSession.increaseIndex();
+        firstSession.increaseRound();
 
-        assertEquals(1,firstSession.getSessionIndex());
-        assertEquals(1,firstSession.getSessionRound());
+        assertEquals(1,firstSession.getIndex());
+        assertEquals(1,firstSession.getRound());
 
-        assertEquals(0,secondSession.getSessionIndex());
-        assertEquals(0,secondSession.getSessionRound());
+        assertEquals(0,secondSession.getIndex());
+        assertEquals(0,secondSession.getRound());
     }
 
     @Test
@@ -75,7 +75,7 @@ public class BeginRoundTest {
 
         beginRound.doAction(board);
 
-        assertEquals(1,beginRound.getSessionRound());
+        assertEquals(1,beginRound.getRound());
         assertEquals(5,board.getSizeDraft());
     }
 

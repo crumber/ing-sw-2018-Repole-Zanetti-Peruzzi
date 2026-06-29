@@ -37,12 +37,12 @@ public class EndRound{
         board.addDiceToRoundTrack();
 
         //increase index of first player for the next round
-        beginRound.increaseSessionIndex();
+        beginRound.increaseIndex();
 
         //if the index is greater then the number of players reset the index to the first player of the ArrayList
-        if (beginRound.getSessionIndex()>board.getNPlayers()-1) {
+        if (beginRound.getIndex()>board.getNPlayers()-1) {
 
-            beginRound.resetSessionIndex();
+            beginRound.resetIndex();
 
         }
 

@@ -48,7 +48,7 @@ public class GameSessionTest {
         beginRound.doAction(board);
 
         assertEquals(1,session.getRoundTracker().getRound());
-        assertEquals(1,beginRound.getSessionRound());
+        assertEquals(1,beginRound.getRound());
         assertEquals(5,board.getSizeDraft());
     }
 
@@ -61,13 +61,13 @@ public class GameSessionTest {
         board.addPlayer("ale","sda","rere","13521.122",12421);
         board.addPlayer("fede","assa","rerereff","65.21.8788",5335);
 
-        beginTurn.resetSessionCurrentPlayer(1);
-        beginTurn.nextSessionTurnParameters(board,board.getPlayer(beginTurn.getSessionCurrentPlayer()));
+        beginTurn.resetCurrentPlayer(1);
+        beginTurn.nextTurnParameters(board,board.getPlayer(beginTurn.getCurrentPlayer()));
 
         assertEquals(0,session.getTurnTracker().getCurrentPlayer());
         assertEquals(1,session.getTurnTracker().getNumPlayedTurn());
-        assertEquals(0,beginTurn.getSessionCurrentPlayer());
-        assertEquals(1,beginTurn.getSessionNumPlayedTurn());
+        assertEquals(0,beginTurn.getCurrentPlayer());
+        assertEquals(1,beginTurn.getNumPlayedTurn());
     }
 
     @Test

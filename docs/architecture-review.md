@@ -297,6 +297,7 @@ In progress:
 - make default round and turn actions use instance trackers instead of shared static trackers
 - migrate round and turn action tests away from legacy static flow state
 - remove unused static round and turn flow API bridges
+- simplify round and turn action method names after removing the legacy static APIs
 
 Reduce static mutable state:
 

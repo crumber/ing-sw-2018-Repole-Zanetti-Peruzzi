@@ -53,8 +53,8 @@ public class ControllerTest {
         EndRound endRound = controller.createEndRoundAction();
 
         beginRound.doAction(board);
-        beginTurn.resetSessionCurrentPlayer(1);
-        beginTurn.nextSessionTurnParameters(board,board.getPlayer(beginTurn.getSessionCurrentPlayer()));
+        beginTurn.resetCurrentPlayer(1);
+        beginTurn.nextTurnParameters(board,board.getPlayer(beginTurn.getCurrentPlayer()));
 
         assertEquals(1,controller.getCurrentRound());
         assertEquals(0,controller.getCurrentTurn());

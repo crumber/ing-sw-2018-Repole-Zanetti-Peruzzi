@@ -28,7 +28,7 @@ public class BeginRound {
      */
     public void doAction(GameBoard board) {
 
-        increaseSessionRound();
+        increaseRound();
 
         //add die to draft based on number of players
         for (int i = 0; i<((board.getNPlayers()*2)+1); i++) {
@@ -42,7 +42,7 @@ public class BeginRound {
     /**
      * aumenta l'indice che indica chi e' il primo player della sessione
      */
-    public void increaseSessionIndex(){
+    public void increaseIndex(){
 
         roundTracker.increaseIndex();
 
@@ -52,7 +52,7 @@ public class BeginRound {
      *
      * @return l'intero che indica chi e' il primo player della sessione
      */
-    public int getSessionIndex(){
+    public int getIndex(){
 
         return roundTracker.getIndex();
 
@@ -61,7 +61,7 @@ public class BeginRound {
     /**
      * razzera l'indice che indica chi e' il primo player della sessione
      */
-    public void resetSessionIndex(){
+    public void resetIndex(){
 
         roundTracker.resetIndex();
 
@@ -70,7 +70,7 @@ public class BeginRound {
     /**
      * aumenta il round di gioco della sessione
      */
-    public void increaseSessionRound(){
+    public void increaseRound(){
 
         roundTracker.increaseRound();
 
@@ -79,7 +79,7 @@ public class BeginRound {
     /**
      * Azzera il round di gioco della sessione.
      */
-    public void resetSessionRound(){
+    public void resetRound(){
 
         roundTracker.resetRound();
 
@@ -89,7 +89,7 @@ public class BeginRound {
      *
      * @return il round di gioco della sessione
      */
-    public int getSessionRound(){
+    public int getRound(){
 
         return roundTracker.getRound();
 

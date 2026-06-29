@@ -46,7 +46,7 @@ public class BeginTurn {
      * @param player player a cui bisogna controllare il turno con il turno corrente
      * @return vero se turno corrente uguale a quello del player passato
      */
-    public boolean controlSessionTurn(Player player){
+    public boolean controlTurn(Player player){
 
         return turnTracker.controlTurn(player);
 
@@ -56,7 +56,7 @@ public class BeginTurn {
      *
      * @return il player corrente della sessione
      */
-    public int getSessionCurrentPlayer(){
+    public int getCurrentPlayer(){
 
         return turnTracker.getCurrentPlayer();
     }
@@ -65,7 +65,7 @@ public class BeginTurn {
      *
      * @return il turno corrente di gioco della sessione
      */
-    public int getSessionCurrentTurn(){
+    public int getCurrentTurn(){
 
         return turnTracker.getCurrentTurn();
 
@@ -74,7 +74,7 @@ public class BeginTurn {
     /**
      * azzera il turno corrente della sessione
      */
-    public void resetSessionCurrentTurn(){
+    public void resetCurrentTurn(){
 
         turnTracker.resetCurrentTurn();
 
@@ -84,7 +84,7 @@ public class BeginTurn {
      *
      * @return il numero di player che hanno giocato il proprio turno nella sessione
      */
-    public int getSessionNumPlayedTurn(){
+    public int getNumPlayedTurn(){
 
         return turnTracker.getNumPlayedTurn();
 
@@ -95,7 +95,7 @@ public class BeginTurn {
      * @param board game board
      * @param player player a cui aggiornare i parametri per il turno successivo
      */
-    public void nextSessionTurnParameters(GameBoard board,Player player){
+    public void nextTurnParameters(GameBoard board,Player player){
 
         turnTracker.nextTurnParameters(board,player);
     }
@@ -103,7 +103,7 @@ public class BeginTurn {
     /**
      * azzera il numero di player che ha giocato il proprio turno nella sessione
      */
-    public void resetSessionNumPlayedTurn() {
+    public void resetNumPlayedTurn() {
 
         turnTracker.resetNumPlayedTurn();
 
@@ -113,7 +113,7 @@ public class BeginTurn {
      * azzera l'indice che indica il player corrente nella sessione
      * @param firstPlayerIndex indice del primo player del round
      */
-    public void resetSessionCurrentPlayer(int firstPlayerIndex){
+    public void resetCurrentPlayer(int firstPlayerIndex){
 
         turnTracker.resetCurrentPlayer(firstPlayerIndex);
     }
