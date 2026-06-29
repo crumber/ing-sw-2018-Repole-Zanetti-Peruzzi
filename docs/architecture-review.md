@@ -267,6 +267,7 @@ Completed:
 - extract shared parameter-request and not-your-turn response handling in `TurnState`
 - extract shared turn-notification and view-update delivery helpers in `TurnState`
 - extract single-player end-game notification handling in `TurnState`
+- add named `Player` queries for connection and UI checks used by `TurnState`
 
 Focus on model correctness and encapsulation:
 

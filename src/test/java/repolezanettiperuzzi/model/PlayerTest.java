@@ -163,5 +163,17 @@ public class PlayerTest {
         assertEquals("CLI",player.getUI());
         assertEquals("127.0.0.1",player.getAddress());
         assertEquals(8008,player.getPort());
+        assertTrue(player.isRmiConnection());
+        assertFalse(player.isSocketConnection());
+        assertTrue(player.usesCli());
+        assertFalse(player.usesGui());
+
+        player.setConnection("Socket");
+        player.setUI("GUI");
+
+        assertTrue(player.isSocketConnection());
+        assertFalse(player.isRmiConnection());
+        assertTrue(player.usesGui());
+        assertFalse(player.usesCli());
     }
 }

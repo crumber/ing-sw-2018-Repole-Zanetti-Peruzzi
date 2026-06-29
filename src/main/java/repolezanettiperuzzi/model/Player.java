@@ -8,6 +8,11 @@ package repolezanettiperuzzi.model;
  */
 public class Player {
 
+    private static final String SOCKET_CONNECTION = "Socket";
+    private static final String RMI_CONNECTION = "RMI";
+    private static final String GUI_INTERFACE = "GUI";
+    private static final String CLI_INTERFACE = "CLI";
+
     private String name;
     private Colour secretColour;
     private boolean insertDieInThisTurn;
@@ -246,6 +251,34 @@ public class Player {
      */
     public String getUI(){
             return UI;
+    }
+
+    /**
+     * @return Vero se il giocatore usa una connessione Socket
+     */
+    public boolean isSocketConnection(){
+        return SOCKET_CONNECTION.equals(connection);
+    }
+
+    /**
+     * @return Vero se il giocatore usa una connessione RMI
+     */
+    public boolean isRmiConnection(){
+        return RMI_CONNECTION.equals(connection);
+    }
+
+    /**
+     * @return Vero se il giocatore usa l'interfaccia grafica
+     */
+    public boolean usesGui(){
+        return GUI_INTERFACE.equals(UI);
+    }
+
+    /**
+     * @return Vero se il giocatore usa l'interfaccia CLI
+     */
+    public boolean usesCli(){
+        return CLI_INTERFACE.equals(UI);
     }
 
     /**

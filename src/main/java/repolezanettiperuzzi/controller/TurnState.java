@@ -98,7 +98,7 @@ public class TurnState extends ControllerState {
 
     private void sendBeginTurnNotification(Player player, Player actualPlayer) throws IOException {
 
-        if (player.getConnection().equals("Socket")&&player.getLiveStatus()) {
+        if (player.isSocketConnection()&&player.getLiveStatus()) {
 
             try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
 
@@ -107,7 +107,7 @@ public class TurnState extends ControllerState {
 
             }
 
-        } else if (player.getConnection().equals("RMI")&&player.getLiveStatus()) {
+        } else if (player.isRmiConnection()&&player.getLiveStatus()) {
 
             controller.getHandlerRMI().notifyOnBeginTurn(player.getName(), actualPlayer.getName(), controller.getCurrentTime());
 
@@ -298,7 +298,7 @@ public class TurnState extends ControllerState {
 
     private void sendActionError(Player player, String message) throws IOException {
 
-        if(player.getConnection().equals("Socket")){
+        if(player.isSocketConnection()){
 
             try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
 
@@ -306,7 +306,7 @@ public class TurnState extends ControllerState {
                 handler.sendActionError(message);
             }
 
-        } else if(player.getConnection().equals("RMI")){
+        } else if(player.isRmiConnection()){
 
             controller.getHandlerRMI().sendActionError(player.getName(), message);
 
@@ -315,7 +315,7 @@ public class TurnState extends ControllerState {
 
     private void sendParametersForToolCard(Player player, String requestParameters) throws IOException {
 
-        if (player.getConnection().equals("Socket")) {
+        if (player.isSocketConnection()) {
 
             try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
 
@@ -324,7 +324,7 @@ public class TurnState extends ControllerState {
 
             }
 
-        } else if (player.getConnection().equals("RMI")) {
+        } else if (player.isRmiConnection()) {
 
             controller.getHandlerRMI().sendCardParameters(player.getName(), requestParameters);
 
@@ -333,7 +333,7 @@ public class TurnState extends ControllerState {
 
     private void sendNotYourTurn(Player player, boolean notifyRmi) throws IOException {
 
-        if(player.getConnection().equals("Socket")){
+        if(player.isSocketConnection()){
 
             try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
 
@@ -341,7 +341,7 @@ public class TurnState extends ControllerState {
                 handler.sendNotYourTurn();
 
             }
-        }else if(player.getConnection().equals("RMI") && notifyRmi){
+        }else if(player.isRmiConnection() && notifyRmi){
 
             controller.getHandlerRMI().sendNotYourTurn(player.getName());
 
@@ -364,13 +364,13 @@ public class TurnState extends ControllerState {
 
     private void sendUpdateView(Player player) throws IOException {
 
-        if(player.getConnection().equals("Socket")){
+        if(player.isSocketConnection()){
 
             Socket socket = new Socket(player.getAddress(),player.getPort());
             HandlerControllerSocket handler = new HandlerControllerSocket(controller,socket);
             handler.sendUpdateView(gameToString());
 
-        }else if(player.getConnection().equals("RMI")){
+        }else if(player.isRmiConnection()){
 
             controller.getHandlerRMI().updateView(player.getName());
 
@@ -412,14 +412,14 @@ public class TurnState extends ControllerState {
 
     private boolean sendWinBeforeEndGameNotification(Player player) throws IOException {
 
-        if(player.getConnection().equals("Socket")){
+        if(player.isSocketConnection()){
 
             Socket socket = new Socket(player.getAddress(), player.getPort());
             HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
             handler.notifyWinBeforeEndGame();
             return true;
 
-        }else if(player.getConnection().equals("RMI")){
+        }else if(player.isRmiConnection()){
 
             controller.getHandlerRMI().notifyOnWinBeforeEndGame(player.getName());
             return true;
@@ -437,13 +437,13 @@ public class TurnState extends ControllerState {
 
         }
 
-        if(player.getConnection().equals("Socket")){
+        if(player.isSocketConnection()){
 
-            return player.getUI().equals("GUI") || (player.getUI().equals("CLI") && !player.getName().equals(BeginTurn.getCurrentPlayer()));
+            return player.usesGui() || (player.usesCli() && !player.getName().equals(BeginTurn.getCurrentPlayer()));
 
         }
 
-        return player.getConnection().equals("RMI") && player.getUI().equals("GUI");
+        return player.isRmiConnection() && player.usesGui();
     }
 
     /**
