@@ -153,6 +153,52 @@ public class Controller {
 
     /**
      *
+     * @return Player corrente della sessione
+     */
+    public Player getCurrentPlayer(){
+        return this.board.getPlayer(getCurrentPlayerIndex());
+    }
+
+    /**
+     * Controlla che il turno del player sia quello corrente nella sessione.
+     * @param player Player da controllare
+     * @return Vero se il player puo' giocare nel turno corrente
+     */
+    public boolean isCurrentPlayerTurn(Player player){
+        return this.session.getTurnTracker().controlTurn(player);
+    }
+
+    /**
+     * Azzera il turno corrente della sessione.
+     */
+    public void resetCurrentTurn(){
+        this.session.getTurnTracker().resetCurrentTurn();
+    }
+
+    /**
+     * Azzera il numero di player che ha giocato nel turno corrente della sessione.
+     */
+    public void resetNumPlayedTurn(){
+        this.session.getTurnTracker().resetNumPlayedTurn();
+    }
+
+    /**
+     * Imposta il player corrente all'inizio del round della sessione.
+     */
+    public void resetCurrentPlayer(){
+        this.session.getTurnTracker().resetCurrentPlayer(getFirstPlayerIndex());
+    }
+
+    /**
+     * Aggiorna i parametri per il turno successivo nella sessione.
+     * @param player Player che ha appena giocato
+     */
+    public void nextTurnParameters(Player player){
+        this.session.getTurnTracker().nextTurnParameters(this.board,player);
+    }
+
+    /**
+     *
      * @return True se il timer è attivo sennò false
      */
     public boolean isTimerOn(){

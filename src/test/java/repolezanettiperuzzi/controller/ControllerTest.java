@@ -65,4 +65,33 @@ public class ControllerTest {
 
         assertEquals(1,controller.getFirstPlayerIndex());
     }
+
+    @Test
+    public void exposesSessionBackedTurnCommands() {
+
+        GameBoard board = new GameBoard();
+        board.addPlayer("ale","sda","rere","13521.122",12421);
+        board.addPlayer("fede","assa","rerereff","65.21.8788",5335);
+        board.addPlayer("lele","sda","rere","13521.122",12421);
+        Controller controller = new Controller(board.getPlayers(),board);
+
+        controller.getSession().getRoundTracker().increaseIndex();
+        controller.resetCurrentPlayer();
+
+        assertEquals(1,controller.getCurrentPlayerIndex());
+        assertSame(board.getPlayer(1),controller.getCurrentPlayer());
+        assertTrue(controller.isCurrentPlayerTurn(board.getPlayer(1)));
+
+        controller.nextTurnParameters(controller.getCurrentPlayer());
+
+        assertEquals(2,controller.getCurrentPlayerIndex());
+        assertEquals(1,controller.getNumPlayedTurn());
+        assertTrue(controller.isCurrentPlayerTurn(board.getPlayer(2)));
+
+        controller.resetCurrentTurn();
+        controller.resetNumPlayedTurn();
+
+        assertEquals(0,controller.getCurrentTurn());
+        assertEquals(0,controller.getNumPlayedTurn());
+    }
 }
