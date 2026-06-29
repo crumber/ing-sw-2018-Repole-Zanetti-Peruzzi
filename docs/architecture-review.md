@@ -287,6 +287,7 @@ In progress:
 - introduce a `GameSession` object to hold per-game round, turn, and turn-state trackers
 - give `Controller` an explicit `GameSession` before moving flow state into it
 - bind `TurnState` to the controller-owned turn-state tracker
+- add a session-backed `BeginTurn` instance path while preserving the legacy static API
 
 Reduce static mutable state:
 
