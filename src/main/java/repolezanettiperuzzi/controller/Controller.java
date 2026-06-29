@@ -29,6 +29,7 @@ public class Controller {
     private ControllerTimer task;
 
     private HandlerControllerRMI handlerRMI;
+    private final GameSession session;
 
     /**
      * Costruttore
@@ -42,6 +43,7 @@ public class Controller {
        this.board = board;
        this.isTimerOn = false;
        this.handlerRMI = null;
+       this.session = new GameSession();
 
     }
 
@@ -72,6 +74,14 @@ public class Controller {
     public synchronized ControllerState getState(){
         return this.currentState;
 
+    }
+
+    /**
+     *
+     * @return La sessione di gioco associata al controller
+     */
+    public GameSession getSession(){
+        return this.session;
     }
 
     /**
