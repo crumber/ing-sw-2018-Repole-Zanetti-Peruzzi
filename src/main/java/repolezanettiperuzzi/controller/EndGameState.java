@@ -26,7 +26,7 @@ public class EndGameState extends ControllerState{
 
         for (Player player : controller.board.getPlayers()){
 
-            if(player.getConnection().equals("Socket")){
+            if(player.isSocketConnection()){
 
                 try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
 
@@ -35,7 +35,7 @@ public class EndGameState extends ControllerState{
 
                 }
 
-            }else if(player.getConnection().equals("RMI")){
+            }else if(player.isRmiConnection()){
 
                     controller.getHandlerRMI().receiveRanking(player.getName(), message);
 

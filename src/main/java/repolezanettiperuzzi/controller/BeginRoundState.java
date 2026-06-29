@@ -41,13 +41,13 @@ public class BeginRoundState extends ControllerState {
      */
     public void sendBeginRound(Player player) throws IOException {
 
-        if(player.getConnection().equals("Socket")){
+        if(player.isSocketConnection()){
 
             Socket socket = new Socket(player.getAddress(),player.getPort());
             HandlerControllerSocket handler = new HandlerControllerSocket(this.controller,socket);
             handler.notifyBeginRound();
 
-        }else if(player.getConnection().equals("RMI")){
+        }else if(player.isRmiConnection()){
 
         }
 

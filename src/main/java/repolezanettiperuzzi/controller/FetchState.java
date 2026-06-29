@@ -64,7 +64,7 @@ public class FetchState extends ControllerState {
 
         }
 
-        if (player.getConnection().equals("Socket")) {
+        if (player.isSocketConnection()) {
 
             if (player.getWindow() == null) {
                 if (board.getPlayersWindowsChoices(player) == null) {
@@ -83,7 +83,7 @@ public class FetchState extends ControllerState {
                 handler.showChosenWindow(message, controller.getCurrentTime());
             }
 
-        } else if (player.getConnection().equals("RMI")) {
+        } else if (player.isRmiConnection()) {
             if (player.getWindow() == null) {
                 if (board.getPlayersWindowsChoices(player) == null) {
                     board.putPlayersWindowsChoices(player, takeWindowsFromPool());
@@ -237,7 +237,7 @@ public class FetchState extends ControllerState {
 
                     if (player.checkLastScene("chooseWindowRoom") && player.getLiveStatus()) {
 
-                        if (player.getConnection().equals("Socket")) {
+                        if (player.isSocketConnection()) {
 
                             try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
 
@@ -250,7 +250,7 @@ public class FetchState extends ControllerState {
 
                             }
 
-                        } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
+                        } else if (player.isRmiConnection()) {
                             controller.getHandlerRMI().enterGame(player.getName());
                         }
 
@@ -265,7 +265,7 @@ public class FetchState extends ControllerState {
 
                         this.setChosenWindowOnTimer(player,board.getPlayersWindowsChoices(player).get(0).getName());
 
-                        if (player.getConnection().equals("Socket")) {
+                        if (player.isSocketConnection()) {
 
                             try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
 
@@ -278,7 +278,7 @@ public class FetchState extends ControllerState {
 
                             }
 
-                        } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
+                        } else if (player.isRmiConnection()) {
                             controller.getHandlerRMI().enterGame(player.getName());
                         }
 
@@ -299,7 +299,7 @@ public class FetchState extends ControllerState {
 
                 if(player.checkLastScene("chooseWindowRoom") && player.getLiveStatus()) {
 
-                    if (player.getConnection().equals("Socket")) {
+                    if (player.isSocketConnection()) {
 
                         try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
 
@@ -315,7 +315,7 @@ public class FetchState extends ControllerState {
                         controller.cancelTimer();
                         //System.exit(0);//esce senza errori
 
-                    } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
+                    } else if (player.isRmiConnection()) {
                         controller.getHandlerRMI().showWinOnChooseWindowAlert(player.getName());
                         controller.cancelTimer();
                         //System.exit(0);//esce senza errori

@@ -268,6 +268,7 @@ Completed:
 - extract shared turn-notification and view-update delivery helpers in `TurnState`
 - extract single-player end-game notification handling in `TurnState`
 - add named `Player` queries for connection and UI checks used by `TurnState`
+- use named `Player` connection queries across controller states
 
 Focus on model correctness and encapsulation:
 

@@ -164,7 +164,7 @@ public class Controller {
      */
     public void notifyExitToClient(String playerID) throws IOException {
         Player player = board.getPlayerByName(playerID);
-        if(player.getConnection().equals("Socket")){
+        if(player.isSocketConnection()){
             Socket socket = null;
             try {
                 socket = new Socket(player.getAddress(), player.getPort());
@@ -173,7 +173,7 @@ public class Controller {
             }
             HandlerControllerSocket handlerControllerSocket = new HandlerControllerSocket(this, socket);
             handlerControllerSocket.notifyExitToClient();
-        } else if(board.getPlayerByName(playerID).getConnection().equals("RMI")){
+        } else if(player.isRmiConnection()){
 
         }
     }

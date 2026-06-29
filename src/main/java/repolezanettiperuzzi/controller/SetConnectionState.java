@@ -278,7 +278,7 @@ public class SetConnectionState extends ControllerState{
             if(controller.board.getPlayer(i).checkLastScene("waitingRoom") && controller.board.getPlayer(i).getLiveStatus()) {
                 System.out.println("NPlayer " + i);
                 Player player = controller.board.getPlayers().get(i);
-                if (player.getConnection().equals("Socket")) {
+                if (player.isSocketConnection()) {
                     System.out.println("Creo Socket indirizzo " + player.getAddress() + " porta " + player.getPort());
                     try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
                         HandlerControllerSocket handlerControllerSocket = new HandlerControllerSocket(controller, socket);
@@ -286,7 +286,7 @@ public class SetConnectionState extends ControllerState{
                     } catch (IOException e) {
                         LOGGER.log(Level.WARNING, "IOException: ", e); //da verificare
                     }
-                } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
+                } else if (player.isRmiConnection()) {
                     controller.getHandlerRMI().refreshWaitingRoom(player.getName(), timer);
                 }
             }
@@ -338,7 +338,7 @@ public class SetConnectionState extends ControllerState{
 
             if(player.checkLastScene("waitingRoom") && player.getLiveStatus()) {
 
-                if (player.getConnection().equals("Socket")) {
+                if (player.isSocketConnection()) {
 
                     try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
 
@@ -348,7 +348,7 @@ public class SetConnectionState extends ControllerState{
                     } catch (IOException e) {
                         LOGGER.log(Level.WARNING, "IOException: ", e); //da verificare
                     }
-                } else if (controller.board.getPlayers().get(i).getConnection().equals("RMI")) {
+                } else if (player.isRmiConnection()) {
                     controller.getHandlerRMI().notifyOnBeginChooseWindow(player.getName());
                 }
             }else {
