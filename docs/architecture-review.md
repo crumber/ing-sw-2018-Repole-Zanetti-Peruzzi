@@ -270,10 +270,9 @@ Completed:
 - add named `Player` queries for connection and UI checks used by `TurnState`
 - use named `Player` connection queries across controller states
 - introduce `PlayerConnection` and `PlayerInterface` enums behind the legacy player strings
+- use `PlayerConnection` when branching on incoming connection requests
 
-Focus on model correctness and encapsulation:
-
-- continue reducing `TurnState` transport branching without changing game flow
+Phase 3 is complete for this modernization pass. Remaining controller state and transport work is tracked in Phases 4 and 5.
 
 ### Phase 4: Application Flow Cleanup
 

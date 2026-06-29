@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
+import repolezanettiperuzzi.model.PlayerConnection;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -130,6 +131,14 @@ public class SetConnectionState extends ControllerState{
 
     }
 
+    private boolean isSocketRequest(String connection) {
+        return PlayerConnection.fromLegacyName(connection) == PlayerConnection.SOCKET;
+    }
+
+    private boolean isRmiRequest(String connection) {
+        return PlayerConnection.fromLegacyName(connection) == PlayerConnection.RMI;
+    }
+
     /**
      * Notifica la riconnessione
      * @param controller Controller
@@ -141,10 +150,10 @@ public class SetConnectionState extends ControllerState{
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
     public void notifyOnReconnect(Controller controller, String connection, String UI, String address, int port, String playerID) throws IOException {
-        if(connection.equals("Socket")){
+        if(isSocketRequest(connection)){
             HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
             handleSocket.notifyOnReconnect(playerID, connection, UI);
-        } else if(connection.equals("RMI")){
+        } else if(isRmiRequest(connection)){
             //TODO controllo anche che il giocare aveva scelto una window prima di disconnettersi
         }
     }
@@ -159,10 +168,10 @@ public class SetConnectionState extends ControllerState{
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
     public void notifyOnStealAccount(Controller controller, String connection, String UI, String address, int port) throws IOException {
-        if(connection.equals("Socket")){
+        if(isSocketRequest(connection)){
             HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
             handleSocket.notifyOnStealAccount();
-        } else if(connection.equals("RMI")){
+        } else if(isRmiRequest(connection)){
 
         }
     }
@@ -177,10 +186,10 @@ public class SetConnectionState extends ControllerState{
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
     public void notifyOnWrongPassword(Controller controller, String connection, String UI, String address, int port) throws IOException {
-        if(connection.equals("Socket")){
+        if(isSocketRequest(connection)){
             HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
             handleSocket.notifyOnWrongPassword();
-        } else if(connection.equals("RMI")){
+        } else if(isRmiRequest(connection)){
 
         }
     }
@@ -195,10 +204,10 @@ public class SetConnectionState extends ControllerState{
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
     public void notifyOnGameAlreadyStarted(Controller controller, String connection, String UI, String address, int port) throws IOException {
-        if(connection.equals("Socket")){
+        if(isSocketRequest(connection)){
             HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
             handleSocket.notifyOnGameAlreadyStarted();
-        } else if(connection.equals("RMI")){
+        } else if(isRmiRequest(connection)){
 
         }
     }
@@ -213,10 +222,10 @@ public class SetConnectionState extends ControllerState{
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
     public void notifyOnAlready4Players(Controller controller, String connection, String UI, String address, int port) throws IOException {
-        if(connection.equals("Socket")){
+        if(isSocketRequest(connection)){
             HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
             handleSocket.notifyOnAlready4Players();
-        } else if(connection.equals("RMI")){
+        } else if(isRmiRequest(connection)){
 
         }
     }
@@ -231,10 +240,10 @@ public class SetConnectionState extends ControllerState{
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
     public void notifyOnRegister(Controller controller, String connection, String UI, String address, int port) throws IOException {
-        if(connection.equals("Socket")){
+        if(isSocketRequest(connection)){
             HandlerControllerSocket handleSocket = new HandlerControllerSocket(controller, new Socket(address, port));
             handleSocket.notifyOnRegister(connection, UI);
-        } else if(connection.equals("RMI")){
+        } else if(isRmiRequest(connection)){
             //System.out.println("Dentro RMI");
             //HandlerControllerRMI handlerRMI = controller.getHandlerRMI();
             //handlerRMI.notifyOnRegister(player.getName());
