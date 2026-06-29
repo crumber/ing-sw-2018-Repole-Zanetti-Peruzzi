@@ -278,6 +278,7 @@ Completed:
 In progress:
 
 - add explicit tests for the current forward-then-backward turn order before replacing static turn state
+- introduce a non-static `TurnTracker` with matching turn-order tests before wiring it into `BeginTurn`
 
 Reduce static mutable state:
 
