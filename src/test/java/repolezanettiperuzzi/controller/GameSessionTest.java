@@ -3,6 +3,7 @@ package repolezanettiperuzzi.controller;
 import org.junit.Test;
 import repolezanettiperuzzi.application.actions.BeginRound;
 import repolezanettiperuzzi.application.actions.BeginTurn;
+import repolezanettiperuzzi.application.actions.EndRound;
 import repolezanettiperuzzi.model.GameBoard;
 
 import static org.junit.Assert.*;
@@ -67,5 +68,23 @@ public class GameSessionTest {
         assertEquals(1,session.getTurnTracker().getNumPlayedTurn());
         assertEquals(0,beginTurn.getSessionCurrentPlayer());
         assertEquals(1,beginTurn.getSessionNumPlayedTurn());
+    }
+
+    @Test
+    public void createsEndRoundActionBoundToSessionTracker() {
+
+        GameSession session = new GameSession();
+        EndRound endRound = session.createEndRound();
+        GameBoard board = new GameBoard();
+        board.addPlayer("ale","sda","rere","13521.122",12421);
+        board.addPlayer("fede","assa","rerereff","65.21.8788",5335);
+
+        endRound.doAction(board);
+
+        assertEquals(1,session.getRoundTracker().getIndex());
+
+        endRound.doAction(board);
+
+        assertEquals(0,session.getRoundTracker().getIndex());
     }
 }

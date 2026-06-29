@@ -8,6 +8,20 @@ import repolezanettiperuzzi.model.GameBoard;
  */
 public class EndRound{
 
+    private final BeginRound beginRound;
+
+    public EndRound(){
+        this(new BeginRound());
+    }
+
+    public EndRound(RoundTracker roundTracker){
+        this(new BeginRound(roundTracker));
+    }
+
+    private EndRound(BeginRound beginRound){
+        this.beginRound=beginRound;
+    }
+
     /**
      * azzera i turni di tutti i player, sposta i dadi rimasti sul draft nel roundtrack e imposta i parametri per il turno successivo
      * @param board Game board
@@ -23,12 +37,12 @@ public class EndRound{
         board.addDiceToRoundTrack();
 
         //increase index of first player for the next round
-        BeginRound.increaseIndex();
+        beginRound.increaseSessionIndex();
 
         //if the index is greater then the number of players reset the index to the first player of the ArrayList
-        if (BeginRound.getIndex()>board.getNPlayers()-1) {
+        if (beginRound.getSessionIndex()>board.getNPlayers()-1) {
 
-            BeginRound.resetIndex();
+            beginRound.resetSessionIndex();
 
         }
 

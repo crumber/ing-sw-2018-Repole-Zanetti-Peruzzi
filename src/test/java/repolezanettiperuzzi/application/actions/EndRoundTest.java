@@ -78,4 +78,29 @@ public class EndRoundTest {
 
 
     }
+
+    @Test
+    public void usesSessionRoundTrackerForNextFirstPlayerIndex() {
+
+        RoundTracker roundTracker = new RoundTracker();
+        EndRound endRound = new EndRound(roundTracker);
+        GameBoard gameBoard=new GameBoard();
+
+        gameBoard.addPlayer("name1","boh","ui","where",123434);
+        gameBoard.addPlayer("name2","boh","ui","where",122431);
+
+        endRound.doAction(gameBoard);
+
+        assertEquals(1,roundTracker.getIndex());
+
+        endRound.doAction(gameBoard);
+
+        assertEquals(0,roundTracker.getIndex());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void requiresRoundTrackerForSessionConstructor() {
+
+        new EndRound(null);
+    }
 }

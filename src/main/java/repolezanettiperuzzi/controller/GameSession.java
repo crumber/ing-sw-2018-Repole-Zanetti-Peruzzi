@@ -2,6 +2,7 @@ package repolezanettiperuzzi.controller;
 
 import repolezanettiperuzzi.application.actions.BeginRound;
 import repolezanettiperuzzi.application.actions.BeginTurn;
+import repolezanettiperuzzi.application.actions.EndRound;
 import repolezanettiperuzzi.application.actions.RoundTracker;
 import repolezanettiperuzzi.application.actions.TurnTracker;
 
@@ -57,5 +58,12 @@ public class GameSession {
      */
     public BeginTurn createBeginTurn(){
         return new BeginTurn(turnTracker);
+    }
+
+    /**
+     * @return Azione di fine round collegata allo stato della sessione
+     */
+    public EndRound createEndRound(){
+        return new EndRound(roundTracker);
     }
 }
