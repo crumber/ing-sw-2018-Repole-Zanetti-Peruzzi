@@ -75,22 +75,23 @@ public class HandlerControllerSocket implements Runnable{
         switch(message.getAction()) {
             case INIT:
                 controller.setState(new SetConnectionState());
-                String result = ((SetConnectionState)controller.getState()).initializePlayer(playerID, message.getParameter(0), addr, Integer.parseInt(message.getParameter(3)), message.getParameter(1), message.getParameter(2));
+                SocketInitRequest initRequest = SocketInitRequest.from(message);
+                String result = ((SetConnectionState)controller.getState()).initializePlayer(playerID, initRequest.getPassword(), addr, initRequest.getPort(), initRequest.getConnection(), initRequest.getUi());
 
                 switch (result){
                     case "registered": {
                         Player player = controller.board.getPlayerByName(playerID);
-                        ((SetConnectionState) controller.getState()).notifyOnRegister(controller, message.getParameter(1), message.getParameter(2), player.getAddress(), player.getPort());
+                        ((SetConnectionState) controller.getState()).notifyOnRegister(controller, initRequest.getConnection(), initRequest.getUi(), player.getAddress(), player.getPort());
                         break;
                     }
                     case "stealAccount": {
                         Player player = controller.board.getPlayerByName(playerID);
-                        ((SetConnectionState) controller.getState()).notifyOnStealAccount(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), Integer.parseInt(message.getParameter(3))); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
+                        ((SetConnectionState) controller.getState()).notifyOnStealAccount(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), initRequest.getPort()); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
                         break;
                     }
                     case "wrongPassword": {
                         Player player = controller.board.getPlayerByName(playerID);
-                        ((SetConnectionState) controller.getState()).notifyOnWrongPassword(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), Integer.parseInt(message.getParameter(3))); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
+                        ((SetConnectionState) controller.getState()).notifyOnWrongPassword(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), initRequest.getPort()); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
                         break;
                     }
                     case "reconnect": {
@@ -99,11 +100,11 @@ public class HandlerControllerSocket implements Runnable{
                         break;
                     }
                     case "gameAlreadyStarted": {
-                        ((SetConnectionState) controller.getState()).notifyOnGameAlreadyStarted(controller, message.getParameter(1), message.getParameter(2), addr.toString().substring(1), Integer.parseInt(message.getParameter(3)));
+                        ((SetConnectionState) controller.getState()).notifyOnGameAlreadyStarted(controller, initRequest.getConnection(), initRequest.getUi(), addr.toString().substring(1), initRequest.getPort());
                         break;
                     }
                     case "already4Players": {
-                        ((SetConnectionState) controller.getState()).notifyOnAlready4Players(controller, message.getParameter(1), message.getParameter(2), addr.toString().substring(1), Integer.parseInt(message.getParameter(3)));
+                        ((SetConnectionState) controller.getState()).notifyOnAlready4Players(controller, initRequest.getConnection(), initRequest.getUi(), addr.toString().substring(1), initRequest.getPort());
                         break;
                     }
                 }
