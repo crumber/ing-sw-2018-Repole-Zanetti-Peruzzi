@@ -396,25 +396,37 @@ public class TurnState extends ControllerState {
 
                 Player player = controller.board.getPlayer(i);
 
-                if(player.getLiveStatus()){
-
-                    if(player.getConnection().equals("Socket")){
-
-                        Socket socket = new Socket(player.getAddress(), player.getPort());
-                        HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
-                        handler.notifyWinBeforeEndGame();
-
-                        System.exit(0);
-
-                    }else if(player.getConnection().equals("RMI")){
-
-                        controller.getHandlerRMI().notifyOnWinBeforeEndGame(player.getName());
-                        System.exit(0);
-
-                    }
-                }
+                notifyLivePlayerBeforeEndGame(player);
             }
         }
+    }
+
+    private void notifyLivePlayerBeforeEndGame(Player player) throws IOException {
+
+        if(player.getLiveStatus() && sendWinBeforeEndGameNotification(player)){
+
+            System.exit(0);
+
+        }
+    }
+
+    private boolean sendWinBeforeEndGameNotification(Player player) throws IOException {
+
+        if(player.getConnection().equals("Socket")){
+
+            Socket socket = new Socket(player.getAddress(), player.getPort());
+            HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
+            handler.notifyWinBeforeEndGame();
+            return true;
+
+        }else if(player.getConnection().equals("RMI")){
+
+            controller.getHandlerRMI().notifyOnWinBeforeEndGame(player.getName());
+            return true;
+
+        }
+
+        return false;
     }
 
     private boolean shouldSendStatusUpdate(Player player) {
