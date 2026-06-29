@@ -73,7 +73,7 @@ public class HandlerControllerSocket implements Runnable{
         String playerID = message.getPlayerId();
 
         switch(message.getAction()) {
-            case "init":
+            case INIT:
                 controller.setState(new SetConnectionState());
                 String result = ((SetConnectionState)controller.getState()).initializePlayer(playerID, message.getParameter(0), addr, Integer.parseInt(message.getParameter(3)), message.getParameter(1), message.getParameter(2));
 
@@ -109,42 +109,42 @@ public class HandlerControllerSocket implements Runnable{
                 }
                 break;
 
-            case "waitingOk": //il client ha avviato la sua view della waiting room
+            case WAITING_OK: //il client ha avviato la sua view della waiting room
                 controller.setState(new SetConnectionState());
                 ((SetConnectionState)controller.getState()).waitingRoomLoaded(playerID);
                 ((SetConnectionState)controller.getState()).notifyOnUpdatedPlayer();
                 break;
-            case "chooseWindowOk":
+            case CHOOSE_WINDOW_OK:
                 controller.setState(new FetchState());
                 Player playerName = controller.board.getPlayerByName(playerID);
                 ((FetchState)controller.getState()).sendWindows(playerName);
                 break;
-            case "chosenWindow":
+            case CHOSEN_WINDOW:
                 controller.setState(new FetchState());
                 ((FetchState)controller.getState()).setChosenWindow(controller.board.getPlayerByName(playerID), message.getParameter(0).replace("-"," "));
                 break;
-            case "gameOk":
+            case GAME_OK:
                 controller.setState(new FetchState());
                 ((FetchState)controller.getState()).readyToPlay(playerID);
                 break;
-            case "insertDie":
+            case INSERT_DIE:
                 controller.setState(new TurnState());
                 ((TurnState)controller.getState()).insertDie(controller.board.getPlayerByName(playerID) , message.getParameter(0)+" "+message.getParameter(1)+" "+message.getParameter(2));
                 break;
-            case "responseToolCard":
+            case RESPONSE_TOOL_CARD:
                 controller.setState(new TurnState());
                 ((TurnState)controller.getState()).useCard(controller.board.getPlayerByName(playerID), Integer.parseInt(message.getParameter(0)), message.getParameter(1).replace("-", " "));
                 break;
-            case "chooseCard":
+            case CHOOSE_CARD:
                 controller.setState(new TurnState());
                 ((TurnState)controller.getState()).useCardRequest(controller.board.getPlayerByName(playerID), Integer.parseInt(message.getParameter(0)));
                 break;
-            case "endTurn":
+            case END_TURN:
                 controller.cancelTimer();
                 controller.setState(new TurnState());
                 ((TurnState)controller.getState()).passToNextTurn(controller.board.getPlayerByName(playerID));
                 break;
-            case "exit":
+            case EXIT:
                 controller.notifyExitToClient(playerID);
                 switch(message.getParameter(0)){
                     case "waitingRoom":
@@ -161,6 +161,8 @@ public class HandlerControllerSocket implements Runnable{
                         ((TurnState)controller.getState()).notifyStatusToPlayers();
                         break;
                 }
+                break;
+            case UNKNOWN:
                 break;
 
 

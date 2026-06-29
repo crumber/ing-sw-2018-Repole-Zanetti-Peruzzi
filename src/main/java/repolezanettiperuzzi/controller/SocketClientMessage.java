@@ -6,10 +6,10 @@ package repolezanettiperuzzi.controller;
 class SocketClientMessage {
 
     private final String playerId;
-    private final String action;
+    private final SocketClientAction action;
     private final String[] parameters;
 
-    private SocketClientMessage(String playerId, String action, String[] parameters){
+    private SocketClientMessage(String playerId, SocketClientAction action, String[] parameters){
         this.playerId=playerId;
         this.action=action;
         this.parameters=parameters;
@@ -23,14 +23,14 @@ class SocketClientMessage {
             parameters[i] = line[i+2];
         }
 
-        return new SocketClientMessage(line[0], line[1], parameters);
+        return new SocketClientMessage(line[0], SocketClientAction.fromWireValue(line[1]), parameters);
     }
 
     String getPlayerId(){
         return playerId;
     }
 
-    String getAction(){
+    SocketClientAction getAction(){
         return action;
     }
 

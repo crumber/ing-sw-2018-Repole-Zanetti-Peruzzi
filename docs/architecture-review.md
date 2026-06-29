@@ -307,11 +307,13 @@ Reduce static mutable state:
 
 ### Phase 5: Transport Boundaries
 
-Separate game commands from socket/RMI parsing:
-
 In progress:
 
 - introduce a tested `SocketClientMessage` parser before separating socket command dispatch
+- introduce typed socket client actions while preserving the existing wire command strings
+
+
+Separate game commands from socket/RMI parsing:
 
 - define command/request objects for client actions
 - parse socket messages into commands in the infrastructure layer
