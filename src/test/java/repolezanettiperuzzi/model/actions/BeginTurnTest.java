@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.model.actions;
 
+import org.junit.Before;
 import org.junit.Test;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
@@ -10,6 +11,15 @@ import static org.junit.Assert.*;
 public class BeginTurnTest {
 
     BeginTurn testBeginTurn=new BeginTurn();
+
+    @Before
+    public void setUp() {
+        BeginRound.resetIndex();
+        BeginRound.resetRound();
+        BeginTurn.resetCurrentTurn();
+        BeginTurn.resetNumPlayedTurn();
+        BeginTurn.resetCurrentPlayer();
+    }
 
     //testo che svolga l'azione in modo corretto
     @Test

@@ -67,6 +67,15 @@ public class BeginRound {
     }
 
     /**
+     * Azzera il round di gioco.
+     */
+    public static void resetRound(){
+
+        round=0;
+
+    }
+
+    /**
      *
      * @return il round di gioco
      */

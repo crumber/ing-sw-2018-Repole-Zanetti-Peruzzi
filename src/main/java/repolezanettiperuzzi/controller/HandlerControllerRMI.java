@@ -1,6 +1,5 @@
 package repolezanettiperuzzi.controller;
 
-import javafx.collections.ObservableList;
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.common.ClientStubRMI;
 import repolezanettiperuzzi.common.ControllerStubRMI;

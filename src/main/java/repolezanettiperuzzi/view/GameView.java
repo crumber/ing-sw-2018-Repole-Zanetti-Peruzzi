@@ -1,6 +1,5 @@
 package repolezanettiperuzzi.view;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.application.Application;
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.common.ClientStubRMI;
