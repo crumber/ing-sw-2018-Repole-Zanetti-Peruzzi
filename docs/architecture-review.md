@@ -312,6 +312,7 @@ In progress:
 - introduce a tested `SocketClientMessage` parser before separating socket command dispatch
 - introduce typed socket client actions while preserving the existing wire command strings
 - extract a named request object for socket init parameters
+- extract a named request object for socket insert-die parameters
 
 
 Separate game commands from socket/RMI parsing:

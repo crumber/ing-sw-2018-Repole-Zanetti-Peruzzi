@@ -130,7 +130,8 @@ public class HandlerControllerSocket implements Runnable{
                 break;
             case INSERT_DIE:
                 controller.setState(new TurnState());
-                ((TurnState)controller.getState()).insertDie(controller.board.getPlayerByName(playerID) , message.getParameter(0)+" "+message.getParameter(1)+" "+message.getParameter(2));
+                SocketInsertDieRequest insertDieRequest = SocketInsertDieRequest.from(message);
+                ((TurnState)controller.getState()).insertDie(controller.board.getPlayerByName(playerID), insertDieRequest.toTurnStateParameter());
                 break;
             case RESPONSE_TOOL_CARD:
                 controller.setState(new TurnState());
