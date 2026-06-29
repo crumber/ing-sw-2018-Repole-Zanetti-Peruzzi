@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.application.actions;
 
 import org.junit.Test;
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.*;
 import repolezanettiperuzzi.domain.cards.toolcards.FluxRemover;
 
@@ -33,10 +34,11 @@ public class UseCardActionTest {
 
         parameterForCard.add(7);
 
+        assertEquals(ActionResult.WRONG_NUMBER,testUseCardAction.doActionResult(board.getPlayer(0),board,whichToolCard,parameterForCard));
         assertEquals(-11,testUseCardAction.doAction(board.getPlayer(0),board,whichToolCard,parameterForCard));
 
         parameterForCard.add(0,4);
-        testUseCardAction.doAction(board.getPlayer(0),board,whichToolCard,parameterForCard);
+        assertEquals(ActionResult.SUCCESS,testUseCardAction.doActionResult(board.getPlayer(0),board,whichToolCard,parameterForCard));
 
         assertEquals(Value.FOUR,board.getDieDraft(board.getSizeDraft()-1).getValueDie());
         assertEquals(2,board.getCostToolCard(0));
@@ -59,10 +61,12 @@ public class UseCardActionTest {
 
         parameterForCard.add(4);
 
+        assertEquals(ActionResult.EMPTY_DRAFT_POSITION,testUseCardAction.doActionPreEffectResult(board.getPlayer(0),board,whichToolCard,parameterForCard));
         assertEquals(-9,testUseCardAction.doActionPreEffect(board.getPlayer(0),board,whichToolCard,parameterForCard));
 
         parameterForCard.add(0,2);
 
+        assertEquals(ActionResult.FLUX_REMOVER_SECOND_STEP_REQUIRED,testUseCardAction.doActionPreEffectResult(board.getPlayer(0),board,whichToolCard,parameterForCard));
         assertEquals(11,testUseCardAction.doActionPreEffect(board.getPlayer(0),board,whichToolCard,parameterForCard));
     }
 }

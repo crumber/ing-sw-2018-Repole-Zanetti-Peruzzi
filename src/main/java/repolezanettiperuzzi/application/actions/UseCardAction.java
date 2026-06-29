@@ -24,6 +24,11 @@ public class UseCardAction {
     //For all card and tool card 11's final effect
     public int doAction(Player player, GameBoard board, int whichToolCard, List<Integer> parameterForCard){
 
+        return doActionResult(player, board, whichToolCard, parameterForCard).getCode();
+    }
+
+    public ActionResult doActionResult(Player player, GameBoard board, int whichToolCard, List<Integer> parameterForCard){
+
         ActionResult resultOfAction=board.getToolCard(whichToolCard).checkResult(board,player,parameterForCard);
         System.out.println("resultOfAction "+resultOfAction.getCode());
         //if check is correct, do active action, reduce player's tokens
@@ -41,7 +46,7 @@ public class UseCardAction {
             }
         }
 
-        return resultOfAction.getCode();
+        return resultOfAction;
     }
 
     /**
@@ -56,6 +61,11 @@ public class UseCardAction {
     //only for tool card 11
     public int doActionPreEffect(Player player, GameBoard board, int whichToolCard, List<Integer> parameterForCard){
 
+        return doActionPreEffectResult(player, board, whichToolCard, parameterForCard).getCode();
+    }
+
+    public ActionResult doActionPreEffectResult(Player player, GameBoard board, int whichToolCard, List<Integer> parameterForCard){
+
         ActionResult resultOfAction=((FluxRemover)board.getToolCard(whichToolCard)).checkPreEffectResult(board,player,parameterForCard);
 
         //if check is correct, do active action, not reduce player's tokens
@@ -66,6 +76,6 @@ public class UseCardAction {
 
         }
 
-        return resultOfAction.getCode();
+        return resultOfAction;
     }
 }

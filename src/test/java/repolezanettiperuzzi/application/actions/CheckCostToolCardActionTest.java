@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.application.actions;
 
 import org.junit.Test;
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.Box;
 import repolezanettiperuzzi.model.Colour;
 import repolezanettiperuzzi.model.GameBoard;
@@ -36,13 +37,16 @@ public class CheckCostToolCardActionTest {
         board.addPlayer("jerry","RMI","CLI","127.0.0.1",8008);
         board.getPlayer(0).setWindow(tempWindow);
 
+        assertEquals(ActionResult.NOT_ENOUGH_FAVOR_TOKENS,testCheckCostToolCardAction.checkCostToolCardResult(board,board.getPlayer(0),whichToolCard));
         assertEquals(-8,testCheckCostToolCardAction.checkCostToolCard(board,board.getPlayer(0),whichToolCard));
 
         board.getPlayer(0).setFavorTokens(123);
 
+        assertEquals(ActionResult.SUCCESS,testCheckCostToolCardAction.checkCostToolCardResult(board,board.getPlayer(0),whichToolCard));
         assertEquals(1,testCheckCostToolCardAction.checkCostToolCard(board,board.getPlayer(0),whichToolCard));
 
         board.getPlayer(0).setUsedCardInThisTurn(true);
+        assertEquals(ActionResult.ALREADY_USED_TOOL_CARD,testCheckCostToolCardAction.checkCostToolCardResult(board,board.getPlayer(0),whichToolCard));
         assertEquals(-29,testCheckCostToolCardAction.checkCostToolCard(board,board.getPlayer(0),whichToolCard));
     }
 }

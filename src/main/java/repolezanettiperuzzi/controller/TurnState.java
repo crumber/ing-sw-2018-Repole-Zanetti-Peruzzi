@@ -119,14 +119,12 @@ public class TurnState extends ControllerState {
 
         if(BeginTurn.controlTurn(player)) {
 
-            int code;
-
             InsertDieWithCheckAction insert = new InsertDieWithCheckAction();
-            code = insert.doAction(player,controller.board,new CreateListForInsertDieAction().doAction(message));
+            ActionResult result = insert.doActionResult(player,controller.board,new CreateListForInsertDieAction().doAction(message));
 
-            if(ActionResult.isErrorCode(code)){
+            if(result.isError()){
 
-                String error = new WhichErrorAction().doAction(code);
+                String error = new WhichErrorAction().doAction(result);
 
                 if(player.getConnection().equals("Socket")){
 
@@ -180,9 +178,9 @@ public class TurnState extends ControllerState {
         if(BeginTurn.controlTurn(player)) {
 
             CheckCostToolCardAction check = new CheckCostToolCardAction();
-            int checkCost = check.checkCostToolCard(controller.board,player,numCard);
+            ActionResult checkCost = check.checkCostToolCardResult(controller.board,player,numCard);
 
-            if(!ActionResult.isErrorCode(checkCost)) {
+            if(!checkCost.isError()) {
 
                 ParametersRequestCardAction action = new ParametersRequestCardAction();
                 String requestParameters = action.doAction(controller.board, numCard);
@@ -192,11 +190,11 @@ public class TurnState extends ControllerState {
 
 
                     UseCardAction cardAction = new UseCardAction();
-                    int code7 = cardAction.doAction(player,controller.board,numCard,new ArrayList<>());
+                    ActionResult cardResult = cardAction.doActionResult(player,controller.board,numCard,new ArrayList<>());
 
-                    if(ActionResult.isErrorCode(code7)){
+                    if(cardResult.isError()){
 
-                        String error = new WhichErrorAction().doAction(code7);
+                        String error = new WhichErrorAction().doAction(cardResult);
 
                         if (player.getConnection().equals("Socket")) {
 
@@ -291,7 +289,7 @@ public class TurnState extends ControllerState {
         CreateListForCardAction list = new CreateListForCardAction();
         UseCardAction action = new UseCardAction();
         String[] mode = parameters.split(" ");
-        int code;
+        ActionResult result;
 
         String message;
 
@@ -305,10 +303,10 @@ public class TurnState extends ControllerState {
 
                 parameters = parameters.substring(10);
 
-                code = action.doActionPreEffect(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
+                result = action.doActionPreEffectResult(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
 
 
-                if(ActionResult.FLUX_REMOVER_SECOND_STEP_REQUIRED.matches(code)){
+                if(result == ActionResult.FLUX_REMOVER_SECOND_STEP_REQUIRED){
 
                     ParametersRequestCardAction secondRequest = new ParametersRequestCardAction();
                     message = secondRequest.doAction();
@@ -316,18 +314,18 @@ public class TurnState extends ControllerState {
 
                 }else{
 
-                    message = error.doAction(code);
+                    message = error.doAction(result);
 
                 }
 
 
             }else{
 
-                code = action.doAction(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
+                result = action.doActionResult(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
 
-                if(ActionResult.isErrorCode(code)){
+                if(result.isError()){
 
-                    message = error.doAction(code);
+                    message = error.doAction(result);
 
                 }else{
 
@@ -341,12 +339,12 @@ public class TurnState extends ControllerState {
 
         }else{
 
-            code = action.doAction(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
-            System.out.println(code);
+            result = action.doActionResult(player,controller.board,numCard,list.doAction(parameters,controller.board,numCard));
+            System.out.println(result.getCode());
 
-            if(ActionResult.isErrorCode(code)){
+            if(result.isError()){
 
-                message = error.doAction(code);
+                message = error.doAction(result);
 
             }else{
 

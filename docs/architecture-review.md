@@ -262,10 +262,11 @@ Completed:
 - add `ActionResult` to name action and tool-card validation codes while keeping legacy integer bridges
 - migrate shared `ToolCard` validation helpers to `ActionResult`
 - migrate concrete tool-card checks to `ActionResult`
+- use `ActionResult` across insert-die and tool-card controller flows
 
 Focus on model correctness and encapsulation:
 
-- continue replacing legacy integer bridges at application/controller boundaries
+- continue replacing legacy integer bridges in lower-risk callers and tests
 
 ### Phase 4: Application Flow Cleanup
 

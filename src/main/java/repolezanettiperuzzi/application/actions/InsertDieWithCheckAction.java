@@ -76,6 +76,11 @@ public class InsertDieWithCheckAction{
      */
     public int doAction(Player player, GameBoard board, List<Integer> parameterForInserDie){
 
+        return doActionResult(player, board, parameterForInserDie).getCode();
+    }
+
+    public ActionResult doActionResult(Player player, GameBoard board, List<Integer> parameterForInserDie){
+
         int posDieOnDraft=parameterForInserDie.get(0);
         int whichRow=parameterForInserDie.get(1);
         int whichColumn=parameterForInserDie.get(2);
@@ -89,6 +94,6 @@ public class InsertDieWithCheckAction{
 
         }
 
-        return resultOfAction.getCode();
+        return resultOfAction;
     }
 }

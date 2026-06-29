@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.application.actions;
 
 import org.junit.Test;
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.*;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class InsertDieWithCheckActionTest {
         parameter.add(0);
         parameter.add(1);
 
-        assertEquals(1,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter));
+        assertEquals(ActionResult.SUCCESS,testInsertDieWithCheckAction.doActionResult(board.getPlayer(0),board,parameter));
         board.getPlayer(0).getWindow().removeDie(0,1);
 
         board.addDieToDraft(d1);
@@ -88,6 +89,7 @@ public class InsertDieWithCheckActionTest {
 
         assertEquals(-28,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter));
         board.getPlayer(0).setInsertDieInThisTurn(false);
+        assertEquals(ActionResult.EMPTY_DRAFT_POSITION,testInsertDieWithCheckAction.doActionResult(board.getPlayer(0),board,parameter));
         assertEquals(-9,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter));
 
 
