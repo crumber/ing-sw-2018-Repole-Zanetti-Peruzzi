@@ -9,8 +9,6 @@ import repolezanettiperuzzi.model.Player;
  */
 public class BeginTurn {
 
-    private static final TurnTracker DEFAULT_TURN_TRACKER = new TurnTracker();
-
     private final TurnTracker turnTracker;
 
     private GameBoard board;
@@ -44,27 +42,6 @@ public class BeginTurn {
     }
 
     /**
-     * incrementa il turno del player passato
-     * @param player player a cui bisogna incrementare il turno
-     */
-    public static void incrTurn(Player player){
-
-        player.incrTurn();
-
-    }
-
-    /**
-     * controlla che il turno del player sia uguale al turno corrente
-     * @param player player a cui bisogna controllare il turno con il turno corrente
-     * @return vero se turno corrente uguale a quello del player passato
-     */
-    public static boolean controlTurn(Player player){
-
-        return DEFAULT_TURN_TRACKER.controlTurn(player);
-
-    }
-
-    /**
      * controlla che il turno del player sia uguale al turno corrente della sessione
      * @param player player a cui bisogna controllare il turno con il turno corrente
      * @return vero se turno corrente uguale a quello del player passato
@@ -73,16 +50,6 @@ public class BeginTurn {
 
         return turnTracker.controlTurn(player);
 
-    }
-
-    /**
-     *
-     * @return il turno corrente del player
-     */
-
-    public static int getCurrentPlayer(){
-
-        return DEFAULT_TURN_TRACKER.getCurrentPlayer();
     }
 
     /**
@@ -96,30 +63,11 @@ public class BeginTurn {
 
     /**
      *
-     * @return il turno corrente di gioco
-     */
-    public static int getCurrentTurn(){
-
-        return DEFAULT_TURN_TRACKER.getCurrentTurn();
-
-    }
-
-    /**
-     *
      * @return il turno corrente di gioco della sessione
      */
     public int getSessionCurrentTurn(){
 
         return turnTracker.getCurrentTurn();
-
-    }
-
-    /**
-     * azzera il turno corrente
-     */
-    public static void resetCurrentTurn(){
-
-        DEFAULT_TURN_TRACKER.resetCurrentTurn();
 
     }
 
@@ -134,32 +82,12 @@ public class BeginTurn {
 
     /**
      *
-     * @return il numero di player che hanno giocato il proprio turno
-     */
-    public static int getNumPlayedTurn(){
-
-        return DEFAULT_TURN_TRACKER.getNumPlayedTurn();
-
-    }
-
-    /**
-     *
      * @return il numero di player che hanno giocato il proprio turno nella sessione
      */
     public int getSessionNumPlayedTurn(){
 
         return turnTracker.getNumPlayedTurn();
 
-    }
-
-    /**
-     * aggiorna i parametri per il turno successivo del player passato
-     * @param board game board
-     * @param player player a cui aggiornare i parametri per il turno successivo
-     */
-    public static void nextTurnParameters(GameBoard board,Player player){
-
-        DEFAULT_TURN_TRACKER.nextTurnParameters(board,player);
     }
 
     /**
@@ -173,29 +101,12 @@ public class BeginTurn {
     }
 
     /**
-     * azzera il numero di player che ha giocato il proprio turno
-     */
-    public static void resetNumPlayedTurn() {
-
-        DEFAULT_TURN_TRACKER.resetNumPlayedTurn();
-
-    }
-
-    /**
      * azzera il numero di player che ha giocato il proprio turno nella sessione
      */
     public void resetSessionNumPlayedTurn() {
 
         turnTracker.resetNumPlayedTurn();
 
-    }
-
-    /**
-     * azzera l'indice che indica il player corrente
-     */
-    public static void resetCurrentPlayer(){
-
-        DEFAULT_TURN_TRACKER.resetCurrentPlayer(BeginRound.getIndex());
     }
 
     /**
