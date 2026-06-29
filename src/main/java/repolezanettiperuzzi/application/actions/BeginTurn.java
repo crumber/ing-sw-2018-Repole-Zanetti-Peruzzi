@@ -9,11 +9,7 @@ import repolezanettiperuzzi.model.Player;
  */
 public class BeginTurn {
 
-    private static int currentTurn = 0;
-
-    private static int numPlayedTurn = 0;
-
-    private static int currentPlayer = 0;
+    private static final TurnTracker turnTracker = new TurnTracker();
 
     private GameBoard board;
 
@@ -50,7 +46,7 @@ public class BeginTurn {
      */
     public static boolean controlTurn(Player player){
 
-        return player.getTurn() == currentTurn ;
+        return turnTracker.controlTurn(player);
 
     }
 
@@ -61,7 +57,7 @@ public class BeginTurn {
 
     public static int getCurrentPlayer(){
 
-        return currentPlayer;
+        return turnTracker.getCurrentPlayer();
     }
 
     /**
@@ -70,7 +66,7 @@ public class BeginTurn {
      */
     public static int getCurrentTurn(){
 
-        return currentTurn;
+        return turnTracker.getCurrentTurn();
 
     }
 
@@ -79,7 +75,7 @@ public class BeginTurn {
      */
     public static void resetCurrentTurn(){
 
-        currentTurn=0;
+        turnTracker.resetCurrentTurn();
 
     }
 
@@ -89,7 +85,7 @@ public class BeginTurn {
      */
     public static int getNumPlayedTurn(){
 
-        return numPlayedTurn;
+        return turnTracker.getNumPlayedTurn();
 
     }
 
@@ -100,48 +96,7 @@ public class BeginTurn {
      */
     public static void nextTurnParameters(GameBoard board,Player player){
 
-        if(currentTurn==0) {
-
-            //se l'indice del giocatore è arrivato all'ultimo elemento dell'arraylist di giocatori e non tutti i giocatori hanno giocato il loro turno inizializzo l'indice a zero
-            if ((currentPlayer == board.getNPlayers() - 1) && numPlayedTurn < board.getNPlayers() - 1) {
-
-                currentPlayer = 0;
-
-            } else {
-
-                currentPlayer++;
-
-            }
-
-            incrTurn(player);
-
-            numPlayedTurn++;
-
-            if (numPlayedTurn == board.getNPlayers()) {
-
-                currentTurn++;
-                resetNumPlayedTurn();
-                currentPlayer--;
-
-            }
-
-
-        }else if(currentTurn==1){
-
-            if(currentPlayer == 0 && numPlayedTurn < board.getNPlayers()-1){
-
-                currentPlayer = board.getNPlayers() - 1;
-
-            } else {
-
-                currentPlayer--;
-
-            }
-
-            numPlayedTurn++;
-
-
-        }
+        turnTracker.nextTurnParameters(board,player);
     }
 
     /**
@@ -149,7 +104,7 @@ public class BeginTurn {
      */
     public static void resetNumPlayedTurn() {
 
-        numPlayedTurn=0;
+        turnTracker.resetNumPlayedTurn();
 
     }
 
@@ -158,7 +113,7 @@ public class BeginTurn {
      */
     public static void resetCurrentPlayer(){
 
-        currentPlayer=BeginRound.getIndex();
+        turnTracker.resetCurrentPlayer(BeginRound.getIndex());
     }
 
 
