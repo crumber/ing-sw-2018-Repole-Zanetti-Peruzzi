@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.model.publiccards;
+package repolezanettiperuzzi.domain.cards.publiccards;
 
 /**
  * Classe che rappresenta la Factory Public Card

@@ -2,7 +2,7 @@ package repolezanettiperuzzi.application.actions;
 
 import org.junit.Test;
 import repolezanettiperuzzi.model.*;
-import repolezanettiperuzzi.model.publiccards.*;
+import repolezanettiperuzzi.domain.cards.publiccards.*;
 import static org.junit.Assert.*;
 
 //test della classe calculate score

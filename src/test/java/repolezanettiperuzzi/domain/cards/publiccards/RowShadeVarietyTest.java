@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.model.publiccards;
+package repolezanettiperuzzi.domain.cards.publiccards;
 
 import org.junit.Test;
 import repolezanettiperuzzi.model.Value;

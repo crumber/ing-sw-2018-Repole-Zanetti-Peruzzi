@@ -2,8 +2,8 @@ package repolezanettiperuzzi.model;
 
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.application.actions.InitializeGame;
-import repolezanettiperuzzi.model.publiccards.FactoryPublicCard;
-import repolezanettiperuzzi.model.publiccards.PublicCard;
+import repolezanettiperuzzi.domain.cards.publiccards.FactoryPublicCard;
+import repolezanettiperuzzi.domain.cards.publiccards.PublicCard;
 import repolezanettiperuzzi.model.toolcards.FactoryToolCard;
 import repolezanettiperuzzi.model.toolcards.ToolCard;
 

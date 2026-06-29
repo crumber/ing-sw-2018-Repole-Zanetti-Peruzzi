@@ -1,10 +1,10 @@
 package repolezanettiperuzzi.model;
 
 import org.junit.Test;
-import repolezanettiperuzzi.model.publiccards.DeepShades;
-import repolezanettiperuzzi.model.publiccards.LightShades;
-import repolezanettiperuzzi.model.publiccards.PublicCard;
-import repolezanettiperuzzi.model.publiccards.RowShadeVariety;
+import repolezanettiperuzzi.domain.cards.publiccards.DeepShades;
+import repolezanettiperuzzi.domain.cards.publiccards.LightShades;
+import repolezanettiperuzzi.domain.cards.publiccards.PublicCard;
+import repolezanettiperuzzi.domain.cards.publiccards.RowShadeVariety;
 import repolezanettiperuzzi.model.toolcards.*;
 
 import java.util.ArrayList;

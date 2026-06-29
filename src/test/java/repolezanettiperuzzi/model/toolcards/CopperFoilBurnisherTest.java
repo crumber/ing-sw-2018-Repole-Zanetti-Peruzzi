@@ -2,7 +2,7 @@ package repolezanettiperuzzi.model.toolcards;
 
 import org.junit.Test;
 import repolezanettiperuzzi.model.*;
-import repolezanettiperuzzi.model.publiccards.PublicCard;
+import repolezanettiperuzzi.domain.cards.publiccards.PublicCard;
 
 import java.util.ArrayList;
 

@@ -12,8 +12,10 @@ repolezanettiperuzzi
     actions
   common
   controller
+  domain
+    cards
+      publiccards
   model
-    publiccards
     toolcards
   shared
     dto
@@ -50,6 +52,16 @@ Application/game-use-case classes:
 
 These classes are close to a Command/use-case layer. They now live outside `model` to make the application-flow responsibility clearer.
 
+### `domain.cards.publiccards`
+
+Public scoring card behavior:
+
+- abstract base: `PublicCard`
+- factory: `FactoryPublicCard`
+- one concrete class per public card
+
+This is a Strategy-style design. Each public card computes its score through `effect(Window)`.
+
 ### `model.toolcards`
 
 Tool card behavior:
@@ -59,16 +71,6 @@ Tool card behavior:
 - one concrete class per tool card
 
 This is a Strategy-style design. Each tool card implements its own `check` and `effect`.
-
-### `model.publiccards`
-
-Public scoring card behavior:
-
-- abstract base: `PublicCard`
-- factory: `FactoryPublicCard`
-- one concrete class per public card
-
-This is also Strategy-style. Each public card computes its score through `effect(Window)`.
 
 ### `controller`
 
@@ -245,10 +247,10 @@ Completed:
 
 - `common.modelwrapper` -> `shared.dto`
 - `model.actions` -> `application.actions`
+- `model.publiccards` -> `domain.cards.publiccards`
 
 Remaining low-risk moves:
 
-- `model.publiccards` -> `domain.cards.publiccards`
 - `model.toolcards` -> `domain.cards.toolcards`
 
 Do one move per commit and run the full test suite after each move.
@@ -291,11 +293,10 @@ Separate UI from networking:
 
 Good candidates because they are useful and relatively contained:
 
-1. Move `model.publiccards` to `domain.cards.publiccards`.
-2. Move `model.toolcards` to `domain.cards.toolcards`.
-3. Introduce an enum for box restriction mode.
-4. Replace static turn/round state with a `GameSession` or `TurnTracker`.
-5. Move socket message parsing out of `HandlerControllerSocket`.
+1. Move `model.toolcards` to `domain.cards.toolcards`.
+2. Introduce an enum for box restriction mode.
+3. Replace static turn/round state with a `GameSession` or `TurnTracker`.
+4. Move socket message parsing out of `HandlerControllerSocket`.
 
 Avoid starting with:
 

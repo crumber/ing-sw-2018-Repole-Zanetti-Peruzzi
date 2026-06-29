@@ -11,7 +11,7 @@ import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.Window;
 import repolezanettiperuzzi.application.actions.BeginRound;
 import repolezanettiperuzzi.application.actions.BeginTurn;
-import repolezanettiperuzzi.model.publiccards.PublicCard;
+import repolezanettiperuzzi.domain.cards.publiccards.PublicCard;
 import repolezanettiperuzzi.model.toolcards.ToolCard;
 
 import java.io.IOException;

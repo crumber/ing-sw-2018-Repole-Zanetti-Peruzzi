@@ -2,7 +2,7 @@ package repolezanettiperuzzi.model;
 
 import org.junit.Test;
 import repolezanettiperuzzi.common.DynamicPath;
-import repolezanettiperuzzi.model.publiccards.PublicCard;
+import repolezanettiperuzzi.domain.cards.publiccards.PublicCard;
 import repolezanettiperuzzi.model.toolcards.Lathekin;
 import repolezanettiperuzzi.model.toolcards.ToolCard;
 

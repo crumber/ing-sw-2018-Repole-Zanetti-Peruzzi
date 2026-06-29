@@ -1,5 +1,5 @@
 package repolezanettiperuzzi.model;
-import repolezanettiperuzzi.model.publiccards.PublicCard;
+import repolezanettiperuzzi.domain.cards.publiccards.PublicCard;
 import repolezanettiperuzzi.model.toolcards.ToolCard;
 
 import java.io.IOException;

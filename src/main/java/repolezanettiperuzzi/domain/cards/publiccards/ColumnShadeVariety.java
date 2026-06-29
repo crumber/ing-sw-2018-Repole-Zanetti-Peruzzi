@@ -1,116 +1,116 @@
-package repolezanettiperuzzi.model.publiccards;
+package repolezanettiperuzzi.domain.cards.publiccards;
 
 import repolezanettiperuzzi.model.Value;
 import repolezanettiperuzzi.model.Window;
 
 /**
- * Classe che rappresenta la public card Row Shade Variety
+ * Classe che rappresenta la public card Column Shade Variety
  * @author Alessandro Peruzzi
  */
-public class RowShadeVariety extends PublicCard {
+public class ColumnShadeVariety extends PublicCard {
 
     /**
      *
      * @param finalWindow window su cui calcolare il punteggio
-     * @return numero righe con valori non ripetuti
+     * @return numero colonne senza valori ripetuti
      */
     @Override
     public int effect(Window finalWindow){
 
-        int numRow=0;
+        int numColumn=0;
         int score;
 
-        for(int i=0;i<finalWindow.numRow();i++) { // count number of row with 5 different value of dice
+        for(int i=0;i<finalWindow.numColumn();i++) {  // count number of column with 4 different value of dice
 
             int [] counterValue= {0,0,0,0,0,0};
             int numOfValue=0;
-            boolean repeatValue=false;
+            boolean noRepeatValue=true;
 
-            for (int j=0; j < finalWindow.numColumn(); j++) {
+            for (int j=0; j < finalWindow.numRow(); j++) {
 
-                if (finalWindow.thereIsDie(i, j)) {
+                if (finalWindow.thereIsDie(j, i)) {
 
-                    if (finalWindow.getDieValue(i, j).equals(Value.ONE)) {
+                    if (finalWindow.getDieValue(j, i).equals(Value.ONE)) {
 
                         counterValue[0] += 1;
                         numOfValue++;
 
                         if (counterValue[0] == 2) {
 
-                            repeatValue = true;
+                            noRepeatValue = false;
                             break;
                         }
                     }
 
-                    if (finalWindow.getDieValue(i, j).equals(Value.TWO)) {
+                    if (finalWindow.getDieValue(j, i).equals(Value.TWO)) {
 
                         counterValue[1] += 1;
                         numOfValue++;
 
                         if (counterValue[1] == 2) {
 
-                            repeatValue = true;
+                            noRepeatValue = false;
                             break;
                         }
                     }
 
-                    if (finalWindow.getDieValue(i, j).equals(Value.THREE)) {
+                    if (finalWindow.getDieValue(j, i).equals(Value.THREE)) {
 
                         counterValue[2] += 1;
                         numOfValue++;
 
                         if (counterValue[2] == 2) {
 
-                            repeatValue = true;
+                            noRepeatValue = false;
                             break;
                         }
                     }
 
-                    if (finalWindow.getDieValue(i, j).equals(Value.FOUR)) {
+                    if (finalWindow.getDieValue(j, i).equals(Value.FOUR)) {
 
                         counterValue[3] += 1;
                         numOfValue++;
 
                         if (counterValue[3] == 2) {
 
-                            repeatValue = true;
+                            noRepeatValue = false;
                             break;
                         }
                     }
 
-                    if (finalWindow.getDieValue(i, j).equals(Value.FIVE)) {
+                    if (finalWindow.getDieValue(j, i).equals(Value.FIVE)) {
 
                         counterValue[4] += 1;
                         numOfValue++;
 
                         if (counterValue[4] == 2) {
 
-                            repeatValue = true;
+                            noRepeatValue = false;
                             break;
                         }
                     }
 
-                    if (finalWindow.getDieValue(i, j).equals(Value.SIX)) {
+                    if (finalWindow.getDieValue(j, i).equals(Value.SIX)) {
 
                         counterValue[5] += 1;
                         numOfValue++;
 
                         if (counterValue[5] == 2) {
 
-                            repeatValue = true;
+                            noRepeatValue = false;
                             break;
                         }
                     }
                 }
             }
-            if (!repeatValue && numOfValue == finalWindow.numColumn()) {   // if there are five dice and five different value in row, incrise by one
+            if( noRepeatValue && numOfValue==finalWindow.numRow() ){   // if there are four dice and four different value in column, incrise by one
 
-                numRow++;
+                numColumn++;
 
             }
         }
 
-        score= 5*numRow;
-        return score; // return 5 * number of Row whit 5 different value of dice
+        score= 4*numColumn;
+        return score; // return 4 * number of Column whit 4 different value of dice
     }
 }

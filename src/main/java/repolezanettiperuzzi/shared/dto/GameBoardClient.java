@@ -1,6 +1,6 @@
 package repolezanettiperuzzi.shared.dto;
 
-import repolezanettiperuzzi.model.publiccards.PublicCard;
+import repolezanettiperuzzi.domain.cards.publiccards.PublicCard;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;

@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.model.publiccards;
+package repolezanettiperuzzi.domain.cards.publiccards;
 
 import repolezanettiperuzzi.model.Value;
 import repolezanettiperuzzi.model.Window;
