@@ -1,6 +1,9 @@
 package repolezanettiperuzzi.controller;
 
 import org.junit.Test;
+import repolezanettiperuzzi.application.actions.BeginRound;
+import repolezanettiperuzzi.application.actions.BeginTurn;
+import repolezanettiperuzzi.application.actions.EndRound;
 import repolezanettiperuzzi.model.GameBoard;
 
 import static org.junit.Assert.*;
@@ -35,5 +38,31 @@ public class ControllerTest {
 
         assertEquals(0,secondController.getSession().getRoundTracker().getRound());
         assertFalse(secondController.getSession().getTurnStateTracker().isTurnNotificationSent());
+    }
+
+    @Test
+    public void createsFlowActionsBoundToControllerSession() {
+
+        GameBoard board = new GameBoard();
+        board.addPlayer("ale","sda","rere","13521.122",12421);
+        board.addPlayer("fede","assa","rerereff","65.21.8788",5335);
+        Controller controller = new Controller(board.getPlayers(),board);
+
+        BeginRound beginRound = controller.createBeginRoundAction();
+        BeginTurn beginTurn = controller.createBeginTurnAction();
+        EndRound endRound = controller.createEndRoundAction();
+
+        beginRound.doAction(board);
+        beginTurn.resetSessionCurrentPlayer(1);
+        beginTurn.nextSessionTurnParameters(board,board.getPlayer(beginTurn.getSessionCurrentPlayer()));
+
+        assertEquals(1,controller.getCurrentRound());
+        assertEquals(0,controller.getCurrentTurn());
+        assertEquals(0,controller.getCurrentPlayerIndex());
+        assertEquals(1,controller.getNumPlayedTurn());
+
+        endRound.doAction(board);
+
+        assertEquals(1,controller.getFirstPlayerIndex());
     }
 }

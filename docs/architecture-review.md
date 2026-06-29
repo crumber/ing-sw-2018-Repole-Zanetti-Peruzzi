@@ -291,6 +291,7 @@ In progress:
 - add a session-backed `BeginRound` instance path while preserving the legacy static API
 - let `GameSession` create session-backed round and turn flow actions
 - add a session-backed `EndRound` path and expose it through `GameSession`
+- expose session-backed flow actions and flow queries through `Controller`
 
 Reduce static mutable state:
 

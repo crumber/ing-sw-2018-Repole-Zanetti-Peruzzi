@@ -1,6 +1,9 @@
 package repolezanettiperuzzi.controller;
 
 import org.json.simple.parser.ParseException;
+import repolezanettiperuzzi.application.actions.BeginRound;
+import repolezanettiperuzzi.application.actions.BeginTurn;
+import repolezanettiperuzzi.application.actions.EndRound;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 
@@ -82,6 +85,70 @@ public class Controller {
      */
     public GameSession getSession(){
         return this.session;
+    }
+
+    /**
+     *
+     * @return Azione di inizio round collegata alla sessione
+     */
+    public BeginRound createBeginRoundAction(){
+        return this.session.createBeginRound();
+    }
+
+    /**
+     *
+     * @return Azione di inizio turno collegata alla sessione
+     */
+    public BeginTurn createBeginTurnAction(){
+        return this.session.createBeginTurn();
+    }
+
+    /**
+     *
+     * @return Azione di fine round collegata alla sessione
+     */
+    public EndRound createEndRoundAction(){
+        return this.session.createEndRound();
+    }
+
+    /**
+     *
+     * @return Round corrente della sessione
+     */
+    public int getCurrentRound(){
+        return this.session.getRoundTracker().getRound();
+    }
+
+    /**
+     *
+     * @return Indice del primo player del round corrente
+     */
+    public int getFirstPlayerIndex(){
+        return this.session.getRoundTracker().getIndex();
+    }
+
+    /**
+     *
+     * @return Turno corrente della sessione
+     */
+    public int getCurrentTurn(){
+        return this.session.getTurnTracker().getCurrentTurn();
+    }
+
+    /**
+     *
+     * @return Indice del player corrente della sessione
+     */
+    public int getCurrentPlayerIndex(){
+        return this.session.getTurnTracker().getCurrentPlayer();
+    }
+
+    /**
+     *
+     * @return Numero di player che hanno giocato nel turno corrente della sessione
+     */
+    public int getNumPlayedTurn(){
+        return this.session.getTurnTracker().getNumPlayedTurn();
     }
 
     /**
