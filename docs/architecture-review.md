@@ -284,6 +284,7 @@ In progress:
 - make `BeginRound` delegate its static round counters to `RoundTracker` while preserving the existing API
 - introduce a `TurnStateTracker` with tests before wiring it into `TurnState`
 - make `TurnState` delegate its static flags to `TurnStateTracker` while preserving turn flow
+- introduce a `GameSession` object to hold per-game round, turn, and turn-state trackers
 
 Reduce static mutable state:
 
