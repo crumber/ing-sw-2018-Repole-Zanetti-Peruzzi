@@ -9,8 +9,8 @@ import repolezanettiperuzzi.shared.dto.GameBoardClient;
 import repolezanettiperuzzi.shared.dto.WindowClient;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.Window;
-import repolezanettiperuzzi.model.actions.BeginRound;
-import repolezanettiperuzzi.model.actions.BeginTurn;
+import repolezanettiperuzzi.application.actions.BeginRound;
+import repolezanettiperuzzi.application.actions.BeginTurn;
 import repolezanettiperuzzi.model.publiccards.PublicCard;
 import repolezanettiperuzzi.model.toolcards.ToolCard;
 

@@ -2,7 +2,7 @@ package repolezanettiperuzzi.controller;
 
 
 import repolezanettiperuzzi.model.Player;
-import repolezanettiperuzzi.model.actions.CalculateScore;
+import repolezanettiperuzzi.application.actions.CalculateScore;
 
 import java.io.IOException;
 import java.net.Socket;

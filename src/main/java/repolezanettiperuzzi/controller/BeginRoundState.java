@@ -2,7 +2,7 @@ package repolezanettiperuzzi.controller;
 
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.model.Player;
-import repolezanettiperuzzi.model.actions.BeginRound;
+import repolezanettiperuzzi.application.actions.BeginRound;
 
 import java.io.IOException;
 import java.net.Socket;

@@ -2,7 +2,7 @@ package repolezanettiperuzzi.controller;
 
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.common.DynamicPath;
-import repolezanettiperuzzi.model.actions.BeginTurn;
+import repolezanettiperuzzi.application.actions.BeginTurn;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

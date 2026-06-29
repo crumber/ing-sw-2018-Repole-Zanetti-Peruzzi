@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.model.actions;
+package repolezanettiperuzzi.application.actions;
 
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;

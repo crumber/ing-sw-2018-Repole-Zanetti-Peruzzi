@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.model.actions;
+package repolezanettiperuzzi.application.actions;
 
 import java.util.ArrayList;
 import java.util.List;

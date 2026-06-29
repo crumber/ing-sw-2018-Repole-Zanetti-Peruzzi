@@ -5,9 +5,9 @@ import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.Window;
-import repolezanettiperuzzi.model.actions.InitializeGame;
-import repolezanettiperuzzi.model.actions.SetWindowAction;
-import repolezanettiperuzzi.model.actions.TakeTwoCardWindowAction;
+import repolezanettiperuzzi.application.actions.InitializeGame;
+import repolezanettiperuzzi.application.actions.SetWindowAction;
+import repolezanettiperuzzi.application.actions.TakeTwoCardWindowAction;
 
 import java.io.BufferedReader;
 import java.io.IOException;

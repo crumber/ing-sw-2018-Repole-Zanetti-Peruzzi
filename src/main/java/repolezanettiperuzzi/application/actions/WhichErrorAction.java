@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.model.actions;
+package repolezanettiperuzzi.application.actions;
 
 /**
  * Classe che modellizza i codici degli errori

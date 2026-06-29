@@ -1,7 +1,7 @@
 package repolezanettiperuzzi.model;
 
 import repolezanettiperuzzi.common.DynamicPath;
-import repolezanettiperuzzi.model.actions.InitializeGame;
+import repolezanettiperuzzi.application.actions.InitializeGame;
 import repolezanettiperuzzi.model.publiccards.FactoryPublicCard;
 import repolezanettiperuzzi.model.publiccards.PublicCard;
 import repolezanettiperuzzi.model.toolcards.FactoryToolCard;

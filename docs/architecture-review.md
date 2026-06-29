@@ -8,10 +8,11 @@ The project currently contains 101 production Java classes and 46 test classes u
 
 ```text
 repolezanettiperuzzi
+  application
+    actions
   common
   controller
   model
-    actions
     publiccards
     toolcards
   shared
@@ -36,7 +37,7 @@ Core game concepts:
 
 This package contains the main board state and most domain objects. Some objects expose mutable internal state or contain utility methods used by controller and card logic.
 
-### `model.actions`
+### `application.actions`
 
 Application/game-use-case classes:
 
@@ -47,7 +48,7 @@ Application/game-use-case classes:
 - scoring: `CalculateScore`
 - validation: `CheckCostToolCardAction`
 
-These classes are close to a Command/use-case layer, although they currently live under `model`.
+These classes are close to a Command/use-case layer. They now live outside `model` to make the application-flow responsibility clearer.
 
 ### `model.toolcards`
 
@@ -116,7 +117,7 @@ The project has a clear MVC intention:
 - View: `view`
 - Controller: `controller`
 
-The boundaries are not strict. Some model actions behave like application services, controllers know network details directly, and views contain networking and state-update logic.
+The boundaries are not strict. Some application actions still contain domain details, controllers know network details directly, and views contain networking and state-update logic.
 
 ### State
 
@@ -171,7 +172,7 @@ The concept is useful, but the naming is inconsistent and the transport layer is
 
 ## Main Architectural Issues
 
-1. The `model.actions` package mixes domain rules with application orchestration.
+1. Some `application.actions` classes still mix domain rules with application orchestration.
 2. Controller states handle game flow and network delivery at the same time.
 3. The view package mixes UI rendering, client networking, and client-side state updates.
 4. Static mutable state in `BeginRound`, `BeginTurn`, and `TurnState` makes testing and multiple game sessions fragile.
@@ -243,10 +244,10 @@ This structure separates:
 Completed:
 
 - `common.modelwrapper` -> `shared.dto`
+- `model.actions` -> `application.actions`
 
 Remaining low-risk moves:
 
-- `model.actions` -> `application.actions`
 - `model.publiccards` -> `domain.cards.publiccards`
 - `model.toolcards` -> `domain.cards.toolcards`
 
@@ -290,10 +291,11 @@ Separate UI from networking:
 
 Good candidates because they are useful and relatively contained:
 
-1. Move `model.actions` to `application.actions`.
-2. Introduce an enum for box restriction mode.
-3. Replace static turn/round state with a `GameSession` or `TurnTracker`.
-4. Move socket message parsing out of `HandlerControllerSocket`.
+1. Move `model.publiccards` to `domain.cards.publiccards`.
+2. Move `model.toolcards` to `domain.cards.toolcards`.
+3. Introduce an enum for box restriction mode.
+4. Replace static turn/round state with a `GameSession` or `TurnTracker`.
+5. Move socket message parsing out of `HandlerControllerSocket`.
 
 Avoid starting with:
 

@@ -2,7 +2,7 @@ package repolezanettiperuzzi.model.toolcards;
 
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
-import repolezanettiperuzzi.model.actions.InsertDieWithCheckAction;
+import repolezanettiperuzzi.application.actions.InsertDieWithCheckAction;
 
 import java.util.ArrayList;
 import java.util.List;

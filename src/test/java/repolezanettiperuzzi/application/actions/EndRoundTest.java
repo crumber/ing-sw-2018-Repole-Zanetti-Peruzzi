@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.model.actions;
+package repolezanettiperuzzi.application.actions;
 
 import org.junit.Test;
 import repolezanettiperuzzi.model.Colour;
