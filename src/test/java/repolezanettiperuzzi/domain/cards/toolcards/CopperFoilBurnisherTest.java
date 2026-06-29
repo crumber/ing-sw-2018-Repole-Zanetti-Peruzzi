@@ -50,8 +50,8 @@ public class CopperFoilBurnisherTest {
         die2.setValue(Value.FIVE);
 
         Window windowTest=new Window("test",4,boardBoxes,"test");
-        windowTest.insertDie(die1,0,0,"colour");
-        windowTest.insertDie(die2,0,1,"value");
+        windowTest.insertDie(die1,0,0,BoxRestriction.COLOUR);
+        windowTest.insertDie(die2,0,1,BoxRestriction.VALUE);
 
         parameterforcard.add(0);
         parameterforcard.add(0);
@@ -133,7 +133,7 @@ public class CopperFoilBurnisherTest {
         windowTest.removeDie(0,1);
         Die die3=new Die(Colour.RED);
         die3.setValue(Value.FIVE);
-        windowTest.insertDie(die3,0,1,"both");
+        windowTest.insertDie(die3,0,1,BoxRestriction.BOTH);
 
         assertEquals(-23,testPublicCard.check(board,player,parameterforcard));
 
@@ -172,8 +172,8 @@ public class CopperFoilBurnisherTest {
         die2.setValue(Value.SIX);
 
         Window windowTest=new Window("test",4,boardBoxes,"test");
-        windowTest.insertDie(die1,0,0,"colour");
-        windowTest.insertDie(die2,0,1,"value");
+        windowTest.insertDie(die1,0,0,BoxRestriction.COLOUR);
+        windowTest.insertDie(die2,0,1,BoxRestriction.VALUE);
 
         parameterforcard.add(0);
         parameterforcard.add(0);

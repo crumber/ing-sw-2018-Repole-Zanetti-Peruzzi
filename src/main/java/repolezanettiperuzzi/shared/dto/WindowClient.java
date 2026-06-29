@@ -1,5 +1,7 @@
 package repolezanettiperuzzi.shared.dto;
 
+import repolezanettiperuzzi.model.BoxRestriction;
+
 import java.io.Serializable;
 
 /**
@@ -122,6 +124,16 @@ public class WindowClient implements Serializable{
      * @param y Indica la colonna in cui inserire
      * @param restriction Tipo di controllo da fare nel muovere il dado
      */
+    public void insertDie(DieClient d, int x, int y, BoxRestriction restriction){
+
+        this.boardBox[x][y].setDie(d,restriction);
+
+    }
+
+    /**
+     * @deprecated Use {@link #insertDie(DieClient, int, int, BoxRestriction)}.
+     */
+    @Deprecated
     public void insertDie(DieClient d, int x, int y, String restriction){
 
         this.boardBox[x][y].setDie(d,restriction);
@@ -136,6 +148,16 @@ public class WindowClient implements Serializable{
      * @param yEnd Indica la colonna in cui muovere
      * @param restriction Tipo di controllo da fare nel muovere il dado
      */
+    public void moveDie(int xIn,int yIn, int xEnd, int yEnd, BoxRestriction restriction) {
+
+            this.boardBox[xEnd][yEnd].setDie(this.boardBox[xIn][yIn].removeDie(), restriction);
+
+    }
+
+    /**
+     * @deprecated Use {@link #moveDie(int, int, int, int, BoxRestriction)}.
+     */
+    @Deprecated
     public void moveDie(int xIn,int yIn, int xEnd, int yEnd, String restriction) {
 
             this.boardBox[xEnd][yEnd].setDie(this.boardBox[xIn][yIn].removeDie(), restriction);

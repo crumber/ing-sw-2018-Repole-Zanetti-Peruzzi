@@ -40,7 +40,7 @@ public class RunningPliersTest {
 
         Die die=new Die(Colour.BLUE);
         Window windowTest=new Window("test",4,boardBoxes,"test");
-        windowTest.insertDie(die,0,0,"none");
+        windowTest.insertDie(die,0,0,BoxRestriction.NONE);
 
         board.addPlayer("ASH","boh","boh","120.11.101.01",1234);
         board.getPlayer(0).setWindow(windowTest);
@@ -94,7 +94,7 @@ public class RunningPliersTest {
         Die die=new Die(Colour.PURPLE);
         die.setValue(Value.SIX);
         Window windowTest=new Window("test",4,boardBoxes,"test");
-        windowTest.insertDie(die,0,0,"none");
+        windowTest.insertDie(die,0,0,BoxRestriction.NONE);
 
         board.addPlayer("ASH","boh","boh","120.11.101.01",1234);
         board.getPlayer(0).setWindow(windowTest);

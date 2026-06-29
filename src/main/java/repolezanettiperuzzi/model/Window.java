@@ -60,9 +60,19 @@ public class Window {
      * @param y Colonna della casella
      * @param restriction Restrizioni della casella da verificare
      */
-    public void insertDie(Die d, int x, int y, String restriction){
+    public void insertDie(Die d, int x, int y, BoxRestriction restriction){
 
         this.boardBox[x][y].setDie(d,restriction);
+
+    }
+
+    /**
+     * @deprecated Use {@link #insertDie(Die, int, int, BoxRestriction)}.
+     */
+    @Deprecated
+    public void insertDie(Die d, int x, int y, String restriction){
+
+        this.boardBox[x][y].setDie(d, restriction);
 
     }
 
@@ -75,6 +85,16 @@ public class Window {
      * @param yEnd Colonna in cui muovere il dado
      * @param restriction Stringa che indica la restriziona
      */
+    public void moveDie(int xIn,int yIn, int xEnd, int yEnd, BoxRestriction restriction) {
+
+            this.boardBox[xEnd][yEnd].setDie(this.boardBox[xIn][yIn].removeDie(), restriction);
+
+    }
+
+    /**
+     * @deprecated Use {@link #moveDie(int, int, int, int, BoxRestriction)}.
+     */
+    @Deprecated
     public void moveDie(int xIn,int yIn, int xEnd, int yEnd, String restriction) {
 
             this.boardBox[xEnd][yEnd].setDie(this.boardBox[xIn][yIn].removeDie(), restriction);

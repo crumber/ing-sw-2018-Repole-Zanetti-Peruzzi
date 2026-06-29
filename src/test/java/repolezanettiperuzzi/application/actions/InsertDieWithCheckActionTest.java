@@ -114,7 +114,7 @@ public class InsertDieWithCheckActionTest {
 
 
         d1.setValue(Value.TWO);
-        board.getPlayer(0).getWindow().insertDie(d1,1,1,"none");
+        board.getPlayer(0).getWindow().insertDie(d1,1,1,BoxRestriction.NONE);
 
         assertEquals(-3,testInsertDieWithCheckAction.doAction(board.getPlayer(0),board,parameter));
 

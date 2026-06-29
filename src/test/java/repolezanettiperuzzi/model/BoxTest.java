@@ -53,13 +53,13 @@ public class BoxTest {
         die = mock(Die.class);
         when(die.getColourDie()).thenReturn(Colour.RED);
         when(die.getValueDie()).thenReturn(Value.ONE);
-        testBox.setDie(die,"colour");
+        testBox.setDie(die,BoxRestriction.COLOUR);
         assertSame(testBox.die,die);
 
         //box without bound
         testBox.removeDie();
         testBox = new Box();
-        testBox.setDie(die,"colour");
+        testBox.setDie(die,BoxRestriction.COLOUR);
         assertSame(testBox.die,die);
 
         //fail to set a die with a different colour than the one in the box
@@ -67,7 +67,7 @@ public class BoxTest {
         testBox = new Box(Colour.RED);
         when(die.getColourDie()).thenReturn(Colour.YELLOW);
         when(die.getValueDie()).thenReturn(Value.TWO);
-        testBox.setDie(die,"colour");
+        testBox.setDie(die,BoxRestriction.COLOUR);
         assertNotSame(testBox.die,die);
 
     }
@@ -81,27 +81,27 @@ public class BoxTest {
         die = mock(Die.class);
         when(die.getColourDie()).thenReturn(Colour.YELLOW);
         when(die.getValueDie()).thenReturn(Value.ONE);
-        testBox.setDie(die,"both");
+        testBox.setDie(die,BoxRestriction.BOTH);
         assertSame(testBox.die,die);
 
         //box without bound
         testBox.removeDie();
         testBox = new Box();
-        testBox.setDie(die,"both");
+        testBox.setDie(die,BoxRestriction.BOTH);
         assertSame(testBox.die,die);
-        assertEquals(false,testBox.setDie(die,"eeee"));
+        assertEquals(false,testBox.setDie(die, BoxRestriction.fromLegacyName("eeee")));
 
         //box with colour bound
         testBox.removeDie();
         testBox = new Box(Colour.YELLOW);
-        testBox.setDie(die,"both");
+        testBox.setDie(die,BoxRestriction.BOTH);
         assertSame(testBox.die,die);
 
         //fail to set a die with a different colour than the one in the box
         testBox.removeDie();
         when(die.getColourDie()).thenReturn(Colour.BLUE);
         when(die.getValueDie()).thenReturn(Value.FIVE);
-        testBox.setDie(die,"both");
+        testBox.setDie(die,BoxRestriction.BOTH);
         assertNotSame(testBox.removeDie(),die);
 
     }
@@ -115,19 +115,19 @@ public class BoxTest {
         die = mock(Die.class);
         when(die.getColourDie()).thenReturn(Colour.RED);
         when(die.getValueDie()).thenReturn(Value.ONE);
-        testBox.setDie(die,"value");
+        testBox.setDie(die,BoxRestriction.VALUE);
         assertSame(testBox.die,die);
 
         //box without bound
         testBox.removeDie();
         testBox = new Box();
-        testBox.setDie(die,"value");
+        testBox.setDie(die,BoxRestriction.VALUE);
         assertSame(testBox.die,die);
 
         //fail set die in a box with different value
         testBox.removeDie();
         testBox = new Box(Value.TWO);
-        testBox.setDie(die, "value");
+        testBox.setDie(die, BoxRestriction.VALUE);
         assertNotSame(testBox.die,die);
 
     }
@@ -141,7 +141,7 @@ public class BoxTest {
         when(die.getColourDie()).thenReturn(Colour.BLUE);
         when(die.getValueDie()).thenReturn(Value.THREE);
 
-        testBox.setDie(die,"none");
+        testBox.setDie(die,BoxRestriction.NONE);
         assertSame(testBox.die,die);
 
     }
@@ -158,7 +158,7 @@ public class BoxTest {
         Box testBox6=new Box(Value.FIVE);
         Box testBox7=new Box();
         Box testBox8=new Box();
-        testBox8.setDie(new Die(Colour.RED),"none");
+        testBox8.setDie(new Die(Colour.RED),BoxRestriction.NONE);
 
         assertEquals("R",testBox.toString());
         assertEquals("Y",testBox2.toString());

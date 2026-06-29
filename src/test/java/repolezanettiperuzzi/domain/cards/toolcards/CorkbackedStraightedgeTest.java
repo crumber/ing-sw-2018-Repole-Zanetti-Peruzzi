@@ -48,7 +48,7 @@ public class CorkbackedStraightedgeTest {
 
         Die die1=new Die(Colour.GREEN);
         Window windowTest=new Window("test",4,boardBoxes,"test");
-        windowTest.insertDie(die1,0,0,"colour");
+        windowTest.insertDie(die1,0,0,BoxRestriction.COLOUR);
 
         player=mock(Player.class);
         when(player.getWindow()).thenReturn(windowTest);

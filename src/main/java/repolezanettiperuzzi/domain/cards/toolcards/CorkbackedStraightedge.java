@@ -2,6 +2,7 @@ package repolezanettiperuzzi.domain.cards.toolcards;
 
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
+import repolezanettiperuzzi.model.BoxRestriction;
 
 import java.util.List;
 
@@ -82,7 +83,7 @@ public class CorkbackedStraightedge extends ToolCard {
         whichRow=parameterForCard.get(1);
         whichColumn=parameterForCard.get(2);
 
-        player.getWindow().insertDie(board.getDieDraft(posDieOnDraft),whichRow,whichColumn,"both");
+        player.getWindow().insertDie(board.getDieDraft(posDieOnDraft),whichRow,whichColumn,BoxRestriction.BOTH);
         board.removeDieFromDraft(posDieOnDraft);
 
     }

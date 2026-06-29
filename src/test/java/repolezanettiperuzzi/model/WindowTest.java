@@ -31,7 +31,7 @@ public class WindowTest {
         testWindow = new Window(name,5, testBoxes,"test");
         testDie = new Die(Colour.YELLOW);
 
-        testWindow.insertDie(testDie,0,0,"both");
+        testWindow.insertDie(testDie,0,0,BoxRestriction.BOTH);
         assertTrue(testWindow.thereIsDie(0,0));
         assertEquals(testDie,testWindow.getDieFromBoardBox(0,0));
         assertFalse(testWindow.isEmpty());
@@ -64,10 +64,10 @@ public class WindowTest {
         testDie = new Die(Colour.YELLOW);
         Die d1=new Die(Colour.RED);
         d1.setValue(Value.THREE);
-        testWindow.insertDie(testDie,0,0,"both");
-        testWindow.insertDie(d1,0,1,"both");
+        testWindow.insertDie(testDie,0,0,BoxRestriction.BOTH);
+        testWindow.insertDie(d1,0,1,BoxRestriction.BOTH);
 
-        testWindow.moveDie(0,0,0,2,"both");
+        testWindow.moveDie(0,0,0,2,BoxRestriction.BOTH);
 
         assertEquals(false,testWindow.thereIsDie(0,0));
         assertEquals(testDie,testWindow.getDieFromBoardBox(0,2));
@@ -147,28 +147,28 @@ public class WindowTest {
 
         assertFalse(testWindow.controlAdjacencies(1,1));
 
-        testWindow.insertDie(testDie,0,1,"both");
+        testWindow.insertDie(testDie,0,1,BoxRestriction.BOTH);
         assertTrue(testWindow.controlAdjacencies(1,1));
 
-        testWindow.moveDie(0,1,0,0,"both");
+        testWindow.moveDie(0,1,0,0,BoxRestriction.BOTH);
         assertTrue(testWindow.controlAdjacencies(1,1));
 
-        testWindow.moveDie(0,0,0,2,"both");
+        testWindow.moveDie(0,0,0,2,BoxRestriction.BOTH);
         assertTrue(testWindow.controlAdjacencies(1,1));
 
-        testWindow.moveDie(0,2,2,1,"both");
+        testWindow.moveDie(0,2,2,1,BoxRestriction.BOTH);
         assertTrue(testWindow.controlAdjacencies(1,1));
 
-        testWindow.moveDie(2,1,2,0,"both");
+        testWindow.moveDie(2,1,2,0,BoxRestriction.BOTH);
         assertTrue(testWindow.controlAdjacencies(1,1));
 
-        testWindow.moveDie(2,0,2,2,"both");
+        testWindow.moveDie(2,0,2,2,BoxRestriction.BOTH);
         assertTrue(testWindow.controlAdjacencies(1,1));
 
-        testWindow.moveDie(2,2,1,0,"both");
+        testWindow.moveDie(2,2,1,0,BoxRestriction.BOTH);
         assertTrue(testWindow.controlAdjacencies(1,1));
 
-        testWindow.moveDie(1,0,1,2,"both");
+        testWindow.moveDie(1,0,1,2,BoxRestriction.BOTH);
         assertTrue(testWindow.controlAdjacencies(1,1));
 
     }
@@ -198,7 +198,7 @@ public class WindowTest {
 
         assertFalse(testWindow.controlAllBoundAdjacencies(testDie,2,4));
 
-        testWindow.insertDie(d1,1,3,"both");
+        testWindow.insertDie(d1,1,3,BoxRestriction.BOTH);
 
         assertFalse(testWindow.controlAllBoundAdjacencies(testDie,2,3));
 
@@ -206,27 +206,27 @@ public class WindowTest {
 
         assertTrue(testWindow.controlAllBoundAdjacencies(testDie,2,3));
 
-        testWindow.moveDie(1,3,3,3,"both");
+        testWindow.moveDie(1,3,3,3,BoxRestriction.BOTH);
         assertTrue(testWindow.controlAllBoundAdjacencies(testDie,2,3));
 
-        testWindow.moveDie(3,3,2,2,"both");
+        testWindow.moveDie(3,3,2,2,BoxRestriction.BOTH);
         assertTrue(testWindow.controlAllBoundAdjacencies(testDie,2,3));
 
-        testWindow.moveDie(2,2,2,4,"both");
+        testWindow.moveDie(2,2,2,4,BoxRestriction.BOTH);
         assertTrue(testWindow.controlAllBoundAdjacencies(testDie,2,3));
 
 
-        testWindow.insertDie(d,0,1,"both");
+        testWindow.insertDie(d,0,1,BoxRestriction.BOTH);
 
         assertTrue(testWindow.controlAllBoundAdjacencies(testDie,1,1));
 
-        testWindow.moveDie(0,1,2,1,"both");
+        testWindow.moveDie(0,1,2,1,BoxRestriction.BOTH);
         assertTrue(testWindow.controlAllBoundAdjacencies(testDie,1,1));
 
-        testWindow.moveDie(2,1,1,0,"both");
+        testWindow.moveDie(2,1,1,0,BoxRestriction.BOTH);
         assertTrue(testWindow.controlAllBoundAdjacencies(testDie,1,1));
 
-        testWindow.moveDie(1,0,1,2,"both");
+        testWindow.moveDie(1,0,1,2,BoxRestriction.BOTH);
         assertTrue(testWindow.controlAllBoundAdjacencies(testDie,1,1));
     }
 
@@ -253,12 +253,12 @@ public class WindowTest {
         assertFalse(testWindow.controlColourBoundAdjacencies(testDie,0,3));
 
         Die d=new Die(Colour.RED);
-        testWindow.insertDie(d,0,4,"none");
+        testWindow.insertDie(d,0,4,BoxRestriction.NONE);
         assertTrue(testWindow.controlColourBoundAdjacencies(testDie,0,3));
 
         Die d1=new Die(Colour.BLUE);
 
-        testWindow.insertDie(d1,2,4,"none");
+        testWindow.insertDie(d1,2,4,BoxRestriction.NONE);
         assertFalse(testWindow.controlColourBoundAdjacencies(testDie,2,3));
 
     }
@@ -287,12 +287,12 @@ public class WindowTest {
         assertFalse(testWindow.controlValueBoundAdjacencies(testDie,2,0));
 
         Die d=new Die(Colour.RED);
-        testWindow.insertDie(d,3,0,"none");
+        testWindow.insertDie(d,3,0,BoxRestriction.NONE);
         assertFalse(testWindow.controlValueBoundAdjacencies(testDie,2,0));
 
         d.setValue(Value.TWO);
 
-        testWindow.insertDie(d,3,3,"none");
+        testWindow.insertDie(d,3,3,BoxRestriction.NONE);
         assertTrue(testWindow.controlValueBoundAdjacencies(testDie,2,3));
 
 
@@ -300,12 +300,12 @@ public class WindowTest {
         assertFalse(testWindow.controlValueBoundAdjacencies(testDie,0,4));
         assertFalse(testWindow.controlValueBoundAdjacencies(testDie,0,3));
 
-        testWindow.insertDie(d,2,4,"none");
+        testWindow.insertDie(d,2,4,BoxRestriction.NONE);
         assertFalse(testWindow.controlValueBoundAdjacencies(testDie,2,3));
 
         d.setValue(Value.THREE);
 
-        testWindow.insertDie(d,0,4,"none");
+        testWindow.insertDie(d,0,4,BoxRestriction.NONE);
         assertTrue(testWindow.controlValueBoundAdjacencies(testDie,0,3));
 
     }
@@ -332,8 +332,8 @@ public class WindowTest {
 
         testDie.setValue(Value.SIX);
         testDie2.setValue(Value.FIVE);
-        testWindow.insertDie(testDie,0,0,"both");
-        testWindow.insertDie(testDie2,0,1,"both");
+        testWindow.insertDie(testDie,0,0,BoxRestriction.BOTH);
+        testWindow.insertDie(testDie2,0,1,BoxRestriction.BOTH);
 
         assertEquals(6,testWindow.calculateSecretScore(Colour.YELLOW));
         assertEquals(0,testWindow.calculateSecretScore(Colour.BLUE));
@@ -450,7 +450,7 @@ public class WindowTest {
         Window tempWindow = new Window(name,5, testBoxes,"test");
 
         testDie=new Die(Colour.RED);
-        tempWindow.insertDie(testDie,3,3,"none");
+        tempWindow.insertDie(testDie,3,3,BoxRestriction.NONE);
 
         testWindow=new Window(tempWindow.copy());
 

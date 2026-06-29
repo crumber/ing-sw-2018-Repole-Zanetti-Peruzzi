@@ -2,6 +2,7 @@ package repolezanettiperuzzi.domain.cards.toolcards;
 
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
+import repolezanettiperuzzi.model.BoxRestriction;
 
 import java.util.List;
 
@@ -95,8 +96,8 @@ public class TapWheel extends ToolCard {
         whichRound=parameterForCard.get(8);
         whichDieOnRoundTrack=parameterForCard.get(9);
 
-        player.getWindow().moveDie(x1Start,y1Start,x1End,y1End,"both");
-        player.getWindow().moveDie(x2Start,y2Start,x2End,y2End,"both");
+        player.getWindow().moveDie(x1Start,y1Start,x1End,y1End,BoxRestriction.BOTH);
+        player.getWindow().moveDie(x2Start,y2Start,x2End,y2End,BoxRestriction.BOTH);
 
     }
 }

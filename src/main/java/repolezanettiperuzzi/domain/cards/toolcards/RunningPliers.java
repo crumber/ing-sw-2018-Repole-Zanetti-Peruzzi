@@ -2,6 +2,7 @@ package repolezanettiperuzzi.domain.cards.toolcards;
 
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
+import repolezanettiperuzzi.model.BoxRestriction;
 import repolezanettiperuzzi.application.actions.InsertDieWithCheckAction;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class RunningPliers extends ToolCard {
         whichRow=parameterForCard.get(1);
         whichColumn=parameterForCard.get(2);
 
-        player.getWindow().insertDie(board.getDieDraft(posDieOnDraft),whichRow,whichColumn,"both");
+        player.getWindow().insertDie(board.getDieDraft(posDieOnDraft),whichRow,whichColumn,BoxRestriction.BOTH);
         board.removeDieFromDraft(posDieOnDraft);
         player.setInsertDieInThisTurn(true);
         player.incrTurn();

@@ -62,42 +62,48 @@ public class Box {
      * @param restriction Tipo di restrizione
      * @return Vero se il dado viene inserito correttamente, falso altrimenti
      */
-    public boolean setDie(Die dice,String restriction){
+    public boolean setDie(Die dice, BoxRestriction restriction){
 
-        if(restriction.compareTo("both")==0){
+        if (restriction == null) {
+            return false;
+        }
 
-            if(controlBounds(dice)){
-
-                this.die=dice;
+        switch (restriction) {
+            case BOTH:
+                if (controlBounds(dice)) {
+                    this.die = dice;
+                    return true;
+                }
+                break;
+            case NONE:
+                this.die = dice;
                 return true;
-            }
-
-        }else if(restriction.compareTo("none")==0){
-
-                this.die=dice;
-                return true;
-
-
-        }else if(restriction.compareTo("value")==0){
-
-            if(controlValue(dice)){
-
-                this.die=dice;
-                return true;
-
-            }
-
-        }else if(restriction.compareTo("colour")==0){
-
-           if(controlColour(dice)){
-
-               this.die=dice;
-               return true;
-
-           }
+            case VALUE:
+                if (controlValue(dice)) {
+                    this.die = dice;
+                    return true;
+                }
+                break;
+            case COLOUR:
+                if (controlColour(dice)) {
+                    this.die = dice;
+                    return true;
+                }
+                break;
+            default:
+                break;
         }
 
         return false;
+    }
+
+    /**
+     * @deprecated Use {@link #setDie(Die, BoxRestriction)}.
+     */
+    @Deprecated
+    public boolean setDie(Die dice, String restriction){
+
+        return setDie(dice, BoxRestriction.fromLegacyName(restriction));
 
     }
 

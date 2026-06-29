@@ -65,10 +65,10 @@ public class LathekinTest {
         die4.setValue(Value.SIX);
 
         Window windowTest=new Window("test",4,boardBoxes,"test");
-        windowTest.insertDie(die1,0,0,"colour");
-        windowTest.insertDie(die2,0,1,"colour");
-        windowTest.insertDie(die3,1,0,"colour");
-        windowTest.insertDie(die4,1,1,"colour");
+        windowTest.insertDie(die1,0,0,BoxRestriction.COLOUR);
+        windowTest.insertDie(die2,0,1,BoxRestriction.COLOUR);
+        windowTest.insertDie(die3,1,0,BoxRestriction.COLOUR);
+        windowTest.insertDie(die4,1,1,BoxRestriction.COLOUR);
 
         parameterforcard.add(0);
         parameterforcard.add(0);
@@ -234,10 +234,10 @@ public class LathekinTest {
         die4.setValue(Value.FOUR);
 
         Window windowTest=new Window("test",4,boardBoxes,"test");
-        windowTest.insertDie(die1,0,0,"colour");
-        windowTest.insertDie(die2,0,1,"colour");
-        windowTest.insertDie(die3,1,0,"colour");
-        windowTest.insertDie(die4,1,1,"colour");
+        windowTest.insertDie(die1,0,0,BoxRestriction.COLOUR);
+        windowTest.insertDie(die2,0,1,BoxRestriction.COLOUR);
+        windowTest.insertDie(die3,1,0,BoxRestriction.COLOUR);
+        windowTest.insertDie(die4,1,1,BoxRestriction.COLOUR);
 
         parameterforcard.add(0);
         parameterforcard.add(0);

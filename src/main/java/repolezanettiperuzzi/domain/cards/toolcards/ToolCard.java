@@ -98,7 +98,7 @@ public abstract class ToolCard {
                 numProblem=1;
             }
 
-            player.getWindow().insertDie(dTemp,xStart,yStart,"none");
+            player.getWindow().insertDie(dTemp,xStart,yStart,BoxRestriction.NONE);
         }
 
         return numProblem;
@@ -132,27 +132,27 @@ public abstract class ToolCard {
 
             if (!player.getWindow().controlAllBoundBox(x1End, y1End, dTemp)) {
 
-                player.getWindow().insertDie(dTemp,x1Start,y1Start,"none");
+                player.getWindow().insertDie(dTemp,x1Start,y1Start,BoxRestriction.NONE);
                 numProblem=-7;
 
             }else if(player.getWindow().controlAllBoundAdjacencies(dTemp,x1End,y1End)){
 
-                player.getWindow().insertDie(dTemp,x1Start,y1Start,"none");
+                player.getWindow().insertDie(dTemp,x1Start,y1Start,BoxRestriction.NONE);
                 numProblem=-25;
 
             } else {
 
-                player.getWindow().insertDie(dTemp,x1End,y1End,"none");
+                player.getWindow().insertDie(dTemp,x1End,y1End,BoxRestriction.NONE);
 
                 if(x2Start<0 || x2Start>player.getWindow().numRow()-1 || y2Start<0 || y2Start>player.getWindow().numColumn()-1 || x2End<0 || x2End>player.getWindow().numRow()-1 || y2End<0 || y2End>player.getWindow().numColumn()-1){
 
-                    player.getWindow().insertDie(dTemp,x1Start,y1Start,"none");
+                    player.getWindow().insertDie(dTemp,x1Start,y1Start,BoxRestriction.NONE);
                     player.getWindow().removeDie(x1End,y1End);
                     numProblem=-1;
 
                 } else if (!player.getWindow().thereIsDie(x2Start, y2Start)) {
 
-                    player.getWindow().insertDie(dTemp,x1Start,y1Start,"none");
+                    player.getWindow().insertDie(dTemp,x1Start,y1Start,BoxRestriction.NONE);
                     player.getWindow().removeDie(x1End,y1End);
                     numProblem=-17;
 
@@ -182,9 +182,9 @@ public abstract class ToolCard {
 
                     }
 
-                    player.getWindow().insertDie(dTemp,x1Start,y1Start,"none");
+                    player.getWindow().insertDie(dTemp,x1Start,y1Start,BoxRestriction.NONE);
                     player.getWindow().removeDie(x1End,y1End);
-                    player.getWindow().insertDie(d2Temp,x2Start,y2Start,"none");
+                    player.getWindow().insertDie(d2Temp,x2Start,y2Start,BoxRestriction.NONE);
                 }
             }
         }

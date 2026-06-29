@@ -74,22 +74,22 @@ public class CalculateScoreTest {
         d13.setValue(Value.FIVE);
         d14.setValue(Value.SIX);
 
-        window.insertDie(d,0,0,"none");
-        window.insertDie(d1,1,1,"none");
-        window.insertDie(d2,2,2,"none");
-        window.insertDie(d3,0,1,"none");
-        window.insertDie(d4,1,0,"none");
-        window.insertDie(d5,1,2,"none");
-        window.insertDie(d6,0,2,"none");
-        window.insertDie(d7,0,3,"none");
-        window.insertDie(d8,2,3,"none");
-        window.insertDie(d9,1,3,"none");
-        window.insertDie(d10,0,4,"none");
-        window.insertDie(d11,3,4,"none");
-        window.insertDie(d12,1,4,"none");
-        window.insertDie(d13,2,4,"none");
-        window.insertDie(d14,2,1,"none");
-        window.insertDie(d15,3,0,"none");
+        window.insertDie(d,0,0,BoxRestriction.NONE);
+        window.insertDie(d1,1,1,BoxRestriction.NONE);
+        window.insertDie(d2,2,2,BoxRestriction.NONE);
+        window.insertDie(d3,0,1,BoxRestriction.NONE);
+        window.insertDie(d4,1,0,BoxRestriction.NONE);
+        window.insertDie(d5,1,2,BoxRestriction.NONE);
+        window.insertDie(d6,0,2,BoxRestriction.NONE);
+        window.insertDie(d7,0,3,BoxRestriction.NONE);
+        window.insertDie(d8,2,3,BoxRestriction.NONE);
+        window.insertDie(d9,1,3,BoxRestriction.NONE);
+        window.insertDie(d10,0,4,BoxRestriction.NONE);
+        window.insertDie(d11,3,4,BoxRestriction.NONE);
+        window.insertDie(d12,1,4,BoxRestriction.NONE);
+        window.insertDie(d13,2,4,BoxRestriction.NONE);
+        window.insertDie(d14,2,1,BoxRestriction.NONE);
+        window.insertDie(d15,3,0,BoxRestriction.NONE);
 
         board.addPlayer("jerry","RMI","CLI","127.0.0.1",8008);
         board.getPlayer(0).setWindow(window);

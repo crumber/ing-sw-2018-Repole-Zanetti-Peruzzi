@@ -50,8 +50,8 @@ public class EglomiseBrushTest {
         die2.setValue(Value.FIVE);
 
         Window windowTest=new Window("test",4,boardBoxes,"test");
-        windowTest.insertDie(die1,0,0,"colour");
-        windowTest.insertDie(die2,0,1,"value");
+        windowTest.insertDie(die1,0,0,BoxRestriction.COLOUR);
+        windowTest.insertDie(die2,0,1,BoxRestriction.VALUE);
 
         parameterforcard.add(0);
         parameterforcard.add(0);
@@ -68,7 +68,7 @@ public class EglomiseBrushTest {
 
         windowTest.removeDie(0,0);
         die1.setValue(Value.FIVE);
-        windowTest.insertDie(die1,0,0,"colour");
+        windowTest.insertDie(die1,0,0,BoxRestriction.COLOUR);
 
         parameterforcard.clear();
         parameterforcard.add(0);
@@ -112,8 +112,8 @@ public class EglomiseBrushTest {
         die2.setValue(Value.TWO);
 
         Window windowTest=new Window("test",4,boardBoxes,"test");
-        windowTest.insertDie(die1,0,0,"colour");
-        windowTest.insertDie(die2,0,1,"value");
+        windowTest.insertDie(die1,0,0,BoxRestriction.COLOUR);
+        windowTest.insertDie(die2,0,1,BoxRestriction.VALUE);
 
         parameterforcard.add(0);
         parameterforcard.add(0);

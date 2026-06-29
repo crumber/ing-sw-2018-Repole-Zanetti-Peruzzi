@@ -2,6 +2,7 @@ package repolezanettiperuzzi.application.actions;
 
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
+import repolezanettiperuzzi.model.BoxRestriction;
 
 import java.util.List;
 
@@ -83,7 +84,7 @@ public class InsertDieWithCheckAction{
 
         if(resultOfAction==1){
 
-            player.getWindow().insertDie(board.getDieDraft(posDieOnDraft),whichRow,whichColumn,"both");
+            player.getWindow().insertDie(board.getDieDraft(posDieOnDraft),whichRow,whichColumn,BoxRestriction.BOTH);
             board.removeDieFromDraft(posDieOnDraft);
             player.setInsertDieInThisTurn(true);
 

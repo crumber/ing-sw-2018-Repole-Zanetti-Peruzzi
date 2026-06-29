@@ -68,8 +68,8 @@ public class TapWheelTest {
         die3.setValue(Value.THREE);
 
         Window windowTest=new Window("test",4,boardBoxes,"test");
-        windowTest.insertDie(die1,0,0,"colour");
-        windowTest.insertDie(die2,1,1,"colour");
+        windowTest.insertDie(die1,0,0,BoxRestriction.COLOUR);
+        windowTest.insertDie(die2,1,1,BoxRestriction.COLOUR);
 
         player=mock(Player.class);
         when(player.getWindow()).thenReturn(windowTest);
@@ -142,7 +142,7 @@ public class TapWheelTest {
 
         //testo errore -22 dovuto al diverso colore dei 2 dadi da muovere scelti
 
-        windowTest.insertDie(die3,3,1,"none");
+        windowTest.insertDie(die3,3,1,BoxRestriction.NONE);
 
         parameterforcard.clear();
         parameterforcard.add(0);
@@ -197,8 +197,8 @@ public class TapWheelTest {
         die2.setValue(Value.FOUR);
 
         Window windowTest=new Window("test",4,boardBoxes,"test");
-        windowTest.insertDie(die1,0,0,"colour");
-        windowTest.insertDie(die2,1,1,"colour");
+        windowTest.insertDie(die1,0,0,BoxRestriction.COLOUR);
+        windowTest.insertDie(die2,1,1,BoxRestriction.COLOUR);
 
         player=mock(Player.class);
         when(player.getWindow()).thenReturn(windowTest);

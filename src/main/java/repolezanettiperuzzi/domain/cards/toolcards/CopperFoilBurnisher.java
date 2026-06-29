@@ -61,7 +61,7 @@ public class CopperFoilBurnisher extends ToolCard{
                 resultOfAction=1;
             }
 
-            player.getWindow().insertDie(dTemp,xStart,yStart,"both");
+            player.getWindow().insertDie(dTemp,xStart,yStart,BoxRestriction.BOTH);
         }
 
         return resultOfAction;
@@ -82,7 +82,7 @@ public class CopperFoilBurnisher extends ToolCard{
         xEnd=parameterForCard.get(2);
         yEnd=parameterForCard.get(3);
 
-        player.getWindow().moveDie(xStart,yStart,xEnd,yEnd,"colour");
+        player.getWindow().moveDie(xStart,yStart,xEnd,yEnd,BoxRestriction.COLOUR);
 
     }
 }

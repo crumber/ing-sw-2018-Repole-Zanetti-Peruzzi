@@ -3,6 +3,7 @@ package repolezanettiperuzzi.domain.cards.toolcards;
 import repolezanettiperuzzi.model.Die;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
+import repolezanettiperuzzi.model.BoxRestriction;
 
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class EglomiseBrush extends ToolCard {
 
             }
 
-            player.getWindow().insertDie(dTemp,xStart,yStart,"both");
+            player.getWindow().insertDie(dTemp,xStart,yStart,BoxRestriction.BOTH);
         }
 
         return resultOfAction;
@@ -85,7 +86,7 @@ public class EglomiseBrush extends ToolCard {
         xEnd=parameterForCard.get(2);
         yEnd=parameterForCard.get(3);
 
-        player.getWindow().moveDie(xStart,yStart,xEnd,yEnd,"value");
+        player.getWindow().moveDie(xStart,yStart,xEnd,yEnd,BoxRestriction.VALUE);
 
     }
 }

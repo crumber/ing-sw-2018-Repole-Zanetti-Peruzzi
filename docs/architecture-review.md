@@ -254,11 +254,14 @@ Do one move per commit and run the full test suite after each move.
 
 ### Phase 3: Domain Cleanup
 
+Completed:
+
+- replace raw string restrictions such as `"both"`, `"none"`, `"value"`, `"colour"` with `BoxRestriction`
+
 Focus on model correctness and encapsulation:
 
 - make copy methods actually deep-copy mutable board state
 - avoid exposing mutable collections directly
-- replace raw string restrictions such as `"both"`, `"none"`, `"value"`, `"colour"` with an enum
 - centralize card/action validation results
 
 ### Phase 4: Application Flow Cleanup
@@ -290,9 +293,9 @@ Separate UI from networking:
 
 Good candidates because they are useful and relatively contained:
 
-1. Introduce an enum for box restriction mode.
-2. Replace static turn/round state with a `GameSession` or `TurnTracker`.
-3. Move socket message parsing out of `HandlerControllerSocket`.
+1. Replace static turn/round state with a `GameSession` or `TurnTracker`.
+2. Move socket message parsing out of `HandlerControllerSocket`.
+3. Make copy methods actually deep-copy mutable board state.
 
 Avoid starting with:
 
