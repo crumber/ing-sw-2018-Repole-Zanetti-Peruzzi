@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.domain.cards.toolcards;
 
+import repolezanettiperuzzi.domain.ActionResult;
 import repolezanettiperuzzi.model.*;
 
 import java.util.List;
@@ -71,15 +72,18 @@ public abstract class ToolCard {
      */
     public int checkMoveOneDie(GameBoard board, Player player, int xStart, int yStart, int xEnd, int yEnd){
 
-        int numProblem;
+        return checkMoveOneDieResult(board, player, xStart, yStart, xEnd, yEnd).getCode();
+    }
+
+    public ActionResult checkMoveOneDieResult(GameBoard board, Player player, int xStart, int yStart, int xEnd, int yEnd){
 
         if(xStart<0 || xStart>player.getWindow().numRow()-1 || yStart<0 || yStart>player.getWindow().numColumn()-1 || xEnd<0 || xEnd>player.getWindow().numRow()-1 || yEnd<0 || yEnd>player.getWindow().numColumn()-1){
 
-            numProblem=-1;
+            return ActionResult.STARTING_OR_FINAL_POSITION_NOT_EXIST;
 
         } else if (!player.getWindow().thereIsDie(xStart, yStart)) {
 
-            numProblem=-2;
+            return ActionResult.CHOSEN_BOX_EMPTY;
 
         } else{
 
@@ -87,21 +91,19 @@ public abstract class ToolCard {
 
             if (player.getWindow().thereIsDie(xEnd, yEnd)) {
 
-                numProblem=-3;
+                player.getWindow().insertDie(dTemp,xStart,yStart,BoxRestriction.NONE);
+                return ActionResult.POSITION_OCCUPIED;
 
             } else if (!player.getWindow().controlAdjacencies(xEnd, yEnd)) {
 
-                numProblem=-4;
-
-            }else{
-
-                numProblem=1;
+                player.getWindow().insertDie(dTemp,xStart,yStart,BoxRestriction.NONE);
+                return ActionResult.NO_ADJACENT_DIE;
             }
 
             player.getWindow().insertDie(dTemp,xStart,yStart,BoxRestriction.NONE);
         }
 
-        return numProblem;
+        return ActionResult.SUCCESS;
     }
 
     /**
@@ -120,76 +122,81 @@ public abstract class ToolCard {
      */
     public int checkMoveTwoDice(GameBoard board, Player player, int x1Start, int y1Start, int x1End, int y1End, int x2Start, int y2Start, int x2End, int y2End){
 
-        int numProblem;
+        return checkMoveTwoDiceResult(board, player, x1Start, y1Start, x1End, y1End, x2Start, y2Start, x2End, y2End).getCode();
+    }
 
-        if(checkMoveOneDie(board,player,x1Start,y1Start,x1End,y1End)!=1){
+    public ActionResult checkMoveTwoDiceResult(GameBoard board, Player player, int x1Start, int y1Start, int x1End, int y1End, int x2Start, int y2Start, int x2End, int y2End){
 
-            numProblem=checkMoveOneDie(board,player,x1Start,y1Start,x1End,y1End);
+        ActionResult firstMoveResult = checkMoveOneDieResult(board, player, x1Start, y1Start, x1End, y1End);
 
-        } else{
+        if(!firstMoveResult.isSuccess()){
 
-            Die dTemp=player.getWindow().removeDie(x1Start,y1Start);
+            return firstMoveResult;
 
-            if (!player.getWindow().controlAllBoundBox(x1End, y1End, dTemp)) {
-
-                player.getWindow().insertDie(dTemp,x1Start,y1Start,BoxRestriction.NONE);
-                numProblem=-7;
-
-            }else if(player.getWindow().controlAllBoundAdjacencies(dTemp,x1End,y1End)){
-
-                player.getWindow().insertDie(dTemp,x1Start,y1Start,BoxRestriction.NONE);
-                numProblem=-25;
-
-            } else {
-
-                player.getWindow().insertDie(dTemp,x1End,y1End,BoxRestriction.NONE);
-
-                if(x2Start<0 || x2Start>player.getWindow().numRow()-1 || y2Start<0 || y2Start>player.getWindow().numColumn()-1 || x2End<0 || x2End>player.getWindow().numRow()-1 || y2End<0 || y2End>player.getWindow().numColumn()-1){
-
-                    player.getWindow().insertDie(dTemp,x1Start,y1Start,BoxRestriction.NONE);
-                    player.getWindow().removeDie(x1End,y1End);
-                    numProblem=-1;
-
-                } else if (!player.getWindow().thereIsDie(x2Start, y2Start)) {
-
-                    player.getWindow().insertDie(dTemp,x1Start,y1Start,BoxRestriction.NONE);
-                    player.getWindow().removeDie(x1End,y1End);
-                    numProblem=-17;
-
-                } else{
-
-                    Die d2Temp=player.getWindow().removeDie(x2Start,y2Start);
-
-                    if (player.getWindow().thereIsDie(x2End, y2End)) {
-
-                        numProblem=-18;
-
-                    } else if (!player.getWindow().controlAdjacencies(x2End, y2End)) {
-
-                        numProblem=-19;
-
-                    } else if (!player.getWindow().controlAllBoundBox(x2End, y2End, d2Temp)) {
-
-                        numProblem=-20;
-
-                    }else if(player.getWindow().controlAllBoundAdjacencies(d2Temp,x2End,y2End)){
-
-                        numProblem=-26;
-
-                    } else {
-
-                        numProblem=1;
-
-                    }
-
-                    player.getWindow().insertDie(dTemp,x1Start,y1Start,BoxRestriction.NONE);
-                    player.getWindow().removeDie(x1End,y1End);
-                    player.getWindow().insertDie(d2Temp,x2Start,y2Start,BoxRestriction.NONE);
-                }
-            }
         }
 
-        return numProblem;
+        Die dTemp=player.getWindow().removeDie(x1Start,y1Start);
+
+        if (!player.getWindow().controlAllBoundBox(x1End, y1End, dTemp)) {
+
+            player.getWindow().insertDie(dTemp,x1Start,y1Start,BoxRestriction.NONE);
+            return ActionResult.BOX_RESTRICTION_VIOLATED;
+
+        }else if(player.getWindow().controlAllBoundAdjacencies(dTemp,x1End,y1End)){
+
+            player.getWindow().insertDie(dTemp,x1Start,y1Start,BoxRestriction.NONE);
+            return ActionResult.ADJACENT_SAME_COLOUR_OR_VALUE;
+
+        } else {
+
+            player.getWindow().insertDie(dTemp,x1End,y1End,BoxRestriction.NONE);
+
+            if(x2Start<0 || x2Start>player.getWindow().numRow()-1 || y2Start<0 || y2Start>player.getWindow().numColumn()-1 || x2End<0 || x2End>player.getWindow().numRow()-1 || y2End<0 || y2End>player.getWindow().numColumn()-1){
+
+                player.getWindow().insertDie(dTemp,x1Start,y1Start,BoxRestriction.NONE);
+                player.getWindow().removeDie(x1End,y1End);
+                return ActionResult.STARTING_OR_FINAL_POSITION_NOT_EXIST;
+
+            } else if (!player.getWindow().thereIsDie(x2Start, y2Start)) {
+
+                player.getWindow().insertDie(dTemp,x1Start,y1Start,BoxRestriction.NONE);
+                player.getWindow().removeDie(x1End,y1End);
+                return ActionResult.SECOND_DIE_START_EMPTY;
+
+            } else{
+
+                Die d2Temp=player.getWindow().removeDie(x2Start,y2Start);
+
+                ActionResult result;
+
+                if (player.getWindow().thereIsDie(x2End, y2End)) {
+
+                    result = ActionResult.SECOND_DIE_TARGET_OCCUPIED;
+
+                } else if (!player.getWindow().controlAdjacencies(x2End, y2End)) {
+
+                    result = ActionResult.SECOND_DIE_NO_ADJACENT_DIE;
+
+                } else if (!player.getWindow().controlAllBoundBox(x2End, y2End, d2Temp)) {
+
+                    result = ActionResult.SECOND_DIE_RESTRICTION_VIOLATED;
+
+                }else if(player.getWindow().controlAllBoundAdjacencies(d2Temp,x2End,y2End)){
+
+                    result = ActionResult.SECOND_DIE_ADJACENT_SAME_COLOUR_OR_VALUE;
+
+                } else {
+
+                    result = ActionResult.SUCCESS;
+
+                }
+
+                player.getWindow().insertDie(dTemp,x1Start,y1Start,BoxRestriction.NONE);
+                player.getWindow().removeDie(x1End,y1End);
+                player.getWindow().insertDie(d2Temp,x2Start,y2Start,BoxRestriction.NONE);
+                return result;
+            }
+        }
     }
 
     /**
@@ -201,19 +208,18 @@ public abstract class ToolCard {
      */
     public int checkDieOnDraft(GameBoard board, Player player, int posDieOnDraft){
 
-        int numProblem;
+        return checkDieOnDraftResult(board, player, posDieOnDraft).getCode();
+    }
+
+    public ActionResult checkDieOnDraftResult(GameBoard board, Player player, int posDieOnDraft){
 
         if (board.getDieDraft(posDieOnDraft) == null) {
 
-            numProblem=-9;
-
-        } else {
-
-            numProblem=1;
+            return ActionResult.EMPTY_DRAFT_POSITION;
 
         }
 
-        return numProblem;
+        return ActionResult.SUCCESS;
     }
 
     /**
@@ -226,19 +232,18 @@ public abstract class ToolCard {
      */
     public int checkDieOnRoundTrack(GameBoard board, Player player, int whichRound, int whichDieRound){
 
-        int numProblem;
+        return checkDieOnRoundTrackResult(board, player, whichRound, whichDieRound).getCode();
+    }
+
+    public ActionResult checkDieOnRoundTrackResult(GameBoard board, Player player, int whichRound, int whichDieRound){
 
         if(board.getDieFromRoundTrack(whichRound,whichDieRound)==null){
 
-            numProblem=-21;
-
-        }else {
-
-            numProblem=1;
+            return ActionResult.ROUND_TRACK_POSITION_EMPTY;
 
         }
 
-        return numProblem;
+        return ActionResult.SUCCESS;
     }
 
     /**

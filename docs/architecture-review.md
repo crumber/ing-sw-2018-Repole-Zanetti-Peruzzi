@@ -260,10 +260,11 @@ Completed:
 - make `Window`, `Box`, and `Die` copies independent from their mutable source objects
 - copy `GameBoard` collection inputs and outputs for draft dice, window pool, player list, and window choices
 - add `ActionResult` to name action and tool-card validation codes while keeping legacy integer bridges
+- migrate shared `ToolCard` validation helpers to `ActionResult`
 
 Focus on model correctness and encapsulation:
 
-- migrate tool-card checks from integer codes to `ActionResult`
+- migrate individual tool-card checks from integer codes to `ActionResult`
 
 ### Phase 4: Application Flow Cleanup
 
@@ -296,7 +297,7 @@ Good candidates because they are useful and relatively contained:
 
 1. Replace static turn/round state with a `GameSession` or `TurnTracker`.
 2. Move socket message parsing out of `HandlerControllerSocket`.
-3. Migrate tool-card checks from integer codes to `ActionResult`.
+3. Migrate individual tool-card checks from integer codes to `ActionResult`.
 
 Avoid starting with:
 
