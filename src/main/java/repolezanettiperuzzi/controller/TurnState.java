@@ -134,18 +134,7 @@ public class TurnState extends ControllerState {
 
         }else{
 
-            if(player.getConnection().equals("Socket")){
-
-                try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
-                    //System.out.println("notYourTurn");
-                    HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
-                    handler.sendNotYourTurn();
-
-                }
-            }else if(player.getConnection().equals("RMI")){
-
-
-            }
+            sendNotYourTurn(player, false);
 
         }
 
@@ -192,20 +181,7 @@ public class TurnState extends ControllerState {
 
                 }
 
-                if (player.getConnection().equals("Socket")) {
-
-                    try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
-
-                        HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
-                        handler.sendParametersForToolCard(requestParameters);
-
-                    }
-
-                } else if (player.getConnection().equals("RMI")) {
-
-                    controller.getHandlerRMI().sendCardParameters(player.getName(), requestParameters);
-
-                }
+                sendParametersForToolCard(player, requestParameters);
 
             }else {
 
@@ -215,19 +191,7 @@ public class TurnState extends ControllerState {
 
         }else{
 
-            if(player.getConnection().equals("Socket")){
-
-                try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
-
-                    HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
-                    handler.sendNotYourTurn();
-
-                }
-            }else if(player.getConnection().equals("RMI")){
-
-                controller.getHandlerRMI().sendNotYourTurn(player.getName());
-
-            }
+            sendNotYourTurn(player, true);
         }
 
     }
@@ -340,6 +304,41 @@ public class TurnState extends ControllerState {
         } else if(player.getConnection().equals("RMI")){
 
             controller.getHandlerRMI().sendActionError(player.getName(), message);
+
+        }
+    }
+
+    private void sendParametersForToolCard(Player player, String requestParameters) throws IOException {
+
+        if (player.getConnection().equals("Socket")) {
+
+            try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+
+                HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
+                handler.sendParametersForToolCard(requestParameters);
+
+            }
+
+        } else if (player.getConnection().equals("RMI")) {
+
+            controller.getHandlerRMI().sendCardParameters(player.getName(), requestParameters);
+
+        }
+    }
+
+    private void sendNotYourTurn(Player player, boolean notifyRmi) throws IOException {
+
+        if(player.getConnection().equals("Socket")){
+
+            try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+
+                HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
+                handler.sendNotYourTurn();
+
+            }
+        }else if(player.getConnection().equals("RMI") && notifyRmi){
+
+            controller.getHandlerRMI().sendNotYourTurn(player.getName());
 
         }
     }

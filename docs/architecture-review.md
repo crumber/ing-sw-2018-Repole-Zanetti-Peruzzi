@@ -264,10 +264,11 @@ Completed:
 - migrate concrete tool-card checks to `ActionResult`
 - use `ActionResult` across insert-die and tool-card controller flows
 - extract shared action-error response handling in `TurnState`
+- extract shared parameter-request and not-your-turn response handling in `TurnState`
 
 Focus on model correctness and encapsulation:
 
-- continue replacing duplicated turn-response handling where behavior is already covered
+- continue reducing `TurnState` transport branching without changing game flow
 
 ### Phase 4: Application Flow Cleanup
 
