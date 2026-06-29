@@ -2,7 +2,7 @@ package repolezanettiperuzzi.application.actions;
 
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
-import repolezanettiperuzzi.model.toolcards.FluxRemover;
+import repolezanettiperuzzi.domain.cards.toolcards.FluxRemover;
 
 import java.util.List;
 

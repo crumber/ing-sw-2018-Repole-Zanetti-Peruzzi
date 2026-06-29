@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.model.toolcards;
+package repolezanettiperuzzi.domain.cards.toolcards;
 
 import repolezanettiperuzzi.model.Die;
 import repolezanettiperuzzi.model.GameBoard;

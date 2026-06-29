@@ -2,7 +2,7 @@ package repolezanettiperuzzi.application.actions;
 
 import org.junit.Test;
 import repolezanettiperuzzi.model.*;
-import repolezanettiperuzzi.model.toolcards.FluxRemover;
+import repolezanettiperuzzi.domain.cards.toolcards.FluxRemover;
 
 import java.util.ArrayList;
 import java.util.List;

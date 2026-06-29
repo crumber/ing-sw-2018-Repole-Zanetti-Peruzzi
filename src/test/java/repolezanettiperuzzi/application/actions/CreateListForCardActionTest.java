@@ -2,7 +2,7 @@ package repolezanettiperuzzi.application.actions;
 
 import org.junit.Test;
 import repolezanettiperuzzi.model.GameBoard;
-import repolezanettiperuzzi.model.toolcards.*;
+import repolezanettiperuzzi.domain.cards.toolcards.*;
 
 import java.util.ArrayList;
 

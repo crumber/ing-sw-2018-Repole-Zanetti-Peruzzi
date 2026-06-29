@@ -15,8 +15,8 @@ repolezanettiperuzzi
   domain
     cards
       publiccards
+      toolcards
   model
-    toolcards
   shared
     dto
   view
@@ -62,7 +62,7 @@ Public scoring card behavior:
 
 This is a Strategy-style design. Each public card computes its score through `effect(Window)`.
 
-### `model.toolcards`
+### `domain.cards.toolcards`
 
 Tool card behavior:
 
@@ -248,9 +248,6 @@ Completed:
 - `common.modelwrapper` -> `shared.dto`
 - `model.actions` -> `application.actions`
 - `model.publiccards` -> `domain.cards.publiccards`
-
-Remaining low-risk moves:
-
 - `model.toolcards` -> `domain.cards.toolcards`
 
 Do one move per commit and run the full test suite after each move.
@@ -293,10 +290,9 @@ Separate UI from networking:
 
 Good candidates because they are useful and relatively contained:
 
-1. Move `model.toolcards` to `domain.cards.toolcards`.
-2. Introduce an enum for box restriction mode.
-3. Replace static turn/round state with a `GameSession` or `TurnTracker`.
-4. Move socket message parsing out of `HandlerControllerSocket`.
+1. Introduce an enum for box restriction mode.
+2. Replace static turn/round state with a `GameSession` or `TurnTracker`.
+3. Move socket message parsing out of `HandlerControllerSocket`.
 
 Avoid starting with:
 

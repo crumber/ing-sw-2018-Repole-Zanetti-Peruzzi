@@ -5,7 +5,7 @@ import repolezanettiperuzzi.domain.cards.publiccards.DeepShades;
 import repolezanettiperuzzi.domain.cards.publiccards.LightShades;
 import repolezanettiperuzzi.domain.cards.publiccards.PublicCard;
 import repolezanettiperuzzi.domain.cards.publiccards.RowShadeVariety;
-import repolezanettiperuzzi.model.toolcards.*;
+import repolezanettiperuzzi.domain.cards.toolcards.*;
 
 import java.util.ArrayList;
 

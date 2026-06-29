@@ -38,6 +38,7 @@ The original code follows a broad MVC structure:
 
 - `model`: game state, dice, players, windows, cards
 - `domain.cards.publiccards`: public objective card strategies
+- `domain.cards.toolcards`: tool card strategies
 - `application.actions`: game actions and use cases
 - `controller`: server flow, state machine, timers, networking handlers
 - `view`: CLI, GUI, JavaFX controllers, client networking

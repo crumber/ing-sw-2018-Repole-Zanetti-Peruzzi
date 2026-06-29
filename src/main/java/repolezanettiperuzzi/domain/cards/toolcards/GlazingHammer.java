@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.model.toolcards;
+package repolezanettiperuzzi.domain.cards.toolcards;
 
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
@@ -6,22 +6,19 @@ import repolezanettiperuzzi.model.Player;
 import java.util.List;
 
 /**
- * Classe che rappresenta la tool card 6
+ * Classe che rappresenta la tool card 7
  * @author Alessandro Peruzzi
  */
-public class FluxBrush extends ToolCard {
-
-    private int posDieOnDraft;
+public class GlazingHammer extends ToolCard {
 
     /**
      * Costruttore della classe, imposta l'id
      */
-    public FluxBrush(){
+    public GlazingHammer(){
 
-        id=6;
+        id=7;
 
     }
-
 
     /**
      * svolge i controlli sui parametri e la situazione per l'attivazione della carta
@@ -30,13 +27,24 @@ public class FluxBrush extends ToolCard {
      * @param parameterForCard è una lista di interi che rappresentano i vari valori dei parametri per l'attivazione della carta scelti dal client
      * @return ritorna 1 se i controlli sono andati bene sennò un valore negativo che indica l'errore
      */
-    //control that there is die in this position on draft
+    //control that is second turn of round and that player don't insert die in this turn
     @Override
     public int check(GameBoard board, Player player, List<Integer> parameterForCard) {
 
-        posDieOnDraft=parameterForCard.get(0);
+        if (player.getTurn()!=1) {
 
-        resultOfAction=checkDieOnDraft(board,player,posDieOnDraft);
+            resultOfAction=-12;
+
+        }else if(player.getInsertDieInThisTurn()){
+
+            resultOfAction=-28;
+
+        }
+        else {
+
+            resultOfAction=1;
+
+        }
 
         return resultOfAction;
     }
@@ -47,12 +55,15 @@ public class FluxBrush extends ToolCard {
      * @param player indica il player che vuole attivare la carta
      * @param parameterForCard è una lista di interi che rappresentano i vari valori dei parametri per l'attivazione della carta scelti dal client
      */
-    //roll die in this position on draft
+    //roll all dice on draft
     @Override
     public void effect(GameBoard board, Player player, List<Integer> parameterForCard){
 
-        posDieOnDraft=parameterForCard.get(0);
-        board.getDieDraft(posDieOnDraft).rollDie();
+        int numDiceDraft= board.getSizeDraft();
+        for(int i=0;i<numDiceDraft;i++){
 
+            board.getDieDraft(i).rollDie();
+
+        }
     }
 }

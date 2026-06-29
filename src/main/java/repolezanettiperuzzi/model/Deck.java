@@ -4,8 +4,8 @@ import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.application.actions.InitializeGame;
 import repolezanettiperuzzi.domain.cards.publiccards.FactoryPublicCard;
 import repolezanettiperuzzi.domain.cards.publiccards.PublicCard;
-import repolezanettiperuzzi.model.toolcards.FactoryToolCard;
-import repolezanettiperuzzi.model.toolcards.ToolCard;
+import repolezanettiperuzzi.domain.cards.toolcards.FactoryToolCard;
+import repolezanettiperuzzi.domain.cards.toolcards.ToolCard;
 
 import java.io.BufferedReader;
 import java.io.File;

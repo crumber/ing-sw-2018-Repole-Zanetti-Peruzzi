@@ -1,27 +1,27 @@
-package repolezanettiperuzzi.model.toolcards;
+package repolezanettiperuzzi.domain.cards.toolcards;
 
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.model.Player;
-import repolezanettiperuzzi.model.Value;
 
 import java.util.List;
 
 /**
- * Classe che rappresenta la tool card 10
+ * Classe che rappresenta la tool card 6
  * @author Alessandro Peruzzi
  */
-public class GrindingStone extends ToolCard {
+public class FluxBrush extends ToolCard {
 
     private int posDieOnDraft;
 
     /**
      * Costruttore della classe, imposta l'id
      */
-    public GrindingStone(){
+    public FluxBrush(){
 
-        id=10;
+        id=6;
 
     }
+
 
     /**
      * svolge i controlli sui parametri e la situazione per l'attivazione della carta
@@ -38,7 +38,7 @@ public class GrindingStone extends ToolCard {
 
         resultOfAction=checkDieOnDraft(board,player,posDieOnDraft);
 
-        return  resultOfAction;
+        return resultOfAction;
     }
 
     /**
@@ -47,36 +47,12 @@ public class GrindingStone extends ToolCard {
      * @param player indica il player che vuole attivare la carta
      * @param parameterForCard è una lista di interi che rappresentano i vari valori dei parametri per l'attivazione della carta scelti dal client
      */
-    //change die's value (in this position on draft)
+    //roll die in this position on draft
     @Override
     public void effect(GameBoard board, Player player, List<Integer> parameterForCard){
 
         posDieOnDraft=parameterForCard.get(0);
+        board.getDieDraft(posDieOnDraft).rollDie();
 
-        if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.ONE){
-
-            board.getDieDraft(posDieOnDraft).setValue(Value.SIX);
-
-        }else if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.SIX){
-
-            board.getDieDraft(posDieOnDraft).setValue(Value.ONE);
-
-        }else if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.FIVE){
-
-            board.getDieDraft(posDieOnDraft).setValue(Value.TWO);
-
-        }else if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.TWO){
-
-            board.getDieDraft(posDieOnDraft).setValue(Value.FIVE);
-
-        }else if(board.getDieDraft(posDieOnDraft).getValueDie()==Value.FOUR){
-
-            board.getDieDraft(posDieOnDraft).setValue(Value.THREE);
-
-        }else{
-
-            board.getDieDraft(posDieOnDraft).setValue(Value.FOUR);
-
-        }
     }
 }

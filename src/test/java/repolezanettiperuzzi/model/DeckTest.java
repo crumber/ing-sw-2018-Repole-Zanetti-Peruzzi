@@ -3,8 +3,8 @@ package repolezanettiperuzzi.model;
 import org.junit.Test;
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.domain.cards.publiccards.PublicCard;
-import repolezanettiperuzzi.model.toolcards.Lathekin;
-import repolezanettiperuzzi.model.toolcards.ToolCard;
+import repolezanettiperuzzi.domain.cards.toolcards.Lathekin;
+import repolezanettiperuzzi.domain.cards.toolcards.ToolCard;
 
 import java.io.IOException;
 import java.util.ArrayList;

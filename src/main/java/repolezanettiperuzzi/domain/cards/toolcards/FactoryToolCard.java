@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.model.toolcards;
+package repolezanettiperuzzi.domain.cards.toolcards;
 
 /**
  * Classe factory che svolge la costruzione corretta della tool card

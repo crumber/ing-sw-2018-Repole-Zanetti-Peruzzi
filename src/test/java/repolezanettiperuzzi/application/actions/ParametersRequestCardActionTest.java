@@ -5,7 +5,7 @@ import repolezanettiperuzzi.model.Colour;
 import repolezanettiperuzzi.model.Die;
 import repolezanettiperuzzi.model.GameBoard;
 import repolezanettiperuzzi.domain.cards.publiccards.PublicCard;
-import repolezanettiperuzzi.model.toolcards.*;
+import repolezanettiperuzzi.domain.cards.toolcards.*;
 
 import static org.junit.Assert.*;
 

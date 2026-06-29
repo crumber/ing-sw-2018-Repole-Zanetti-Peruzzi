@@ -1,7 +1,7 @@
 package repolezanettiperuzzi.domain.cards.publiccards;
 
 import org.junit.Test;
-import repolezanettiperuzzi.model.toolcards.FactoryToolCard;
+import repolezanettiperuzzi.domain.cards.toolcards.FactoryToolCard;
 
 import static org.junit.Assert.*;
 

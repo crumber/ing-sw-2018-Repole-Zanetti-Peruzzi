@@ -12,7 +12,7 @@ import repolezanettiperuzzi.model.Window;
 import repolezanettiperuzzi.application.actions.BeginRound;
 import repolezanettiperuzzi.application.actions.BeginTurn;
 import repolezanettiperuzzi.domain.cards.publiccards.PublicCard;
-import repolezanettiperuzzi.model.toolcards.ToolCard;
+import repolezanettiperuzzi.domain.cards.toolcards.ToolCard;
 
 import java.io.IOException;
 import java.io.ObjectInput;

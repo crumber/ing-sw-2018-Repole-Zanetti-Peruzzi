@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.model.toolcards;
+package repolezanettiperuzzi.domain.cards.toolcards;
 
 import org.junit.Test;
 
