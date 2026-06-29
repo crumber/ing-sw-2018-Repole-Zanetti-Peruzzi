@@ -286,6 +286,7 @@ In progress:
 - make `TurnState` delegate its static flags to `TurnStateTracker` while preserving turn flow
 - introduce a `GameSession` object to hold per-game round, turn, and turn-state trackers
 - give `Controller` an explicit `GameSession` before moving flow state into it
+- bind `TurnState` to the controller-owned turn-state tracker
 
 Reduce static mutable state:
 

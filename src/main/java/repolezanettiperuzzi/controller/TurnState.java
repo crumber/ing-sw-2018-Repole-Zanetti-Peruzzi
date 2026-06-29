@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class TurnState extends ControllerState {
 
     private Controller controller;
-    private static final TurnStateTracker turnStateTracker = new TurnStateTracker();
+    private TurnStateTracker turnStateTracker = new TurnStateTracker();
 
     /**
      * Fa iniziare il turno del player
@@ -29,7 +29,7 @@ public class TurnState extends ControllerState {
 
         BeginTurn beginTurn = new BeginTurn();
 
-        this.controller=controller;
+        setController(controller);
 
         if(BeginTurn.getCurrentTurn()==0 && BeginTurn.getNumPlayedTurn()==0){
 
@@ -72,6 +72,7 @@ public class TurnState extends ControllerState {
 
     public void setController(Controller controller){
         this.controller = controller;
+        this.turnStateTracker = controller.getSession().getTurnStateTracker();
     }
 
     /**
