@@ -1,13 +1,8 @@
 package repolezanettiperuzzi.controller;
 
 import org.json.simple.parser.ParseException;
-import repolezanettiperuzzi.model.Player;
-import repolezanettiperuzzi.application.actions.BeginRound;
-import repolezanettiperuzzi.application.actions.BeginTurn;
-import repolezanettiperuzzi.application.actions.EndRound;
 
 import java.io.IOException;
-import java.net.Socket;
 
 /**
  * Classe che rappresenta lo stato finale del round
@@ -24,11 +19,9 @@ public class EndRoundState extends ControllerState {
     @Override
     public void doAction(Controller controller) throws IOException, ParseException {
 
-        EndRound endRound = new EndRound();
+        controller.createEndRoundAction().doAction(controller.board);
 
-        endRound.doAction(controller.board);
-
-        if(BeginRound.getRound()==10){
+        if(controller.getCurrentRound()==10){
 
             controller.cancelTimer();
 
@@ -38,7 +31,7 @@ public class EndRoundState extends ControllerState {
         }else{
 
 
-            BeginTurn.resetCurrentTurn();
+            controller.resetCurrentTurn();
             controller.setState(new BeginRoundState());
 
 

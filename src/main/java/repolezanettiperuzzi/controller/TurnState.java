@@ -27,24 +27,24 @@ public class TurnState extends ControllerState {
     @Override
     public void doAction(Controller controller) throws IOException, ParseException {
 
-        BeginTurn beginTurn = new BeginTurn();
+        BeginTurn beginTurn = controller.createBeginTurnAction();
 
         setController(controller);
 
-        if(BeginTurn.getCurrentTurn()==0 && BeginTurn.getNumPlayedTurn()==0){
+        if(controller.getCurrentTurn()==0 && controller.getNumPlayedTurn()==0){
 
-            BeginTurn.resetCurrentPlayer();
-
-        }
-
-        if(!controller.board.getPlayer(BeginTurn.getCurrentPlayer()).getLiveStatus()){
-
-            this.passToNextTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer()));
+            controller.resetCurrentPlayer();
 
         }
 
+        if(!controller.getCurrentPlayer().getLiveStatus()){
 
-        if(BeginTurn.getNumPlayedTurn()==0 && !turnStateTracker.isTurnNotificationSent()){
+            this.passToNextTurn(controller.getCurrentPlayer());
+
+        }
+
+
+        if(controller.getNumPlayedTurn()==0 && !turnStateTracker.isTurnNotificationSent()){
 
             for(int i=0; i<controller.board.getNPlayers();i++){
 
@@ -54,9 +54,9 @@ public class TurnState extends ControllerState {
 
         }
 
-        if(((!BeginTurn.controlTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer())))||(!controller.board.getPlayer(BeginTurn.getCurrentPlayer()).getLiveStatus()))&&!turnStateTracker.isToolCard8Active()) {
+        if(((!controller.isCurrentPlayerTurn(controller.getCurrentPlayer()))||(!controller.getCurrentPlayer().getLiveStatus()))&&!turnStateTracker.isToolCard8Active()) {
 
-            this.passToNextTurn(controller.board.getPlayer(BeginTurn.getCurrentPlayer()));
+            this.passToNextTurn(controller.getCurrentPlayer());
             return;
 
         }
@@ -66,7 +66,7 @@ public class TurnState extends ControllerState {
             turnStateTracker.markTurnNotificationSent();
         }
 
-        beginTurn.doAction(controller.board.getPlayer(BeginTurn.getCurrentPlayer()),controller.board);
+        beginTurn.doAction(controller.getCurrentPlayer(),controller.board);
 
     }
 
@@ -81,7 +81,7 @@ public class TurnState extends ControllerState {
      */
     public void notifyPlayerTurn() throws IOException {
 
-        Player actualPlayer = controller.board.getPlayer(BeginTurn.getCurrentPlayer());
+        Player actualPlayer = controller.getCurrentPlayer();
 
         if(!controller.isTimerOn()){
 
@@ -122,7 +122,7 @@ public class TurnState extends ControllerState {
      */
     public void insertDie(Player player, String message) throws IOException {
 
-        if(BeginTurn.controlTurn(player)) {
+        if(controller.isCurrentPlayerTurn(player)) {
 
             InsertDieWithCheckAction insert = new InsertDieWithCheckAction();
             ActionResult result = insert.doActionResult(player,controller.board,new CreateListForInsertDieAction().doAction(message));
@@ -155,7 +155,7 @@ public class TurnState extends ControllerState {
     //da usare quando il giocatore richiede di utilizzare una carta
     public void useCardRequest(Player player, int numCard) throws IOException {
 
-        if(BeginTurn.controlTurn(player)) {
+        if(controller.isCurrentPlayerTurn(player)) {
 
             CheckCostToolCardAction check = new CheckCostToolCardAction();
             ActionResult checkCost = check.checkCostToolCardResult(controller.board,player,numCard);
@@ -439,7 +439,7 @@ public class TurnState extends ControllerState {
 
         if(player.isSocketConnection()){
 
-            return player.usesGui() || (player.usesCli() && !player.getName().equals(BeginTurn.getCurrentPlayer()));
+            return player.usesGui() || (player.usesCli() && !player.getName().equals(controller.getCurrentPlayerIndex()));
 
         }
 
@@ -476,8 +476,8 @@ public class TurnState extends ControllerState {
 
         }
 
-        res.append(BeginRound.getRound());
-        res.append(BeginTurn.getCurrentTurn());
+        res.append(controller.getCurrentRound());
+        res.append(controller.getCurrentTurn());
         res.append("+");
         res.append(controller.board.toStringDraft());
         res.append("+");
@@ -498,8 +498,8 @@ public class TurnState extends ControllerState {
      */
     public void passToNextTurn(Player player) throws IOException, ParseException {
 
-        controller.board.getPlayer(BeginTurn.getCurrentPlayer()).setInsertDieInThisTurn(false);
-        controller.board.getPlayer(BeginTurn.getCurrentPlayer()).setUsedCardInThisTurn(false);
+        controller.getCurrentPlayer().setInsertDieInThisTurn(false);
+        controller.getCurrentPlayer().setUsedCardInThisTurn(false);
         turnStateTracker.resetTurnNotification();
 
         for(int i=0; i<controller.board.getNPlayers();i++){
@@ -510,11 +510,11 @@ public class TurnState extends ControllerState {
 
         turnStateTracker.resetToolCard8();
 
-        BeginTurn.nextTurnParameters(controller.board,player);
+        controller.nextTurnParameters(player);
 
-        if(BeginTurn.getNumPlayedTurn()==controller.board.getNPlayers()){
+        if(controller.getNumPlayedTurn()==controller.board.getNPlayers()){
 
-            BeginTurn.resetNumPlayedTurn();
+            controller.resetNumPlayedTurn();
             controller.setState(new EndRoundState());
 
         }else{

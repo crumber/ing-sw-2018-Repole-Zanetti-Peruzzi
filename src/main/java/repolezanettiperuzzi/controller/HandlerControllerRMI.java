@@ -9,8 +9,6 @@ import repolezanettiperuzzi.shared.dto.GameBoardClient;
 import repolezanettiperuzzi.shared.dto.WindowClient;
 import repolezanettiperuzzi.model.Player;
 import repolezanettiperuzzi.model.Window;
-import repolezanettiperuzzi.application.actions.BeginRound;
-import repolezanettiperuzzi.application.actions.BeginTurn;
 import repolezanettiperuzzi.domain.cards.publiccards.PublicCard;
 import repolezanettiperuzzi.domain.cards.toolcards.ToolCard;
 
@@ -368,8 +366,8 @@ public class HandlerControllerRMI implements ControllerStubRMI {
                 boardClient.getPlayerByName(player.getName()).setLiveStatus(player.getLiveStatus());
             }
 
-            boardClient.setRound(BeginRound.getRound());
-            boardClient.setTurn(BeginTurn.getCurrentTurn());
+            boardClient.setRound(controller.getCurrentRound());
+            boardClient.setTurn(controller.getCurrentTurn());
             for(int i = 0; i<controller.board.getSizeDraft(); i++){
                 boardClient.addDieToDraft(new DieClient(controller.board.getDieDraft(i).toString()));
             }

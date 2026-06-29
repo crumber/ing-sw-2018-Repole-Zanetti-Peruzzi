@@ -2,7 +2,6 @@ package repolezanettiperuzzi.controller;
 
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.model.Player;
-import repolezanettiperuzzi.application.actions.BeginRound;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -26,9 +25,7 @@ public class BeginRoundState extends ControllerState {
 
         this.controller = controller;
 
-        BeginRound beginRound = new BeginRound();//create action
-
-        beginRound.doAction(controller.board);//call action to set new round
+        controller.createBeginRoundAction().doAction(controller.board);//call action to set new round
 
         controller.setState(new TurnState());
 
