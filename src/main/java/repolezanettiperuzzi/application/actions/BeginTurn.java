@@ -18,7 +18,7 @@ public class BeginTurn {
     private Player player;
 
     public BeginTurn(){
-        this(DEFAULT_TURN_TRACKER);
+        this(new TurnTracker());
     }
 
     public BeginTurn(TurnTracker turnTracker){

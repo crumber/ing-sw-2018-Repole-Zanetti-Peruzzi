@@ -294,6 +294,7 @@ In progress:
 - expose session-backed flow actions and flow queries through `Controller`
 - expose session-backed turn commands through `Controller`
 - wire controller round and turn flow to session-backed state
+- make default round and turn actions use instance trackers instead of shared static trackers
 
 Reduce static mutable state:
 

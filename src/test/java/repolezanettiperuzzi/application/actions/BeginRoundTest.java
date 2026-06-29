@@ -56,6 +56,22 @@ public class BeginRoundTest {
     }
 
     @Test
+    public void defaultRoundTrackersAreIndependent() {
+
+        BeginRound firstSession = new BeginRound();
+        BeginRound secondSession = new BeginRound();
+
+        firstSession.increaseSessionIndex();
+        firstSession.increaseSessionRound();
+
+        assertEquals(1,firstSession.getSessionIndex());
+        assertEquals(1,firstSession.getSessionRound());
+
+        assertEquals(0,secondSession.getSessionIndex());
+        assertEquals(0,secondSession.getSessionRound());
+    }
+
+    @Test
     public void doActionUsesSessionRoundTracker() {
 
         BeginRound beginRound = new BeginRound(new RoundTracker());

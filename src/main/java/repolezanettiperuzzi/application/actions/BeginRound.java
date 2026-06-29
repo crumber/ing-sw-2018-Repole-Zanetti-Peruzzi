@@ -13,7 +13,7 @@ public class BeginRound {
     private final RoundTracker roundTracker;
 
     public BeginRound(){
-        this(DEFAULT_ROUND_TRACKER);
+        this(new RoundTracker());
     }
 
     public BeginRound(RoundTracker roundTracker){
