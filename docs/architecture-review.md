@@ -263,10 +263,11 @@ Completed:
 - migrate shared `ToolCard` validation helpers to `ActionResult`
 - migrate concrete tool-card checks to `ActionResult`
 - use `ActionResult` across insert-die and tool-card controller flows
+- extract shared action-error response handling in `TurnState`
 
 Focus on model correctness and encapsulation:
 
-- continue replacing legacy integer bridges in lower-risk callers and tests
+- continue replacing duplicated turn-response handling where behavior is already covered
 
 ### Phase 4: Application Flow Cleanup
 

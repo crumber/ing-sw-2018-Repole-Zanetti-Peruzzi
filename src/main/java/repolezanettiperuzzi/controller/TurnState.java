@@ -124,21 +124,7 @@ public class TurnState extends ControllerState {
 
             if(result.isError()){
 
-                String error = new WhichErrorAction().doAction(result);
-
-                if(player.getConnection().equals("Socket")){
-
-                    try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
-                        //System.out.println(error);
-                        HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
-                        handler.sendActionError(error);
-
-                    }
-                }else if(player.getConnection().equals("RMI")){
-
-                    controller.getHandlerRMI().sendActionError(player.getName(), error);
-
-                }
+                sendActionError(player, result);
 
             }else{
 
@@ -194,22 +180,7 @@ public class TurnState extends ControllerState {
 
                     if(cardResult.isError()){
 
-                        String error = new WhichErrorAction().doAction(cardResult);
-
-                        if (player.getConnection().equals("Socket")) {
-
-                            try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
-
-                                HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
-                                handler.sendActionError(error);
-
-                            }
-
-                        } else if (player.getConnection().equals("RMI")) {
-
-                            controller.getHandlerRMI().sendActionError(player.getName(), error);
-
-                        }
+                        sendActionError(player, cardResult);
 
                     }else{
 
@@ -238,22 +209,7 @@ public class TurnState extends ControllerState {
 
             }else {
 
-                String error = (new WhichErrorAction()).doAction(checkCost);
-
-                if (player.getConnection().equals("Socket")) {
-
-                    try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
-
-                        HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
-                        handler.sendActionError(error);
-
-                    }
-
-                } else if (player.getConnection().equals("RMI")) {
-
-                    controller.getHandlerRMI().sendActionError(player.getName(), error);
-
-                }
+                sendActionError(player, checkCost);
 
             }
 
@@ -361,6 +317,18 @@ public class TurnState extends ControllerState {
 
         }
 
+        sendActionError(player, message);
+
+
+    }
+
+    private void sendActionError(Player player, ActionResult result) throws IOException {
+
+        sendActionError(player, new WhichErrorAction().doAction(result));
+    }
+
+    private void sendActionError(Player player, String message) throws IOException {
+
         if(player.getConnection().equals("Socket")){
 
             try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
@@ -374,8 +342,6 @@ public class TurnState extends ControllerState {
             controller.getHandlerRMI().sendActionError(player.getName(), message);
 
         }
-
-
     }
 
     /**
