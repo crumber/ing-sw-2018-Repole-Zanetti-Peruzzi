@@ -265,6 +265,7 @@ Completed:
 - use `ActionResult` across insert-die and tool-card controller flows
 - extract shared action-error response handling in `TurnState`
 - extract shared parameter-request and not-your-turn response handling in `TurnState`
+- extract shared turn-notification and view-update delivery helpers in `TurnState`
 
 Focus on model correctness and encapsulation:
 

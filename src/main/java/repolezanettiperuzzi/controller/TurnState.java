@@ -91,20 +91,25 @@ public class TurnState extends ControllerState {
 
         for(Player player : controller.board.getPlayers()) {
 
-            if (player.getConnection().equals("Socket")&&player.getLiveStatus()) {
+            sendBeginTurnNotification(player, actualPlayer);
 
-                try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
+        }
+    }
 
-                    HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
-                    handler.notifyOnBeginTurn(actualPlayer.getName(), controller.getCurrentTime());
+    private void sendBeginTurnNotification(Player player, Player actualPlayer) throws IOException {
 
-                }
+        if (player.getConnection().equals("Socket")&&player.getLiveStatus()) {
 
-            } else if (player.getConnection().equals("RMI")&&player.getLiveStatus()) {
+            try (Socket socket = new Socket(player.getAddress(), player.getPort())) {
 
-                controller.getHandlerRMI().notifyOnBeginTurn(player.getName(), actualPlayer.getName(), controller.getCurrentTime());
+                HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
+                handler.notifyOnBeginTurn(actualPlayer.getName(), controller.getCurrentTime());
 
             }
+
+        } else if (player.getConnection().equals("RMI")&&player.getLiveStatus()) {
+
+            controller.getHandlerRMI().notifyOnBeginTurn(player.getName(), actualPlayer.getName(), controller.getCurrentTime());
 
         }
     }
@@ -350,13 +355,22 @@ public class TurnState extends ControllerState {
      */
     public void updateView(Player player) throws IOException {
 
-        if(player.getConnection().equals("Socket")&&(player.getLiveStatus())){
+        if(player.getLiveStatus()){
+
+            sendUpdateView(player);
+
+        }
+    }
+
+    private void sendUpdateView(Player player) throws IOException {
+
+        if(player.getConnection().equals("Socket")){
 
             Socket socket = new Socket(player.getAddress(),player.getPort());
             HandlerControllerSocket handler = new HandlerControllerSocket(controller,socket);
             handler.sendUpdateView(gameToString());
 
-        }else if(player.getConnection().equals("RMI")&&(player.getLiveStatus())){
+        }else if(player.getConnection().equals("RMI")){
 
             controller.getHandlerRMI().updateView(player.getName());
 
@@ -370,15 +384,9 @@ public class TurnState extends ControllerState {
             for (int i = 0; i < controller.board.getNPlayers(); i++) {
                 Player player = controller.board.getPlayer(i);
 
-                if (player.getConnection().equals("Socket") && (player.getUI().equals("GUI") || (player.getUI().equals("CLI") && !player.getName().equals(BeginTurn.getCurrentPlayer()))) && (player.getLiveStatus())) { //solo GUI perche' altrimenti per la CLI mi blocca il flusso di updateView()
+                if (shouldSendStatusUpdate(player)) { //solo GUI perche' altrimenti per la CLI mi blocca il flusso di updateView()
 
-                    Socket socket = new Socket(player.getAddress(), player.getPort());
-                    HandlerControllerSocket handler = new HandlerControllerSocket(controller, socket);
-                    handler.sendUpdateView(gameToString());
-
-                } else if (player.getConnection().equals("RMI") && player.getUI().equals("GUI") && player.getLiveStatus()) {
-
-                    controller.getHandlerRMI().updateView(player.getName());
+                    sendUpdateView(player);
 
                 }
             }
@@ -407,6 +415,23 @@ public class TurnState extends ControllerState {
                 }
             }
         }
+    }
+
+    private boolean shouldSendStatusUpdate(Player player) {
+
+        if(!player.getLiveStatus()){
+
+            return false;
+
+        }
+
+        if(player.getConnection().equals("Socket")){
+
+            return player.getUI().equals("GUI") || (player.getUI().equals("CLI") && !player.getName().equals(BeginTurn.getCurrentPlayer()));
+
+        }
+
+        return player.getConnection().equals("RMI") && player.getUI().equals("GUI");
     }
 
     /**
