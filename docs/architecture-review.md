@@ -320,6 +320,7 @@ In progress:
 - split socket message dispatch into focused private handler methods
 - remove stale socket handler imports and fields
 - extract a named request object for RMI insert-die parameters
+- extract a named request object for RMI tool-card response parameters
 
 
 Separate game commands from socket/RMI parsing:

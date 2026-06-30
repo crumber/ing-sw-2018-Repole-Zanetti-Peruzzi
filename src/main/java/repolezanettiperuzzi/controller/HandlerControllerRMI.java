@@ -467,7 +467,8 @@ public class HandlerControllerRMI implements ControllerStubRMI {
         synchronized (controller){
             try {
                 controller.setState(new TurnState());
-                ((TurnState)controller.getState()).useCard(controller.board.getPlayerByName(playerName), nCard, message.replace("-", " "));
+                RmiToolCardResponseRequest toolCardResponseRequest = new RmiToolCardResponseRequest(nCard,message);
+                ((TurnState)controller.getState()).useCard(controller.board.getPlayerByName(playerName), toolCardResponseRequest.getCardNumber(), toolCardResponseRequest.getResponse());
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ParseException e) {
