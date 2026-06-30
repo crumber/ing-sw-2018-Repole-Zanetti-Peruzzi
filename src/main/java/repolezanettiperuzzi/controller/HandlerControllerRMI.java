@@ -102,17 +102,18 @@ public class HandlerControllerRMI implements ControllerStubRMI {
     public synchronized boolean notifyOnExit(String playerName, String typeView) throws IOException, ParseException, InterruptedException {
         synchronized (controller) {
             if (clients.remove(playerName, clients.get(playerName))) {
-                switch (typeView) {
-                    case "waitingRoom":
+                RmiExitRequest exitRequest = new RmiExitRequest(typeView);
+                switch (exitRequest.getScene()) {
+                    case WAITING_ROOM:
                         controller.setState(new SetConnectionState());
                         controller.setLiveStatusOffline(playerName);
                         ((SetConnectionState) controller.getState()).notifyOnUpdatedPlayer();
                         break;
-                    case "chooseWindow":
+                    case CHOOSE_WINDOW:
                         //TODO gestire l'uscita durante la scelta delle window
                         controller.setLiveStatusOffline(playerName);
                         break;
-                    case "game":
+                    case GAME:
                         controller.setState(new TurnState());
                         controller.setLiveStatusOffline(playerName);
                         ((TurnState)controller.getState()).notifyStatusToPlayers();
