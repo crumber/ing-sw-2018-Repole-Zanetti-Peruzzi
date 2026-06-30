@@ -151,19 +151,22 @@ public class HandlerControllerSocket implements Runnable{
                 break;
             case EXIT:
                 controller.notifyExitToClient(playerID);
-                switch(message.getParameter(0)){
-                    case "waitingRoom":
+                SocketExitRequest exitRequest = SocketExitRequest.from(message);
+                switch(exitRequest.getScene()){
+                    case WAITING_ROOM:
                         controller.setState(new SetConnectionState());
                         controller.setLiveStatusOffline(playerID);
                         ((SetConnectionState)controller.getState()).notifyOnUpdatedPlayer();
                         break;
-                    case "chooseWindow":
+                    case CHOOSE_WINDOW:
                         controller.setLiveStatusOffline(playerID);
                         break;
-                    case "game":
+                    case GAME:
                         controller.setState(new TurnState());
                         controller.setLiveStatusOffline(playerID);
                         ((TurnState)controller.getState()).notifyStatusToPlayers();
+                        break;
+                    case UNKNOWN:
                         break;
                 }
                 break;
