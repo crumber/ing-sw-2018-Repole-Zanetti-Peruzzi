@@ -122,7 +122,8 @@ public class HandlerControllerSocket implements Runnable{
                 break;
             case CHOSEN_WINDOW:
                 controller.setState(new FetchState());
-                ((FetchState)controller.getState()).setChosenWindow(controller.board.getPlayerByName(playerID), message.getParameter(0).replace("-"," "));
+                SocketChosenWindowRequest chosenWindowRequest = SocketChosenWindowRequest.from(message);
+                ((FetchState)controller.getState()).setChosenWindow(controller.board.getPlayerByName(playerID), chosenWindowRequest.getWindowName());
                 break;
             case GAME_OK:
                 controller.setState(new FetchState());
