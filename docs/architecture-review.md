@@ -319,6 +319,7 @@ In progress:
 - extract a named request object for socket exit parameters
 - split socket message dispatch into focused private handler methods
 - remove stale socket handler imports and fields
+- extract a named request object for RMI insert-die parameters
 
 
 Separate game commands from socket/RMI parsing:

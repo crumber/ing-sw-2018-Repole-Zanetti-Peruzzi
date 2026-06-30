@@ -409,7 +409,8 @@ public class HandlerControllerRMI implements ControllerStubRMI {
         synchronized (controller){
             try {
                 controller.setState(new TurnState());
-                ((TurnState)controller.getState()).insertDie(controller.board.getPlayerByName(playerName),draftPos+" "+xPos+" "+yPos);
+                RmiInsertDieRequest insertDieRequest = new RmiInsertDieRequest(draftPos,xPos,yPos);
+                ((TurnState)controller.getState()).insertDie(controller.board.getPlayerByName(playerName),insertDieRequest.toTurnStateParameter());
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ParseException e) {
