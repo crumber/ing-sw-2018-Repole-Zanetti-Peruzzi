@@ -442,7 +442,8 @@ public class HandlerControllerRMI implements ControllerStubRMI {
         synchronized (controller){
             try {
                 controller.setState(new TurnState());
-                ((TurnState)controller.getState()).useCardRequest(controller.board.getPlayerByName(playerName), numCard);
+                RmiChooseCardRequest chooseCardRequest = new RmiChooseCardRequest(numCard);
+                ((TurnState)controller.getState()).useCardRequest(controller.board.getPlayerByName(playerName), chooseCardRequest.getCardNumber());
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ParseException e) {

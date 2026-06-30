@@ -323,6 +323,7 @@ In progress:
 - extract a named request object for RMI tool-card response parameters
 - extract a named request object for RMI chosen-window parameters
 - extract a named request object for RMI exit parameters
+- extract a named request object for RMI choose-card parameters
 
 
 Separate game commands from socket/RMI parsing:
