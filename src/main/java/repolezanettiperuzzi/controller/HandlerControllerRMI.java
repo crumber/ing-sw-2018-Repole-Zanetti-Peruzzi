@@ -309,7 +309,8 @@ public class HandlerControllerRMI implements ControllerStubRMI {
                 public void run() {
                     try {
                         controller.setState(new FetchState());
-                        ((FetchState) controller.getState()).setChosenWindow(controller.board.getPlayerByName(playerName), windowName.replace("-", " "));
+                        RmiChosenWindowRequest chosenWindowRequest = new RmiChosenWindowRequest(windowName);
+                        ((FetchState) controller.getState()).setChosenWindow(controller.board.getPlayerByName(playerName), chosenWindowRequest.getWindowName());
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (ParseException e) {

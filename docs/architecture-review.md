@@ -321,6 +321,7 @@ In progress:
 - remove stale socket handler imports and fields
 - extract a named request object for RMI insert-die parameters
 - extract a named request object for RMI tool-card response parameters
+- extract a named request object for RMI chosen-window parameters
 
 
 Separate game commands from socket/RMI parsing:
