@@ -74,106 +74,146 @@ public class HandlerControllerSocket implements Runnable{
 
         switch(message.getAction()) {
             case INIT:
-                controller.setState(new SetConnectionState());
-                SocketInitRequest initRequest = SocketInitRequest.from(message);
-                String result = ((SetConnectionState)controller.getState()).initializePlayer(playerID, initRequest.getPassword(), addr, initRequest.getPort(), initRequest.getConnection(), initRequest.getUi());
-
-                switch (result){
-                    case "registered": {
-                        Player player = controller.board.getPlayerByName(playerID);
-                        ((SetConnectionState) controller.getState()).notifyOnRegister(controller, initRequest.getConnection(), initRequest.getUi(), player.getAddress(), player.getPort());
-                        break;
-                    }
-                    case "stealAccount": {
-                        Player player = controller.board.getPlayerByName(playerID);
-                        ((SetConnectionState) controller.getState()).notifyOnStealAccount(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), initRequest.getPort()); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
-                        break;
-                    }
-                    case "wrongPassword": {
-                        Player player = controller.board.getPlayerByName(playerID);
-                        ((SetConnectionState) controller.getState()).notifyOnWrongPassword(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), initRequest.getPort()); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
-                        break;
-                    }
-                    case "reconnect": {
-                        Player player = controller.board.getPlayerByName(playerID);
-                        ((SetConnectionState) controller.getState()).notifyOnReconnect(controller, player.getConnection(), player.getUI(), player.getAddress(), player.getPort(), player.getName());
-                        break;
-                    }
-                    case "gameAlreadyStarted": {
-                        ((SetConnectionState) controller.getState()).notifyOnGameAlreadyStarted(controller, initRequest.getConnection(), initRequest.getUi(), addr.toString().substring(1), initRequest.getPort());
-                        break;
-                    }
-                    case "already4Players": {
-                        ((SetConnectionState) controller.getState()).notifyOnAlready4Players(controller, initRequest.getConnection(), initRequest.getUi(), addr.toString().substring(1), initRequest.getPort());
-                        break;
-                    }
-                }
+                handleInit(playerID, message);
                 break;
 
             case WAITING_OK: //il client ha avviato la sua view della waiting room
-                controller.setState(new SetConnectionState());
-                ((SetConnectionState)controller.getState()).waitingRoomLoaded(playerID);
-                ((SetConnectionState)controller.getState()).notifyOnUpdatedPlayer();
+                handleWaitingOk(playerID);
                 break;
             case CHOOSE_WINDOW_OK:
-                controller.setState(new FetchState());
-                Player playerName = controller.board.getPlayerByName(playerID);
-                ((FetchState)controller.getState()).sendWindows(playerName);
+                handleChooseWindowOk(playerID);
                 break;
             case CHOSEN_WINDOW:
-                controller.setState(new FetchState());
-                SocketChosenWindowRequest chosenWindowRequest = SocketChosenWindowRequest.from(message);
-                ((FetchState)controller.getState()).setChosenWindow(controller.board.getPlayerByName(playerID), chosenWindowRequest.getWindowName());
+                handleChosenWindow(playerID, message);
                 break;
             case GAME_OK:
-                controller.setState(new FetchState());
-                ((FetchState)controller.getState()).readyToPlay(playerID);
+                handleGameOk(playerID);
                 break;
             case INSERT_DIE:
-                controller.setState(new TurnState());
-                SocketInsertDieRequest insertDieRequest = SocketInsertDieRequest.from(message);
-                ((TurnState)controller.getState()).insertDie(controller.board.getPlayerByName(playerID), insertDieRequest.toTurnStateParameter());
+                handleInsertDie(playerID, message);
                 break;
             case RESPONSE_TOOL_CARD:
-                controller.setState(new TurnState());
-                SocketToolCardResponseRequest toolCardResponseRequest = SocketToolCardResponseRequest.from(message);
-                ((TurnState)controller.getState()).useCard(controller.board.getPlayerByName(playerID), toolCardResponseRequest.getCardNumber(), toolCardResponseRequest.getResponse());
+                handleResponseToolCard(playerID, message);
                 break;
             case CHOOSE_CARD:
-                controller.setState(new TurnState());
-                SocketChooseCardRequest chooseCardRequest = SocketChooseCardRequest.from(message);
-                ((TurnState)controller.getState()).useCardRequest(controller.board.getPlayerByName(playerID), chooseCardRequest.getCardNumber());
+                handleChooseCard(playerID, message);
                 break;
             case END_TURN:
-                controller.cancelTimer();
-                controller.setState(new TurnState());
-                ((TurnState)controller.getState()).passToNextTurn(controller.board.getPlayerByName(playerID));
+                handleEndTurn(playerID);
                 break;
             case EXIT:
-                controller.notifyExitToClient(playerID);
-                SocketExitRequest exitRequest = SocketExitRequest.from(message);
-                switch(exitRequest.getScene()){
-                    case WAITING_ROOM:
-                        controller.setState(new SetConnectionState());
-                        controller.setLiveStatusOffline(playerID);
-                        ((SetConnectionState)controller.getState()).notifyOnUpdatedPlayer();
-                        break;
-                    case CHOOSE_WINDOW:
-                        controller.setLiveStatusOffline(playerID);
-                        break;
-                    case GAME:
-                        controller.setState(new TurnState());
-                        controller.setLiveStatusOffline(playerID);
-                        ((TurnState)controller.getState()).notifyStatusToPlayers();
-                        break;
-                    case UNKNOWN:
-                        break;
-                }
+                handleExit(playerID, message);
                 break;
             case UNKNOWN:
                 break;
 
 
+        }
+    }
+
+    private void handleInit(String playerID, SocketClientMessage message) throws IOException, ParseException, InterruptedException {
+        controller.setState(new SetConnectionState());
+        SocketInitRequest initRequest = SocketInitRequest.from(message);
+        String result = ((SetConnectionState)controller.getState()).initializePlayer(playerID, initRequest.getPassword(), addr, initRequest.getPort(), initRequest.getConnection(), initRequest.getUi());
+
+        switch (result){
+            case "registered": {
+                Player player = controller.board.getPlayerByName(playerID);
+                ((SetConnectionState) controller.getState()).notifyOnRegister(controller, initRequest.getConnection(), initRequest.getUi(), player.getAddress(), player.getPort());
+                break;
+            }
+            case "stealAccount": {
+                Player player = controller.board.getPlayerByName(playerID);
+                ((SetConnectionState) controller.getState()).notifyOnStealAccount(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), initRequest.getPort()); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
+                break;
+            }
+            case "wrongPassword": {
+                Player player = controller.board.getPlayerByName(playerID);
+                ((SetConnectionState) controller.getState()).notifyOnWrongPassword(controller, player.getConnection(), player.getUI(), addr.toString().substring(1), initRequest.getPort()); //non uso i dati dall'oggetto player perche' non sono stati registrati nell'oggetto dato che il login e' invalido
+                break;
+            }
+            case "reconnect": {
+                Player player = controller.board.getPlayerByName(playerID);
+                ((SetConnectionState) controller.getState()).notifyOnReconnect(controller, player.getConnection(), player.getUI(), player.getAddress(), player.getPort(), player.getName());
+                break;
+            }
+            case "gameAlreadyStarted": {
+                ((SetConnectionState) controller.getState()).notifyOnGameAlreadyStarted(controller, initRequest.getConnection(), initRequest.getUi(), addr.toString().substring(1), initRequest.getPort());
+                break;
+            }
+            case "already4Players": {
+                ((SetConnectionState) controller.getState()).notifyOnAlready4Players(controller, initRequest.getConnection(), initRequest.getUi(), addr.toString().substring(1), initRequest.getPort());
+                break;
+            }
+        }
+    }
+
+    private void handleWaitingOk(String playerID) throws IOException, ParseException, InterruptedException {
+        controller.setState(new SetConnectionState());
+        ((SetConnectionState)controller.getState()).waitingRoomLoaded(playerID);
+        ((SetConnectionState)controller.getState()).notifyOnUpdatedPlayer();
+    }
+
+    private void handleChooseWindowOk(String playerID) throws IOException, ParseException {
+        controller.setState(new FetchState());
+        Player playerName = controller.board.getPlayerByName(playerID);
+        ((FetchState)controller.getState()).sendWindows(playerName);
+    }
+
+    private void handleChosenWindow(String playerID, SocketClientMessage message) throws IOException, ParseException {
+        controller.setState(new FetchState());
+        SocketChosenWindowRequest chosenWindowRequest = SocketChosenWindowRequest.from(message);
+        ((FetchState)controller.getState()).setChosenWindow(controller.board.getPlayerByName(playerID), chosenWindowRequest.getWindowName());
+    }
+
+    private void handleGameOk(String playerID) throws IOException, ParseException {
+        controller.setState(new FetchState());
+        ((FetchState)controller.getState()).readyToPlay(playerID);
+    }
+
+    private void handleInsertDie(String playerID, SocketClientMessage message) throws IOException, ParseException {
+        controller.setState(new TurnState());
+        SocketInsertDieRequest insertDieRequest = SocketInsertDieRequest.from(message);
+        ((TurnState)controller.getState()).insertDie(controller.board.getPlayerByName(playerID), insertDieRequest.toTurnStateParameter());
+    }
+
+    private void handleResponseToolCard(String playerID, SocketClientMessage message) throws IOException, ParseException {
+        controller.setState(new TurnState());
+        SocketToolCardResponseRequest toolCardResponseRequest = SocketToolCardResponseRequest.from(message);
+        ((TurnState)controller.getState()).useCard(controller.board.getPlayerByName(playerID), toolCardResponseRequest.getCardNumber(), toolCardResponseRequest.getResponse());
+    }
+
+    private void handleChooseCard(String playerID, SocketClientMessage message) throws IOException, ParseException {
+        controller.setState(new TurnState());
+        SocketChooseCardRequest chooseCardRequest = SocketChooseCardRequest.from(message);
+        ((TurnState)controller.getState()).useCardRequest(controller.board.getPlayerByName(playerID), chooseCardRequest.getCardNumber());
+    }
+
+    private void handleEndTurn(String playerID) throws IOException, ParseException {
+        controller.cancelTimer();
+        controller.setState(new TurnState());
+        ((TurnState)controller.getState()).passToNextTurn(controller.board.getPlayerByName(playerID));
+    }
+
+    private void handleExit(String playerID, SocketClientMessage message) throws IOException, ParseException, InterruptedException {
+        controller.notifyExitToClient(playerID);
+        SocketExitRequest exitRequest = SocketExitRequest.from(message);
+        switch(exitRequest.getScene()){
+            case WAITING_ROOM:
+                controller.setState(new SetConnectionState());
+                controller.setLiveStatusOffline(playerID);
+                ((SetConnectionState)controller.getState()).notifyOnUpdatedPlayer();
+                break;
+            case CHOOSE_WINDOW:
+                controller.setLiveStatusOffline(playerID);
+                break;
+            case GAME:
+                controller.setState(new TurnState());
+                controller.setLiveStatusOffline(playerID);
+                ((TurnState)controller.getState()).notifyStatusToPlayers();
+                break;
+            case UNKNOWN:
+                break;
         }
     }
 

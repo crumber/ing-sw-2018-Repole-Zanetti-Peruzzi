@@ -317,6 +317,7 @@ In progress:
 - extract a named request object for socket choose-card parameters
 - extract a named request object for socket chosen-window parameters
 - extract a named request object for socket exit parameters
+- split socket message dispatch into focused private handler methods
 
 
 Separate game commands from socket/RMI parsing:
