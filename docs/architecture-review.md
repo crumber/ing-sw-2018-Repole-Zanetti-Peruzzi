@@ -314,6 +314,7 @@ In progress:
 - extract a named request object for socket init parameters
 - extract a named request object for socket insert-die parameters
 - extract a named request object for socket tool-card response parameters
+- extract a named request object for socket choose-card parameters
 
 
 Separate game commands from socket/RMI parsing:
