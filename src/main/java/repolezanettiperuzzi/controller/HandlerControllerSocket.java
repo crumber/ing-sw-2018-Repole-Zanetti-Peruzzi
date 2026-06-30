@@ -2,21 +2,13 @@ package repolezanettiperuzzi.controller;
 
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.model.Player;
-import repolezanettiperuzzi.model.Window;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Classe che rappresenta il server socket che risiede sul server
@@ -28,7 +20,6 @@ public class HandlerControllerSocket implements Runnable{
     private Socket socket;
     private BufferedReader in;
     private InetAddress addr;
-    private int port;
     private Controller controller;
 
     /**

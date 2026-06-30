@@ -318,6 +318,7 @@ In progress:
 - extract a named request object for socket chosen-window parameters
 - extract a named request object for socket exit parameters
 - split socket message dispatch into focused private handler methods
+- remove stale socket handler imports and fields
 
 
 Separate game commands from socket/RMI parsing:
