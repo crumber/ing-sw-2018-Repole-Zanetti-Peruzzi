@@ -135,7 +135,8 @@ public class HandlerControllerSocket implements Runnable{
                 break;
             case RESPONSE_TOOL_CARD:
                 controller.setState(new TurnState());
-                ((TurnState)controller.getState()).useCard(controller.board.getPlayerByName(playerID), Integer.parseInt(message.getParameter(0)), message.getParameter(1).replace("-", " "));
+                SocketToolCardResponseRequest toolCardResponseRequest = SocketToolCardResponseRequest.from(message);
+                ((TurnState)controller.getState()).useCard(controller.board.getPlayerByName(playerID), toolCardResponseRequest.getCardNumber(), toolCardResponseRequest.getResponse());
                 break;
             case CHOOSE_CARD:
                 controller.setState(new TurnState());

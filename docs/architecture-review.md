@@ -313,6 +313,7 @@ In progress:
 - introduce typed socket client actions while preserving the existing wire command strings
 - extract a named request object for socket init parameters
 - extract a named request object for socket insert-die parameters
+- extract a named request object for socket tool-card response parameters
 
 
 Separate game commands from socket/RMI parsing:
