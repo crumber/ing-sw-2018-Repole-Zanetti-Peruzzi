@@ -380,6 +380,8 @@ Started client communication boundary slice:
 - moved inbound client socket message parsing into `infrastructure.client.socket`
 - kept view payload objects responsible only for converting parsed socket tokens into view DTO updates
 - preserved every covered inbound socket parser and payload conversion through focused tests
+- moved the simple turn and updated-player socket payload converters into `infrastructure.client.socket`
+- kept `GameViewSocket` responsible for calling the corresponding `GameView` update methods
 
 Next Phase 6 slice:
 

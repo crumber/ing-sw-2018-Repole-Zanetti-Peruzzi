@@ -1,11 +1,9 @@
-package repolezanettiperuzzi.view;
-
-import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocketMessage;
+package repolezanettiperuzzi.infrastructure.client.socket;
 
 /**
  * Payload carried by the client socket turn message.
  */
-class GameViewTurnMessage {
+public class GameViewTurnMessage {
 
     private final String actualPlayer;
     private final int currentTime;
@@ -15,15 +13,15 @@ class GameViewTurnMessage {
         this.currentTime=currentTime;
     }
 
-    static GameViewTurnMessage from(GameViewSocketMessage message){
+    public static GameViewTurnMessage from(GameViewSocketMessage message){
         return new GameViewTurnMessage(message.getToken(1), Integer.parseInt(message.getToken(2)));
     }
 
-    String getActualPlayer(){
+    public String getActualPlayer(){
         return actualPlayer;
     }
 
-    int getCurrentTime(){
+    public int getCurrentTime(){
         return currentTime;
     }
 }

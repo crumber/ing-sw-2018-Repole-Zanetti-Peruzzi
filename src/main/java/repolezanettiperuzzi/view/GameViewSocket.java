@@ -2,6 +2,8 @@ package repolezanettiperuzzi.view;
 
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocketMessage;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocketOutgoingMessage;
+import repolezanettiperuzzi.infrastructure.client.socket.GameViewTurnMessage;
+import repolezanettiperuzzi.infrastructure.client.socket.GameViewUpdatedPlayersMessage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
