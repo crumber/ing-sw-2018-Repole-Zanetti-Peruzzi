@@ -481,6 +481,7 @@ Started client communication boundary slice:
 - removed an empty CLI branch from `GameView.notYourTurn`
 - simplified GUI RMI startup thread creation in `GameView`
 - removed stale commented-out debug and shutdown statements from `GameView`
+- removed a stray win debug print from `GameView`
 
 Separate UI from networking:
 

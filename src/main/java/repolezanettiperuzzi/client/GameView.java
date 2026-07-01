@@ -753,7 +753,6 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
 
         this.login = true;
         this.win = true;
-        System.out.println("win");
         if(isGui()){
             ((GameFXMLController) fxmlController).showWinBeforeEndGameAlert();
         } else if(isCli()){
