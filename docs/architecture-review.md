@@ -347,7 +347,7 @@ Separate game commands from socket/RMI parsing:
 
 ### Phase 6: Presentation Cleanup
 
-In progress:
+Completed client socket cleanup slice:
 
 - introduce a tested `GameViewSocketMessage` parser before separating client socket message handling
 - introduce typed client socket actions while preserving the existing wire message strings
@@ -364,6 +364,19 @@ In progress:
 - extract client socket sub-dispatch handlers for registration and view-change messages
 - extract tested builders for client socket outbound wire messages
 
+Client socket cleanup result:
+
+- client socket inbound messages are now represented by focused parser/value objects
+- `GameViewSocket.handleMessage` coordinates view updates instead of parsing each payload inline
+- outgoing client socket messages are built by tested helpers before being sent
+- the existing socket wire protocol and game flow are intentionally unchanged
+
+Next Phase 6 slice:
+
+- identify the first client-side communication class to move out of the presentation package
+- keep `GameView`, CLI, and JavaFX behavior unchanged while moving one boundary at a time
+- preserve the existing socket/RMI message strings until the presentation split is complete
+
 Separate UI from networking:
 
 - keep CLI rendering in `presentation.cli`
@@ -373,9 +386,9 @@ Separate UI from networking:
 
 ## Next Concrete Refactor Candidates
 
-Good candidates after deciding to start Phase 6:
+Good candidates for the next Phase 6 slice:
 
-1. Identify the smallest client-side networking class to move toward an `infrastructure` package.
+1. Identify the smallest client-side communication class to move toward an `infrastructure` package.
 2. Keep CLI and JavaFX behavior unchanged while moving one communication boundary at a time.
 3. Preserve the existing socket/RMI wire protocol until the presentation split is complete.
 
