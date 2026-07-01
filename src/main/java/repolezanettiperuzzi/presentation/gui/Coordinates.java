@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.presentation.gui;
 
 /**
  * Classe che rappresenta le coordinate

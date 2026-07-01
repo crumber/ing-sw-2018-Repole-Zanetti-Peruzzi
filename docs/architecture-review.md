@@ -407,11 +407,13 @@ Started client communication boundary slice:
 - kept `GameViewCLI` responsible for creating the timed CLI input task and handling its result
 - moved `ShutdownConsole` into `presentation.cli`
 - removed a stale controller import of the CLI shutdown helper
+- moved `Coordinates` into `presentation.gui`
+- kept `GameFXMLController` and `WindowGenerator` responsible for window-cell selection behavior
 
 Next Phase 6 slice:
 
 - move the next small presentation-only class out of the old `view` package
-- keep `GameViewCLI` behavior unchanged while reducing the old `view` package
+- keep CLI/JavaFX behavior unchanged while reducing the old `view` package
 - preserve the existing socket/RMI wire protocol while presentation classes are reorganized
 
 Separate UI from networking:

@@ -32,6 +32,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
+import repolezanettiperuzzi.presentation.gui.Coordinates;
 import repolezanettiperuzzi.shared.dto.DieClient;
 import repolezanettiperuzzi.shared.dto.GameBoardClient;
 import repolezanettiperuzzi.shared.dto.PlayerClient;

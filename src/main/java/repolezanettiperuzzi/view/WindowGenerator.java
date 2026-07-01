@@ -17,6 +17,7 @@ import repolezanettiperuzzi.shared.dto.BoxClient;
 import repolezanettiperuzzi.shared.dto.WindowClient;
 
 import javafx.scene.input.MouseEvent;
+import repolezanettiperuzzi.presentation.gui.Coordinates;
 
 import java.awt.*;
 import java.util.ArrayList;
