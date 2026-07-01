@@ -76,13 +76,8 @@ public class GameViewSocket implements Runnable{
                 gameView.enterWaitingRoom();
                 break;
             case UPDATED_PLAYERS:
-
-                String players[] = new String[line.length-2];
-                for(int i = 0; i<players.length; i++){
-                    players[i] = line[i+2];
-                }
-
-                gameView.refreshWaitingRoom(Integer.parseInt(line[1]), players);
+                GameViewUpdatedPlayersMessage updatedPlayersMessage = GameViewUpdatedPlayersMessage.from(socketMessage);
+                gameView.refreshWaitingRoom(updatedPlayersMessage.getTimer(), updatedPlayersMessage.getPlayers());
                 break;
             case NOT_REGISTERED:
                 if(line[1].equals("alreadyonline")){
