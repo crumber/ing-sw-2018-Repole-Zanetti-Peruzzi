@@ -331,7 +331,6 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
             ((ChooseWindowFXMLController) fxmlController).showWinOnChooseWindowAlert();
         } else if(isCli()){
             System.out.println("\n/// You won! You are the only player left online! ///");
-            //gvSocketServer.shutdownServer();
         }
     }
 
@@ -353,13 +352,11 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
                         alreadyExit = true;
                         System.exit(0);
                     } else {
-                        //System.out.println("ci sono");
                         gvSocket = openSocketClientConnection();
                         gvSocket.notifyOnExit(username, typeView);
                         alreadyExit = true;
                     }
                 } catch(IOException e){
-                    //System.out.println("Server disconnesso");
                 }
             } else if (isRmiConnection()) {
                 if(RMIActive) {
@@ -373,8 +370,6 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
                         } catch (IOException e) {
                             if (!((e instanceof ConnectException) || (e instanceof UnmarshalException))) {
                                 e.printStackTrace();
-                            } else {
-                                //System.out.println("Server disconnesso");
                             }
                         }
                     }
@@ -397,7 +392,6 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      */
     public void shutdownClient(){
         if(this.login) {
-            //System.out.println("logout");
             System.exit(0);
         }
     }
@@ -549,7 +543,6 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      */
     public synchronized void receiveCardParameters(String parameters){
 
-        //System.out.println(parameters);
         String[] separatedParameters = parameters.split("-");
 
         if(isGui()){
@@ -738,8 +731,6 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
          j++;
      }
 
-     //System.out.println(Arrays.toString(player));
-
      for(int i = 0; i<player.length; i+=2 ){
 
 
@@ -748,16 +739,12 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
          result+=player[i+1];
          result+="\n";
 
-         //System.out.println(result);
-
      }
 
      if(isGui()){
          ((GameFXMLController) fxmlController).showEndGame(result);
      }else if(isCli()){
         gvCLI.showRanking(resultCLI);
-        //gvRMIServer.unexportRMI();
-        //System.exit(0);
      }
 
     }
@@ -771,7 +758,6 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
             ((GameFXMLController) fxmlController).showWinBeforeEndGameAlert();
         } else if(isCli()){
             System.out.println("\n/// You won! You are the only player left online! ///");
-            //gvSocketServer.shutdownServer();
         }
     }
 }

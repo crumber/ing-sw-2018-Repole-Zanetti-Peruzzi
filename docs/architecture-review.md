@@ -480,6 +480,7 @@ Started client communication boundary slice:
 - removed an unused RMI logout response variable from `GameView`
 - removed an empty CLI branch from `GameView.notYourTurn`
 - simplified GUI RMI startup thread creation in `GameView`
+- removed stale commented-out debug and shutdown statements from `GameView`
 
 Separate UI from networking:
 
