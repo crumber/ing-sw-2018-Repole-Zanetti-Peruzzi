@@ -413,7 +413,7 @@ Started client communication boundary slice:
 - moved the board-update socket payload converter into `infrastructure.client.socket`
 - completed the move of client socket payload message converters out of the `view` package
 - moved socket not-registered reasons and change-view destinations into `infrastructure.client.socket`
-- left the old `view` package with only client/presentation coordinators instead of socket wire-value helper types
+- left the old `view` package with only client/presentation coordinators at that point instead of socket wire-value helper types
 - extracted one-shot client socket sending into `ClientSocketConnection`
 - kept `GameViewSocket` responsible for choosing which outgoing message to send
 - extracted client socket callback listening into `ClientSocketMessageServer`
@@ -464,6 +464,7 @@ Started client communication boundary slice:
 - made deck card loading count only real `.txt` card definitions instead of hidden metadata files
 - introduced `ClientViewActions` as the presentation-to-client coordinator contract
 - typed CLI and JavaFX presentation classes against `ClientViewActions` instead of concrete `GameView`
+- removed the empty old `view` directory from the workspace
 
 Separate UI from networking:
 
