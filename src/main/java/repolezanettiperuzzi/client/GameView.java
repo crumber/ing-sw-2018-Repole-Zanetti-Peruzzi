@@ -43,6 +43,15 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
     private static final String CONNECTION_RMI = "RMI";
     private static final String UI_GUI = "GUI";
     private static final String UI_CLI = "CLI";
+    private static final String LOGIN_REGISTERED = "registered";
+    private static final String LOGIN_RECONNECT = "reconnect";
+    private static final String LOGIN_STEAL_ACCOUNT = "stealAccount";
+    private static final String LOGIN_WRONG_PASSWORD = "wrongPassword";
+    private static final String LOGIN_GAME_ALREADY_STARTED = "gameAlreadyStarted";
+    private static final String LOGIN_ALREADY_FOUR_PLAYERS = "already4Players";
+    private static final String SCENE_WAITING_ROOM = "waitingRoom";
+    private static final String SCENE_CHOOSE_WINDOW_ROOM = "chooseWindowRoom";
+    private static final String SCENE_GAME = "game";
 
     private String username;
     private String connection;
@@ -236,33 +245,33 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(message.equals("registered")){
+        if(message.equals(LOGIN_REGISTERED)){
             rejectedLogin = false;
             enterWaitingRoom();
-        } else if(message.contains("reconnect")) {
+        } else if(message.contains(LOGIN_RECONNECT)) {
             rejectedLogin = false;
             String lastScene = message.split(" ")[1];
             switch(lastScene){
-                case "waitingRoom":
+                case SCENE_WAITING_ROOM:
                     enterWaitingRoom();
                     break;
-                case "chooseWindowRoom":
+                case SCENE_CHOOSE_WINDOW_ROOM:
                     enterChooseWindow();
                     break;
-                case "game":
+                case SCENE_GAME:
                     enterGame();
                     break;
             }
-        } else if(message.equals("stealAccount")){
+        } else if(message.equals(LOGIN_STEAL_ACCOUNT)){
             removeLoginProgressIndicatorIfGui();
             showPlayerAlreadyOnlineAlert();
-        } else if(message.equals("wrongPassword")){
+        } else if(message.equals(LOGIN_WRONG_PASSWORD)){
             removeLoginProgressIndicatorIfGui();
             showWrongPwdAlert();
-        } else if(message.equals("gameAlreadyStarted")){
+        } else if(message.equals(LOGIN_GAME_ALREADY_STARTED)){
             removeLoginProgressIndicatorIfGui();
             showGameAlreadyStarted();
-        } else if(message.equals("already4Players")){
+        } else if(message.equals(LOGIN_ALREADY_FOUR_PLAYERS)){
             removeLoginProgressIndicatorIfGui();
             showAlready4Players();
         }
