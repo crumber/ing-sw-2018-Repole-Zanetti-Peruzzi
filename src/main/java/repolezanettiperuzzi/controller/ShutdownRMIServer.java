@@ -1,12 +1,8 @@
 package repolezanettiperuzzi.controller;
 
-import repolezanettiperuzzi.client.GameView;
-
-import java.io.IOException;
 import java.rmi.NoSuchObjectException;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Timer;
 
 /**
  * Classe che rappresenta la chiusura del server di RMI

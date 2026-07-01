@@ -438,8 +438,10 @@ Started client communication boundary slice:
 - completed the move of JavaFX controllers and GUI helpers out of the old `view` package
 - moved `GameView` into the new `client` package
 - removed the last class from the old `view` package
-- updated CLI, JavaFX, and shutdown imports to depend on `client.GameView`
+- updated CLI and JavaFX imports to depend on `client.GameView`
 - kept `GameView` responsible for selecting CLI/JavaFX and socket/RMI transports
+- removed stale unused imports from `ShutdownRMIServer`
+- removed the accidental server-controller source dependency on `client.GameView`
 
 Separate UI from networking:
 
