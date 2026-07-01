@@ -99,8 +99,13 @@ public class GameViewSocket implements Runnable{
                 }
                 break;
             case CHANGE_VIEW:
-                if(line[1].equals("chooseWindow")){
-                    gameView.enterChooseWindow();
+                GameViewChangeViewDestination changeViewDestination = GameViewChangeViewDestination.fromWireValue(socketMessage.getToken(1));
+                switch(changeViewDestination){
+                    case CHOOSE_WINDOW:
+                        gameView.enterChooseWindow();
+                        break;
+                    case UNKNOWN:
+                        break;
                 }
                 break;
             case CHOOSE_WINDOW:

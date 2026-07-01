@@ -354,6 +354,7 @@ In progress:
 - extract a named payload object for client socket updated-player messages
 - extract a named payload object for client socket turn messages
 - introduce named reasons for client socket not-registered messages
+- introduce named destinations for client socket change-view messages
 
 Separate UI from networking:
 
