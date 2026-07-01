@@ -355,6 +355,7 @@ In progress:
 - extract a named payload object for client socket turn messages
 - introduce named reasons for client socket not-registered messages
 - introduce named destinations for client socket change-view messages
+- centralize first-payload-token access for simple client socket messages
 
 Separate UI from networking:
 

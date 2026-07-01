@@ -14,6 +14,7 @@ public class GameViewSocketMessageTest {
         assertEquals(GameViewSocketAction.TURN,message.getAction());
         assertEquals(3,message.getTokenCount());
         assertEquals("ale",message.getToken(1));
+        assertEquals("ale",message.getFirstPayloadToken());
         assertEquals("30",message.getToken(2));
     }
 

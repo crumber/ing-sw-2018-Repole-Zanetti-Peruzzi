@@ -70,7 +70,6 @@ public class GameViewSocket implements Runnable{
      */
     public void handleMessage(String message){
         GameViewSocketMessage socketMessage = GameViewSocketMessage.parse(message);
-        String[] line = socketMessage.getTokens();
         switch(socketMessage.getAction()){
             case REGISTERED:
                 gameView.enterWaitingRoom();
@@ -80,7 +79,7 @@ public class GameViewSocket implements Runnable{
                 gameView.refreshWaitingRoom(updatedPlayersMessage.getTimer(), updatedPlayersMessage.getPlayers());
                 break;
             case NOT_REGISTERED:
-                GameViewNotRegisteredReason notRegisteredReason = GameViewNotRegisteredReason.fromWireValue(socketMessage.getToken(1));
+                GameViewNotRegisteredReason notRegisteredReason = GameViewNotRegisteredReason.fromWireValue(socketMessage.getFirstPayloadToken());
                 switch(notRegisteredReason){
                     case ALREADY_ONLINE:
                         gameView.showPlayerAlreadyOnlineAlert();
@@ -99,7 +98,7 @@ public class GameViewSocket implements Runnable{
                 }
                 break;
             case CHANGE_VIEW:
-                GameViewChangeViewDestination changeViewDestination = GameViewChangeViewDestination.fromWireValue(socketMessage.getToken(1));
+                GameViewChangeViewDestination changeViewDestination = GameViewChangeViewDestination.fromWireValue(socketMessage.getFirstPayloadToken());
                 switch(changeViewDestination){
                     case CHOOSE_WINDOW:
                         gameView.enterChooseWindow();
@@ -109,10 +108,10 @@ public class GameViewSocket implements Runnable{
                 }
                 break;
             case CHOOSE_WINDOW:
-                receivedWindows(line);
+                receivedWindows(socketMessage.getTokens());
                 break;
             case SHOW_WINDOW:
-                receivedOneWindow(line);
+                receivedOneWindow(socketMessage.getTokens());
                 break;
             case START_GAME:
                 gameView.enterGame();
@@ -124,20 +123,20 @@ public class GameViewSocket implements Runnable{
                 gameView.notYourTurn();
                 break;
             case ERROR:
-                gameView.viewError(line[1]);
+                gameView.viewError(socketMessage.getFirstPayloadToken());
                 break;
             case TURN:
                 GameViewTurnMessage turnMessage = GameViewTurnMessage.from(socketMessage);
                 gameView.notifyTurn(turnMessage.getActualPlayer(), turnMessage.getCurrentTime());
                 break;
             case UPDATE_VIEW:
-                updateView(line[1]);
+                updateView(socketMessage.getFirstPayloadToken());
                 break;
             case REQUEST_CARD:
-                gameView.receiveCardParameters(line[1]);
+                gameView.receiveCardParameters(socketMessage.getFirstPayloadToken());
                 break;
             case END_GAME:
-                gameView.receiveRanking(line[1]);
+                gameView.receiveRanking(socketMessage.getFirstPayloadToken());
                 break;
             case WIN_BEFORE_END:
                 gameView.showWinBeforeEndGameAlert();

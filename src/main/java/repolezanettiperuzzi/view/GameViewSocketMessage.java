@@ -28,6 +28,10 @@ class GameViewSocketMessage {
         return tokens[index];
     }
 
+    String getFirstPayloadToken(){
+        return getToken(1);
+    }
+
     int getTokenCount(){
         return tokens.length;
     }
