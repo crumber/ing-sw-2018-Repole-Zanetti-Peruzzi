@@ -156,10 +156,7 @@ public class GameViewSocket implements Runnable{
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
     public void init(String username, String pwd, String conn, String UI, int localPort) throws IOException {
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        out.println(username + " init " + pwd + " " + conn + " " + UI + " " + localPort);
-        out.close();
-        socket.close();
+        sendMessage(username + " init " + pwd + " " + conn + " " + UI + " " + localPort);
     }
 
     /**
@@ -168,10 +165,7 @@ public class GameViewSocket implements Runnable{
      * @throws IOException  Fallimento o interruzione delle operazioni I/O
      */
     public void waitingRoomLoaded(String username) throws IOException {
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        out.println(username + " waitingOk");
-        out.close();
-        socket.close();
+        sendMessage(username + " waitingOk");
     }
 
     /**
@@ -180,10 +174,7 @@ public class GameViewSocket implements Runnable{
      * @throws IOException  Fallimento o interruzione delle operazioni I/O
      */
     public void chooseWindowSceneLoaded(String username) throws IOException{
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        out.println(username + " chooseWindowOk");
-        out.close();
-        socket.close();
+        sendMessage(username + " chooseWindowOk");
     }
 
     /**
@@ -192,10 +183,7 @@ public class GameViewSocket implements Runnable{
      * @throws IOException  Fallimento o interruzione delle operazioni I/O
      */
     public void gameSceneLoaded(String username) throws IOException{
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        out.println(username + " gameOk");
-        out.close();
-        socket.close();
+        sendMessage(username + " gameOk");
     }
 
     /**
@@ -205,10 +193,7 @@ public class GameViewSocket implements Runnable{
      * @throws IOException  Fallimento o interruzione delle operazioni I/O
      */
     public void notifyOnExit(String username, String typeView) throws IOException {
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        out.println(username + " exit " + typeView);
-        out.close();
-        socket.close();
+        sendMessage(username + " exit " + typeView);
     }
 
     /**
@@ -220,10 +205,7 @@ public class GameViewSocket implements Runnable{
      * @throws IOException  Fallimento o interruzione delle operazioni I/O
      */
     public void sendInsertDie(String username, int draftPos, int xWindowPos, int yWindowPos) throws IOException {
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        out.println(username + " insertDie "+draftPos+" "+xWindowPos+" "+yWindowPos );
-        out.close();
-        socket.close();
+        sendMessage(username + " insertDie "+draftPos+" "+xWindowPos+" "+yWindowPos );
     }
 
     /**
@@ -234,10 +216,7 @@ public class GameViewSocket implements Runnable{
      */
     public void sendChooseCard(String username, int numCard) throws IOException {
 
-        PrintWriter out= new PrintWriter(socket.getOutputStream(),true);
-        out.println(username+" chooseCard "+numCard);
-        out.close();
-        socket.close();
+        sendMessage(username+" chooseCard "+numCard);
 
     }
 
@@ -249,10 +228,7 @@ public class GameViewSocket implements Runnable{
      * @throws IOException  Fallimento o interruzione delle operazioni I/O
      */
     public void sendResponseToolCard(String username, int nCard, String response) throws IOException {
-        PrintWriter out= new PrintWriter(socket.getOutputStream(),true);
-        out.println(username+" responseToolCard "+nCard+" "+response);
-        out.close();
-        socket.close();
+        sendMessage(username+" responseToolCard "+nCard+" "+response);
     }
 
     /**
@@ -263,10 +239,7 @@ public class GameViewSocket implements Runnable{
      */
     public void sendChosenWindow(String username, String windowName) throws IOException {
 
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        out.println(username + " chosenWindow "+windowName);
-        out.close();
-        socket.close();
+        sendMessage(username + " chosenWindow "+windowName);
     }
 
     /**
@@ -284,11 +257,15 @@ public class GameViewSocket implements Runnable{
      */
     public void sendEndTurn(String username) throws IOException {
 
+        sendMessage(username + " endTurn");
+
+    }
+
+    private void sendMessage(String message) throws IOException {
         PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
-        out.println(username + " endTurn");
+        out.println(message);
         out.close();
         socket.close();
-
     }
 
 

@@ -359,6 +359,7 @@ In progress:
 - extract client socket choose-window payload parsing
 - extract client socket show-window payload parsing
 - extract client socket board-update payload parsing
+- centralize client socket outbound message sending
 
 Separate UI from networking:
 
