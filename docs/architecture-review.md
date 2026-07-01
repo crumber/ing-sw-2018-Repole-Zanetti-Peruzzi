@@ -419,6 +419,8 @@ Started client communication boundary slice:
 - kept `GameView` responsible for launching JavaFX and `DynamicPath` using the GUI class as its jar-path anchor
 - moved the base `FXMLController` marker into `presentation.gui`
 - kept concrete JavaFX controllers behavior unchanged while importing the new base type
+- moved `WaitingRoomFXMLController` into `presentation.gui`
+- kept waiting-room timer refresh and choose-window transition behavior unchanged
 
 Next Phase 6 slice:
 

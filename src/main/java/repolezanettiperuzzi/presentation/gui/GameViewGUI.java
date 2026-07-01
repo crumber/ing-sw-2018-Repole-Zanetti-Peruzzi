@@ -13,7 +13,6 @@ import repolezanettiperuzzi.view.ChooseWindowFXMLController;
 import repolezanettiperuzzi.view.GameFXMLController;
 import repolezanettiperuzzi.view.GameView;
 import repolezanettiperuzzi.view.LoginFXMLController;
-import repolezanettiperuzzi.view.WaitingRoomFXMLController;
 
 import javax.swing.*;
 import java.io.File;

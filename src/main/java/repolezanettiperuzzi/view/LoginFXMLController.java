@@ -24,6 +24,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.presentation.gui.FXMLController;
+import repolezanettiperuzzi.presentation.gui.WaitingRoomFXMLController;
 
 /**
  * Classe che rappresenta il Login FXML controller

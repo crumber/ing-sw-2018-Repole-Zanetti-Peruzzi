@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.presentation.gui;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -20,7 +20,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
-import repolezanettiperuzzi.presentation.gui.FXMLController;
+import repolezanettiperuzzi.view.ChooseWindowFXMLController;
+import repolezanettiperuzzi.view.GameView;
 
 import java.io.File;
 import java.io.IOException;
