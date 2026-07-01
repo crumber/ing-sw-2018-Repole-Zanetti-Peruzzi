@@ -585,8 +585,6 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
     public void notYourTurn(){
         if(isGui()){
             ((GameFXMLController) fxmlController).notYourTurn();
-        }else if(isCli()){
-
         }
     }
 
