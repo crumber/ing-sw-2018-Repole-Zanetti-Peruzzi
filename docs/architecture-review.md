@@ -472,6 +472,7 @@ Started client communication boundary slice:
 - removed unused `GameView` accessors from the client coordinator API
 - updated client package metadata to point at `repolezanettiperuzzi.client.GameView`
 - centralized repeated client socket construction behind a private `GameView` helper
+- centralized repeated asynchronous RMI dispatch behind a private `GameView` helper
 
 Separate UI from networking:
 

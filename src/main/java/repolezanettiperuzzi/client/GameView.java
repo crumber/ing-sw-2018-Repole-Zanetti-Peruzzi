@@ -157,6 +157,26 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
         return new GameViewSocket(this, serverIp);
     }
 
+    private interface RemoteAction {
+        void execute() throws RemoteException;
+    }
+
+    private void runRmiAsync(RemoteAction action) {
+        runRmiAsync(action, true);
+    }
+
+    private void runRmiAsync(RemoteAction action, boolean printFailures) {
+        new Thread(() -> {
+            try {
+                action.execute();
+            } catch (RemoteException e) {
+                if (printFailures) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
     /**
      * Inizializza la connessione RMI e invia il messaggio di richiesta di login.
      * Deve essere un metodo esterno al metodo onLogin perche' cosi' puo essere chiamato da dentro o fuori un Thread in caso
@@ -443,16 +463,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
             gvSocket = openSocketClientConnection();
             gvSocket.gameSceneLoaded(username);
         } else if(connection.equals("RMI")){
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                        try {
-                            stub.readyToPlay(username);
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
-                        }
-                }
-            }).start();
+            runRmiAsync(() -> stub.readyToPlay(username));
         }
     }
 
@@ -480,16 +491,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
             gvSocket = openSocketClientConnection();
             gvSocket.sendInsertDie(username, draftPos, xWindowPos, yWindowPos);
         } else if(connection.equals("RMI")){
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        stub.insertDie(username, draftPos, xWindowPos, yWindowPos);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
+            runRmiAsync(() -> stub.insertDie(username, draftPos, xWindowPos, yWindowPos));
         }
     }
 
@@ -506,16 +508,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
             gvSocket.sendChooseCard(username, numCard);
 
         }else if(connection.equals("RMI")){
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        stub.chooseCard(username, numCard);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
+            runRmiAsync(() -> stub.chooseCard(username, numCard));
         }
     }
 
@@ -548,16 +541,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
             gvSocket = openSocketClientConnection();
             gvSocket.sendResponseToolCard(username, nCard, response);
         }else if(connection.equals("RMI")){
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        stub.responseToolCard(username, nCard, response);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
+            runRmiAsync(() -> stub.responseToolCard(username, nCard, response));
         }
     }
 
@@ -634,16 +618,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
             gvSocket = openSocketClientConnection();
             gvSocket.sendEndTurn(username);
         }else if(connection.equals("RMI")){
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        stub.endTurn(username);
-                    } catch (RemoteException e) {
-                        //e.printStackTrace();
-                    }
-                }
-            }).start();
+            runRmiAsync(() -> stub.endTurn(username), false);
         }
     }
 
