@@ -411,6 +411,8 @@ Started client communication boundary slice:
 - kept `GameFXMLController` and `WindowGenerator` responsible for window-cell selection behavior
 - moved `ErrorFactory` into the shared `presentation` package
 - kept `GameView` responsible for routing resolved error messages to CLI or JavaFX
+- moved `WindowGenerator` into `presentation.gui`
+- kept JavaFX controllers responsible for choosing when to render generated window grids
 
 Next Phase 6 slice:
 

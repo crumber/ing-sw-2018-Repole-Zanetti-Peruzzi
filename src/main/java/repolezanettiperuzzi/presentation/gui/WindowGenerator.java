@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.presentation.gui;
 
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -15,9 +15,9 @@ import javafx.scene.shape.StrokeType;
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.shared.dto.BoxClient;
 import repolezanettiperuzzi.shared.dto.WindowClient;
+import repolezanettiperuzzi.view.GameFXMLController;
 
 import javafx.scene.input.MouseEvent;
-import repolezanettiperuzzi.presentation.gui.Coordinates;
 
 import java.awt.*;
 import java.util.ArrayList;
