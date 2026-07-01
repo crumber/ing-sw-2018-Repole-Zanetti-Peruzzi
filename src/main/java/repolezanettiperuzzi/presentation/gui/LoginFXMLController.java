@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.presentation.gui;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,10 +23,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import repolezanettiperuzzi.common.DynamicPath;
-import repolezanettiperuzzi.presentation.gui.ChooseWindowFXMLController;
-import repolezanettiperuzzi.presentation.gui.FXMLController;
-import repolezanettiperuzzi.presentation.gui.GameFXMLController;
-import repolezanettiperuzzi.presentation.gui.WaitingRoomFXMLController;
+import repolezanettiperuzzi.view.GameView;
 
 /**
  * Classe che rappresenta il Login FXML controller

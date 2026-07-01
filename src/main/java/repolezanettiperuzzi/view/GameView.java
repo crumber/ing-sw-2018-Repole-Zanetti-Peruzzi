@@ -14,6 +14,7 @@ import repolezanettiperuzzi.presentation.gui.ChooseWindowFXMLController;
 import repolezanettiperuzzi.presentation.gui.FXMLController;
 import repolezanettiperuzzi.presentation.gui.GameFXMLController;
 import repolezanettiperuzzi.presentation.gui.GameViewGUI;
+import repolezanettiperuzzi.presentation.gui.LoginFXMLController;
 import repolezanettiperuzzi.presentation.gui.WaitingRoomFXMLController;
 import repolezanettiperuzzi.shared.dto.GameBoardClient;
 import repolezanettiperuzzi.shared.dto.WindowClient;

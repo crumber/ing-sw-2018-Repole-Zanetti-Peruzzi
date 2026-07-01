@@ -425,11 +425,13 @@ Started client communication boundary slice:
 - kept window-choice rendering and game-scene transition behavior unchanged
 - moved `GameFXMLController` into `presentation.gui`
 - kept game-scene rendering, turn notifications, and game-scene alerts unchanged
+- moved `LoginFXMLController` into `presentation.gui`
+- completed the move of JavaFX controllers and GUI helpers out of the old `view` package
 
 Next Phase 6 slice:
 
-- move the next small presentation-only class out of the old `view` package
-- keep CLI/JavaFX behavior unchanged while reducing the old `view` package
+- review whether `GameView` should remain as a client coordinator or move behind a named client-facing package
+- keep CLI/JavaFX behavior unchanged while deciding the final home for the coordinator
 - preserve the existing socket/RMI wire protocol while presentation classes are reorganized
 
 Separate UI from networking:
