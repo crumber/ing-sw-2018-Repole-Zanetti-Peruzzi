@@ -490,6 +490,7 @@ Started client communication boundary slice:
 - removed unused GUI menu and dock-icon scaffolding from `GameViewGUI`
 - removed unused RMI registry debug listing from `GameViewRMIServer`
 - removed stale GUI shutdown debug output and TODO comments from `GameViewGUI`
+- removed stale tool-card question comments from `GameViewCLI`
 
 Separate UI from networking:
 

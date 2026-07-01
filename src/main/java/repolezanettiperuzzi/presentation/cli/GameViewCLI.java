@@ -1119,7 +1119,6 @@ public class GameViewCLI {
         ArrayList<Object> questions;
         ArrayList<Integer> answer=new ArrayList<>();
         Optional<String> futureInput = Optional.of("");
-        // System.out.println(space + "You have "+currentTime+" seconds before the timeout expires.");
 
         for (int n = 0; n < boardClient.getNPlayers(); n++) {
 
@@ -1400,14 +1399,6 @@ public class GameViewCLI {
             }
         }
 
-        // TODO  ANDRE VAI AVANTI PARTE SOTTO ANSWER CONTIENE LE RISPOSTE COME INTERI RICORDA DI FARE LA ROBA DEL TIMER
-      /*  if (answer.isEmpty()) {
-            try {
-                //CHIAMATA AGGIORNA VIEW CHE L'EFFECT è GIA STATO FATTO
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }*/
         if(!answer.isEmpty()){
             String response = "";
             if(card11){
