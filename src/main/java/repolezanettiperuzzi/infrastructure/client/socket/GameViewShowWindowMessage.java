@@ -1,12 +1,11 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.infrastructure.client.socket;
 
-import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocketMessage;
 import repolezanettiperuzzi.shared.dto.WindowClient;
 
 /**
  * Payload carried by the client socket showWindow message.
  */
-class GameViewShowWindowMessage {
+public class GameViewShowWindowMessage {
 
     private final WindowClient window;
     private final int currentTime;
@@ -16,17 +15,17 @@ class GameViewShowWindowMessage {
         this.currentTime=currentTime;
     }
 
-    static GameViewShowWindowMessage from(GameViewSocketMessage message){
+    public static GameViewShowWindowMessage from(GameViewSocketMessage message){
         String[] tokens = message.getTokens();
         GameViewWindowPayloadParser.ParsedWindow parsedWindow = GameViewWindowPayloadParser.parseWindow(tokens,1);
         return new GameViewShowWindowMessage(parsedWindow.getWindow(), Integer.parseInt(tokens[parsedWindow.getNextIndex()]));
     }
 
-    WindowClient getWindow(){
+    public WindowClient getWindow(){
         return window;
     }
 
-    int getCurrentTime(){
+    public int getCurrentTime(){
         return currentTime;
     }
 }

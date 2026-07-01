@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.infrastructure.client.socket;
 
 import repolezanettiperuzzi.shared.dto.BoxClient;
 import repolezanettiperuzzi.shared.dto.ColourClient;

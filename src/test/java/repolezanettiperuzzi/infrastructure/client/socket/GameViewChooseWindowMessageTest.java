@@ -1,6 +1,4 @@
-package repolezanettiperuzzi.view;
-
-import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocketMessage;
+package repolezanettiperuzzi.infrastructure.client.socket;
 
 import org.junit.Test;
 import repolezanettiperuzzi.shared.dto.WindowClient;

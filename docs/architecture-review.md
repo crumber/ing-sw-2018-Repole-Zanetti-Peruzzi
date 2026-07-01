@@ -382,6 +382,8 @@ Started client communication boundary slice:
 - preserved every covered inbound socket parser and payload conversion through focused tests
 - moved the simple turn and updated-player socket payload converters into `infrastructure.client.socket`
 - kept `GameViewSocket` responsible for calling the corresponding `GameView` update methods
+- moved choose-window/show-window socket payload converters and shared window payload parsing into `infrastructure.client.socket`
+- kept the window payload parser package-private because only socket payload converters need it
 
 Next Phase 6 slice:
 

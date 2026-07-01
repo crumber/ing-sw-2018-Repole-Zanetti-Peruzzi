@@ -1,5 +1,7 @@
 package repolezanettiperuzzi.view;
 
+import repolezanettiperuzzi.infrastructure.client.socket.GameViewChooseWindowMessage;
+import repolezanettiperuzzi.infrastructure.client.socket.GameViewShowWindowMessage;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocketMessage;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocketOutgoingMessage;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewTurnMessage;
