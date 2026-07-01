@@ -3,7 +3,6 @@ package repolezanettiperuzzi.controller;
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.model.Colour;
 import repolezanettiperuzzi.model.GameBoard;
-import repolezanettiperuzzi.view.ShutdownConsole;
 
 
 import java.io.IOException;

@@ -2,6 +2,7 @@ package repolezanettiperuzzi.view;
 
 import repolezanettiperuzzi.presentation.cli.CLITimer;
 import repolezanettiperuzzi.presentation.cli.ConsoleInputReadTask;
+import repolezanettiperuzzi.presentation.cli.ShutdownConsole;
 import repolezanettiperuzzi.shared.dto.*;
 
 import java.io.Console;

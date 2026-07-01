@@ -405,10 +405,12 @@ Started client communication boundary slice:
 - kept `GameViewCLI` responsible for scheduling and updating the CLI waiting-room timer
 - moved `ConsoleInputReadTask` into `presentation.cli`
 - kept `GameViewCLI` responsible for creating the timed CLI input task and handling its result
+- moved `ShutdownConsole` into `presentation.cli`
+- removed a stale controller import of the CLI shutdown helper
 
 Next Phase 6 slice:
 
-- move the next small CLI lifecycle/helper class toward `presentation.cli`
+- move the next small presentation-only class out of the old `view` package
 - keep `GameViewCLI` behavior unchanged while reducing the old `view` package
 - preserve the existing socket/RMI wire protocol while presentation classes are reorganized
 
