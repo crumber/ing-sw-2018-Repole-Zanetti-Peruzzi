@@ -491,6 +491,7 @@ Started client communication boundary slice:
 - removed unused RMI registry debug listing from `GameViewRMIServer`
 - removed stale GUI shutdown debug output and TODO comments from `GameViewGUI`
 - removed stale tool-card question comments from `GameViewCLI`
+- removed the remaining window-selection debug comment from `WindowGenerator`
 
 Separate UI from networking:
 

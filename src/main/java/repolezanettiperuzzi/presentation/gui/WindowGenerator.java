@@ -301,7 +301,6 @@ public class WindowGenerator {
                     ObservableList<Node> childrens = grid.getChildren();
                     for (Node node : childrens) {
                         if ((node.getId() != null) && (node.getId().equals("Rect" + lastWindowCells.get(0).yPos + lastWindowCells.get(0).xPos))) {
-                            //System.out.println(node.getId());
                             Rectangle r = (Rectangle) node;
                             r.setStrokeWidth(0);
                             r.setOpacity(0.5);
