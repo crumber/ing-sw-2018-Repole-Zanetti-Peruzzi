@@ -139,12 +139,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
             } else if (isRmiConnection()) {
                 if(isGui()) {
                     //creo in un thread separato per non bloccare la GUI
-                    this.startingRMIThread =new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            ((LoginFXMLController) fxmlController).showProgressIndicator();
-                            initRMI(pwd, conn, serverIp);
-                        }
+                    this.startingRMIThread = new Thread(() -> {
+                        ((LoginFXMLController) fxmlController).showProgressIndicator();
+                        initRMI(pwd, conn, serverIp);
                     });
                     startingRMIThread.start();
                 } else if(isCli()){

@@ -479,6 +479,7 @@ Started client communication boundary slice:
 - centralized repeated login progress indicator cleanup in `GameView`
 - removed an unused RMI logout response variable from `GameView`
 - removed an empty CLI branch from `GameView.notYourTurn`
+- simplified GUI RMI startup thread creation in `GameView`
 
 Separate UI from networking:
 
