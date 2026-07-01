@@ -358,6 +358,7 @@ In progress:
 - centralize first-payload-token access for simple client socket messages
 - extract client socket choose-window payload parsing
 - extract client socket show-window payload parsing
+- extract client socket board-update payload parsing
 
 Separate UI from networking:
 
