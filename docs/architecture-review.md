@@ -475,6 +475,7 @@ Started client communication boundary slice:
 - centralized repeated asynchronous RMI dispatch behind a private `GameView` helper
 - replaced repeated `GameView` connection and UI string literals with private constants
 - wrapped repeated `GameView` connection and UI checks in private predicate methods
+- removed the redundant `GameView` parameter from private RMI login initialization
 
 Separate UI from networking:
 

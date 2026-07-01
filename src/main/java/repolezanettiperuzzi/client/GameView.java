@@ -137,20 +137,19 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
 
 
             } else if (isRmiConnection()) {
-                GameView gameView = this;
                 if(isGui()) {
                     //creo in un thread separato per non bloccare la GUI
                     this.startingRMIThread =new Thread(new Runnable() {
                         @Override
                         public void run() {
                             ((LoginFXMLController) fxmlController).showProgressIndicator();
-                            initRMI(gameView, pwd, conn, serverIp);
+                            initRMI(pwd, conn, serverIp);
                         }
                     });
                     startingRMIThread.start();
                 } else if(isCli()){
                     System.out.println("Connecting to RMI Server... (this may take up to 20 seconds)");
-                    initRMI(gameView, pwd, conn, serverIp);
+                    initRMI(pwd, conn, serverIp);
                 }
 
 
@@ -202,13 +201,12 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * Inizializza la connessione RMI e invia il messaggio di richiesta di login.
      * Deve essere un metodo esterno al metodo onLogin perche' cosi' puo essere chiamato da dentro o fuori un Thread in caso
      * sia fatto partire da GUI o da CLI.
-     * @param gameView riferimento alla classe GameView che sta chiamando il metodo
      * @param pwd Password inserita dall'utente
      * @param conn Connessione scelta dall'utente (RMI/Socket)
      */
-    private void initRMI(GameView gameView, String pwd, String conn, String serverIp){
+    private void initRMI(String pwd, String conn, String serverIp){
         if(gvRMIServer==null){
-            gvRMIServer = new GameViewRMIServer(gameView);
+            gvRMIServer = new GameViewRMIServer(this);
         }
         String message = "";
         try {
