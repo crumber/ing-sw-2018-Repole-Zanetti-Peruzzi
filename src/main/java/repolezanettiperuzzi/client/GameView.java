@@ -39,6 +39,11 @@ import java.util.function.Consumer;
 //prendo i dati gia' elaborati da RMI o Socket e li passo a GameViewCLI o GameViewGUI
 public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketView, ClientRmiView {
 
+    private static final String CONNECTION_SOCKET = "Socket";
+    private static final String CONNECTION_RMI = "RMI";
+    private static final String UI_GUI = "GUI";
+    private static final String UI_CLI = "CLI";
+
     private String username;
     private String connection;
     private int localPort;
@@ -117,7 +122,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
             this.serverIp = serverIp;
             this.login = true;
 
-            if (connection.equals("Socket")) {
+            if (connection.equals(CONNECTION_SOCKET)) {
                 //mi serve creae prima l'oggetto in caso venga chiamata la onReceiveCallback su un oggetto che non esiste
                 gvSocket = openSocketClientConnection();
                 if(this.localPort==0) {
@@ -131,9 +136,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
                 gvSocket.init(username, pwd, conn, UI, this.localPort);
 
 
-            } else if (connection.equals("RMI")) {
+            } else if (connection.equals(CONNECTION_RMI)) {
                 GameView gameView = this;
-                if(this.UI.equals("GUI")) {
+                if(this.UI.equals(UI_GUI)) {
                     //creo in un thread separato per non bloccare la GUI
                     this.startingRMIThread =new Thread(new Runnable() {
                         @Override
@@ -143,7 +148,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
                         }
                     });
                     startingRMIThread.start();
-                } else if(this.UI.equals("CLI")){
+                } else if(this.UI.equals(UI_CLI)){
                     System.out.println("Connecting to RMI Server... (this may take up to 20 seconds)");
                     initRMI(gameView, pwd, conn, serverIp);
                 }
@@ -222,16 +227,16 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
                     break;
             }
         } else if(message.equals("stealAccount")){
-            if(UI.equals("GUI")) ((LoginFXMLController)fxmlController).removeProgressIndicator();
+            if(UI.equals(UI_GUI)) ((LoginFXMLController)fxmlController).removeProgressIndicator();
             showPlayerAlreadyOnlineAlert();
         } else if(message.equals("wrongPassword")){
-            if(UI.equals("GUI")) ((LoginFXMLController)fxmlController).removeProgressIndicator();
+            if(UI.equals(UI_GUI)) ((LoginFXMLController)fxmlController).removeProgressIndicator();
             showWrongPwdAlert();
         } else if(message.equals("gameAlreadyStarted")){
-            if(UI.equals("GUI")) ((LoginFXMLController)fxmlController).removeProgressIndicator();
+            if(UI.equals(UI_GUI)) ((LoginFXMLController)fxmlController).removeProgressIndicator();
             showGameAlreadyStarted();
         } else if(message.equals("already4Players")){
-            if(UI.equals("GUI")) ((LoginFXMLController)fxmlController).removeProgressIndicator();
+            if(UI.equals(UI_GUI)) ((LoginFXMLController)fxmlController).removeProgressIndicator();
             showAlready4Players();
         }
     }
@@ -242,9 +247,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
     public void showPlayerAlreadyOnlineAlert(){
         this.login = false;
         this.rejectedLogin = true;
-        if(this.UI.equals("GUI")){
+        if(this.UI.equals(UI_GUI)){
             ((LoginFXMLController) fxmlController).showPlayerAlreadyOnlineAlert();
-        } else if(this.UI.equals("CLI")){
+        } else if(this.UI.equals(UI_CLI)){
             gvCLI.loginScene("The username you chose is already used by a Player online");
         }
     }
@@ -255,9 +260,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
     public void showWrongPwdAlert(){
         this.login = false;
         this.rejectedLogin = true;
-        if(this.UI.equals("GUI")){
+        if(this.UI.equals(UI_GUI)){
             ((LoginFXMLController) fxmlController).showWrongPwdAlert();
-        } else if(this.UI.equals("CLI")){
+        } else if(this.UI.equals(UI_CLI)){
             gvCLI.loginScene("Wrong password inserted, please try again");
         }
     }
@@ -268,9 +273,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
     public void showGameAlreadyStarted(){
         this.login = false;
         this.rejectedLogin = true;
-        if(this.UI.equals("GUI")){
+        if(this.UI.equals(UI_GUI)){
             ((LoginFXMLController) fxmlController).showGameAlreadyStartedAlert();
-        } else if(this.UI.equals("CLI")){
+        } else if(this.UI.equals(UI_CLI)){
             gvCLI.loginScene("A game already started, we're sorry. Try again after this game");
         }
     }
@@ -281,9 +286,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
     public void showAlready4Players(){
         this.login = false;
         this.rejectedLogin = true;
-        if(this.UI.equals("GUI")){
+        if(this.UI.equals(UI_GUI)){
             ((LoginFXMLController) fxmlController).showAlready4PlayersAlert();
-        } else if(this.UI.equals("CLI")){
+        } else if(this.UI.equals(UI_CLI)){
             gvCLI.loginScene("There are already 4 players online. Try later");
         }
     }
@@ -295,9 +300,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
         this.login = false;
         this.rejectedLogin = true;
         this.win = true;
-        if(this.UI.equals("GUI")){
+        if(this.UI.equals(UI_GUI)){
             ((ChooseWindowFXMLController) fxmlController).showWinOnChooseWindowAlert();
-        } else if(this.UI.equals("CLI")){
+        } else if(this.UI.equals(UI_CLI)){
             System.out.println("\n/// You won! You are the only player left online! ///");
             //gvSocketServer.shutdownServer();
         }
@@ -313,9 +318,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      */
     public synchronized void notifyOnExit(String typeView) throws IOException {
         if((this.login || rejectedLogin) && !alreadyExit) {   //se non ho fatto il login significa che ho chiuso la GUI per chiudere il gioco
-            if (connection.equals("Socket")) {
+            if (connection.equals(CONNECTION_SOCKET)) {
                 try {
-                    if (win && UI.equals("GUI")) {
+                    if (win && UI.equals(UI_GUI)) {
                         gvSocket = openSocketClientConnection();
                         gvSocket.notifyOnExit(username, typeView);
                         alreadyExit = true;
@@ -329,7 +334,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
                 } catch(IOException e){
                     //System.out.println("Server disconnesso");
                 }
-            } else if (connection.equals("RMI")) {
+            } else if (connection.equals(CONNECTION_RMI)) {
                 if(RMIActive) {
                     if(!rejectedLogin) {
                         boolean response = false;
@@ -351,7 +356,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
                     RMIActive = false;
                     alreadyExit = true;
                 } else {
-                    if(UI.equals("GUI")) {
+                    if(UI.equals(UI_GUI)) {
                         startingRMIThread.interrupt();
                         alreadyExit = true;
                         System.exit(0);
@@ -377,9 +382,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * @param players Array di stringhe che rappresentano i player
      */
     public void refreshWaitingRoom(int setTimer, String[] players){
-        if(this.UI.equals("GUI")){
+        if(this.UI.equals(UI_GUI)){
             ((WaitingRoomFXMLController) fxmlController).refreshPlayers(setTimer, players);
-        } else if(this.UI.equals("CLI")){
+        } else if(this.UI.equals(UI_CLI)){
             gvCLI.refreshWaitingRoom(setTimer, players);
         }
     }
@@ -389,9 +394,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      */
     public void enterWaitingRoom(){
         rejectedLogin = false;
-        if(this.UI.equals("GUI")){
+        if(this.UI.equals(UI_GUI)){
             ((LoginFXMLController) fxmlController).setWaitingRoomScene();
-        } else if(this.UI.equals("CLI")){
+        } else if(this.UI.equals(UI_CLI)){
             gvCLI.setWaitingRoomScene();
         }
     }
@@ -400,14 +405,14 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * Entra nella scelta delle window
      */
     public void enterChooseWindow(){
-        if(this.UI.equals("GUI")){
+        if(this.UI.equals(UI_GUI)){
             if(fxmlController instanceof WaitingRoomFXMLController) {
                 ((WaitingRoomFXMLController) fxmlController).setChooseWindowScene();
             } else if(fxmlController instanceof LoginFXMLController){
-                if(connection.equals("RMI")) ((LoginFXMLController)fxmlController).removeProgressIndicator();
+                if(connection.equals(CONNECTION_RMI)) ((LoginFXMLController)fxmlController).removeProgressIndicator();
                 ((LoginFXMLController) fxmlController).setChooseWindowScene();
             }
-        }else if(this.UI.equals("CLI")){
+        }else if(this.UI.equals(UI_CLI)){
             gvCLI.setChooseWindowScene();
         }
     }
@@ -416,14 +421,14 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * Entra nel gioco
      */
     public void enterGame(){
-        if(this.UI.equals("GUI")){
+        if(this.UI.equals(UI_GUI)){
             if(fxmlController instanceof ChooseWindowFXMLController) {
                 ((ChooseWindowFXMLController) fxmlController).setGameScene();
             } else if(fxmlController instanceof LoginFXMLController){
-                if(connection.equals("RMI")) ((LoginFXMLController)fxmlController).removeProgressIndicator();
+                if(connection.equals(CONNECTION_RMI)) ((LoginFXMLController)fxmlController).removeProgressIndicator();
                 ((LoginFXMLController) fxmlController).setGameScene();
             }
-        }else if(this.UI.equals("CLI")){
+        }else if(this.UI.equals(UI_CLI)){
             gvCLI.setGameScene();
         }
     }
@@ -433,10 +438,10 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
     public void waitingRoomLoaded() throws IOException {
-        if(connection.equals("Socket")){
+        if(connection.equals(CONNECTION_SOCKET)){
             gvSocket = openSocketClientConnection();
             gvSocket.waitingRoomLoaded(username);
-        } else if(connection.equals("RMI")){
+        } else if(connection.equals(CONNECTION_RMI)){
             stub.waitingRoomLoaded(username);
         }
     }
@@ -446,10 +451,10 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
     public void chooseWindowSceneLoaded() throws IOException {
-        if(connection.equals("Socket")){
+        if(connection.equals(CONNECTION_SOCKET)){
             gvSocket = openSocketClientConnection();
             gvSocket.chooseWindowSceneLoaded(username);
-        } else if(connection.equals("RMI")){
+        } else if(connection.equals(CONNECTION_RMI)){
             stub.chooseWindowSceneLoaded(username);
         }
     }
@@ -459,10 +464,10 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
     public void gameLoaded() throws IOException {
-        if(connection.equals("Socket")){
+        if(connection.equals(CONNECTION_SOCKET)){
             gvSocket = openSocketClientConnection();
             gvSocket.gameSceneLoaded(username);
-        } else if(connection.equals("RMI")){
+        } else if(connection.equals(CONNECTION_RMI)){
             runRmiAsync(() -> stub.readyToPlay(username));
         }
     }
@@ -472,9 +477,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * @param error Stringa codice errore
      */
     public void viewError(String error){
-        if(this.UI.equals("GUI")){
+        if(this.UI.equals(UI_GUI)){
             ((GameFXMLController) fxmlController).viewError(ErrorFactory.getErrorMessage(error));
-        }else if(this.UI.equals("CLI")){
+        }else if(this.UI.equals(UI_CLI)){
             gvCLI.viewError(ErrorFactory.getErrorMessage(error));
         }
     }
@@ -487,10 +492,10 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * @throws IOException  Fallimento o interruzione delle operazioni I/O
      */
     public void sendInsertDie(int draftPos, int xWindowPos, int yWindowPos) throws IOException {
-        if(connection.equals("Socket")){
+        if(connection.equals(CONNECTION_SOCKET)){
             gvSocket = openSocketClientConnection();
             gvSocket.sendInsertDie(username, draftPos, xWindowPos, yWindowPos);
-        } else if(connection.equals("RMI")){
+        } else if(connection.equals(CONNECTION_RMI)){
             runRmiAsync(() -> stub.insertDie(username, draftPos, xWindowPos, yWindowPos));
         }
     }
@@ -502,12 +507,12 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      */
     public void sendChooseCard(int numCard) throws IOException {
 
-        if(connection.equals("Socket")){
+        if(connection.equals(CONNECTION_SOCKET)){
 
             gvSocket = openSocketClientConnection();
             gvSocket.sendChooseCard(username, numCard);
 
-        }else if(connection.equals("RMI")){
+        }else if(connection.equals(CONNECTION_RMI)){
             runRmiAsync(() -> stub.chooseCard(username, numCard));
         }
     }
@@ -521,11 +526,11 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
         //System.out.println(parameters);
         String[] separatedParameters = parameters.split("-");
 
-        if(UI.equals("GUI")){
+        if(UI.equals(UI_GUI)){
 
             ((GameFXMLController) fxmlController).showCardParameters(separatedParameters);
 
-        }else if(UI.equals("CLI")){
+        }else if(UI.equals(UI_CLI)){
             gvCLI.cardQuestion(new ArrayList<>(Arrays.asList(separatedParameters)), username);
         }
     }
@@ -537,10 +542,10 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
     public void sendResponseToolCard(int nCard, String response) throws IOException {
-        if(connection.equals("Socket")){
+        if(connection.equals(CONNECTION_SOCKET)){
             gvSocket = openSocketClientConnection();
             gvSocket.sendResponseToolCard(username, nCard, response);
-        }else if(connection.equals("RMI")){
+        }else if(connection.equals(CONNECTION_RMI)){
             runRmiAsync(() -> stub.responseToolCard(username, nCard, response));
         }
     }
@@ -549,9 +554,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * Avvisa che non è il tuo turno
      */
     public void notYourTurn(){
-        if(this.UI.equals("GUI")){
+        if(this.UI.equals(UI_GUI)){
             ((GameFXMLController) fxmlController).notYourTurn();
-        }else if(this.UI.equals("CLI")){
+        }else if(this.UI.equals(UI_CLI)){
 
         }
     }
@@ -562,9 +567,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * @param currentTime Timer corrente
      */
     public synchronized void notifyTurn(String actualPlayer, int currentTime){
-        if(this.UI.equals("GUI")){
+        if(this.UI.equals(UI_GUI)){
             ((GameFXMLController) fxmlController).notifyTurn(actualPlayer, currentTime);
-        }else if(this.UI.equals("CLI")){
+        }else if(this.UI.equals(UI_CLI)){
             gvCLI.notifyTurn(actualPlayer, currentTime);
         }
     }
@@ -575,9 +580,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * @param currentTime Timer
      */
     public synchronized void viewWindows(ArrayList<WindowClient> windows, int currentTime){
-        if(this.UI.equals("GUI")){
+        if(this.UI.equals(UI_GUI)){
             ((ChooseWindowFXMLController) fxmlController).viewWindows(windows,currentTime);
-        }else if(this.UI.equals("CLI")){
+        }else if(this.UI.equals(UI_CLI)){
             gvCLI.viewWindows(windows, currentTime);
         }
     }
@@ -588,9 +593,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * @param currentTime Timer
      */
     public void viewOneWindow(WindowClient window, int currentTime){
-        if(this.UI.equals("GUI")){
+        if(this.UI.equals(UI_GUI)){
             ((ChooseWindowFXMLController) fxmlController).viewOneWindow(window,currentTime);
-        }else if(this.UI.equals("CLI")){
+        }else if(this.UI.equals(UI_CLI)){
             gvCLI.viewOneWindow(window, currentTime);
         }
     }
@@ -601,10 +606,10 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
     public void sendChosenWindow(String windowName) throws IOException {
-        if(connection.equals("Socket")){
+        if(connection.equals(CONNECTION_SOCKET)){
             gvSocket = openSocketClientConnection();
             gvSocket.sendChosenWindow(username, windowName);
-        } else if(connection.equals("RMI")){
+        } else if(connection.equals(CONNECTION_RMI)){
             stub.sendChosenWindow(username, windowName);
         }
     }
@@ -614,10 +619,10 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
     public void sendEndTurn() throws IOException {
-        if(connection.equals("Socket")){
+        if(connection.equals(CONNECTION_SOCKET)){
             gvSocket = openSocketClientConnection();
             gvSocket.sendEndTurn(username);
-        }else if(connection.equals("RMI")){
+        }else if(connection.equals(CONNECTION_RMI)){
             runRmiAsync(() -> stub.endTurn(username), false);
         }
     }
@@ -670,7 +675,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * @param gvCLI Game view cli
      */
     public void setGVCLI(GameViewCLI gvCLI){
-        this.UI = "CLI";
+        this.UI = UI_CLI;
         this.gvCLI = gvCLI;
     }
 
@@ -689,9 +694,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * @param board Game board
      */
     public synchronized void updateView(GameBoardClient board) {
-        if(this.UI.equals("GUI")){
+        if(this.UI.equals(UI_GUI)){
             ((GameFXMLController) fxmlController).updateView(board);
-        } else if(this.UI.equals("CLI")){
+        } else if(this.UI.equals(UI_CLI)){
             gvCLI.updateView(board, username);
         }
     }
@@ -723,9 +728,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
 
      }
 
-     if(this.UI.equals("GUI")){
+     if(this.UI.equals(UI_GUI)){
          ((GameFXMLController) fxmlController).showEndGame(result);
-     }else if(this.UI.equals("CLI")){
+     }else if(this.UI.equals(UI_CLI)){
         gvCLI.showRanking(resultCLI);
         //gvRMIServer.unexportRMI();
         //System.exit(0);
@@ -738,9 +743,9 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
         this.login = true;
         this.win = true;
         System.out.println("win");
-        if(this.UI.equals("GUI")){
+        if(this.UI.equals(UI_GUI)){
             ((GameFXMLController) fxmlController).showWinBeforeEndGameAlert();
-        } else if(this.UI.equals("CLI")){
+        } else if(this.UI.equals(UI_CLI)){
             System.out.println("\n/// You won! You are the only player left online! ///");
             //gvSocketServer.shutdownServer();
         }

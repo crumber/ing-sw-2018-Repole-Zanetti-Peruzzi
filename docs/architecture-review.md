@@ -473,6 +473,7 @@ Started client communication boundary slice:
 - updated client package metadata to point at `repolezanettiperuzzi.client.GameView`
 - centralized repeated client socket construction behind a private `GameView` helper
 - centralized repeated asynchronous RMI dispatch behind a private `GameView` helper
+- replaced repeated `GameView` connection and UI string literals with private constants
 
 Separate UI from networking:
 
