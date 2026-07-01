@@ -1,5 +1,7 @@
 package repolezanettiperuzzi.controller;
 
+import java.util.Arrays;
+
 /**
  * Parsed command received from a socket client.
  */
@@ -17,11 +19,7 @@ class SocketClientMessage {
 
     static SocketClientMessage parse(String message){
         String[] line = message.split(" ");
-        String[] parameters = new String[line.length-2];
-
-        for(int i = 0; i<parameters.length; i++){
-            parameters[i] = line[i+2];
-        }
+        String[] parameters = Arrays.copyOfRange(line,2,line.length);
 
         return new SocketClientMessage(line[0], SocketClientAction.fromWireValue(line[1]), parameters);
     }

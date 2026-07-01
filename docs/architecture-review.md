@@ -329,6 +329,7 @@ In progress:
 - centralize hyphen-to-space decoding for socket/RMI text parameters
 - centralize space-to-hyphen encoding for socket/RMI text parameters
 - centralize payload extraction for command-prefixed transport messages
+- simplify socket message parameter slicing with the standard library
 
 
 Separate game commands from socket/RMI parsing:
