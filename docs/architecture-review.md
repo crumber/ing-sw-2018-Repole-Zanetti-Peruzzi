@@ -485,6 +485,7 @@ Started client communication boundary slice:
 - named RMI login response strings in `GameView`
 - named startup UI choice strings in `GameView`
 - centralized the repeated login rejection state update in `GameView`
+- removed the unused `Runnable` implementation and debug output from `GameViewCLI`
 
 Separate UI from networking:
 

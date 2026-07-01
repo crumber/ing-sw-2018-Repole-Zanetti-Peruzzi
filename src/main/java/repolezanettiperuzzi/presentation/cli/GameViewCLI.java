@@ -16,7 +16,7 @@ import java.util.concurrent.*;
  * @author Alessandro Peruzzi
  * @author Andrea Zanetti
  */
-public class GameViewCLI implements Runnable {
+public class GameViewCLI {
 
     private ClientViewActions gV;
     private boolean isTimerOn;
@@ -922,12 +922,6 @@ public class GameViewCLI implements Runnable {
             showQuestion(globalGameTime/1000);
         }
 
-    }
-
-    @Override
-    public void run() {
-
-        System.out.println("ciaoIO");
     }
 
     /**
