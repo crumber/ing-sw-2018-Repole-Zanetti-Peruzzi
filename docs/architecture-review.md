@@ -492,6 +492,7 @@ Started client communication boundary slice:
 - removed stale GUI shutdown debug output and TODO comments from `GameViewGUI`
 - removed stale tool-card question comments from `GameViewCLI`
 - removed the remaining window-selection debug comment from `WindowGenerator`
+- removed stale Windows console experiment comments from `GameViewCLI`
 
 Separate UI from networking:
 

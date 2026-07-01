@@ -54,17 +54,6 @@ public class GameViewCLI {
         this.myTurn = false;
         this.lastToolCard = 0;
         card11 = false;
-        /*if(OS.startsWith("Windows")){
-            ANSI_RESET = "";
-            ANSI_BLACK = "";
-            ANSI_RED = "";
-            ANSI_GREEN = "";
-            ANSI_YELLOW = "";
-            ANSI_BLUE = "";
-            ANSI_PURPLE = "";
-            ANSI_CYAN = "";
-            ANSI_WHITE = "";
-        }*/
     }
 
     /**
@@ -82,12 +71,6 @@ public class GameViewCLI {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            /*System.out.print("\f");
-             PROVA QUESTA ALTRIMENTI
-            for(int i = 0; i<25; i++){
-                System.out.println("");
-            }
-             */
         }
     }
 
