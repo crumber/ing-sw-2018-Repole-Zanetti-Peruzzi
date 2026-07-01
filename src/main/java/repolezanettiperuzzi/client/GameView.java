@@ -119,7 +119,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
 
             if (connection.equals("Socket")) {
                 //mi serve creae prima l'oggetto in caso venga chiamata la onReceiveCallback su un oggetto che non esiste
-                gvSocket = new GameViewSocket(this, serverIp);
+                gvSocket = openSocketClientConnection();
                 if(this.localPort==0) {
                     gvSocketServer = new GameViewSocket(onReceiveCallback);
                     Thread serverThread = new Thread(gvSocketServer);
@@ -151,6 +151,10 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
 
             }
         }
+    }
+
+    private GameViewSocket openSocketClientConnection() throws IOException {
+        return new GameViewSocket(this, serverIp);
     }
 
     /**
@@ -292,13 +296,13 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
             if (connection.equals("Socket")) {
                 try {
                     if (win && UI.equals("GUI")) {
-                        gvSocket = new GameViewSocket(this, serverIp);
+                        gvSocket = openSocketClientConnection();
                         gvSocket.notifyOnExit(username, typeView);
                         alreadyExit = true;
                         System.exit(0);
                     } else {
                         //System.out.println("ci sono");
-                        gvSocket = new GameViewSocket(this, serverIp);
+                        gvSocket = openSocketClientConnection();
                         gvSocket.notifyOnExit(username, typeView);
                         alreadyExit = true;
                     }
@@ -410,7 +414,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      */
     public void waitingRoomLoaded() throws IOException {
         if(connection.equals("Socket")){
-            gvSocket = new GameViewSocket(this, serverIp);
+            gvSocket = openSocketClientConnection();
             gvSocket.waitingRoomLoaded(username);
         } else if(connection.equals("RMI")){
             stub.waitingRoomLoaded(username);
@@ -423,7 +427,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      */
     public void chooseWindowSceneLoaded() throws IOException {
         if(connection.equals("Socket")){
-            gvSocket = new GameViewSocket(this, serverIp);
+            gvSocket = openSocketClientConnection();
             gvSocket.chooseWindowSceneLoaded(username);
         } else if(connection.equals("RMI")){
             stub.chooseWindowSceneLoaded(username);
@@ -436,7 +440,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      */
     public void gameLoaded() throws IOException {
         if(connection.equals("Socket")){
-            gvSocket = new GameViewSocket(this, serverIp);
+            gvSocket = openSocketClientConnection();
             gvSocket.gameSceneLoaded(username);
         } else if(connection.equals("RMI")){
             new Thread(new Runnable() {
@@ -473,7 +477,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      */
     public void sendInsertDie(int draftPos, int xWindowPos, int yWindowPos) throws IOException {
         if(connection.equals("Socket")){
-            gvSocket = new GameViewSocket(this, serverIp);
+            gvSocket = openSocketClientConnection();
             gvSocket.sendInsertDie(username, draftPos, xWindowPos, yWindowPos);
         } else if(connection.equals("RMI")){
             new Thread(new Runnable() {
@@ -498,7 +502,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
 
         if(connection.equals("Socket")){
 
-            gvSocket = new GameViewSocket(this, serverIp);
+            gvSocket = openSocketClientConnection();
             gvSocket.sendChooseCard(username, numCard);
 
         }else if(connection.equals("RMI")){
@@ -541,7 +545,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      */
     public void sendResponseToolCard(int nCard, String response) throws IOException {
         if(connection.equals("Socket")){
-            gvSocket = new GameViewSocket(this, serverIp);
+            gvSocket = openSocketClientConnection();
             gvSocket.sendResponseToolCard(username, nCard, response);
         }else if(connection.equals("RMI")){
             new Thread(new Runnable() {
@@ -614,7 +618,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      */
     public void sendChosenWindow(String windowName) throws IOException {
         if(connection.equals("Socket")){
-            gvSocket = new GameViewSocket(this, serverIp);
+            gvSocket = openSocketClientConnection();
             gvSocket.sendChosenWindow(username, windowName);
         } else if(connection.equals("RMI")){
             stub.sendChosenWindow(username, windowName);
@@ -627,7 +631,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      */
     public void sendEndTurn() throws IOException {
         if(connection.equals("Socket")){
-            gvSocket = new GameViewSocket(this, serverIp);
+            gvSocket = openSocketClientConnection();
             gvSocket.sendEndTurn(username);
         }else if(connection.equals("RMI")){
             new Thread(new Runnable() {
