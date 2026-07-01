@@ -371,6 +371,13 @@ Client socket cleanup result:
 - outgoing client socket messages are built by tested helpers before being sent
 - the existing socket wire protocol and game flow are intentionally unchanged
 
+Started client communication boundary slice:
+
+- moved outgoing client socket wire-message builders into `infrastructure.client.socket`
+- kept `GameViewSocket` as the view-facing coordinator while it imports the infrastructure builder
+- kept the outgoing socket command enum package-private inside the infrastructure package
+- preserved every outgoing socket message string through focused tests
+
 Next Phase 6 slice:
 
 - identify the first client-side communication class to move out of the presentation package
