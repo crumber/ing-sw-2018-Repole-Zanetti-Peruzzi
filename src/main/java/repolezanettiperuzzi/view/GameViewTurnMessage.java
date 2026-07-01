@@ -1,5 +1,7 @@
 package repolezanettiperuzzi.view;
 
+import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocketMessage;
+
 /**
  * Payload carried by the client socket turn message.
  */

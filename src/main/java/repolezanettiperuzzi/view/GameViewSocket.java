@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.view;
 
+import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocketMessage;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocketOutgoingMessage;
 
 import java.io.BufferedReader;

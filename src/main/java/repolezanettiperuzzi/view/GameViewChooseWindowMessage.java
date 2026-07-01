@@ -1,5 +1,7 @@
 package repolezanettiperuzzi.view;
 
+import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocketMessage;
+
 import java.util.ArrayList;
 
 import repolezanettiperuzzi.shared.dto.WindowClient;

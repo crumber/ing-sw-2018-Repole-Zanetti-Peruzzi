@@ -377,6 +377,9 @@ Started client communication boundary slice:
 - kept `GameViewSocket` as the view-facing coordinator while it imports the infrastructure builder
 - kept the outgoing socket command enum package-private inside the infrastructure package
 - preserved every outgoing socket message string through focused tests
+- moved inbound client socket message parsing into `infrastructure.client.socket`
+- kept view payload objects responsible only for converting parsed socket tokens into view DTO updates
+- preserved every covered inbound socket parser and payload conversion through focused tests
 
 Next Phase 6 slice:
 

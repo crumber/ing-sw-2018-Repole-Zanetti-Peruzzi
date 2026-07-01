@@ -1,11 +1,11 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.infrastructure.client.socket;
 
 import java.util.Arrays;
 
 /**
  * Parsed message received by the client socket view.
  */
-class GameViewSocketMessage {
+public class GameViewSocketMessage {
 
     private final GameViewSocketAction action;
     private final String[] tokens;
@@ -15,28 +15,28 @@ class GameViewSocketMessage {
         this.tokens=tokens;
     }
 
-    static GameViewSocketMessage parse(String message){
+    public static GameViewSocketMessage parse(String message){
         String[] tokens = message.split(" ");
         return new GameViewSocketMessage(GameViewSocketAction.fromWireValue(tokens[0]), tokens);
     }
 
-    GameViewSocketAction getAction(){
+    public GameViewSocketAction getAction(){
         return action;
     }
 
-    String getToken(int index){
+    public String getToken(int index){
         return tokens[index];
     }
 
-    String getFirstPayloadToken(){
+    public String getFirstPayloadToken(){
         return getToken(1);
     }
 
-    int getTokenCount(){
+    public int getTokenCount(){
         return tokens.length;
     }
 
-    String[] getTokens(){
+    public String[] getTokens(){
         return Arrays.copyOf(tokens,tokens.length);
     }
 }

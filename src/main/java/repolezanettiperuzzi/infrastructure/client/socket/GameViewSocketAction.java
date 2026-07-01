@@ -1,9 +1,9 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.infrastructure.client.socket;
 
 /**
  * Socket messages accepted by the client view.
  */
-enum GameViewSocketAction {
+public enum GameViewSocketAction {
 
     REGISTERED("registered"),
     UPDATED_PLAYERS("updatedplayers"),

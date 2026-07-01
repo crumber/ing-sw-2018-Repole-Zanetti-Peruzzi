@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.view;
 
+import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocketMessage;
 import repolezanettiperuzzi.shared.dto.WindowClient;
 
 /**
