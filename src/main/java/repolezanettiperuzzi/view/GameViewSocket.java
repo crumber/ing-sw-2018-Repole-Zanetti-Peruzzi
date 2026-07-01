@@ -108,7 +108,8 @@ public class GameViewSocket implements Runnable{
                 }
                 break;
             case CHOOSE_WINDOW:
-                receivedWindows(socketMessage.getTokens());
+                GameViewChooseWindowMessage chooseWindowMessage = GameViewChooseWindowMessage.from(socketMessage);
+                gameView.viewWindows(chooseWindowMessage.getWindows(), chooseWindowMessage.getCurrentTime());
                 break;
             case SHOW_WINDOW:
                 receivedOneWindow(socketMessage.getTokens());
@@ -254,35 +255,6 @@ public class GameViewSocket implements Runnable{
         out.println(username+" responseToolCard "+nCard+" "+response);
         out.close();
         socket.close();
-    }
-
-    /**
-     * Ricezione delle windows
-     * @param line String
-     */
-    private void receivedWindows(String[] line){
-        ArrayList<WindowClient> chosenWindows = new ArrayList<>();
-        String windowName = "";
-        int favorToken;
-        ArrayList<ArrayList<String>> boxesList;
-        int i = 1;
-        int currentTime = 0 ;
-        while(i < line.length-1){
-            boxesList = new ArrayList<>();
-            windowName = line[i];
-            i++;
-            favorToken = Integer.parseInt(line[i]);
-            i++;
-            while(!line[i].equals("_")){
-                boxesList.add(new ArrayList<>(Arrays.asList(line[i].split("-"))));
-                i++;
-            }
-            BoxClient[][] boxMatrix = arrayListToMatrix(boxesList);
-            chosenWindows.add(new WindowClient(windowName, favorToken, boxMatrix));
-            i++;
-        }
-        currentTime = Integer.parseInt(line[i]);
-        gameView.viewWindows(chosenWindows,currentTime);
     }
 
     /**

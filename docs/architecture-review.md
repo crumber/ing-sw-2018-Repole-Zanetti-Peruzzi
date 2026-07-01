@@ -356,6 +356,7 @@ In progress:
 - introduce named reasons for client socket not-registered messages
 - introduce named destinations for client socket change-view messages
 - centralize first-payload-token access for simple client socket messages
+- extract client socket choose-window payload parsing
 
 Separate UI from networking:
 
