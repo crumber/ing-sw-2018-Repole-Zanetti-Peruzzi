@@ -1,11 +1,9 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.presentation.cli;
 
 /**
  * Classe che modellizza il timer della cli
  * @author Andrea Zanetti
  */
-import repolezanettiperuzzi.controller.Controller;
-
 import java.util.Timer;
 import java.util.TimerTask;
 

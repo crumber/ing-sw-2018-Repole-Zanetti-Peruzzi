@@ -401,12 +401,14 @@ Started client communication boundary slice:
 - kept `GameView` implementing the RMI callback contract without changing RMI callback behavior
 - moved `GameViewRMIServer` into `infrastructure.client.rmi`
 - left `GameView` responsible for selecting RMI transport and owning the RMI callback implementation
+- moved `CLITimer` into `presentation.cli`
+- kept `GameViewCLI` responsible for scheduling and updating the CLI waiting-room timer
 
 Next Phase 6 slice:
 
-- identify the first client-side communication class to move out of the presentation package
-- keep `GameView`, CLI, and JavaFX behavior unchanged while moving one boundary at a time
-- preserve the existing socket/RMI message strings until the presentation split is complete
+- move the next small CLI-only helper toward `presentation.cli`
+- keep `GameViewCLI` behavior unchanged while reducing the old `view` package
+- preserve the existing socket/RMI wire protocol while presentation classes are reorganized
 
 Separate UI from networking:
 
