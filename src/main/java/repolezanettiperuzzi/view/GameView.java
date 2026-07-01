@@ -4,6 +4,7 @@ import javafx.application.Application;
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.common.ClientStubRMI;
 import repolezanettiperuzzi.common.ControllerStubRMI;
+import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocket;
 import repolezanettiperuzzi.infrastructure.client.socket.ClientSocketView;
 import repolezanettiperuzzi.shared.dto.GameBoardClient;
 import repolezanettiperuzzi.shared.dto.WindowClient;

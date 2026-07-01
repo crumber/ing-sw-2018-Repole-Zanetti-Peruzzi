@@ -1,17 +1,4 @@
-package repolezanettiperuzzi.view;
-
-import repolezanettiperuzzi.infrastructure.client.socket.ClientSocketConnection;
-import repolezanettiperuzzi.infrastructure.client.socket.ClientSocketMessageServer;
-import repolezanettiperuzzi.infrastructure.client.socket.ClientSocketView;
-import repolezanettiperuzzi.infrastructure.client.socket.GameViewChooseWindowMessage;
-import repolezanettiperuzzi.infrastructure.client.socket.GameViewChangeViewDestination;
-import repolezanettiperuzzi.infrastructure.client.socket.GameViewNotRegisteredReason;
-import repolezanettiperuzzi.infrastructure.client.socket.GameViewShowWindowMessage;
-import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocketMessage;
-import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocketOutgoingMessage;
-import repolezanettiperuzzi.infrastructure.client.socket.GameViewTurnMessage;
-import repolezanettiperuzzi.infrastructure.client.socket.GameViewUpdateViewMessage;
-import repolezanettiperuzzi.infrastructure.client.socket.GameViewUpdatedPlayersMessage;
+package repolezanettiperuzzi.infrastructure.client.socket;
 
 import java.io.IOException;
 import java.util.function.Consumer;

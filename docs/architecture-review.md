@@ -394,6 +394,8 @@ Started client communication boundary slice:
 - kept `GameViewSocket` as the `GameView`-facing coordinator for received messages
 - introduced `ClientSocketView` so `GameViewSocket` depends on a callback contract instead of concrete `GameView`
 - kept `GameView` implementing that callback contract without changing any callback behavior
+- moved `GameViewSocket` itself into `infrastructure.client.socket`
+- left `GameView` responsible for selecting socket transport and owning the view callbacks
 
 Next Phase 6 slice:
 
