@@ -73,7 +73,6 @@ public class GameViewGUI extends Application{
      */
     @Override
     public void stop() throws IOException {
-        System.out.println("Closing GUI");
         if(stage.getUserData()!=null) {
             FXMLLoader loader = (FXMLLoader) stage.getUserData();
             FXMLController controller = loader.getController();
@@ -83,12 +82,12 @@ public class GameViewGUI extends Application{
                 ((WaitingRoomFXMLController) controller).cancelTimer();
                 ((WaitingRoomFXMLController) controller).notifyOnExit();
             } else if(controller instanceof ChooseWindowFXMLController){
-                ((ChooseWindowFXMLController) controller).cancelTimer(); //TODO cancellare anche il timer
+                ((ChooseWindowFXMLController) controller).cancelTimer();
                 ((ChooseWindowFXMLController) controller).notifyOnExit();
             } else if(controller instanceof GameFXMLController){
                 ((GameFXMLController) controller).cancelTimer();
                 ((GameFXMLController) controller).notifyOnExit();
-            }//TODO fare else if per gli altri controller con la notifyOnExit()
+            }
         }
 
     }
