@@ -4,18 +4,14 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.client.ClientGuiActions;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URL;
+
 /**
  * Classe che modella la GUI
  * @author Andrea Zanetti
@@ -59,22 +55,6 @@ public class GameViewGUI extends Application{
         Scene scene = new Scene(root, 600 , 600);
 
         primaryStage.getIcons().add(new javafx.scene.image.Image(new File("assets/icon.png").toURI().toString()));
-
-        //MenuBar menuBar = new MenuBar();
-
-        // --- Menu File
-        //Menu menuFile = new Menu("About"); //TODO metti info programma
-
-        //menuBar.getMenus().addAll(menuFile);
-
-        final String os = System.getProperty("os.name");
-        /*if (os != null && os.startsWith("Mac")) {
-            menuBar.useSystemMenuBarProperty().set(true);
-            java.awt.Image image = new ImageIcon(new URL(new DynamicPath("assets/icon.png").getPath())).getImage();
-            com.apple.eawt.Application.getApplication().setDockIconImage(image);
-        }*/
-
-        //root.getChildren().addAll(menuBar);
 
         // Set the Scene to the Stage
         primaryStage.setScene(scene);
