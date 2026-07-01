@@ -361,6 +361,7 @@ In progress:
 - extract client socket board-update payload parsing
 - centralize client socket outbound message sending
 - introduce typed client socket commands while preserving outgoing wire strings
+- extract client socket sub-dispatch handlers for registration and view-change messages
 
 Separate UI from networking:
 

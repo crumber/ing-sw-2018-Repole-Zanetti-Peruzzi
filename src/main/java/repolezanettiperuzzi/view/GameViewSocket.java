@@ -75,33 +75,10 @@ public class GameViewSocket implements Runnable{
                 gameView.refreshWaitingRoom(updatedPlayersMessage.getTimer(), updatedPlayersMessage.getPlayers());
                 break;
             case NOT_REGISTERED:
-                GameViewNotRegisteredReason notRegisteredReason = GameViewNotRegisteredReason.fromWireValue(socketMessage.getFirstPayloadToken());
-                switch(notRegisteredReason){
-                    case ALREADY_ONLINE:
-                        gameView.showPlayerAlreadyOnlineAlert();
-                        break;
-                    case WRONG_PASSWORD:
-                        gameView.showWrongPwdAlert();
-                        break;
-                    case GAME_ALREADY_STARTED:
-                        gameView.showGameAlreadyStarted();
-                        break;
-                    case ALREADY_FOUR_PLAYERS:
-                        gameView.showAlready4Players();
-                        break;
-                    case UNKNOWN:
-                        break;
-                }
+                handleNotRegistered(socketMessage);
                 break;
             case CHANGE_VIEW:
-                GameViewChangeViewDestination changeViewDestination = GameViewChangeViewDestination.fromWireValue(socketMessage.getFirstPayloadToken());
-                switch(changeViewDestination){
-                    case CHOOSE_WINDOW:
-                        gameView.enterChooseWindow();
-                        break;
-                    case UNKNOWN:
-                        break;
-                }
+                handleChangeView(socketMessage);
                 break;
             case CHOOSE_WINDOW:
                 GameViewChooseWindowMessage chooseWindowMessage = GameViewChooseWindowMessage.from(socketMessage);
@@ -142,6 +119,37 @@ public class GameViewSocket implements Runnable{
                 break;
             case EXIT:
                 gameView.shutdownClient();
+                break;
+        }
+    }
+
+    private void handleNotRegistered(GameViewSocketMessage socketMessage){
+        GameViewNotRegisteredReason notRegisteredReason = GameViewNotRegisteredReason.fromWireValue(socketMessage.getFirstPayloadToken());
+        switch(notRegisteredReason){
+            case ALREADY_ONLINE:
+                gameView.showPlayerAlreadyOnlineAlert();
+                break;
+            case WRONG_PASSWORD:
+                gameView.showWrongPwdAlert();
+                break;
+            case GAME_ALREADY_STARTED:
+                gameView.showGameAlreadyStarted();
+                break;
+            case ALREADY_FOUR_PLAYERS:
+                gameView.showAlready4Players();
+                break;
+            case UNKNOWN:
+                break;
+        }
+    }
+
+    private void handleChangeView(GameViewSocketMessage socketMessage){
+        GameViewChangeViewDestination changeViewDestination = GameViewChangeViewDestination.fromWireValue(socketMessage.getFirstPayloadToken());
+        switch(changeViewDestination){
+            case CHOOSE_WINDOW:
+                gameView.enterChooseWindow();
+                break;
+            case UNKNOWN:
                 break;
         }
     }
