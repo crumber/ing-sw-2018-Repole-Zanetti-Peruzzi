@@ -8,7 +8,7 @@ class RmiChosenWindowRequest {
     private final String windowName;
 
     RmiChosenWindowRequest(String windowName){
-        this.windowName=windowName.replace("-", " ");
+        this.windowName=TransportText.decodeSpaces(windowName);
     }
 
     String getWindowName(){

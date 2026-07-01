@@ -10,7 +10,7 @@ class RmiToolCardResponseRequest {
 
     RmiToolCardResponseRequest(int cardNumber, String response){
         this.cardNumber=cardNumber;
-        this.response=response.replace("-", " ");
+        this.response=TransportText.decodeSpaces(response);
     }
 
     int getCardNumber(){

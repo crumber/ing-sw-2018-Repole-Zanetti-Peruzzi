@@ -16,7 +16,7 @@ class SocketToolCardResponseRequest {
     static SocketToolCardResponseRequest from(SocketClientMessage message){
         return new SocketToolCardResponseRequest(
                 Integer.parseInt(message.getParameter(0)),
-                message.getParameter(1).replace("-", " ")
+                TransportText.decodeSpaces(message.getParameter(1))
         );
     }
 

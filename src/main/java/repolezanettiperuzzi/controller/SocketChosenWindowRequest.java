@@ -12,7 +12,7 @@ class SocketChosenWindowRequest {
     }
 
     static SocketChosenWindowRequest from(SocketClientMessage message){
-        return new SocketChosenWindowRequest(message.getParameter(0).replace("-", " "));
+        return new SocketChosenWindowRequest(TransportText.decodeSpaces(message.getParameter(0)));
     }
 
     String getWindowName(){
