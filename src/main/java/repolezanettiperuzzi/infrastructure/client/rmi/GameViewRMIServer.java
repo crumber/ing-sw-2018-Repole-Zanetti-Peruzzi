@@ -1,9 +1,8 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.infrastructure.client.rmi;
 
 import repolezanettiperuzzi.common.ClientStubRMI;
 import repolezanettiperuzzi.common.ControllerStubRMI;
 import repolezanettiperuzzi.common.DynamicPath;
-import repolezanettiperuzzi.infrastructure.client.rmi.ClientRmiView;
 
 import java.rmi.NoSuchObjectException;
 import java.rmi.NotBoundException;

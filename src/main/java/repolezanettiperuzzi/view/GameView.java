@@ -5,6 +5,7 @@ import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.common.ClientStubRMI;
 import repolezanettiperuzzi.common.ControllerStubRMI;
 import repolezanettiperuzzi.infrastructure.client.rmi.ClientRmiView;
+import repolezanettiperuzzi.infrastructure.client.rmi.GameViewRMIServer;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocket;
 import repolezanettiperuzzi.infrastructure.client.socket.ClientSocketView;
 import repolezanettiperuzzi.shared.dto.GameBoardClient;
