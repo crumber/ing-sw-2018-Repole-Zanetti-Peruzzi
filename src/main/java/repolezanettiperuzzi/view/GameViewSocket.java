@@ -156,7 +156,7 @@ public class GameViewSocket implements Runnable{
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
     public void init(String username, String pwd, String conn, String UI, int localPort) throws IOException {
-        sendMessage(username + " init " + pwd + " " + conn + " " + UI + " " + localPort);
+        sendMessage(username + " " + GameViewSocketCommand.INIT.getWireValue() + " " + pwd + " " + conn + " " + UI + " " + localPort);
     }
 
     /**
@@ -165,7 +165,7 @@ public class GameViewSocket implements Runnable{
      * @throws IOException  Fallimento o interruzione delle operazioni I/O
      */
     public void waitingRoomLoaded(String username) throws IOException {
-        sendMessage(username + " waitingOk");
+        sendMessage(username + " " + GameViewSocketCommand.WAITING_OK.getWireValue());
     }
 
     /**
@@ -174,7 +174,7 @@ public class GameViewSocket implements Runnable{
      * @throws IOException  Fallimento o interruzione delle operazioni I/O
      */
     public void chooseWindowSceneLoaded(String username) throws IOException{
-        sendMessage(username + " chooseWindowOk");
+        sendMessage(username + " " + GameViewSocketCommand.CHOOSE_WINDOW_OK.getWireValue());
     }
 
     /**
@@ -183,7 +183,7 @@ public class GameViewSocket implements Runnable{
      * @throws IOException  Fallimento o interruzione delle operazioni I/O
      */
     public void gameSceneLoaded(String username) throws IOException{
-        sendMessage(username + " gameOk");
+        sendMessage(username + " " + GameViewSocketCommand.GAME_OK.getWireValue());
     }
 
     /**
@@ -193,7 +193,7 @@ public class GameViewSocket implements Runnable{
      * @throws IOException  Fallimento o interruzione delle operazioni I/O
      */
     public void notifyOnExit(String username, String typeView) throws IOException {
-        sendMessage(username + " exit " + typeView);
+        sendMessage(username + " " + GameViewSocketCommand.EXIT.getWireValue() + " " + typeView);
     }
 
     /**
@@ -205,7 +205,7 @@ public class GameViewSocket implements Runnable{
      * @throws IOException  Fallimento o interruzione delle operazioni I/O
      */
     public void sendInsertDie(String username, int draftPos, int xWindowPos, int yWindowPos) throws IOException {
-        sendMessage(username + " insertDie "+draftPos+" "+xWindowPos+" "+yWindowPos );
+        sendMessage(username + " " + GameViewSocketCommand.INSERT_DIE.getWireValue() + " "+draftPos+" "+xWindowPos+" "+yWindowPos );
     }
 
     /**
@@ -216,7 +216,7 @@ public class GameViewSocket implements Runnable{
      */
     public void sendChooseCard(String username, int numCard) throws IOException {
 
-        sendMessage(username+" chooseCard "+numCard);
+        sendMessage(username+" "+GameViewSocketCommand.CHOOSE_CARD.getWireValue()+" "+numCard);
 
     }
 
@@ -228,7 +228,7 @@ public class GameViewSocket implements Runnable{
      * @throws IOException  Fallimento o interruzione delle operazioni I/O
      */
     public void sendResponseToolCard(String username, int nCard, String response) throws IOException {
-        sendMessage(username+" responseToolCard "+nCard+" "+response);
+        sendMessage(username+" "+GameViewSocketCommand.RESPONSE_TOOL_CARD.getWireValue()+" "+nCard+" "+response);
     }
 
     /**
@@ -239,7 +239,7 @@ public class GameViewSocket implements Runnable{
      */
     public void sendChosenWindow(String username, String windowName) throws IOException {
 
-        sendMessage(username + " chosenWindow "+windowName);
+        sendMessage(username + " " + GameViewSocketCommand.CHOSEN_WINDOW.getWireValue() + " "+windowName);
     }
 
     /**
@@ -257,7 +257,7 @@ public class GameViewSocket implements Runnable{
      */
     public void sendEndTurn(String username) throws IOException {
 
-        sendMessage(username + " endTurn");
+        sendMessage(username + " " + GameViewSocketCommand.END_TURN.getWireValue());
 
     }
 

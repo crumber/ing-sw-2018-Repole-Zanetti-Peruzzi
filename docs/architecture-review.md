@@ -360,6 +360,7 @@ In progress:
 - extract client socket show-window payload parsing
 - extract client socket board-update payload parsing
 - centralize client socket outbound message sending
+- introduce typed client socket commands while preserving outgoing wire strings
 
 Separate UI from networking:
 
