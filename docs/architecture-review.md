@@ -347,7 +347,9 @@ Separate game commands from socket/RMI parsing:
 
 ### Phase 6: Presentation Cleanup
 
-Not started. Start this only after deciding to move beyond transport-boundary cleanup.
+In progress:
+
+- introduce a tested `GameViewSocketMessage` parser before separating client socket message handling
 
 Separate UI from networking:
 

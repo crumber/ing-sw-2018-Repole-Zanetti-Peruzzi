@@ -69,8 +69,9 @@ public class GameViewSocket implements Runnable{
      * @param message Messaggio
      */
     public void handleMessage(String message){
-        String[] line = message.split(" ");
-        switch(line[0]){
+        GameViewSocketMessage socketMessage = GameViewSocketMessage.parse(message);
+        String[] line = socketMessage.getTokens();
+        switch(socketMessage.getCommand()){
             case "registered":
                 gameView.enterWaitingRoom();
                 break;
