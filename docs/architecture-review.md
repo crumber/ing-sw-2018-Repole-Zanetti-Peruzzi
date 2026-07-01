@@ -353,6 +353,7 @@ In progress:
 - introduce typed client socket actions while preserving the existing wire message strings
 - extract a named payload object for client socket updated-player messages
 - extract a named payload object for client socket turn messages
+- introduce named reasons for client socket not-registered messages
 
 Separate UI from networking:
 

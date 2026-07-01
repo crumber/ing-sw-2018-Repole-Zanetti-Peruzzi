@@ -80,14 +80,22 @@ public class GameViewSocket implements Runnable{
                 gameView.refreshWaitingRoom(updatedPlayersMessage.getTimer(), updatedPlayersMessage.getPlayers());
                 break;
             case NOT_REGISTERED:
-                if(line[1].equals("alreadyonline")){
-                    gameView.showPlayerAlreadyOnlineAlert();
-                } else if(line[1].equals("wrongpwd")){
-                    gameView.showWrongPwdAlert();
-                } else if(line[1].equals("gameAlreadyStarted")){
-                    gameView.showGameAlreadyStarted();
-                } else if(line[1].equals("already4Players")){
-                    gameView.showAlready4Players();
+                GameViewNotRegisteredReason notRegisteredReason = GameViewNotRegisteredReason.fromWireValue(socketMessage.getToken(1));
+                switch(notRegisteredReason){
+                    case ALREADY_ONLINE:
+                        gameView.showPlayerAlreadyOnlineAlert();
+                        break;
+                    case WRONG_PASSWORD:
+                        gameView.showWrongPwdAlert();
+                        break;
+                    case GAME_ALREADY_STARTED:
+                        gameView.showGameAlreadyStarted();
+                        break;
+                    case ALREADY_FOUR_PLAYERS:
+                        gameView.showAlready4Players();
+                        break;
+                    case UNKNOWN:
+                        break;
                 }
                 break;
             case CHANGE_VIEW:
