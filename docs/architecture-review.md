@@ -413,6 +413,8 @@ Started client communication boundary slice:
 - kept `GameView` responsible for routing resolved error messages to CLI or JavaFX
 - moved `WindowGenerator` into `presentation.gui`
 - kept JavaFX controllers responsible for choosing when to render generated window grids
+- moved `GameViewCLI` into `presentation.cli`
+- kept `GameView` responsible for choosing CLI vs JavaFX and delegating updates to the selected presentation
 
 Next Phase 6 slice:
 

@@ -9,6 +9,7 @@ import repolezanettiperuzzi.infrastructure.client.rmi.GameViewRMIServer;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocket;
 import repolezanettiperuzzi.infrastructure.client.socket.ClientSocketView;
 import repolezanettiperuzzi.presentation.ErrorFactory;
+import repolezanettiperuzzi.presentation.cli.GameViewCLI;
 import repolezanettiperuzzi.shared.dto.GameBoardClient;
 import repolezanettiperuzzi.shared.dto.WindowClient;
 

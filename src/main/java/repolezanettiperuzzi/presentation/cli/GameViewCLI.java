@@ -1,9 +1,7 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.presentation.cli;
 
-import repolezanettiperuzzi.presentation.cli.CLITimer;
-import repolezanettiperuzzi.presentation.cli.ConsoleInputReadTask;
-import repolezanettiperuzzi.presentation.cli.ShutdownConsole;
 import repolezanettiperuzzi.shared.dto.*;
+import repolezanettiperuzzi.view.GameView;
 
 import java.io.Console;
 import java.io.IOException;
