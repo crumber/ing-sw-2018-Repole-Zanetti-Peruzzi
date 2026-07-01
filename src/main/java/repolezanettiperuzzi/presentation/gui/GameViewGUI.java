@@ -9,7 +9,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import repolezanettiperuzzi.common.DynamicPath;
-import repolezanettiperuzzi.client.GameView;
+import repolezanettiperuzzi.client.ClientViewActions;
 
 import javax.swing.*;
 import java.io.File;
@@ -24,7 +24,7 @@ import java.net.URL;
 public class GameViewGUI extends Application{
 
     Stage stage;
-    public static GameView gameView;
+    public static ClientViewActions gameView;
 
     /**
      * Aggiorno view

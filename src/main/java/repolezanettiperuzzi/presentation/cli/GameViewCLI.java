@@ -1,7 +1,7 @@
 package repolezanettiperuzzi.presentation.cli;
 
 import repolezanettiperuzzi.shared.dto.*;
-import repolezanettiperuzzi.client.GameView;
+import repolezanettiperuzzi.client.ClientViewActions;
 
 import java.io.Console;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import java.util.concurrent.*;
  */
 public class GameViewCLI implements Runnable {
 
-    private GameView gV;
+    private ClientViewActions gV;
     private boolean isTimerOn;
     private CLITimer cliTimer;
     private Timer timer;
@@ -47,7 +47,7 @@ public class GameViewCLI implements Runnable {
      * Costruttore
      * @param gV Game view
      */
-    public GameViewCLI(GameView gV){
+    public GameViewCLI(ClientViewActions gV){
         this.gV = gV;
         this.isTimerOn = false;
         this.hasShutdownHook = false;

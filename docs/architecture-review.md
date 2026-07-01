@@ -4,7 +4,7 @@ This document records the current architecture and a proposed refactoring direct
 
 ## Current Package Map
 
-The project currently contains 139 production Java classes and 81 test classes under one root package.
+The project currently contains 140 production Java classes and 81 test classes under one root package.
 
 ```text
 repolezanettiperuzzi
@@ -462,6 +462,8 @@ Started client communication boundary slice:
 - removed empty unused `HandlerGameViewRMI` and `HandlerGameViewSocket` placeholders
 - removed tracked macOS `.DS_Store` files now covered by `.gitignore`
 - made deck card loading count only real `.txt` card definitions instead of hidden metadata files
+- introduced `ClientViewActions` as the presentation-to-client coordinator contract
+- typed CLI and JavaFX presentation classes against `ClientViewActions` instead of concrete `GameView`
 
 Separate UI from networking:
 

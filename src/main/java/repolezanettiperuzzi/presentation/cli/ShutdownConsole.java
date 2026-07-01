@@ -1,6 +1,6 @@
 package repolezanettiperuzzi.presentation.cli;
 
-import repolezanettiperuzzi.client.GameView;
+import repolezanettiperuzzi.client.ClientViewActions;
 
 import java.io.IOException;
 import java.util.Timer;
@@ -13,7 +13,7 @@ public class ShutdownConsole extends Thread{
 
     private String lastScene;
     private Timer timer;
-    private GameView gameview;
+    private ClientViewActions gameview;
 
     /**
      * Costruttore
@@ -21,7 +21,7 @@ public class ShutdownConsole extends Thread{
      * @param timer Timer
      * @param gameview Game view
      */
-    public ShutdownConsole(String lastScene, Timer timer, GameView gameview){
+    public ShutdownConsole(String lastScene, Timer timer, ClientViewActions gameview){
         this.lastScene = lastScene;
         this.timer = timer;
         this.gameview = gameview;

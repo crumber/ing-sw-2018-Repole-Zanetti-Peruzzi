@@ -1,6 +1,6 @@
 package repolezanettiperuzzi.presentation.cli;
 
-import repolezanettiperuzzi.client.GameView;
+import repolezanettiperuzzi.client.ClientViewActions;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +15,7 @@ public class ConsoleInputReadTask implements Callable<String> {
 
     private String[] actions;
     private String message;
-    private GameView gameView;
+    private ClientViewActions gameView;
     private String lastScene;
 
     /**
@@ -25,7 +25,7 @@ public class ConsoleInputReadTask implements Callable<String> {
      * @param gameView Game view
      * @param lastScene Stringa che indica l'ultima scena
      */
-    public ConsoleInputReadTask(String[] actions, String message, GameView gameView, String lastScene){
+    public ConsoleInputReadTask(String[] actions, String message, ClientViewActions gameView, String lastScene){
         this.actions = actions;
         this.message = message;
         this.gameView = gameView;

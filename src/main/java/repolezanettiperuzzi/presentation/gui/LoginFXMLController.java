@@ -23,7 +23,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import repolezanettiperuzzi.common.DynamicPath;
-import repolezanettiperuzzi.client.GameView;
+import repolezanettiperuzzi.client.ClientViewActions;
 
 /**
  * Classe che rappresenta il Login FXML controller
@@ -32,7 +32,7 @@ import repolezanettiperuzzi.client.GameView;
 public class LoginFXMLController extends FXMLController{
 
     private Stage stage;
-    private GameView gV;
+    private ClientViewActions gV;
 
     @FXML
     // The reference of inputText will be injected by the FXML loader
@@ -78,7 +78,6 @@ public class LoginFXMLController extends FXMLController{
     @FXML
     private void initialize()
     {
-        //setGameView(new GameView());
         gV.setFXMLController(this);
         sendButton.setDefaultButton(true);
         progressBg.setVisible(false);
@@ -324,7 +323,7 @@ public class LoginFXMLController extends FXMLController{
      * Imposta la game view
      * @param gV Game view
      */
-    public void setGameView(GameView gV){
+    public void setGameView(ClientViewActions gV){
         this.gV = gV;
     }
 }

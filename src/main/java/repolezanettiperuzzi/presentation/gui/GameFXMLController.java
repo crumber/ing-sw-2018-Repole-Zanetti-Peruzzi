@@ -36,7 +36,7 @@ import repolezanettiperuzzi.shared.dto.DieClient;
 import repolezanettiperuzzi.shared.dto.GameBoardClient;
 import repolezanettiperuzzi.shared.dto.PlayerClient;
 import repolezanettiperuzzi.shared.dto.*;
-import repolezanettiperuzzi.client.GameView;
+import repolezanettiperuzzi.client.ClientViewActions;
 
 import java.io.IOException;
 import java.net.URI;
@@ -52,7 +52,7 @@ import java.util.*;
 public class GameFXMLController extends FXMLController implements Initializable{
 
     private Stage stage;
-    private GameView gV;
+    private ClientViewActions gV;
     private int timerCounter;
     private Timeline timerCountdown;
     private String textContent;
@@ -132,7 +132,7 @@ public class GameFXMLController extends FXMLController implements Initializable{
      * Inizializza la game view
      * @param gV Game view
      */
-    public void setGameView(GameView gV){
+    public void setGameView(ClientViewActions gV){
         this.gV = gV;
     }
 
