@@ -19,7 +19,7 @@ import repolezanettiperuzzi.presentation.gui.WaitingRoomFXMLController;
 import repolezanettiperuzzi.shared.dto.GameBoardClient;
 import repolezanettiperuzzi.shared.dto.WindowClient;
 
-import java.io.*;
+import java.io.IOException;
 import java.rmi.ConnectException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -94,9 +94,6 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
             GameViewCLI gvCLI = new GameViewCLI(gameView);
             gameView.setGVCLI(gvCLI);
             gvCLI.loginScene("Schermata di login");
-            //Thread CLIThread = new Thread(gvCLI);
-            //CLIThread.setDaemon(true);
-            //CLIThread.start();
         } else if(uiChosen.equals("g")){
             GameView gameView = new GameView();
             GameViewGUI.gameView = gameView;
@@ -113,7 +110,6 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * @throws InterruptedException Interruzione thread
      */
     public void onLogin(String username, String pwd, String conn, String UI, String serverIp) throws IOException, InterruptedException {
-        int port = 0;
         if(!login) {
             this.username = username;
             this.connection = conn;
@@ -127,7 +123,6 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
                 if(this.localPort==0) {
                     gvSocketServer = new GameViewSocket(onReceiveCallback);
                     Thread serverThread = new Thread(gvSocketServer);
-                    //serverThread.setDaemon(true);
                     serverThread.start();
                     Thread.sleep(500);
 
