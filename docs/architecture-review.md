@@ -460,6 +460,8 @@ Started client communication boundary slice:
 - removed stale unused imports from `ShutdownRMIServer`
 - removed the accidental server-controller source dependency on `client.GameView`
 - removed empty unused `HandlerGameViewRMI` and `HandlerGameViewSocket` placeholders
+- removed tracked macOS `.DS_Store` files now covered by `.gitignore`
+- made deck card loading count only real `.txt` card definitions instead of hidden metadata files
 
 Separate UI from networking:
 

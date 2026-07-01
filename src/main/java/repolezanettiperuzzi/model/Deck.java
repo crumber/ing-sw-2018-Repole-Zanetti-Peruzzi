@@ -123,7 +123,7 @@ public class Deck {
             toolWalk.close();
 
         } else {
-            nPublicCards = new File(new DynamicPath(publicCardsFolder).getPathNoFile()).list().length-1;    //-1, a differenza delle tool cards. sembra ci sia un file nascoto in piu' qui
+            nPublicCards = countCardFiles(publicCardsFolder, "pc");
             publicCardsDeck = new ArrayList<>(nPublicCards);
 
             String addZero;
@@ -137,7 +137,7 @@ public class Deck {
                 publicCardsDeck.get(i).setValue(Integer.parseInt(lines.get(2)));
             }
 
-            nToolCards = new File(new DynamicPath(toolCardsFolder).getPathNoFile()).list().length;
+            nToolCards = countCardFiles(toolCardsFolder, "tc");
             toolCardsDeck = new ArrayList<>(nToolCards);
 
             for (int i = 0; i < nToolCards; i++) {
@@ -191,8 +191,18 @@ public class Deck {
         ArrayList<String> pathsList = new ArrayList<>();
         while(it.hasNext()){
             String path = it.next().toString();
-            pathsList.add(path);
+            if(path.endsWith(".txt")) {
+                pathsList.add(path);
+            }
         }
         return pathsList;
+    }
+
+    private int countCardFiles(String folder, String prefix){
+        File[] cardFiles = new File(new DynamicPath(folder).getPathNoFile()).listFiles((dir, name) -> name.startsWith(prefix) && name.endsWith(".txt"));
+        if(cardFiles==null){
+            return 0;
+        }
+        return cardFiles.length;
     }
 }
