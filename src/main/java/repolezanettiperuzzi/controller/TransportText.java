@@ -11,4 +11,8 @@ class TransportText {
     static String decodeSpaces(String value){
         return value.replace("-", " ");
     }
+
+    static String encodeSpaces(String value){
+        return value.replace(" ", "-");
+    }
 }

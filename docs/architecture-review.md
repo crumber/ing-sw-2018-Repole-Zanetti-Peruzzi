@@ -327,6 +327,7 @@ In progress:
 - extract a named request object for RMI choose-card parameters
 - replace duplicated socket/RMI exit-scene enums with one shared transport value
 - centralize hyphen-to-space decoding for socket/RMI text parameters
+- centralize space-to-hyphen encoding for socket/RMI text parameters
 
 
 Separate game commands from socket/RMI parsing:

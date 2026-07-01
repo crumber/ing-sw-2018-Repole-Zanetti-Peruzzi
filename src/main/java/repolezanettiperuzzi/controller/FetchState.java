@@ -124,7 +124,7 @@ public class FetchState extends ControllerState {
                 BufferedReader bR = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(elemPath.toString())));
                 String line;
                 while((line=bR.readLine())!=null){
-                    message.append(line.replace(" ", "-"));
+                    message.append(TransportText.encodeSpaces(line));
                     message.append(" ");
                 }
                 message.append("_ ");
@@ -141,7 +141,7 @@ public class FetchState extends ControllerState {
 
                 for(String line: lines){
 
-                    message.append(line.replace(" ","-"));
+                    message.append(TransportText.encodeSpaces(line));
                     message.append(" ");
 
                 }

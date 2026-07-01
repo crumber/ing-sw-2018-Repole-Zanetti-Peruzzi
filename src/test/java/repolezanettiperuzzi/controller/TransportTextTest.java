@@ -11,4 +11,10 @@ public class TransportTextTest {
 
         assertEquals("Aurorae Magnificus",TransportText.decodeSpaces("Aurorae-Magnificus"));
     }
+
+    @Test
+    public void encodesSpacesAsHyphens() {
+
+        assertEquals("Aurorae-Magnificus",TransportText.encodeSpaces("Aurorae Magnificus"));
+    }
 }
