@@ -12,7 +12,7 @@ public class SocketExitRequestTest {
         SocketClientMessage message = SocketClientMessage.parse("ale exit waitingRoom");
         SocketExitRequest request = SocketExitRequest.from(message);
 
-        assertEquals(SocketExitScene.WAITING_ROOM,request.getScene());
+        assertEquals(ExitScene.WAITING_ROOM,request.getScene());
     }
 
     @Test
@@ -21,6 +21,6 @@ public class SocketExitRequestTest {
         SocketClientMessage message = SocketClientMessage.parse("ale exit someScene");
         SocketExitRequest request = SocketExitRequest.from(message);
 
-        assertEquals(SocketExitScene.UNKNOWN,request.getScene());
+        assertEquals(ExitScene.UNKNOWN,request.getScene());
     }
 }

@@ -325,6 +325,7 @@ In progress:
 - extract a named request object for RMI chosen-window parameters
 - extract a named request object for RMI exit parameters
 - extract a named request object for RMI choose-card parameters
+- replace duplicated socket/RMI exit-scene enums with one shared transport value
 
 
 Separate game commands from socket/RMI parsing:

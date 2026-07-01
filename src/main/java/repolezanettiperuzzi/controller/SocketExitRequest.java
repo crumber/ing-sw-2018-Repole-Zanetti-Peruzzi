@@ -5,17 +5,17 @@ package repolezanettiperuzzi.controller;
  */
 class SocketExitRequest {
 
-    private final SocketExitScene scene;
+    private final ExitScene scene;
 
-    private SocketExitRequest(SocketExitScene scene){
+    private SocketExitRequest(ExitScene scene){
         this.scene=scene;
     }
 
     static SocketExitRequest from(SocketClientMessage message){
-        return new SocketExitRequest(SocketExitScene.fromWireValue(message.getParameter(0)));
+        return new SocketExitRequest(ExitScene.from(message.getParameter(0)));
     }
 
-    SocketExitScene getScene(){
+    ExitScene getScene(){
         return scene;
     }
 }

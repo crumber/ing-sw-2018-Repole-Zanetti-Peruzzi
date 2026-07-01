@@ -5,13 +5,13 @@ package repolezanettiperuzzi.controller;
  */
 class RmiExitRequest {
 
-    private final RmiExitScene scene;
+    private final ExitScene scene;
 
     RmiExitRequest(String typeView){
-        this.scene=RmiExitScene.from(typeView);
+        this.scene=ExitScene.from(typeView);
     }
 
-    RmiExitScene getScene(){
+    ExitScene getScene(){
         return scene;
     }
 }

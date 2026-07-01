@@ -11,7 +11,7 @@ public class RmiExitRequestTest {
 
         RmiExitRequest request = new RmiExitRequest("waitingRoom");
 
-        assertEquals(RmiExitScene.WAITING_ROOM,request.getScene());
+        assertEquals(ExitScene.WAITING_ROOM,request.getScene());
     }
 
     @Test
@@ -19,6 +19,6 @@ public class RmiExitRequestTest {
 
         RmiExitRequest request = new RmiExitRequest("someScene");
 
-        assertEquals(RmiExitScene.UNKNOWN,request.getScene());
+        assertEquals(ExitScene.UNKNOWN,request.getScene());
     }
 }

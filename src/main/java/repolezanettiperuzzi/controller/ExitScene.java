@@ -1,9 +1,9 @@
 package repolezanettiperuzzi.controller;
 
 /**
- * Client scenes that can send the RMI exit command.
+ * Client scenes that can send an exit command.
  */
-enum RmiExitScene {
+enum ExitScene {
 
     WAITING_ROOM("waitingRoom"),
     CHOOSE_WINDOW("chooseWindow"),
@@ -12,12 +12,12 @@ enum RmiExitScene {
 
     private final String value;
 
-    RmiExitScene(String value){
+    ExitScene(String value){
         this.value=value;
     }
 
-    static RmiExitScene from(String value){
-        for(RmiExitScene scene: values()){
+    static ExitScene from(String value){
+        for(ExitScene scene: values()){
             if(scene.value.equals(value)){
                 return scene;
             }
