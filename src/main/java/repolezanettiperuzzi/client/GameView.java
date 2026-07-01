@@ -43,6 +43,8 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
     private static final String CONNECTION_RMI = "RMI";
     private static final String UI_GUI = "GUI";
     private static final String UI_CLI = "CLI";
+    private static final String STARTUP_CHOICE_CLI = "c";
+    private static final String STARTUP_CHOICE_GUI = "g";
     private static final String LOGIN_REGISTERED = "registered";
     private static final String LOGIN_RECONNECT = "reconnect";
     private static final String LOGIN_STEAL_ACCOUNT = "stealAccount";
@@ -100,15 +102,15 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
         do {
             System.out.print("Premi 'c' per CLI e 'g' per GUI: ");
             uiChosen = scanner.nextLine();
-        }while(!uiChosen.equals("c") && !uiChosen.equals("g"));
+        }while(!uiChosen.equals(STARTUP_CHOICE_CLI) && !uiChosen.equals(STARTUP_CHOICE_GUI));
 
-        if(uiChosen.equals("c")){
+        if(uiChosen.equals(STARTUP_CHOICE_CLI)){
             GameView gameView = new GameView();
 
             GameViewCLI gvCLI = new GameViewCLI(gameView);
             gameView.setGVCLI(gvCLI);
             gvCLI.loginScene("Schermata di login");
-        } else if(uiChosen.equals("g")){
+        } else if(uiChosen.equals(STARTUP_CHOICE_GUI)){
             GameView gameView = new GameView();
             GameViewGUI.gameView = gameView;
             Application.launch(GameViewGUI.class);

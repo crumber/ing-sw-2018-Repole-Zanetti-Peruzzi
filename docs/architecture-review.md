@@ -483,6 +483,7 @@ Started client communication boundary slice:
 - removed stale commented-out debug and shutdown statements from `GameView`
 - removed a stray win debug print from `GameView`
 - named RMI login response strings in `GameView`
+- named startup UI choice strings in `GameView`
 
 Separate UI from networking:
 
