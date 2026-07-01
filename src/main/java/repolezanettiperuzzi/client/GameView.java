@@ -367,9 +367,8 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
             } else if (isRmiConnection()) {
                 if(RMIActive) {
                     if(!rejectedLogin) {
-                        boolean response = false;
                         try {
-                            response = stub.notifyOnExit(username, typeView);
+                            stub.notifyOnExit(username, typeView);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {
