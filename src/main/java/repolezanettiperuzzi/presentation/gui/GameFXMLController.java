@@ -77,10 +77,6 @@ public class GameFXMLController extends FXMLController implements Initializable{
     // The reference of inputText will be injected by the FXML loader
     private Text timerText;
 
-    // location and resources will be automatically injected by the FXML loader
-    @FXML
-    private URL location;
-
     @FXML
     private AnchorPane playerWindow;
 
@@ -92,9 +88,6 @@ public class GameFXMLController extends FXMLController implements Initializable{
 
     @FXML
     private Button endTurnButton;
-
-    @FXML
-    private ResourceBundle resources;
 
     @FXML
     private AnchorPane favorTokensPane;

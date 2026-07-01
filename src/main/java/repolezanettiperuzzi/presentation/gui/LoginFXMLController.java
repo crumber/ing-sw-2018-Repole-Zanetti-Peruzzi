@@ -1,12 +1,9 @@
 package repolezanettiperuzzi.presentation.gui;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -50,13 +47,6 @@ public class LoginFXMLController extends FXMLController{
 
     @FXML
     private Button sendButton;
-
-    // location and resources will be automatically injected by the FXML loader
-    @FXML
-    private URL location;
-
-    @FXML
-    private ResourceBundle resources;
 
     @FXML
     private Rectangle progressBg;

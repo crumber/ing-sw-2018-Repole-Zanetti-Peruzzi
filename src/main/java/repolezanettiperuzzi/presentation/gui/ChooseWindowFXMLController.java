@@ -29,9 +29,7 @@ import repolezanettiperuzzi.client.ClientGuiActions;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 /**
  * Classe che modellizza la scelta delle window
@@ -54,13 +52,6 @@ public class ChooseWindowFXMLController extends FXMLController{
     @FXML
     // The reference of inputText will be injected by the FXML loader
     private Text timerText;
-
-    // location and resources will be automatically injected by the FXML loader
-    @FXML
-    private URL location;
-
-    @FXML
-    private ResourceBundle resources;
 
     // Add a public no-args constructor
     public ChooseWindowFXMLController()

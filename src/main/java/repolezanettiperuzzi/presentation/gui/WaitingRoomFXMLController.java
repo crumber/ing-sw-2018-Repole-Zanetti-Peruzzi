@@ -22,13 +22,10 @@ import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.client.ClientGuiActions;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -51,13 +48,6 @@ public class WaitingRoomFXMLController extends FXMLController{
     @FXML
     // The reference of inputText will be injected by the FXML loader
     private Text timerText;
-
-    // location and resources will be automatically injected by the FXML loader
-    @FXML
-    private URL location;
-
-    @FXML
-    private ResourceBundle resources;
 
     /**
      * Costruttore

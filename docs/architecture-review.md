@@ -496,6 +496,7 @@ Started client communication boundary slice:
 - removed stale FXML loader TODO comments from JavaFX controllers
 - simplified CLI quit notification thread creation in `ConsoleInputReadTask`
 - removed unused JavaFX scene path locals from controllers
+- removed unused injected JavaFX location/resource fields from controllers
 
 Separate UI from networking:
 
