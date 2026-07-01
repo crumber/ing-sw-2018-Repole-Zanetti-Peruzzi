@@ -35,7 +35,6 @@ public class GameView implements ClientStubRMI, ClientSocketView {
     private String UI;
     private GameViewCLI gvCLI;
     private FXMLController fxmlController;
-    private GameViewRMI gvRMI;
     private GameViewSocket gvSocketServer;
     private Thread serverThread;
     private Thread startingRMIThread;

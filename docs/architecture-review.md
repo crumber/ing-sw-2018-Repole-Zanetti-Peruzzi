@@ -396,6 +396,8 @@ Started client communication boundary slice:
 - kept `GameView` implementing that callback contract without changing any callback behavior
 - moved `GameViewSocket` itself into `infrastructure.client.socket`
 - left `GameView` responsible for selecting socket transport and owning the view callbacks
+- removed the empty unused `GameViewRMI` placeholder and its unused `GameView` field
+- kept the real RMI connection class, `GameViewRMIServer`, untouched for a separate focused refactor
 
 Next Phase 6 slice:
 
