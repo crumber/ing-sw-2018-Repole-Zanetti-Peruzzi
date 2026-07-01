@@ -350,6 +350,7 @@ Separate game commands from socket/RMI parsing:
 In progress:
 
 - introduce a tested `GameViewSocketMessage` parser before separating client socket message handling
+- introduce typed client socket actions while preserving the existing wire message strings
 
 Separate UI from networking:
 

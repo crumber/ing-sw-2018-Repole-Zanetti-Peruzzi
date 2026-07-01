@@ -71,11 +71,11 @@ public class GameViewSocket implements Runnable{
     public void handleMessage(String message){
         GameViewSocketMessage socketMessage = GameViewSocketMessage.parse(message);
         String[] line = socketMessage.getTokens();
-        switch(socketMessage.getCommand()){
-            case "registered":
+        switch(socketMessage.getAction()){
+            case REGISTERED:
                 gameView.enterWaitingRoom();
                 break;
-            case "updatedplayers":
+            case UPDATED_PLAYERS:
 
                 String players[] = new String[line.length-2];
                 for(int i = 0; i<players.length; i++){
@@ -84,7 +84,7 @@ public class GameViewSocket implements Runnable{
 
                 gameView.refreshWaitingRoom(Integer.parseInt(line[1]), players);
                 break;
-            case "notregistered":
+            case NOT_REGISTERED:
                 if(line[1].equals("alreadyonline")){
                     gameView.showPlayerAlreadyOnlineAlert();
                 } else if(line[1].equals("wrongpwd")){
@@ -95,45 +95,45 @@ public class GameViewSocket implements Runnable{
                     gameView.showAlready4Players();
                 }
                 break;
-            case "changeView":
+            case CHANGE_VIEW:
                 if(line[1].equals("chooseWindow")){
                     gameView.enterChooseWindow();
                 }
                 break;
-            case "chooseWindow":
+            case CHOOSE_WINDOW:
                 receivedWindows(line);
                 break;
-            case "showWindow":
+            case SHOW_WINDOW:
                 receivedOneWindow(line);
                 break;
-            case "startGame":
+            case START_GAME:
                 gameView.enterGame();
                 break;
-            case "winChooseWindow":
+            case WIN_CHOOSE_WINDOW:
                 gameView.showWinOnChooseWindowAlert();
                 break;
-            case "notYourTurn":
+            case NOT_YOUR_TURN:
                 gameView.notYourTurn();
                 break;
-            case "error":
+            case ERROR:
                 gameView.viewError(line[1]);
                 break;
-            case "turn":
+            case TURN:
                 gameView.notifyTurn(line[1], Integer.parseInt(line[2]));
                 break;
-            case "updateView":
+            case UPDATE_VIEW:
                 updateView(line[1]);
                 break;
-            case "requestCard":
+            case REQUEST_CARD:
                 gameView.receiveCardParameters(line[1]);
                 break;
-            case "endGame":
+            case END_GAME:
                 gameView.receiveRanking(line[1]);
                 break;
-            case "winBeforeEnd":
+            case WIN_BEFORE_END:
                 gameView.showWinBeforeEndGameAlert();
                 break;
-            case "exit":
+            case EXIT:
                 gameView.shutdownClient();
                 break;
         }

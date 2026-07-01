@@ -11,7 +11,7 @@ public class GameViewSocketMessageTest {
 
         GameViewSocketMessage message = GameViewSocketMessage.parse("turn ale 30");
 
-        assertEquals("turn",message.getCommand());
+        assertEquals(GameViewSocketAction.TURN,message.getAction());
         assertEquals(3,message.getTokenCount());
         assertEquals("ale",message.getToken(1));
         assertEquals("30",message.getToken(2));
@@ -25,6 +25,14 @@ public class GameViewSocketMessageTest {
         String[] tokens = message.getTokens();
         tokens[0] = "changed";
 
-        assertEquals("requestCard",message.getCommand());
+        assertEquals(GameViewSocketAction.REQUEST_CARD,message.getAction());
+    }
+
+    @Test
+    public void mapsUnknownActionsWithoutFailing() {
+
+        GameViewSocketMessage message = GameViewSocketMessage.parse("doesNotExist value");
+
+        assertEquals(GameViewSocketAction.UNKNOWN,message.getAction());
     }
 }

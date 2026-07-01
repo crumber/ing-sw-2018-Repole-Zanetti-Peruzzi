@@ -7,21 +7,21 @@ import java.util.Arrays;
  */
 class GameViewSocketMessage {
 
-    private final String command;
+    private final GameViewSocketAction action;
     private final String[] tokens;
 
-    private GameViewSocketMessage(String command, String[] tokens){
-        this.command=command;
+    private GameViewSocketMessage(GameViewSocketAction action, String[] tokens){
+        this.action=action;
         this.tokens=tokens;
     }
 
     static GameViewSocketMessage parse(String message){
         String[] tokens = message.split(" ");
-        return new GameViewSocketMessage(tokens[0], tokens);
+        return new GameViewSocketMessage(GameViewSocketAction.fromWireValue(tokens[0]), tokens);
     }
 
-    String getCommand(){
-        return command;
+    GameViewSocketAction getAction(){
+        return action;
     }
 
     String getToken(int index){
