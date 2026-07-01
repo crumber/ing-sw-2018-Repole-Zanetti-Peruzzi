@@ -15,7 +15,6 @@ import javafx.scene.shape.StrokeType;
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.shared.dto.BoxClient;
 import repolezanettiperuzzi.shared.dto.WindowClient;
-import repolezanettiperuzzi.view.GameFXMLController;
 
 import javafx.scene.input.MouseEvent;
 

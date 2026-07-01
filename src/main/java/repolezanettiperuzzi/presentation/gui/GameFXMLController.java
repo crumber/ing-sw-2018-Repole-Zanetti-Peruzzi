@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.presentation.gui;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -32,13 +32,11 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
-import repolezanettiperuzzi.presentation.gui.Coordinates;
-import repolezanettiperuzzi.presentation.gui.FXMLController;
-import repolezanettiperuzzi.presentation.gui.WindowGenerator;
 import repolezanettiperuzzi.shared.dto.DieClient;
 import repolezanettiperuzzi.shared.dto.GameBoardClient;
 import repolezanettiperuzzi.shared.dto.PlayerClient;
 import repolezanettiperuzzi.shared.dto.*;
+import repolezanettiperuzzi.view.GameView;
 
 import java.io.IOException;
 import java.net.URI;

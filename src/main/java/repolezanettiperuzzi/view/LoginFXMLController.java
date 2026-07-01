@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.presentation.gui.ChooseWindowFXMLController;
 import repolezanettiperuzzi.presentation.gui.FXMLController;
+import repolezanettiperuzzi.presentation.gui.GameFXMLController;
 import repolezanettiperuzzi.presentation.gui.WaitingRoomFXMLController;
 
 /**

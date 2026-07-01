@@ -423,6 +423,8 @@ Started client communication boundary slice:
 - kept waiting-room timer refresh and choose-window transition behavior unchanged
 - moved `ChooseWindowFXMLController` into `presentation.gui`
 - kept window-choice rendering and game-scene transition behavior unchanged
+- moved `GameFXMLController` into `presentation.gui`
+- kept game-scene rendering, turn notifications, and game-scene alerts unchanged
 
 Next Phase 6 slice:
 

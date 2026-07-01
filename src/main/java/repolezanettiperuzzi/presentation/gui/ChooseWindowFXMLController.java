@@ -24,7 +24,6 @@ import javafx.stage.Window;
 import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.shared.dto.WindowClient;
-import repolezanettiperuzzi.view.GameFXMLController;
 import repolezanettiperuzzi.view.GameView;
 
 import java.io.IOException;
