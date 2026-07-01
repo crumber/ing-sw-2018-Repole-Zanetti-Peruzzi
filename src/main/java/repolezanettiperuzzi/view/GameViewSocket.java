@@ -9,7 +9,6 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Consumer;
 
 /**
@@ -112,7 +111,8 @@ public class GameViewSocket implements Runnable{
                 gameView.viewWindows(chooseWindowMessage.getWindows(), chooseWindowMessage.getCurrentTime());
                 break;
             case SHOW_WINDOW:
-                receivedOneWindow(socketMessage.getTokens());
+                GameViewShowWindowMessage showWindowMessage = GameViewShowWindowMessage.from(socketMessage);
+                gameView.viewOneWindow(showWindowMessage.getWindow(), showWindowMessage.getCurrentTime());
                 break;
             case START_GAME:
                 gameView.enterGame();
@@ -255,87 +255,6 @@ public class GameViewSocket implements Runnable{
         out.println(username+" responseToolCard "+nCard+" "+response);
         out.close();
         socket.close();
-    }
-
-    /**
-     * Ricezione della window
-     * @param line Stringa
-     */
-    private void receivedOneWindow(String[] line){
-        WindowClient window;
-        String windowName = "";
-        int favorToken;
-        ArrayList<ArrayList<String>> boxesList;
-        int i = 1;
-        int currentTime = 0 ;
-        boxesList = new ArrayList<>();
-        windowName = line[i];
-        i++;
-        favorToken = Integer.parseInt(line[i]);
-        i++;
-        while(!line[i].equals("_")){
-            boxesList.add(new ArrayList<>(Arrays.asList(line[i].split("-"))));
-            i++;
-        }
-        BoxClient[][] boxMatrix = arrayListToMatrix(boxesList);
-        window = new WindowClient(windowName, favorToken, boxMatrix);
-        i++;
-        currentTime = Integer.parseInt(line[i]);
-        gameView.viewOneWindow(window,currentTime);
-    }
-
-    /**
-     * Crea la matrice
-     * @param chosenWindows Window
-     * @return Box client
-     */
-    private BoxClient[][] arrayListToMatrix(ArrayList<ArrayList<String>> chosenWindows){
-        int n = chosenWindows.size();
-        int m = chosenWindows.get(0).size();
-        BoxClient[][] boxMatrix = new BoxClient[n][m];
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < m; j++){
-                switch (chosenWindows.get(i).get(j)){
-                    case "Y":
-                        boxMatrix[i][j] = new BoxClient(ColourClient.YELLOW);
-                        break;
-                    case "R":
-                        boxMatrix[i][j] = new BoxClient(ColourClient.RED);
-                        break;
-                    case "P":
-                        boxMatrix[i][j] = new BoxClient(ColourClient.PURPLE);
-                        break;
-                    case "G":
-                        boxMatrix[i][j] = new BoxClient(ColourClient.GREEN);
-                        break;
-                    case "B":
-                        boxMatrix[i][j] = new BoxClient(ColourClient.BLUE);
-                        break;
-                    case "0":
-                        boxMatrix[i][j] = new BoxClient();
-                        break;
-                    case "1":
-                        boxMatrix[i][j] = new BoxClient(ValueClient.ONE);
-                        break;
-                    case "2":
-                        boxMatrix[i][j] = new BoxClient(ValueClient.TWO);
-                        break;
-                    case "3":
-                        boxMatrix[i][j] = new BoxClient(ValueClient.THREE);
-                        break;
-                    case "4":
-                        boxMatrix[i][j] = new BoxClient(ValueClient.FOUR);
-                        break;
-                    case "5":
-                        boxMatrix[i][j] = new BoxClient(ValueClient.FIVE);
-                        break;
-                    case "6":
-                        boxMatrix[i][j] = new BoxClient(ValueClient.SIX);
-                        break;
-                }
-            }
-        }
-        return boxMatrix;
     }
 
     /**
