@@ -409,6 +409,8 @@ Started client communication boundary slice:
 - removed a stale controller import of the CLI shutdown helper
 - moved `Coordinates` into `presentation.gui`
 - kept `GameFXMLController` and `WindowGenerator` responsible for window-cell selection behavior
+- moved `ErrorFactory` into the shared `presentation` package
+- kept `GameView` responsible for routing resolved error messages to CLI or JavaFX
 
 Next Phase 6 slice:
 

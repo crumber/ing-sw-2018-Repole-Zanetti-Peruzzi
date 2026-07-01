@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.presentation;
 
 /**
  * Classe che rappresenta gli errori
