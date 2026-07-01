@@ -167,7 +167,6 @@ public class WaitingRoomFXMLController extends FXMLController{
         controller.setGameView(gV);
         gV.setFXMLController(controller);
         controller.setStage(stage);
-        String currPath = System.getProperty("user.dir");
         FXMLLoader loader = null;
         try {
             loader = new FXMLLoader(new URI(new DynamicPath("fxml/ChooseWindowFXML.fxml").getPath()).toURL());

@@ -672,7 +672,6 @@ public class GameFXMLController extends FXMLController implements Initializable{
         controller.setGameView(gV);
         gV.setFXMLController(controller);
         controller.setStage(stage);
-        String currPath = System.getProperty("user.dir");
         FXMLLoader loader = null;
         try {
             loader = new FXMLLoader(new URI(new DynamicPath("fxml/GameFXML.fxml").getPath()).toURL());
