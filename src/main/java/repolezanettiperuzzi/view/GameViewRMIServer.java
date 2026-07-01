@@ -3,6 +3,7 @@ package repolezanettiperuzzi.view;
 import repolezanettiperuzzi.common.ClientStubRMI;
 import repolezanettiperuzzi.common.ControllerStubRMI;
 import repolezanettiperuzzi.common.DynamicPath;
+import repolezanettiperuzzi.infrastructure.client.rmi.ClientRmiView;
 
 import java.rmi.NoSuchObjectException;
 import java.rmi.NotBoundException;
@@ -17,14 +18,14 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class GameViewRMIServer {
 
-    private GameView gameview;
+    private ClientRmiView gameview;
     private ClientStubRMI clientStub;
 
     /**
      * Costruttore
      * @param gameview Game view
      */
-    public GameViewRMIServer(GameView gameview){
+    public GameViewRMIServer(ClientRmiView gameview){
         this.gameview = gameview;
     }
 

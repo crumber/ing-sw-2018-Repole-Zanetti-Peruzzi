@@ -4,6 +4,7 @@ import javafx.application.Application;
 import org.json.simple.parser.ParseException;
 import repolezanettiperuzzi.common.ClientStubRMI;
 import repolezanettiperuzzi.common.ControllerStubRMI;
+import repolezanettiperuzzi.infrastructure.client.rmi.ClientRmiView;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocket;
 import repolezanettiperuzzi.infrastructure.client.socket.ClientSocketView;
 import repolezanettiperuzzi.shared.dto.GameBoardClient;
@@ -27,7 +28,7 @@ import java.util.function.Consumer;
  */
 //lato client della view che chiama i metodi in remoto del controller
 //prendo i dati gia' elaborati da RMI o Socket e li passo a GameViewCLI o GameViewGUI
-public class GameView implements ClientStubRMI, ClientSocketView {
+public class GameView implements ClientStubRMI, ClientSocketView, ClientRmiView {
 
     private String username;
     private String connection;
