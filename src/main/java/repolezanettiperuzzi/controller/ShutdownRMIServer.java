@@ -1,6 +1,6 @@
 package repolezanettiperuzzi.controller;
 
-import repolezanettiperuzzi.view.GameView;
+import repolezanettiperuzzi.client.GameView;
 
 import java.io.IOException;
 import java.rmi.NoSuchObjectException;

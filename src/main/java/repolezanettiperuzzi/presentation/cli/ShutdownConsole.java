@@ -1,6 +1,6 @@
 package repolezanettiperuzzi.presentation.cli;
 
-import repolezanettiperuzzi.view.GameView;
+import repolezanettiperuzzi.client.GameView;
 
 import java.io.IOException;
 import java.util.Timer;

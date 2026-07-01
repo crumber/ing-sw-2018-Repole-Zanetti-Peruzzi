@@ -36,7 +36,7 @@ import repolezanettiperuzzi.shared.dto.DieClient;
 import repolezanettiperuzzi.shared.dto.GameBoardClient;
 import repolezanettiperuzzi.shared.dto.PlayerClient;
 import repolezanettiperuzzi.shared.dto.*;
-import repolezanettiperuzzi.view.GameView;
+import repolezanettiperuzzi.client.GameView;
 
 import java.io.IOException;
 import java.net.URI;

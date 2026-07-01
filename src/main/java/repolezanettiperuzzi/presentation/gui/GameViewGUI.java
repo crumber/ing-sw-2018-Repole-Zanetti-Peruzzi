@@ -9,7 +9,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import repolezanettiperuzzi.common.DynamicPath;
-import repolezanettiperuzzi.view.GameView;
+import repolezanettiperuzzi.client.GameView;
 
 import javax.swing.*;
 import java.io.File;

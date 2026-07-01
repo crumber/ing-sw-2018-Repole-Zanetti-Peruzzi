@@ -83,16 +83,25 @@ Server-side orchestration:
 
 This is where game flow, networking, timers, and player connection handling meet. It is the most coupled area of the project.
 
-### `view`
+### `client`
+
+Client-side application coordination:
+
+- entry point and client coordinator: `GameView`
+- selects CLI or JavaFX presentation
+- owns the chosen socket/RMI client transport
+
+This package keeps the client startup and cross-presentation coordination separate from rendering and transport details.
+
+### `presentation`
 
 Client-side presentation:
 
 - CLI: `GameViewCLI`, `ConsoleInputReadTask`, `CLITimer`
-- JavaFX GUI: `GameViewGUI`, `FXMLController`, `*FXMLController`, `WindowGenerator`
-- client networking: `GameView`, `GameViewSocket`, `GameViewRMI`, `GameViewRMIServer`
-- presentation helpers: `ErrorFactory`, `Coordinates`
+- JavaFX GUI: `GameViewGUI`, `FXMLController`, `*FXMLController`, `WindowGenerator`, `Coordinates`
+- presentation helpers: `ErrorFactory`
 
-The package mixes UI rendering, client state, user input, networking, and JavaFX controller logic.
+Presentation code still calls the client coordinator for user actions, but rendering code is no longer mixed with socket/RMI implementation classes.
 
 ### `common`
 
@@ -427,12 +436,10 @@ Started client communication boundary slice:
 - kept game-scene rendering, turn notifications, and game-scene alerts unchanged
 - moved `LoginFXMLController` into `presentation.gui`
 - completed the move of JavaFX controllers and GUI helpers out of the old `view` package
-
-Next Phase 6 slice:
-
-- review whether `GameView` should remain as a client coordinator or move behind a named client-facing package
-- keep CLI/JavaFX behavior unchanged while deciding the final home for the coordinator
-- preserve the existing socket/RMI wire protocol while presentation classes are reorganized
+- moved `GameView` into the new `client` package
+- removed the last class from the old `view` package
+- updated CLI, JavaFX, and shutdown imports to depend on `client.GameView`
+- kept `GameView` responsible for selecting CLI/JavaFX and socket/RMI transports
 
 Separate UI from networking:
 

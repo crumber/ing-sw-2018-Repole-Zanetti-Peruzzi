@@ -80,7 +80,7 @@ java -cp Game.jar repolezanettiperuzzi.controller.MasterGame
 Client:
 
 ```bash
-java -cp Game.jar repolezanettiperuzzi.view.GameView
+java -cp Game.jar repolezanettiperuzzi.client.GameView
 ```
 
 ## Modernization Roadmap

@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.client;
 
 import javafx.application.Application;
 import org.json.simple.parser.ParseException;

@@ -1,7 +1,7 @@
 package repolezanettiperuzzi.presentation.cli;
 
 import repolezanettiperuzzi.shared.dto.*;
-import repolezanettiperuzzi.view.GameView;
+import repolezanettiperuzzi.client.GameView;
 
 import java.io.Console;
 import java.io.IOException;

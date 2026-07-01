@@ -24,7 +24,7 @@ import javafx.stage.Window;
 import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.shared.dto.WindowClient;
-import repolezanettiperuzzi.view.GameView;
+import repolezanettiperuzzi.client.GameView;
 
 import java.io.IOException;
 import java.net.URI;
