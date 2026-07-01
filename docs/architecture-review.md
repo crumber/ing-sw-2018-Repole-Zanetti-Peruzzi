@@ -362,6 +362,7 @@ In progress:
 - centralize client socket outbound message sending
 - introduce typed client socket commands while preserving outgoing wire strings
 - extract client socket sub-dispatch handlers for registration and view-change messages
+- extract tested builders for client socket outbound wire messages
 
 Separate UI from networking:
 
