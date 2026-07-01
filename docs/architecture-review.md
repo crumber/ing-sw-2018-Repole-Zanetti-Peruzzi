@@ -388,6 +388,8 @@ Started client communication boundary slice:
 - completed the move of client socket payload message converters out of the `view` package
 - moved socket not-registered reasons and change-view destinations into `infrastructure.client.socket`
 - left `view` with view/client coordinators instead of socket wire-value helper types
+- extracted one-shot client socket sending into `ClientSocketConnection`
+- kept `GameViewSocket` responsible for choosing which outgoing message to send
 
 Next Phase 6 slice:
 

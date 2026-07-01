@@ -1,5 +1,6 @@
 package repolezanettiperuzzi.view;
 
+import repolezanettiperuzzi.infrastructure.client.socket.ClientSocketConnection;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewChooseWindowMessage;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewChangeViewDestination;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewNotRegisteredReason;
@@ -13,7 +14,6 @@ import repolezanettiperuzzi.infrastructure.client.socket.GameViewUpdatedPlayersM
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.function.Consumer;
@@ -26,6 +26,7 @@ public class GameViewSocket implements Runnable{
 
     private Socket socket;
     private Consumer<String> onReceiveCallback;
+    private ClientSocketConnection clientConnection;
     private int localServerPort;
     private GameView gameView;
     private boolean serverLoop;
@@ -45,7 +46,7 @@ public class GameViewSocket implements Runnable{
      */
     public GameViewSocket(GameView gameView, String serverIp) throws IOException {
         this.gameView = gameView;
-        this.socket = new Socket(serverIp, 8080);
+        this.clientConnection = new ClientSocketConnection(serverIp);
     }
 
     @Override
@@ -280,10 +281,7 @@ public class GameViewSocket implements Runnable{
     }
 
     private void sendMessage(String message) throws IOException {
-        PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
-        out.println(message);
-        out.close();
-        socket.close();
+        clientConnection.sendMessage(message);
     }
 
 
