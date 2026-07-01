@@ -201,6 +201,11 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
         }
     }
 
+    private void markLoginRejected() {
+        this.login = false;
+        this.rejectedLogin = true;
+    }
+
     private interface RemoteAction {
         void execute() throws RemoteException;
     }
@@ -283,8 +288,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * Alert che nome gia usato da un player online
      */
     public void showPlayerAlreadyOnlineAlert(){
-        this.login = false;
-        this.rejectedLogin = true;
+        markLoginRejected();
         if(isGui()){
             ((LoginFXMLController) fxmlController).showPlayerAlreadyOnlineAlert();
         } else if(isCli()){
@@ -296,8 +300,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * Alert di password errata
      */
     public void showWrongPwdAlert(){
-        this.login = false;
-        this.rejectedLogin = true;
+        markLoginRejected();
         if(isGui()){
             ((LoginFXMLController) fxmlController).showWrongPwdAlert();
         } else if(isCli()){
@@ -309,8 +312,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * Mostra che il gioco è gia iniziato
      */
     public void showGameAlreadyStarted(){
-        this.login = false;
-        this.rejectedLogin = true;
+        markLoginRejected();
         if(isGui()){
             ((LoginFXMLController) fxmlController).showGameAlreadyStartedAlert();
         } else if(isCli()){
@@ -322,8 +324,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
      * Mostra che il numero massimo di player è stato raggiunto
      */
     public void showAlready4Players(){
-        this.login = false;
-        this.rejectedLogin = true;
+        markLoginRejected();
         if(isGui()){
             ((LoginFXMLController) fxmlController).showAlready4PlayersAlert();
         } else if(isCli()){
