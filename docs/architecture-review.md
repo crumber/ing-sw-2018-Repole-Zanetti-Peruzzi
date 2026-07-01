@@ -421,6 +421,8 @@ Started client communication boundary slice:
 - kept concrete JavaFX controllers behavior unchanged while importing the new base type
 - moved `WaitingRoomFXMLController` into `presentation.gui`
 - kept waiting-room timer refresh and choose-window transition behavior unchanged
+- moved `ChooseWindowFXMLController` into `presentation.gui`
+- kept window-choice rendering and game-scene transition behavior unchanged
 
 Next Phase 6 slice:
 
