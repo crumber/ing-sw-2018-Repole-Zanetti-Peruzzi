@@ -488,6 +488,7 @@ Started client communication boundary slice:
 - removed the unused `Runnable` implementation and debug output from `GameViewCLI`
 - removed stale window-selection debug code from `WindowGenerator`
 - removed unused GUI menu and dock-icon scaffolding from `GameViewGUI`
+- removed unused RMI registry debug listing from `GameViewRMIServer`
 
 Separate UI from networking:
 
