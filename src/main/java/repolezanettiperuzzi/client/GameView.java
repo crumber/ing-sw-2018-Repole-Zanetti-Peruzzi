@@ -177,6 +177,22 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
         return UI.equals(UI_CLI);
     }
 
+    private void removeLoginProgressIndicator() {
+        ((LoginFXMLController) fxmlController).removeProgressIndicator();
+    }
+
+    private void removeLoginProgressIndicatorIfGui() {
+        if(isGui()) {
+            removeLoginProgressIndicator();
+        }
+    }
+
+    private void removeLoginProgressIndicatorIfRmi() {
+        if(isRmiConnection()) {
+            removeLoginProgressIndicator();
+        }
+    }
+
     private interface RemoteAction {
         void execute() throws RemoteException;
     }
@@ -241,16 +257,16 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
                     break;
             }
         } else if(message.equals("stealAccount")){
-            if(isGui()) ((LoginFXMLController)fxmlController).removeProgressIndicator();
+            removeLoginProgressIndicatorIfGui();
             showPlayerAlreadyOnlineAlert();
         } else if(message.equals("wrongPassword")){
-            if(isGui()) ((LoginFXMLController)fxmlController).removeProgressIndicator();
+            removeLoginProgressIndicatorIfGui();
             showWrongPwdAlert();
         } else if(message.equals("gameAlreadyStarted")){
-            if(isGui()) ((LoginFXMLController)fxmlController).removeProgressIndicator();
+            removeLoginProgressIndicatorIfGui();
             showGameAlreadyStarted();
         } else if(message.equals("already4Players")){
-            if(isGui()) ((LoginFXMLController)fxmlController).removeProgressIndicator();
+            removeLoginProgressIndicatorIfGui();
             showAlready4Players();
         }
     }
@@ -423,7 +439,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
             if(fxmlController instanceof WaitingRoomFXMLController) {
                 ((WaitingRoomFXMLController) fxmlController).setChooseWindowScene();
             } else if(fxmlController instanceof LoginFXMLController){
-                if(isRmiConnection()) ((LoginFXMLController)fxmlController).removeProgressIndicator();
+                removeLoginProgressIndicatorIfRmi();
                 ((LoginFXMLController) fxmlController).setChooseWindowScene();
             }
         }else if(isCli()){
@@ -439,7 +455,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
             if(fxmlController instanceof ChooseWindowFXMLController) {
                 ((ChooseWindowFXMLController) fxmlController).setGameScene();
             } else if(fxmlController instanceof LoginFXMLController){
-                if(isRmiConnection()) ((LoginFXMLController)fxmlController).removeProgressIndicator();
+                removeLoginProgressIndicatorIfRmi();
                 ((LoginFXMLController) fxmlController).setGameScene();
             }
         }else if(isCli()){

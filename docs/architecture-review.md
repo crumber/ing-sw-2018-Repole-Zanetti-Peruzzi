@@ -476,6 +476,7 @@ Started client communication boundary slice:
 - replaced repeated `GameView` connection and UI string literals with private constants
 - wrapped repeated `GameView` connection and UI checks in private predicate methods
 - removed the redundant `GameView` parameter from private RMI login initialization
+- centralized repeated login progress indicator cleanup in `GameView`
 
 Separate UI from networking:
 
