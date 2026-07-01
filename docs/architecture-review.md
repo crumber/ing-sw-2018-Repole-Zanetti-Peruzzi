@@ -498,20 +498,24 @@ Started client communication boundary slice:
 - removed unused JavaFX scene path locals from controllers
 - removed unused injected JavaFX location/resource fields from controllers
 
-Separate UI from networking:
+Phase 6 result:
 
-- keep CLI rendering in `presentation.cli`
-- keep JavaFX controllers in `presentation.gui`
-- move client socket/RMI communication into `infrastructure`
-- make both CLI and GUI consume the same client-side DTO/update model
+- CLI rendering now lives in `presentation.cli`
+- JavaFX controllers and GUI helpers now live in `presentation.gui`
+- client socket/RMI communication now lives under `infrastructure.client`
+- client startup and cross-presentation coordination now live in `client`
+- the old `view` package has been removed
+- stale presentation debug code, unused placeholder classes, unused fields, and obsolete comments have been cleaned up
+- the existing socket/RMI wire protocol and game flow were intentionally preserved
 
 ## Next Concrete Refactor Candidates
 
-Good candidates for the next Phase 6 slice:
+Phase 6 is complete. Good candidates for the next phase:
 
-1. Identify the smallest client-side communication class to move toward an `infrastructure` package.
-2. Keep CLI and JavaFX behavior unchanged while moving one communication boundary at a time.
-3. Preserve the existing socket/RMI wire protocol until the presentation split is complete.
+1. Extract a clearer server-side transport boundary from `controller`, starting with the smallest socket or RMI handler.
+2. Keep controller state transitions unchanged while separating message delivery from game-flow decisions.
+3. Preserve the existing socket/RMI wire protocol until the server boundary is covered by focused tests.
+4. Avoid changing card rules, scoring, timers, and network protocol in the same phase.
 
 Avoid starting with:
 
