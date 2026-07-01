@@ -1,6 +1,6 @@
 package repolezanettiperuzzi.common;
 
-import repolezanettiperuzzi.view.GameViewGUI;
+import repolezanettiperuzzi.presentation.gui.GameViewGUI;
 
 import java.io.File;
 import java.net.URI;

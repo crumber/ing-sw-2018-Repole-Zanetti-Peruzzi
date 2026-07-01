@@ -415,6 +415,8 @@ Started client communication boundary slice:
 - kept JavaFX controllers responsible for choosing when to render generated window grids
 - moved `GameViewCLI` into `presentation.cli`
 - kept `GameView` responsible for choosing CLI vs JavaFX and delegating updates to the selected presentation
+- moved `GameViewGUI` into `presentation.gui`
+- kept `GameView` responsible for launching JavaFX and `DynamicPath` using the GUI class as its jar-path anchor
 
 Next Phase 6 slice:
 
