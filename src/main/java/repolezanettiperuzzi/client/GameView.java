@@ -672,26 +672,10 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
 
     /**
      *
-     * @return La connessione
-     */
-    public String getConnection(){
-        return this.connection;
-    }
-
-    /**
-     *
      * @return User name
      */
     public String getUsername(){
         return this.username;
-    }
-
-    /**
-     *
-     * @return Game view socket
-     */
-    public GameViewSocket getGvSocket(){
-        return this.gvSocket;
     }
 
     /**

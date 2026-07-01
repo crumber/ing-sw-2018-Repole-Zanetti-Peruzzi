@@ -469,6 +469,7 @@ Started client communication boundary slice:
 - kept CLI presentation code depending only on the general `ClientViewActions` contract
 - removed unused private client coordinator fields while keeping socket listener startup unchanged
 - removed stale commented client startup code and an unused login local variable
+- removed unused `GameView` accessors from the client coordinator API
 
 Separate UI from networking:
 
