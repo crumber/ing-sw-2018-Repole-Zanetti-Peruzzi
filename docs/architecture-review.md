@@ -392,6 +392,8 @@ Started client communication boundary slice:
 - kept `GameViewSocket` responsible for choosing which outgoing message to send
 - extracted client socket callback listening into `ClientSocketMessageServer`
 - kept `GameViewSocket` as the `GameView`-facing coordinator for received messages
+- introduced `ClientSocketView` so `GameViewSocket` depends on a callback contract instead of concrete `GameView`
+- kept `GameView` implementing that callback contract without changing any callback behavior
 
 Next Phase 6 slice:
 

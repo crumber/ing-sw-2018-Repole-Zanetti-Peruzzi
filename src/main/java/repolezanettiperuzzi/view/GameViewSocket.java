@@ -2,6 +2,7 @@ package repolezanettiperuzzi.view;
 
 import repolezanettiperuzzi.infrastructure.client.socket.ClientSocketConnection;
 import repolezanettiperuzzi.infrastructure.client.socket.ClientSocketMessageServer;
+import repolezanettiperuzzi.infrastructure.client.socket.ClientSocketView;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewChooseWindowMessage;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewChangeViewDestination;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewNotRegisteredReason;
@@ -23,7 +24,7 @@ public class GameViewSocket implements Runnable{
 
     private ClientSocketMessageServer messageServer;
     private ClientSocketConnection clientConnection;
-    private GameView gameView;
+    private ClientSocketView gameView;
 
     /**
      * Costruttore
@@ -38,7 +39,7 @@ public class GameViewSocket implements Runnable{
      * @param gameView Game view
      * @throws IOException Fallimento o interruzione delle operazioni I/O
      */
-    public GameViewSocket(GameView gameView, String serverIp) throws IOException {
+    public GameViewSocket(ClientSocketView gameView, String serverIp) throws IOException {
         this.gameView = gameView;
         this.clientConnection = new ClientSocketConnection(serverIp);
     }
