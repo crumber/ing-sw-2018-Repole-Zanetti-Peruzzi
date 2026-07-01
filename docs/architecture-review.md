@@ -403,10 +403,12 @@ Started client communication boundary slice:
 - left `GameView` responsible for selecting RMI transport and owning the RMI callback implementation
 - moved `CLITimer` into `presentation.cli`
 - kept `GameViewCLI` responsible for scheduling and updating the CLI waiting-room timer
+- moved `ConsoleInputReadTask` into `presentation.cli`
+- kept `GameViewCLI` responsible for creating the timed CLI input task and handling its result
 
 Next Phase 6 slice:
 
-- move the next small CLI-only helper toward `presentation.cli`
+- move the next small CLI lifecycle/helper class toward `presentation.cli`
 - keep `GameViewCLI` behavior unchanged while reducing the old `view` package
 - preserve the existing socket/RMI wire protocol while presentation classes are reorganized
 

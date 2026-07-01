@@ -1,4 +1,7 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.presentation.cli;
+
+import repolezanettiperuzzi.view.GameView;
+import repolezanettiperuzzi.view.GameViewCLI;
 
 import java.io.BufferedReader;
 import java.io.IOException;
