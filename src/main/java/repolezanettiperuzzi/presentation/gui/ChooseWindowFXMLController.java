@@ -24,7 +24,7 @@ import javafx.stage.Window;
 import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.shared.dto.WindowClient;
-import repolezanettiperuzzi.client.ClientViewActions;
+import repolezanettiperuzzi.client.ClientGuiActions;
 
 import java.io.IOException;
 import java.net.URI;
@@ -41,7 +41,7 @@ import java.util.ResourceBundle;
 public class ChooseWindowFXMLController extends FXMLController{
 
     private Stage stage;
-    private ClientViewActions gV;
+    private ClientGuiActions gV;
     private int timerCounter;
     private Timeline timerCountdown;
     private String textContent;
@@ -75,7 +75,7 @@ public class ChooseWindowFXMLController extends FXMLController{
      * Inizializza la game view
      * @param gV Game view
      */
-    public void setGameView(ClientViewActions gV){
+    public void setGameView(ClientGuiActions gV){
         this.gV = gV;
     }
 

@@ -4,7 +4,7 @@ This document records the current architecture and a proposed refactoring direct
 
 ## Current Package Map
 
-The project currently contains 140 production Java classes and 81 test classes under one root package.
+The project currently contains 141 production Java classes and 81 test classes under one root package.
 
 ```text
 repolezanettiperuzzi
@@ -465,6 +465,8 @@ Started client communication boundary slice:
 - introduced `ClientViewActions` as the presentation-to-client coordinator contract
 - typed CLI and JavaFX presentation classes against `ClientViewActions` instead of concrete `GameView`
 - removed the empty old `view` directory from the workspace
+- split JavaFX-specific coordinator registration into `ClientGuiActions`
+- kept CLI presentation code depending only on the general `ClientViewActions` contract
 
 Separate UI from networking:
 

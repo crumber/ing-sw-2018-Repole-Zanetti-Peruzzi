@@ -37,7 +37,7 @@ import java.util.function.Consumer;
  */
 //lato client della view che chiama i metodi in remoto del controller
 //prendo i dati gia' elaborati da RMI o Socket e li passo a GameViewCLI o GameViewGUI
-public class GameView implements ClientViewActions, ClientStubRMI, ClientSocketView, ClientRmiView {
+public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketView, ClientRmiView {
 
     private String username;
     private String connection;

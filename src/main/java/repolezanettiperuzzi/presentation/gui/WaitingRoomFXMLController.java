@@ -20,7 +20,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
-import repolezanettiperuzzi.client.ClientViewActions;
+import repolezanettiperuzzi.client.ClientGuiActions;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,7 +39,7 @@ import java.util.TimerTask;
 public class WaitingRoomFXMLController extends FXMLController{
 
     private Stage stage;
-    private ClientViewActions gV;
+    private ClientGuiActions gV;
     private int timerCounter;
     private Timeline timerCountdown;
     private String textContent;
@@ -75,7 +75,7 @@ public class WaitingRoomFXMLController extends FXMLController{
      * Imposta la game view
      * @param gV Game view
      */
-    public void setGameView(ClientViewActions gV){
+    public void setGameView(ClientGuiActions gV){
         this.gV = gV;
     }
 

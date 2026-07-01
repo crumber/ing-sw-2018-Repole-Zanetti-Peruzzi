@@ -1,7 +1,5 @@
 package repolezanettiperuzzi.client;
 
-import repolezanettiperuzzi.presentation.gui.FXMLController;
-
 import java.io.IOException;
 
 /**
@@ -30,6 +28,4 @@ public interface ClientViewActions {
     void sendEndTurn() throws IOException;
 
     String getUsername();
-
-    void setFXMLController(FXMLController fxmlController);
 }
