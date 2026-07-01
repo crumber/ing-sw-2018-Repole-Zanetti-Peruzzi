@@ -1,4 +1,4 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.presentation.gui;
 
 /**
  * Classe che rappresenta la classe astratta FXML controller

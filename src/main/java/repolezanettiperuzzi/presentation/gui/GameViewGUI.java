@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.view.ChooseWindowFXMLController;
-import repolezanettiperuzzi.view.FXMLController;
 import repolezanettiperuzzi.view.GameFXMLController;
 import repolezanettiperuzzi.view.GameView;
 import repolezanettiperuzzi.view.LoginFXMLController;

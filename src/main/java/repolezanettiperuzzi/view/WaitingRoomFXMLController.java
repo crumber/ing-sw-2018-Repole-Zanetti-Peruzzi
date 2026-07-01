@@ -20,6 +20,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
+import repolezanettiperuzzi.presentation.gui.FXMLController;
 
 import java.io.File;
 import java.io.IOException;

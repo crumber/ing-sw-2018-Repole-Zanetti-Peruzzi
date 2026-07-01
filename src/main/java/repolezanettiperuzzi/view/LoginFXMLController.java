@@ -23,6 +23,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import repolezanettiperuzzi.common.DynamicPath;
+import repolezanettiperuzzi.presentation.gui.FXMLController;
 
 /**
  * Classe che rappresenta il Login FXML controller

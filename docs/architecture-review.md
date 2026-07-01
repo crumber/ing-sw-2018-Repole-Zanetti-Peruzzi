@@ -417,6 +417,8 @@ Started client communication boundary slice:
 - kept `GameView` responsible for choosing CLI vs JavaFX and delegating updates to the selected presentation
 - moved `GameViewGUI` into `presentation.gui`
 - kept `GameView` responsible for launching JavaFX and `DynamicPath` using the GUI class as its jar-path anchor
+- moved the base `FXMLController` marker into `presentation.gui`
+- kept concrete JavaFX controllers behavior unchanged while importing the new base type
 
 Next Phase 6 slice:
 

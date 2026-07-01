@@ -33,6 +33,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import repolezanettiperuzzi.common.DynamicPath;
 import repolezanettiperuzzi.presentation.gui.Coordinates;
+import repolezanettiperuzzi.presentation.gui.FXMLController;
 import repolezanettiperuzzi.presentation.gui.WindowGenerator;
 import repolezanettiperuzzi.shared.dto.DieClient;
 import repolezanettiperuzzi.shared.dto.GameBoardClient;
