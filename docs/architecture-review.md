@@ -486,6 +486,7 @@ Started client communication boundary slice:
 - named startup UI choice strings in `GameView`
 - centralized the repeated login rejection state update in `GameView`
 - removed the unused `Runnable` implementation and debug output from `GameViewCLI`
+- removed stale window-selection debug code from `WindowGenerator`
 
 Separate UI from networking:
 

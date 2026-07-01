@@ -286,30 +286,6 @@ public class WindowGenerator {
         rect.setOnMouseReleased(e -> onClickBoxes(grid, rect, i, j));
     }
 
-    /*public void onClickBoxes(GridPane grid, Rectangle rect, int i, int j){
-        synchronized (clickLock) {
-            if (!mouseOut) {
-                ObservableList<Node> childrens = grid.getChildren();
-                for (Node node : childrens) {
-                    if ((node.getId() != null) && (node.getId().equals("Rect" + coordinates.yPos + coordinates.xPos))) {
-                        //System.out.println(node.getId());
-                        Rectangle r = (Rectangle) node;
-                        r.setVisible(false);
-                        r.setStrokeWidth(0);
-                        r.setOpacity(0.5);
-                    }
-                }
-                this.coordinates = new Coordinates(i, j);
-                controller.setLastWindowCell(coordinates);
-                rect.setFill(Color.TRANSPARENT);
-                rect.setOpacity(1);
-                rect.setStroke(Color.PINK);
-                rect.setStrokeType(StrokeType.INSIDE);
-                rect.setStrokeWidth(4.0);
-            }
-        }
-    }*/
-
     /**
      * Click della box
      * @param grid Griglia
@@ -336,7 +312,6 @@ public class WindowGenerator {
                     }
                 }
                 lastWindowCells.add(new Coordinates(i, j));
-                System.out.println(lastWindowCells.toString());
                 rect.setFill(Color.TRANSPARENT);
                 rect.setOpacity(1);
                 rect.setStroke(Color.PINK);
