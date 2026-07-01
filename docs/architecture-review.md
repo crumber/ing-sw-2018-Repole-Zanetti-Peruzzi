@@ -319,6 +319,7 @@ In progress:
 - extract a named request object for socket exit parameters
 - split socket message dispatch into focused private handler methods
 - remove stale socket handler imports and fields
+- extract a named request object for RMI init parameters
 - extract a named request object for RMI insert-die parameters
 - extract a named request object for RMI tool-card response parameters
 - extract a named request object for RMI chosen-window parameters

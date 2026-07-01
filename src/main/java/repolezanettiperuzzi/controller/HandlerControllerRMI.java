@@ -62,15 +62,23 @@ public class HandlerControllerRMI implements ControllerStubRMI {
     public synchronized String init(ClientStubRMI callbackClient, String username, String pwd, String conn, String UI) throws IOException, ParseException {
         synchronized (controller) {
             controller.setState(new SetConnectionState());
+            RmiInitRequest initRequest = new RmiInitRequest(username,pwd,conn,UI);
             InetAddress ipAddr = InetAddress.getByName("0.0.0.0");
-            String result = ((SetConnectionState) controller.getState()).initializePlayer(username, pwd, ipAddr, 0, conn, UI);
-            if (!clients.containsKey(username) && result.equals("registered")) {
-                clients.put(username, callbackClient);
+            String result = ((SetConnectionState) controller.getState()).initializePlayer(
+                    initRequest.getUsername(),
+                    initRequest.getPassword(),
+                    ipAddr,
+                    0,
+                    initRequest.getConnection(),
+                    initRequest.getUi()
+            );
+            if (!clients.containsKey(initRequest.getUsername()) && result.equals("registered")) {
+                clients.put(initRequest.getUsername(), callbackClient);
                 System.out.println("New client registered.");
-            } else if(!clients.containsKey(username) && result.contains("reconnect")){
-                clients.put(username, callbackClient);
+            } else if(!clients.containsKey(initRequest.getUsername()) && result.contains("reconnect")){
+                clients.put(initRequest.getUsername(), callbackClient);
                 System.out.println("New client registered.");
-                result += " "+controller.board.getPlayerByName(username).getLastScene();
+                result += " "+controller.board.getPlayerByName(initRequest.getUsername()).getLastScene();
             }
             return result;
         }
