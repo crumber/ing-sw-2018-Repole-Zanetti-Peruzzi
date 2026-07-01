@@ -493,6 +493,7 @@ Started client communication boundary slice:
 - removed stale tool-card question comments from `GameViewCLI`
 - removed the remaining window-selection debug comment from `WindowGenerator`
 - removed stale Windows console experiment comments from `GameViewCLI`
+- removed stale FXML loader TODO comments from JavaFX controllers
 
 Separate UI from networking:
 

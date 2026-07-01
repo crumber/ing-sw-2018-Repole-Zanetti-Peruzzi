@@ -266,7 +266,7 @@ public class LoginFXMLController extends FXMLController{
         controller.setStage(stage);
         FXMLLoader loader = null;
         try {
-            loader = new FXMLLoader(new URI(new DynamicPath("fxml/GameFXML.fxml").getPath()).toURL()); //TODO imposta nuovo controller
+            loader = new FXMLLoader(new URI(new DynamicPath("fxml/GameFXML.fxml").getPath()).toURL());
             loader.setController(controller);
             AnchorPane root = (AnchorPane) loader.load();
             FXMLLoader finalLoader = loader;
