@@ -1,6 +1,7 @@
 package repolezanettiperuzzi.view;
 
 import repolezanettiperuzzi.infrastructure.client.socket.ClientSocketConnection;
+import repolezanettiperuzzi.infrastructure.client.socket.ClientSocketMessageServer;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewChooseWindowMessage;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewChangeViewDestination;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewNotRegisteredReason;
@@ -11,11 +12,7 @@ import repolezanettiperuzzi.infrastructure.client.socket.GameViewTurnMessage;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewUpdateViewMessage;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewUpdatedPlayersMessage;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.function.Consumer;
 
 /**
@@ -24,19 +21,16 @@ import java.util.function.Consumer;
  */
 public class GameViewSocket implements Runnable{
 
-    private Socket socket;
-    private Consumer<String> onReceiveCallback;
+    private ClientSocketMessageServer messageServer;
     private ClientSocketConnection clientConnection;
-    private int localServerPort;
     private GameView gameView;
-    private boolean serverLoop;
 
     /**
      * Costruttore
      * @param onReceiveCallback Riferimento all'oggetto remoto del client
      */
     public GameViewSocket(Consumer<String> onReceiveCallback){
-        this.onReceiveCallback = onReceiveCallback;
+        this.messageServer = new ClientSocketMessageServer(onReceiveCallback);
     }
 
     /**
@@ -51,24 +45,11 @@ public class GameViewSocket implements Runnable{
 
     @Override
     public void run(){
-        try(ServerSocket serverSocket = new ServerSocket(0)){
-            this.localServerPort = serverSocket.getLocalPort();
-            serverLoop = true;
-            while(serverLoop){
-                this.socket = serverSocket.accept();
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                onReceiveCallback.accept(in.readLine());
-                in.close();
-                socket.close();
-            }
-
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+        messageServer.run();
     }
 
     public void shutdownServer(){
-        this.serverLoop = false;
+        messageServer.shutdownServer();
     }
 
     /**
@@ -266,7 +247,7 @@ public class GameViewSocket implements Runnable{
      * @return Local server port
      */
     public int getLocalServerPort(){
-        return this.localServerPort;
+        return messageServer.getLocalServerPort();
     }
 
     /**

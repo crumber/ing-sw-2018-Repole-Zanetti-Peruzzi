@@ -390,6 +390,8 @@ Started client communication boundary slice:
 - left `view` with view/client coordinators instead of socket wire-value helper types
 - extracted one-shot client socket sending into `ClientSocketConnection`
 - kept `GameViewSocket` responsible for choosing which outgoing message to send
+- extracted client socket callback listening into `ClientSocketMessageServer`
+- kept `GameViewSocket` as the `GameView`-facing coordinator for received messages
 
 Next Phase 6 slice:
 
