@@ -41,7 +41,9 @@ The original code follows a broad MVC structure:
 - `domain.cards.toolcards`: tool card strategies
 - `application.actions`: game actions and use cases
 - `controller`: server flow, state machine, timers, networking handlers
-- `view`: CLI, GUI, JavaFX controllers, client networking
+- `client`: client entry point and presentation/transport coordinator
+- `presentation`: CLI, JavaFX GUI, and client-side rendering helpers
+- `infrastructure.client`: client Socket/RMI transport adapters and wire-message helpers
 - `common`: shared RMI contracts and path utilities
 - `shared.dto`: client-facing transfer objects
 

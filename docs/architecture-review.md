@@ -4,22 +4,29 @@ This document records the current architecture and a proposed refactoring direct
 
 ## Current Package Map
 
-The project currently contains 101 production Java classes and 46 test classes under one root package.
+The project currently contains 141 production Java classes and 81 test classes under one root package.
 
 ```text
 repolezanettiperuzzi
   application
     actions
+  client
   common
   controller
   domain
     cards
       publiccards
       toolcards
+  infrastructure
+    client
+      rmi
+      socket
   model
+  presentation
+    cli
+    gui
   shared
     dto
-  view
 ```
 
 ### `model`
@@ -103,6 +110,15 @@ Client-side presentation:
 
 Presentation code still calls the client coordinator for user actions, but rendering code is no longer mixed with socket/RMI implementation classes.
 
+### `infrastructure.client`
+
+Client-side transport adapters:
+
+- Socket: `GameViewSocket`, socket message parsers, outgoing message builders
+- RMI: `GameViewRMIServer`, client callback/export contract
+
+This package owns client transport details and keeps wire-message parsing away from CLI/JavaFX rendering classes.
+
 ### `common`
 
 Shared transport contracts:
@@ -125,10 +141,11 @@ These classes transfer game state to the client without exposing the server mode
 The project has a clear MVC intention:
 
 - Model: `model`
-- View: `view`
+- View: `presentation`
+- Client coordinator: `client`
 - Controller: `controller`
 
-The boundaries are not strict. Some application actions still contain domain details, controllers know network details directly, and views contain networking and state-update logic.
+The boundaries are not strict. Some application actions still contain domain details, controllers know network details directly, and the client coordinator still bridges presentation and transport choices.
 
 ### State
 
@@ -185,12 +202,12 @@ The concept is useful, but the naming is inconsistent and the transport layer is
 
 1. Some `application.actions` classes still mix domain rules with application orchestration.
 2. Controller states handle game flow and network delivery at the same time.
-3. The view package mixes UI rendering, client networking, and client-side state updates.
+3. Client-side UI rendering and transport are now split, but `GameView` still coordinates presentation, transport, and client-side state updates.
 4. Static mutable state in `BeginRound`, `BeginTurn`, and `TurnState` makes testing and multiple game sessions fragile.
 5. String protocols are parsed in several places with positional assumptions.
 6. DTO classes are separated from transport contracts, but they are still mutable client snapshots that could be refined over time.
 7. Some classes expose internal mutable state or rely on shallow copies.
-8. Error handling is integer/string-code based and spread across model, controller, and view.
+8. Error handling is integer/string-code based and spread across model, controller, client, and presentation code.
 
 ## Target Package Structure
 
@@ -396,7 +413,7 @@ Started client communication boundary slice:
 - moved the board-update socket payload converter into `infrastructure.client.socket`
 - completed the move of client socket payload message converters out of the `view` package
 - moved socket not-registered reasons and change-view destinations into `infrastructure.client.socket`
-- left `view` with view/client coordinators instead of socket wire-value helper types
+- left the old `view` package with only client/presentation coordinators instead of socket wire-value helper types
 - extracted one-shot client socket sending into `ClientSocketConnection`
 - kept `GameViewSocket` responsible for choosing which outgoing message to send
 - extracted client socket callback listening into `ClientSocketMessageServer`
