@@ -1,9 +1,9 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.infrastructure.client.socket;
 
 /**
  * Reasons carried by the client socket notregistered message.
  */
-enum GameViewNotRegisteredReason {
+public enum GameViewNotRegisteredReason {
 
     ALREADY_ONLINE("alreadyonline"),
     WRONG_PASSWORD("wrongpwd"),
@@ -17,7 +17,7 @@ enum GameViewNotRegisteredReason {
         this.wireValue=wireValue;
     }
 
-    static GameViewNotRegisteredReason fromWireValue(String wireValue){
+    public static GameViewNotRegisteredReason fromWireValue(String wireValue){
         for(GameViewNotRegisteredReason reason: values()){
             if(reason.wireValue.equals(wireValue)){
                 return reason;

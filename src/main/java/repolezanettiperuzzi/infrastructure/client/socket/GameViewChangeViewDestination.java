@@ -1,9 +1,9 @@
-package repolezanettiperuzzi.view;
+package repolezanettiperuzzi.infrastructure.client.socket;
 
 /**
  * Destinations carried by the client socket changeView message.
  */
-enum GameViewChangeViewDestination {
+public enum GameViewChangeViewDestination {
 
     CHOOSE_WINDOW("chooseWindow"),
     UNKNOWN("");
@@ -14,7 +14,7 @@ enum GameViewChangeViewDestination {
         this.wireValue=wireValue;
     }
 
-    static GameViewChangeViewDestination fromWireValue(String wireValue){
+    public static GameViewChangeViewDestination fromWireValue(String wireValue){
         for(GameViewChangeViewDestination destination: values()){
             if(destination.wireValue.equals(wireValue)){
                 return destination;
