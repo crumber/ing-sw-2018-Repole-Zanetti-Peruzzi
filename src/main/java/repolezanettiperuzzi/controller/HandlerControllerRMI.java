@@ -495,7 +495,7 @@ public class HandlerControllerRMI implements ControllerStubRMI {
                 public void run() {
                     try {
                         synchronized (clients.get(playerName)) {
-                            clients.get(playerName).receiveCardParameters(requestParameters.split(" ")[1]);
+                            clients.get(playerName).receiveCardParameters(TransportMessage.payload(requestParameters));
                         }
                     } catch (RemoteException e) {
                         e.printStackTrace();
@@ -512,7 +512,7 @@ public class HandlerControllerRMI implements ControllerStubRMI {
                 public void run() {
                     try {
                         synchronized (clients.get(playerName)) {
-                            clients.get(playerName).viewError(error.split(" ")[1]);
+                            clients.get(playerName).viewError(TransportMessage.payload(error));
                         }
                     } catch (RemoteException e) {
                         e.printStackTrace();

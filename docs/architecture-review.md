@@ -328,6 +328,7 @@ In progress:
 - replace duplicated socket/RMI exit-scene enums with one shared transport value
 - centralize hyphen-to-space decoding for socket/RMI text parameters
 - centralize space-to-hyphen encoding for socket/RMI text parameters
+- centralize payload extraction for command-prefixed transport messages
 
 
 Separate game commands from socket/RMI parsing:
