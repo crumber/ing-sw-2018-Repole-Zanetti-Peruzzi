@@ -79,7 +79,7 @@
             <archive>
               <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
               <manifest>
-                <mainClass>repolezanettiperuzzi.view.GameView</mainClass>
+                <mainClass>repolezanettiperuzzi.client.GameView</mainClass>
               </manifest>
             </archive>
             <descriptorRefs>
