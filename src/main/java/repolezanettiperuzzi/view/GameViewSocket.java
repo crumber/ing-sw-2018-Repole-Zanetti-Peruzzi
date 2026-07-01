@@ -5,6 +5,7 @@ import repolezanettiperuzzi.infrastructure.client.socket.GameViewShowWindowMessa
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocketMessage;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocketOutgoingMessage;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewTurnMessage;
+import repolezanettiperuzzi.infrastructure.client.socket.GameViewUpdateViewMessage;
 import repolezanettiperuzzi.infrastructure.client.socket.GameViewUpdatedPlayersMessage;
 
 import java.io.BufferedReader;

@@ -384,6 +384,8 @@ Started client communication boundary slice:
 - kept `GameViewSocket` responsible for calling the corresponding `GameView` update methods
 - moved choose-window/show-window socket payload converters and shared window payload parsing into `infrastructure.client.socket`
 - kept the window payload parser package-private because only socket payload converters need it
+- moved the board-update socket payload converter into `infrastructure.client.socket`
+- completed the move of client socket payload message converters out of the `view` package
 
 Next Phase 6 slice:
 

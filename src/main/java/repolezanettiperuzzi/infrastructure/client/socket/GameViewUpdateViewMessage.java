@@ -1,6 +1,4 @@
-package repolezanettiperuzzi.view;
-
-import repolezanettiperuzzi.infrastructure.client.socket.GameViewSocketMessage;
+package repolezanettiperuzzi.infrastructure.client.socket;
 import repolezanettiperuzzi.shared.dto.ColourClient;
 import repolezanettiperuzzi.shared.dto.DieClient;
 import repolezanettiperuzzi.shared.dto.GameBoardClient;
@@ -11,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Payload carried by the client socket updateView message.
  */
-class GameViewUpdateViewMessage {
+public class GameViewUpdateViewMessage {
 
     private final GameBoardClient board;
 
@@ -19,7 +17,7 @@ class GameViewUpdateViewMessage {
         this.board=board;
     }
 
-    static GameViewUpdateViewMessage from(GameViewSocketMessage message){
+    public static GameViewUpdateViewMessage from(GameViewSocketMessage message){
         GameBoardClient board = new GameBoardClient();
         String[] boardElems = message.getFirstPayloadToken().split("\\+");
         int numPlayers = Integer.parseInt(boardElems[0]);
@@ -103,7 +101,7 @@ class GameViewUpdateViewMessage {
         return new GameViewUpdateViewMessage(board);
     }
 
-    GameBoardClient getBoard(){
+    public GameBoardClient getBoard(){
         return board;
     }
 }
