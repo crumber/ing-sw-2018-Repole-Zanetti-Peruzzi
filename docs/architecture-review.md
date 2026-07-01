@@ -467,6 +467,7 @@ Started client communication boundary slice:
 - removed the empty old `view` directory from the workspace
 - split JavaFX-specific coordinator registration into `ClientGuiActions`
 - kept CLI presentation code depending only on the general `ClientViewActions` contract
+- removed unused private client coordinator fields while keeping socket listener startup unchanged
 
 Separate UI from networking:
 

@@ -46,13 +46,11 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
     private GameViewCLI gvCLI;
     private FXMLController fxmlController;
     private GameViewSocket gvSocketServer;
-    private Thread serverThread;
     private Thread startingRMIThread;
     private GameViewSocket gvSocket;
     private Consumer<String> onReceiveCallback;
     private GameViewRMIServer gvRMIServer;
     private ControllerStubRMI stub;
-    private Consumer<Integer> onReceiveLocalPort;
     private boolean RMIActive;
     private boolean login;
     private boolean rejectedLogin; //useful to know if login has been rejected, because server socket and RMI have been started and have to be shut down during notifyOnExit()
@@ -128,7 +126,7 @@ public class GameView implements ClientGuiActions, ClientStubRMI, ClientSocketVi
                 gvSocket = new GameViewSocket(this, serverIp);
                 if(this.localPort==0) {
                     gvSocketServer = new GameViewSocket(onReceiveCallback);
-                    this.serverThread = new Thread(gvSocketServer);
+                    Thread serverThread = new Thread(gvSocketServer);
                     //serverThread.setDaemon(true);
                     serverThread.start();
                     Thread.sleep(500);
