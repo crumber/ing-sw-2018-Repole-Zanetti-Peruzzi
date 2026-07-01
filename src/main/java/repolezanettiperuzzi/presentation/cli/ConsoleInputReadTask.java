@@ -51,18 +51,14 @@ public class ConsoleInputReadTask implements Callable<String> {
                 }
                 input = br.readLine();
             } catch (InterruptedException e) {
-                //System.out.println("Timer expired!");
                 return null;
             }
             if(input.equals("q")){
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            gameView.notifyOnExit(lastScene);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                new Thread(() -> {
+                    try {
+                        gameView.notifyOnExit(lastScene);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }).start();
                 return null;

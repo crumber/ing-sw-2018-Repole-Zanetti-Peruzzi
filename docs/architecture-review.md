@@ -494,6 +494,7 @@ Started client communication boundary slice:
 - removed the remaining window-selection debug comment from `WindowGenerator`
 - removed stale Windows console experiment comments from `GameViewCLI`
 - removed stale FXML loader TODO comments from JavaFX controllers
+- simplified CLI quit notification thread creation in `ConsoleInputReadTask`
 
 Separate UI from networking:
 
