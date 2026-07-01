@@ -4,7 +4,7 @@ This document records the current architecture and a proposed refactoring direct
 
 ## Current Package Map
 
-The project currently contains 141 production Java classes and 81 test classes under one root package.
+The project currently contains 139 production Java classes and 81 test classes under one root package.
 
 ```text
 repolezanettiperuzzi
@@ -459,6 +459,7 @@ Started client communication boundary slice:
 - kept `GameView` responsible for selecting CLI/JavaFX and socket/RMI transports
 - removed stale unused imports from `ShutdownRMIServer`
 - removed the accidental server-controller source dependency on `client.GameView`
+- removed empty unused `HandlerGameViewRMI` and `HandlerGameViewSocket` placeholders
 
 Separate UI from networking:
 
