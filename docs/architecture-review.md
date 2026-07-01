@@ -307,7 +307,7 @@ Reduce static mutable state:
 
 ### Phase 5: Transport Boundaries
 
-In progress:
+Completed:
 
 - introduce a tested `SocketClientMessage` parser before separating socket command dispatch
 - introduce typed socket client actions while preserving the existing wire command strings
@@ -332,6 +332,13 @@ In progress:
 - simplify socket message parameter slicing with the standard library
 
 
+Phase 5 result:
+
+- socket and RMI command parameters are now represented by small request/value objects
+- socket command dispatch is easier to scan because parsing and per-command handling are separated
+- shared transport conventions, such as text encoding and exit-scene names, live in focused helpers
+- the changes intentionally preserve the existing wire protocol and game flow
+
 Separate game commands from socket/RMI parsing:
 
 - define command/request objects for client actions
@@ -340,6 +347,8 @@ Separate game commands from socket/RMI parsing:
 
 ### Phase 6: Presentation Cleanup
 
+Not started. Start this only after deciding to move beyond transport-boundary cleanup.
+
 Separate UI from networking:
 
 - keep CLI rendering in `presentation.cli`
@@ -347,13 +356,13 @@ Separate UI from networking:
 - move client socket/RMI communication into `infrastructure`
 - make both CLI and GUI consume the same client-side DTO/update model
 
-## First Concrete Refactor Candidates
+## Next Concrete Refactor Candidates
 
-Good candidates because they are useful and relatively contained:
+Good candidates after deciding to start Phase 6:
 
-1. Replace static turn/round state with a `GameSession` or `TurnTracker`.
-2. Move socket message parsing out of `HandlerControllerSocket`.
-3. Continue replacing legacy integer bridges at application/controller boundaries.
+1. Identify the smallest client-side networking class to move toward an `infrastructure` package.
+2. Keep CLI and JavaFX behavior unchanged while moving one communication boundary at a time.
+3. Preserve the existing socket/RMI wire protocol until the presentation split is complete.
 
 Avoid starting with:
 
