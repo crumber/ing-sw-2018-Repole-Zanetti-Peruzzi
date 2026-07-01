@@ -114,7 +114,8 @@ public class GameViewSocket implements Runnable{
                 gameView.viewError(line[1]);
                 break;
             case TURN:
-                gameView.notifyTurn(line[1], Integer.parseInt(line[2]));
+                GameViewTurnMessage turnMessage = GameViewTurnMessage.from(socketMessage);
+                gameView.notifyTurn(turnMessage.getActualPlayer(), turnMessage.getCurrentTime());
                 break;
             case UPDATE_VIEW:
                 updateView(line[1]);

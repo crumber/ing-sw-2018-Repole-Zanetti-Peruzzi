@@ -352,6 +352,7 @@ In progress:
 - introduce a tested `GameViewSocketMessage` parser before separating client socket message handling
 - introduce typed client socket actions while preserving the existing wire message strings
 - extract a named payload object for client socket updated-player messages
+- extract a named payload object for client socket turn messages
 
 Separate UI from networking:
 
